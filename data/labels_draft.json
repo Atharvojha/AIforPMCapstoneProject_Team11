@@ -1,0 +1,1530 @@
+[
+ {
+  "item_id": "G001",
+  "applicable": [
+   "R001",
+   "R002",
+   "R003",
+   "R004",
+   "R006",
+   "R007",
+   "R008",
+   "R009",
+   "R011",
+   "R012",
+   "R013",
+   "R014",
+   "R015"
+  ],
+  "not_applicable": [
+   "R005",
+   "R010"
+  ],
+  "dealbreakers": {
+   "ram_storage_upgradeability": [
+    "R002",
+    "R006"
+   ]
+  },
+  "watchouts": {
+   "battery": [
+    "R001"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "software_drivers_os"
+  ],
+  "confidence": "Medium",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R005, R010 (different configuration from the listing). Dealbreaker: ram storage upgradeability (R002, R006). Watch-out, single complaint: battery (R001). Confidence Medium: top priority ram storage upgradeability is covered by 2 applicable reviews; gaps: software drivers os."
+ },
+ {
+  "item_id": "G002",
+  "applicable": [
+   "R061",
+   "R063",
+   "R064",
+   "R067",
+   "R068",
+   "R069",
+   "R071",
+   "R072",
+   "R073",
+   "R074",
+   "R075"
+  ],
+  "not_applicable": [
+   "R062",
+   "R065",
+   "R066",
+   "R070"
+  ],
+  "dealbreakers": {
+   "thermals_noise": [
+    "R064",
+    "R067"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R062 (different kind of use: bright); R065, R070 (different configuration from the listing); R066 (different kind of use: carry). Dealbreaker: thermals noise (R064, R067). Confidence Low: top priority performance is covered by 3 applicable reviews; gaps: ram storage upgradeability."
+ },
+ {
+  "item_id": "G003",
+  "applicable": [
+   "R046",
+   "R048",
+   "R052",
+   "R054",
+   "R056",
+   "R057",
+   "R058",
+   "R059",
+   "R060"
+  ],
+  "not_applicable": [
+   "R047",
+   "R049",
+   "R050",
+   "R051",
+   "R053",
+   "R055"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "display": [
+    "R046"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "9 of 15 reviews apply or partly apply. Not applicable: R047, R051 (different kind of use: calls); R049 (different kind of use: bright); R050, R055 (different configuration from the listing); R053 (different kind of use: carry). Watch-out, single complaint: display (R046). Confidence Low: top priority display is covered by 4 applicable reviews; gaps: ram storage upgradeability, thermals noise."
+ },
+ {
+  "item_id": "G004",
+  "applicable": [
+   "R076",
+   "R077",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R088"
+  ],
+  "not_applicable": [
+   "R080",
+   "R084",
+   "R085",
+   "R086",
+   "R087",
+   "R089",
+   "R090"
+  ],
+  "dealbreakers": {
+   "ports_connectivity": [
+    "R079",
+    "R082"
+   ]
+  },
+  "watchouts": {
+   "display": [
+    "R076"
+   ],
+   "software_drivers_os": [
+    "R078"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "thermals_noise",
+   "ram_storage_upgradeability"
+  ],
+  "confidence": "Medium",
+  "why": "8 of 15 reviews apply or partly apply. Not applicable: R080, R085 (different configuration from the listing); R084 (different kind of use: calls/writing); R086 (different kind of use: calls/carry); R087, R089 (different kind of use: basic); R090 (different kind of use: carry). Dealbreaker: ports connectivity (R079, R082). Watch-out, single complaint: display (R076); software drivers os (R078). Confidence Medium: top priority performance is covered by 4 applicable reviews; gaps: thermals noise, ram storage upgradeability."
+ },
+ {
+  "item_id": "G005",
+  "applicable": [
+   "R076",
+   "R077",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R084",
+   "R087",
+   "R088",
+   "R089"
+  ],
+  "not_applicable": [
+   "R080",
+   "R085",
+   "R086",
+   "R090"
+  ],
+  "dealbreakers": {
+   "software_drivers_os": [
+    "R078"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R080, R085 (different configuration from the listing); R086 (different kind of use: calls/carry); R090 (different kind of use: carry). Dealbreaker: software drivers os (R078). Confidence Low: top priority performance is covered by 5 applicable reviews; gaps: ram storage upgradeability, thermals noise."
+ },
+ {
+  "item_id": "G006",
+  "applicable": [
+   "R017",
+   "R018",
+   "R019",
+   "R022",
+   "R023",
+   "R024",
+   "R027",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R016",
+   "R020",
+   "R021",
+   "R025",
+   "R026",
+   "R028"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R017"
+   ],
+   "build_weight": [
+    "R019"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ports_connectivity",
+   "build_weight"
+  ],
+  "confidence": "Low",
+  "why": "9 of 15 reviews apply or partly apply. Not applicable: R016, R021, R026, R028 (different kind of use: gaming); R020, R025 (different configuration from the listing). Watch-out, single complaint: battery (R017); build weight (R019). Confidence Low: top priority battery is covered by 2 applicable reviews; gaps: ports connectivity, build weight."
+ },
+ {
+  "item_id": "G007",
+  "applicable": [
+   "R001",
+   "R002",
+   "R003",
+   "R004",
+   "R006",
+   "R007",
+   "R008",
+   "R009",
+   "R011",
+   "R012",
+   "R013",
+   "R014",
+   "R015"
+  ],
+  "not_applicable": [
+   "R005",
+   "R010"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "display": [
+    "R003"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [],
+  "confidence": "Medium",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R005, R010 (different configuration from the listing). Watch-out, single complaint: display (R003). Confidence Medium: top priority keyboard trackpad is covered by 2 applicable reviews."
+ },
+ {
+  "item_id": "G008",
+  "applicable": [
+   "R031",
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R037",
+   "R038",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R035",
+   "R040"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R034"
+   ],
+   "display": [
+    "R033"
+   ]
+  },
+  "conflicts": [
+   {
+    "aspect": "keyboard_trackpad",
+    "a": [
+     "R034"
+    ],
+    "b": [
+     "R044"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [
+   "thermals_noise"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R035, R040 (different configuration from the listing). Watch-out, single complaint: keyboard trackpad (R034); display (R033). Disagreement: keyboard trackpad R034 vs R044 (unresolved). Confidence Insufficient: top priority thermals noise is covered by 0 applicable reviews; gaps: thermals noise."
+ },
+ {
+  "item_id": "G009",
+  "applicable": [
+   "R016",
+   "R018",
+   "R019",
+   "R021",
+   "R022",
+   "R024",
+   "R026",
+   "R027",
+   "R028",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R017",
+   "R020",
+   "R023",
+   "R025"
+  ],
+  "dealbreakers": {
+   "thermals_noise": [
+    "R016",
+    "R021"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [
+   {
+    "aspect": "thermals_noise",
+    "a": [
+     "R016",
+     "R021"
+    ],
+    "b": [
+     "R028"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [
+   "ram_storage_upgradeability"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R017 (different kind of use: unplugged); R020, R025 (different configuration from the listing); R023 (different kind of use: bright). Dealbreaker: thermals noise (R016, R021). Disagreement: thermals noise R016,R021 vs R028 (unresolved). Confidence Low: top priority performance is covered by 6 applicable reviews; gaps: ram storage upgradeability."
+ },
+ {
+  "item_id": "G010",
+  "applicable": [
+   "R076",
+   "R077",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R084",
+   "R086",
+   "R087",
+   "R088",
+   "R089",
+   "R090"
+  ],
+  "not_applicable": [
+   "R080",
+   "R085"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R084"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "keyboard_trackpad",
+   "webcam_mic_speakers",
+   "battery"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R080, R085 (different configuration from the listing). Watch-out, single complaint: battery (R084). Confidence Insufficient: top priority keyboard trackpad is covered by 1 applicable reviews; gaps: keyboard trackpad, webcam mic speakers, battery."
+ },
+ {
+  "item_id": "G011",
+  "applicable": [
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R031",
+   "R035",
+   "R037",
+   "R038",
+   "R040"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "display": [
+    "R033"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "display",
+   "ram_storage_upgradeability",
+   "thermals_noise"
+  ],
+  "confidence": "Insufficient",
+  "why": "10 of 15 reviews apply or partly apply. Not applicable: R031, R037 (different kind of use: calls); R035, R040 (different configuration from the listing); R038 (different kind of use: bright). Watch-out, single complaint: display (R033). Confidence Insufficient: top priority display is covered by 1 applicable reviews; gaps: display, ram storage upgradeability, thermals noise."
+ },
+ {
+  "item_id": "G012",
+  "applicable": [
+   "R046",
+   "R047",
+   "R048",
+   "R049",
+   "R051",
+   "R052",
+   "R053",
+   "R054",
+   "R056",
+   "R057",
+   "R058",
+   "R059",
+   "R060"
+  ],
+  "not_applicable": [
+   "R050",
+   "R055"
+  ],
+  "dealbreakers": {
+   "battery": [
+    "R047",
+    "R054"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "software_drivers_os"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R050, R055 (different configuration from the listing). Dealbreaker: battery (R047, R054). Confidence Insufficient: top priority ram storage upgradeability is covered by 0 applicable reviews; gaps: ram storage upgradeability, software drivers os."
+ },
+ {
+  "item_id": "G013",
+  "applicable": [
+   "R061",
+   "R063",
+   "R064",
+   "R067",
+   "R068",
+   "R069",
+   "R071",
+   "R072",
+   "R073",
+   "R074",
+   "R075"
+  ],
+  "not_applicable": [
+   "R062",
+   "R065",
+   "R066",
+   "R070"
+  ],
+  "dealbreakers": {
+   "thermals_noise": [
+    "R064",
+    "R067"
+   ]
+  },
+  "watchouts": {
+   "display": [
+    "R061"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R062 (different kind of use: bright); R065, R070 (different configuration from the listing); R066 (different kind of use: carry). Dealbreaker: thermals noise (R064, R067). Watch-out, single complaint: display (R061). Confidence Low: top priority display is covered by 5 applicable reviews; gaps: ram storage upgradeability."
+ },
+ {
+  "item_id": "G014",
+  "applicable": [
+   "R076",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R084",
+   "R086",
+   "R087",
+   "R088",
+   "R089",
+   "R090"
+  ],
+  "not_applicable": [
+   "R077",
+   "R080",
+   "R085"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R084"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "battery",
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "12 of 15 reviews apply or partly apply. Not applicable: R077 (different kind of use: media); R080, R085 (different configuration from the listing). Watch-out, single complaint: battery (R084). Confidence Low: top priority build weight is covered by 3 applicable reviews; gaps: battery, thermals noise."
+ },
+ {
+  "item_id": "G015",
+  "applicable": [
+   "R076",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R084",
+   "R086",
+   "R087",
+   "R088",
+   "R089",
+   "R090"
+  ],
+  "not_applicable": [
+   "R077",
+   "R080",
+   "R085"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "display": [
+    "R076"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "keyboard_trackpad"
+  ],
+  "confidence": "Insufficient",
+  "why": "12 of 15 reviews apply or partly apply. Not applicable: R077 (different kind of use: media); R080, R085 (different configuration from the listing). Watch-out, single complaint: display (R076). Confidence Insufficient: top priority keyboard trackpad is covered by 1 applicable reviews; gaps: keyboard trackpad."
+ },
+ {
+  "item_id": "G016",
+  "applicable": [
+   "R016",
+   "R018",
+   "R019",
+   "R021",
+   "R022",
+   "R024",
+   "R026",
+   "R027",
+   "R028",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R017",
+   "R020",
+   "R023",
+   "R025"
+  ],
+  "dealbreakers": {
+   "thermals_noise": [
+    "R016",
+    "R021"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [
+   {
+    "aspect": "thermals_noise",
+    "a": [
+     "R016",
+     "R021"
+    ],
+    "b": [
+     "R028"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [
+   "ports_connectivity",
+   "ram_storage_upgradeability",
+   "software_drivers_os"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R017 (different kind of use: unplugged); R020, R025 (different configuration from the listing); R023 (different kind of use: bright). Dealbreaker: thermals noise (R016, R021). Disagreement: thermals noise R016,R021 vs R028 (unresolved). Confidence Low: top priority performance is covered by 6 applicable reviews; gaps: ports connectivity, ram storage upgradeability, software drivers os."
+ },
+ {
+  "item_id": "G017",
+  "applicable": [
+   "R017",
+   "R018",
+   "R019",
+   "R022",
+   "R023",
+   "R024",
+   "R027",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R016",
+   "R020",
+   "R021",
+   "R025",
+   "R026",
+   "R028"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R018"
+   ],
+   "battery": [
+    "R017"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "software_drivers_os"
+  ],
+  "confidence": "Insufficient",
+  "why": "9 of 15 reviews apply or partly apply. Not applicable: R016, R021, R026, R028 (different kind of use: gaming); R020, R025 (different configuration from the listing). Watch-out, single complaint: keyboard trackpad (R018); battery (R017). Confidence Insufficient: top priority ram storage upgradeability is covered by 0 applicable reviews; gaps: ram storage upgradeability, software drivers os."
+ },
+ {
+  "item_id": "G018",
+  "applicable": [
+   "R017",
+   "R018",
+   "R019",
+   "R022",
+   "R023",
+   "R024",
+   "R027",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R016",
+   "R020",
+   "R021",
+   "R025",
+   "R026",
+   "R028"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R018"
+   ],
+   "build_weight": [
+    "R019"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "build_weight"
+  ],
+  "confidence": "Low",
+  "why": "9 of 15 reviews apply or partly apply. Not applicable: R016, R021, R026, R028 (different kind of use: gaming); R020, R025 (different configuration from the listing). Watch-out, single complaint: keyboard trackpad (R018); build weight (R019). Confidence Low: top priority keyboard trackpad is covered by 2 applicable reviews; gaps: build weight."
+ },
+ {
+  "item_id": "G019",
+  "applicable": [
+   "R002",
+   "R003",
+   "R004",
+   "R006",
+   "R007",
+   "R008",
+   "R009",
+   "R011",
+   "R012",
+   "R013",
+   "R014",
+   "R015"
+  ],
+  "not_applicable": [
+   "R001",
+   "R005",
+   "R010"
+  ],
+  "dealbreakers": {
+   "performance": [
+    "R002",
+    "R006"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "12 of 15 reviews apply or partly apply. Not applicable: R001 (different kind of use: calls); R005, R010 (different configuration from the listing). Dealbreaker: performance (R002, R006). Confidence Low: top priority performance is covered by 6 applicable reviews; gaps: thermals noise."
+ },
+ {
+  "item_id": "G020",
+  "applicable": [
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R031",
+   "R035",
+   "R037",
+   "R038",
+   "R040"
+  ],
+  "dealbreakers": {},
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "thermals_noise",
+   "software_drivers_os"
+  ],
+  "confidence": "Low",
+  "why": "10 of 15 reviews apply or partly apply. Not applicable: R031, R037 (different kind of use: calls); R035, R040 (different configuration from the listing); R038 (different kind of use: bright). Confidence Low: top priority performance is covered by 7 applicable reviews; gaps: ram storage upgradeability, thermals noise, software drivers os."
+ },
+ {
+  "item_id": "G021",
+  "applicable": [
+   "R046",
+   "R047",
+   "R048",
+   "R049",
+   "R051",
+   "R052",
+   "R053",
+   "R054",
+   "R056",
+   "R057",
+   "R058",
+   "R059",
+   "R060"
+  ],
+  "not_applicable": [
+   "R050",
+   "R055"
+  ],
+  "dealbreakers": {
+   "battery": [
+    "R047",
+    "R054"
+   ]
+  },
+  "watchouts": {
+   "webcam_mic_speakers": [
+    "R051"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "webcam_mic_speakers"
+  ],
+  "confidence": "Low",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R050, R055 (different configuration from the listing). Dealbreaker: battery (R047, R054). Watch-out, single complaint: webcam mic speakers (R051). Confidence Low: top priority keyboard trackpad is covered by 2 applicable reviews; gaps: webcam mic speakers."
+ },
+ {
+  "item_id": "G022",
+  "applicable": [
+   "R016",
+   "R018",
+   "R019",
+   "R021",
+   "R022",
+   "R024",
+   "R026",
+   "R027",
+   "R028",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R017",
+   "R020",
+   "R023",
+   "R025"
+  ],
+  "dealbreakers": {
+   "thermals_noise": [
+    "R016",
+    "R021"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [
+   {
+    "aspect": "thermals_noise",
+    "a": [
+     "R016",
+     "R021"
+    ],
+    "b": [
+     "R028"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [],
+  "confidence": "High",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R017 (different kind of use: unplugged); R020, R025 (different configuration from the listing); R023 (different kind of use: bright). Dealbreaker: thermals noise (R016, R021). Disagreement: thermals noise R016,R021 vs R028 (unresolved). Confidence High: top priority performance is covered by 6 applicable reviews."
+ },
+ {
+  "item_id": "G023",
+  "applicable": [
+   "R061",
+   "R062",
+   "R063",
+   "R066",
+   "R067",
+   "R068",
+   "R069",
+   "R072",
+   "R073",
+   "R074",
+   "R075"
+  ],
+  "not_applicable": [
+   "R064",
+   "R065",
+   "R070",
+   "R071"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R062"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ports_connectivity"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R064 (different kind of use: heavy); R065, R070 (different configuration from the listing); R071 (different kind of use: media). Watch-out, single complaint: battery (R062). Confidence Low: top priority battery is covered by 2 applicable reviews; gaps: ports connectivity."
+ },
+ {
+  "item_id": "G024",
+  "applicable": [
+   "R001",
+   "R002",
+   "R003",
+   "R004",
+   "R006",
+   "R007",
+   "R008",
+   "R009",
+   "R011",
+   "R012",
+   "R013",
+   "R014",
+   "R015"
+  ],
+  "not_applicable": [
+   "R005",
+   "R010"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R001"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R005, R010 (different configuration from the listing). Watch-out, single complaint: battery (R001). Confidence Low: top priority build weight is covered by 2 applicable reviews; gaps: thermals noise."
+ },
+ {
+  "item_id": "G025",
+  "applicable": [
+   "R031",
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R037",
+   "R038",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R035",
+   "R040"
+  ],
+  "dealbreakers": {
+   "battery": [
+    "R031",
+    "R036"
+   ]
+  },
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R034"
+   ]
+  },
+  "conflicts": [
+   {
+    "aspect": "keyboard_trackpad",
+    "a": [
+     "R034"
+    ],
+    "b": [
+     "R044"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "software_drivers_os"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R035, R040 (different configuration from the listing). Dealbreaker: battery (R031, R036). Watch-out, single complaint: keyboard trackpad (R034). Disagreement: keyboard trackpad R034 vs R044 (unresolved). Confidence Insufficient: top priority ram storage upgradeability is covered by 1 applicable reviews; gaps: ram storage upgradeability, software drivers os."
+ },
+ {
+  "item_id": "G026",
+  "applicable": [
+   "R046",
+   "R048",
+   "R052",
+   "R054",
+   "R056",
+   "R057",
+   "R058",
+   "R059",
+   "R060"
+  ],
+  "not_applicable": [
+   "R047",
+   "R049",
+   "R050",
+   "R051",
+   "R053",
+   "R055"
+  ],
+  "dealbreakers": {},
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "thermals_noise",
+   "software_drivers_os"
+  ],
+  "confidence": "Low",
+  "why": "9 of 15 reviews apply or partly apply. Not applicable: R047, R051 (different kind of use: calls); R049 (different kind of use: bright); R050, R055 (different configuration from the listing); R053 (different kind of use: carry). Confidence Low: top priority performance is covered by 3 applicable reviews; gaps: ram storage upgradeability, thermals noise, software drivers os."
+ },
+ {
+  "item_id": "G027",
+  "applicable": [
+   "R076",
+   "R077",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R084",
+   "R087",
+   "R088",
+   "R089"
+  ],
+  "not_applicable": [
+   "R080",
+   "R085",
+   "R086",
+   "R090"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "display": [
+    "R076"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R080, R085 (different configuration from the listing); R086 (different kind of use: calls/carry); R090 (different kind of use: carry). Watch-out, single complaint: display (R076). Confidence Low: top priority display is covered by 3 applicable reviews; gaps: ram storage upgradeability, thermals noise."
+ },
+ {
+  "item_id": "G028",
+  "applicable": [
+   "R061",
+   "R062",
+   "R063",
+   "R066",
+   "R067",
+   "R068",
+   "R069",
+   "R072",
+   "R073",
+   "R074",
+   "R075"
+  ],
+  "not_applicable": [
+   "R064",
+   "R065",
+   "R070",
+   "R071"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R063"
+   ],
+   "display": [
+    "R061"
+   ]
+  },
+  "conflicts": [
+   {
+    "aspect": "keyboard_trackpad",
+    "a": [
+     "R063"
+    ],
+    "b": [
+     "R068"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [],
+  "confidence": "Medium",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R064 (different kind of use: heavy); R065, R070 (different configuration from the listing); R071 (different kind of use: media). Watch-out, single complaint: keyboard trackpad (R063); display (R061). Disagreement: keyboard trackpad R063 vs R068 (unresolved). Confidence Medium: top priority keyboard trackpad is covered by 2 applicable reviews."
+ },
+ {
+  "item_id": "G029",
+  "applicable": [
+   "R001",
+   "R002",
+   "R003",
+   "R004",
+   "R006",
+   "R007",
+   "R008",
+   "R009",
+   "R011",
+   "R012",
+   "R013",
+   "R014",
+   "R015"
+  ],
+  "not_applicable": [
+   "R005",
+   "R010"
+  ],
+  "dealbreakers": {
+   "ram_storage_upgradeability": [
+    "R002",
+    "R006"
+   ]
+  },
+  "watchouts": {
+   "battery": [
+    "R001"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "value_price",
+   "after_sales_support"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R005, R010 (different configuration from the listing). Dealbreaker: ram storage upgradeability (R002, R006). Watch-out, single complaint: battery (R001). Confidence Insufficient: top priority value price is covered by 1 applicable reviews; gaps: value price, after sales support."
+ },
+ {
+  "item_id": "G030",
+  "applicable": [
+   "R061",
+   "R062",
+   "R063",
+   "R066",
+   "R067",
+   "R068",
+   "R069",
+   "R072",
+   "R073",
+   "R074",
+   "R075"
+  ],
+  "not_applicable": [
+   "R064",
+   "R065",
+   "R070",
+   "R071"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R062"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "thermals_noise"
+  ],
+  "confidence": "Low",
+  "why": "11 of 15 reviews apply or partly apply. Not applicable: R064 (different kind of use: heavy); R065, R070 (different configuration from the listing); R071 (different kind of use: media). Watch-out, single complaint: battery (R062). Confidence Low: top priority build weight is covered by 4 applicable reviews; gaps: thermals noise."
+ },
+ {
+  "item_id": "G031",
+  "applicable": [
+   "R031",
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R037",
+   "R038",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R035",
+   "R040"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R034"
+   ],
+   "display": [
+    "R033"
+   ]
+  },
+  "conflicts": [
+   {
+    "aspect": "keyboard_trackpad",
+    "a": [
+     "R034"
+    ],
+    "b": [
+     "R044"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [],
+  "confidence": "Medium",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R035, R040 (different configuration from the listing). Watch-out, single complaint: keyboard trackpad (R034); display (R033). Disagreement: keyboard trackpad R034 vs R044 (unresolved). Confidence Medium: top priority keyboard trackpad is covered by 3 applicable reviews."
+ },
+ {
+  "item_id": "G032",
+  "applicable": [
+   "R076",
+   "R077",
+   "R078",
+   "R079",
+   "R081",
+   "R082",
+   "R083",
+   "R084",
+   "R086",
+   "R087",
+   "R088",
+   "R089",
+   "R090"
+  ],
+  "not_applicable": [
+   "R080",
+   "R085"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "battery": [
+    "R084"
+   ],
+   "software_drivers_os": [
+    "R078"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "keyboard_trackpad",
+   "battery"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R080, R085 (different configuration from the listing). Watch-out, single complaint: battery (R084); software drivers os (R078). Confidence Insufficient: top priority ram storage upgradeability is covered by 0 applicable reviews; gaps: ram storage upgradeability, keyboard trackpad, battery."
+ },
+ {
+  "item_id": "G033",
+  "applicable": [
+   "R031",
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R037",
+   "R038",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R035",
+   "R040"
+  ],
+  "dealbreakers": {
+   "battery": [
+    "R031",
+    "R036"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "ports_connectivity"
+  ],
+  "confidence": "Low",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R035, R040 (different configuration from the listing). Dealbreaker: battery (R031, R036). Confidence Low: top priority battery is covered by 2 applicable reviews; gaps: ports connectivity."
+ },
+ {
+  "item_id": "G034",
+  "applicable": [
+   "R031",
+   "R032",
+   "R033",
+   "R034",
+   "R036",
+   "R037",
+   "R038",
+   "R039",
+   "R041",
+   "R042",
+   "R043",
+   "R044",
+   "R045"
+  ],
+  "not_applicable": [
+   "R035",
+   "R040"
+  ],
+  "dealbreakers": {
+   "battery": [
+    "R031",
+    "R036"
+   ]
+  },
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "value_price",
+   "ram_storage_upgradeability",
+   "after_sales_support"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 15 reviews apply or partly apply. Not applicable: R035, R040 (different configuration from the listing). Dealbreaker: battery (R031, R036). Confidence Insufficient: top priority value price is covered by 0 applicable reviews; gaps: value price, ram storage upgradeability, after sales support."
+ },
+ {
+  "item_id": "G035",
+  "applicable": [
+   "R001",
+   "R002",
+   "R003",
+   "R004",
+   "R006",
+   "R007",
+   "R008",
+   "R009",
+   "R011",
+   "R012",
+   "R013",
+   "R014",
+   "R015"
+  ],
+  "not_applicable": [
+   "R005",
+   "R010",
+   "R091",
+   "R092",
+   "R093",
+   "R094"
+  ],
+  "dealbreakers": {
+   "ram_storage_upgradeability": [
+    "R002",
+    "R006"
+   ]
+  },
+  "watchouts": {
+   "battery": [
+    "R001"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "value_price",
+   "after_sales_support"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 19 reviews apply or partly apply. Not applicable: R005, R010 (different configuration from the listing); R091, R092, R093, R094 (flagged: promotional or duplicate cluster). Dealbreaker: ram storage upgradeability (R002, R006). Watch-out, single complaint: battery (R001). Confidence Insufficient: top priority value price is covered by 1 applicable reviews; gaps: value price, after sales support."
+ },
+ {
+  "item_id": "G036",
+  "applicable": [
+   "R061",
+   "R062",
+   "R063",
+   "R064",
+   "R066",
+   "R067",
+   "R068",
+   "R069",
+   "R071",
+   "R072",
+   "R073",
+   "R074",
+   "R075"
+  ],
+  "not_applicable": [
+   "R065",
+   "R070",
+   "R095"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R063"
+   ],
+   "battery": [
+    "R062"
+   ]
+  },
+  "conflicts": [
+   {
+    "aspect": "keyboard_trackpad",
+    "a": [
+     "R063"
+    ],
+    "b": [
+     "R068"
+    ],
+    "status": "unresolved",
+    "cause": null
+   }
+  ],
+  "gaps": [
+   "ram_storage_upgradeability",
+   "software_drivers_os"
+  ],
+  "confidence": "Insufficient",
+  "why": "13 of 16 reviews apply or partly apply. Not applicable: R065, R070 (different configuration from the listing); R095 (flagged: contains an instruction to the reader). Watch-out, single complaint: keyboard trackpad (R063); battery (R062). Disagreement: keyboard trackpad R063 vs R068 (unresolved). Confidence Insufficient: top priority ram storage upgradeability is covered by 1 applicable reviews; gaps: ram storage upgradeability, software drivers os."
+ },
+ {
+  "item_id": "G037",
+  "applicable": [
+   "R007",
+   "R011"
+  ],
+  "not_applicable": [],
+  "dealbreakers": {},
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "battery",
+   "thermals_noise"
+  ],
+  "confidence": "Insufficient",
+  "why": "2 of 2 reviews apply or partly apply. Confidence Insufficient: top priority build weight is covered by 2 applicable reviews; gaps: battery, thermals noise."
+ },
+ {
+  "item_id": "G038",
+  "applicable": [],
+  "not_applicable": [
+   "R050",
+   "R055"
+  ],
+  "dealbreakers": {},
+  "watchouts": {},
+  "conflicts": [],
+  "gaps": [
+   "performance",
+   "ram_storage_upgradeability",
+   "thermals_noise",
+   "software_drivers_os"
+  ],
+  "confidence": "Insufficient",
+  "why": "0 of 2 reviews apply or partly apply. Not applicable: R050, R055 (different configuration from the listing). Confidence Insufficient: top priority performance is covered by 0 applicable reviews; gaps: performance, ram storage upgradeability, thermals noise, software drivers os."
+ },
+ {
+  "item_id": "G039",
+  "applicable": [
+   "R017",
+   "R018",
+   "R019",
+   "R022",
+   "R023",
+   "R024",
+   "R027",
+   "R029",
+   "R030"
+  ],
+  "not_applicable": [
+   "R016",
+   "R020",
+   "R021",
+   "R025",
+   "R026",
+   "R028",
+   "R096"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "keyboard_trackpad": [
+    "R018"
+   ],
+   "webcam_mic_speakers": [
+    "R024"
+   ],
+   "battery": [
+    "R017"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "webcam_mic_speakers"
+  ],
+  "confidence": "Low",
+  "why": "9 of 16 reviews apply or partly apply. Not applicable: R016, R021, R026, R028 (different kind of use: gaming); R020, R025 (different configuration from the listing); R096 (flagged: off-topic (delivery and seller)). Watch-out, single complaint: keyboard trackpad (R018); webcam mic speakers (R024); battery (R017). Confidence Low: top priority keyboard trackpad is covered by 2 applicable reviews; gaps: webcam mic speakers."
+ },
+ {
+  "item_id": "G040",
+  "applicable": [
+   "R046",
+   "R048",
+   "R058"
+  ],
+  "not_applicable": [
+   "R047",
+   "R049",
+   "R050",
+   "R051",
+   "R052",
+   "R053",
+   "R054",
+   "R055",
+   "R056",
+   "R057",
+   "R059",
+   "R060",
+   "R097"
+  ],
+  "dealbreakers": {},
+  "watchouts": {
+   "display": [
+    "R046"
+   ],
+   "ports_connectivity": [
+    "R048"
+   ]
+  },
+  "conflicts": [],
+  "gaps": [
+   "performance",
+   "display",
+   "ports_connectivity",
+   "thermals_noise",
+   "ram_storage_upgradeability",
+   "software_drivers_os"
+  ],
+  "confidence": "Insufficient",
+  "why": "3 of 16 reviews apply or partly apply. Not applicable: R047, R051 (different kind of use: calls); R049 (different kind of use: bright); R050, R055 (different configuration from the listing); R052, R060 (different kind of use: basic); R053 (different kind of use: carry); R054 (different kind of use: calls/reading); R056 (different kind of use: basic/calls); R057 (different kind of use: basic/carry); R059 (different kind of use: classes); R097 (flagged: contradicts its own stated config and the listing). Watch-out, single complaint: display (R046); ports connectivity (R048). Confidence Insufficient: top priority performance is covered by 0 applicable reviews; gaps: performance, display, ports connectivity, thermals noise, ram storage upgradeability, software drivers os."
+ }
+]
