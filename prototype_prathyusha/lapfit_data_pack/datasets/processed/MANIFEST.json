@@ -1,0 +1,23 @@
+{
+  "built_at": "2026-11-10T20:48:32+00:00",
+  "flipkart_rows_total": 189874,
+  "laptop_reviews": 3300,
+  "laptop_listings": 14,
+  "rating_distribution": {
+    "1": 166,
+    "2": 53,
+    "3": 165,
+    "4": 620,
+    "5": 2296
+  },
+  "empty_review_text": 0,
+  "pcbox_rows_total": 100,
+  "pcbox_laptop_rows": 87,
+  "sha256": {
+    "amazon_laptop_meta.csv": "a34f6ba09bec33e6c61ac8fc91fd5ebc8074685c2ada501154f743dcdbb95a00",
+    "amazon_laptop_reviews.csv": "a2663356e872d823c46c643ac137faf2934d503e5b7083005c5f7eebd9e875f5",
+    "flipkart_laptop_listings.csv": "e80c622b15027f809a240696ecb7add3c57f3dfe21e5f655b799836363282f71",
+    "flipkart_laptop_reviews.csv": "b109cb0624064563c03f708342131adf9b2ab13427a99fe0f8ec0685992cb2f1",
+    "pcbox_laptops.csv": "c78da3e82f9f3c72a6d1fde7e8e277a00896bfd090ed06c8f3c2d5869ebc98cf"
+  }
+}

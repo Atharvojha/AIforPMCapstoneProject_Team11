@@ -1,0 +1,3 @@
+variant_id,attribute,value_text,value_num,unit,source_id,variant_match,validation_status,note
+FKL-10,display_brightness_nits,400,400,nits,S-APPLE-MBA-M1,exact_family,verified_on_page,Apple Support (IN) tech specs page lists 400 nits (manufacturer spec)
+FKL-10,ram_options_gb,"8,16","",GB,S-APPLE-MBA-M1,exact_family,verified_on_page,Apple page: 8GB unified memory configurable to 16GB at order; page does not state post-purchase upgradeability

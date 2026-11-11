@@ -1,0 +1,8 @@
+laptop_id,laptop,gap,evidence_class,note
+FKL-02,HP Pavilion 15-EC2145AX (RTX 3050),No official or independent source found yet,spec+lab,searches returned only retailer listings and sibling reviews
+FKL-05,ASUS TUF F15 FX506LHB (8GB),No independent battery/thermal/noise test found for GTX 1650 FX506LH; LaptopMedia page returned HTTP 403 and its snippet covered an RTX 3060 model only,lab,only spec page (16GB SKU) curated
+FKL-07,"HP Pavilion 15-ec2004AX (R5 5600H, GTX 1650)",No review of this exact variant found; only family-level 15-ec1177ng test,lab+official spec,HP official spec sheet for this SKU not yet fetched
+FKL-09,ASUS VivoBook 15 X515JA (Core i3),RAM slot count / upgradeability NOT confirmed by any primary source; retail listings conflict across X515 sub-models,spec,needs ASUS India product page or service manual
+FKL-14,HP 14s-dy2507TU,"Only retailer-level specs seen (i3-1115G4, 8GB, 41Wh reported); no official/lab source fetched",spec+lab,not curated
+FKL-11,Lenovo IdeaPad 3 15ALC6 Ryzen 5 5500U,Lab data is from the Ryzen 3 5300U sibling; extracted values need human spot-check,lab,sibling only
+ALL,Battery claim under coding/campus use,No independent test of battery under programming workloads for any of the above,lab,tests are web-surfing/video; non-comparable to coding

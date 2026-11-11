@@ -8,6 +8,5 @@ node_modules/
 frontend/dist/
 .pytest_cache/
 .DS_Store
-# review data and databases built from it: course use only, licences unverified (Flipkart) or absent (Amazon); rebuild with SETUP.md
+# built databases (rebuild with SETUP.md); processed datasets ARE committed on request, raw downloads stay out (re-download with download_datasets.py)
 backend/data/
-lapfit_data_pack/datasets/
