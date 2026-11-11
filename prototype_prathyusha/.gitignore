@@ -8,5 +8,7 @@ node_modules/
 frontend/dist/
 .pytest_cache/
 .DS_Store
-# built databases (rebuild with SETUP.md); processed datasets ARE committed on request, raw downloads stay out (re-download with download_datasets.py)
-backend/data/
+# processed datasets and the two built databases ARE committed on request; raw downloads, SQLite WAL/SHM files and backups stay out
+backend/data/*
+!backend/data/lapfit.db
+!backend/data/votes.db

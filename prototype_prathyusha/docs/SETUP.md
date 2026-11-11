@@ -40,3 +40,6 @@ Never run `python -m lapfit.ingest` while extraction is running (it now refuses)
 - **Backups:** `python -m lapfit.ingest` backs the live database up to `backend/data/backups/` first. Build new loaders into a scratch database before touching the live one (CH-035).
 - **Checks:** `cd backend && ../.venv/bin/python -m pytest -q tests` (228); with the API running `.venv/bin/python eval/run_e2e_check.py` (39); `.venv/bin/python eval/run_listing_eval.py eval/golden/g_listing_v3_fresh.json [--model]`; frontend types `cd frontend && npx tsc --noEmit -p .` with Node at `~/.local/node-v20.20.2/bin`.
 - Frontend dev server on 127.0.0.1:5173 proxies `/api` to port 8000.
+
+## Committed databases (2026-11-11)
+`backend/data/lapfit.db` and `backend/data/votes.db` are in the repo, so after cloning you can skip the ingest and the 90-minute reading and go straight to the API. `python -m lapfit.ingest` rebuilds `lapfit.db` (and backs the old one up first). Never delete `votes.db`: it is the only copy of the reader's work. WAL/SHM files and backups are not committed.

@@ -5,3 +5,5 @@ Committed on the team's request on 2026-11-11. Use for the IIIT Hyderabad "AI fo
 - `processed/pcbox_laptops.csv`: PCBox, Zenodo 14060666; licence field blank; not used by the app.
 - `curated/`: facts typed by the team from public spec pages, with source URLs.
 Raw downloads are not committed; re-download with `lapfit_data_pack/download_datasets.py`. Full notes: `lapfit_data_pack/LICENSE_AND_USAGE_NOTES.md`, `docs/DATA_AUDIT.md`.
+
+`backend/data/lapfit.db` and `backend/data/votes.db` (committed 2026-11-11) are built from the files above and hold the same review text plus our reader's topic opinions; the same terms apply. They were checkpointed before committing (no WAL needed). Each later change to them is a whole-file binary change in git history.
