@@ -1,0 +1,29 @@
+{
+ "pool": 40,
+ "queries": 15,
+ "relevant_per_topic": {
+  "battery": 18,
+  "performance": 14,
+  "display": 5,
+  "build_reliability": 7,
+  "value": 6
+ },
+ "results": {
+  "lexical": {
+   "precision@5": 0.507,
+   "recall@10": 0.405,
+   "MAP": 0.522
+  },
+  "vector": {
+   "precision@5": 0.627,
+   "recall@10": 0.583,
+   "MAP": 0.633
+  },
+  "hybrid": {
+   "precision@5": 0.667,
+   "recall@10": 0.529,
+   "MAP": 0.638
+  }
+ },
+ "note": "AI-drafted labels, 40-doc pool, no Hinglish in the corpus (0/3300), embeddings = multilingual MiniLM"
+}

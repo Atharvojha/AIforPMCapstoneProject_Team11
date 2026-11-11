@@ -1,0 +1,33 @@
+{
+ "key": "G-LISTING v3 (fresh)",
+ "run": "2026-11-11 11:07",
+ "results": {
+  "rules": {
+   "claims": 23,
+   "found": 23,
+   "verdict_ok": 23,
+   "kind_ok": 23,
+   "items": 12,
+   "matched_ok": 12,
+   "ask_ok": 2,
+   "ask_n": 2,
+   "ign_ok": 1,
+   "ign_n": 1,
+   "forbid_bad": 1,
+   "failures": [
+    "N03 FORBIDDEN confident verdict on 'Laptop bahut fast hai aur battery bhi achi chalti hai' -> supported"
+   ],
+   "unreviewed": [
+    "N02 [supported] 15.6 inch HD -> Screen is 15.6 inches: matches our data",
+    "N12 [supported] 8GB RAM -> RAM of 8 GB for this laptop: matches our data"
+   ],
+   "confusion": {
+    "supported->supported": 9,
+    "insufficient->insufficient": 10,
+    "contradicted->contradicted": 3,
+    "mixed->mixed": 1
+   },
+   "seconds": 0.5
+  }
+ }
+}

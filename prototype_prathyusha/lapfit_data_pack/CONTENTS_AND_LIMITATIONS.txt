@@ -1,0 +1,23 @@
+LAPFIT DATA PACK — CONTENTS AND LIMITATIONS
+Prepared 2026-11-04
+
+INCLUDED LOCALLY
+- Team11_activity_source.pdf: original uploaded 16-page Team 11 source PDF.
+- team11_activity_extracted.txt: extracted searchable text from that PDF.
+- LapFit_Detailed_Product_and_Technical_Plan.md: detailed plan created in this conversation.
+- golden_examples_summary.csv: 10 golden example summaries derived from the PDF.
+- review_id_index.csv: review ID -> source PDF page index; not raw review data.
+- CSV schema templates for laptops, reviews, evidence, benchmarks and sources.
+- Dataset catalog, source links, terms notes, and downloader script.
+
+NOT INCLUDED AS LOCAL DATA BINARIES
+- Flipkart Zenodo data.zip: 4.1 MB source archive. Download with --flipkart or --small.
+- Amazon India Mendeley v2 archive: 5,035 reviews. Download with --mendeley or --small.
+- PCBox products_pcbox.csv: 20.2 kB source CSV. Download with --pcbox.
+- Amazon Reviews'23 Electronics reviews + metadata: large category files. Download only with --amazon-2023-electronics.
+
+IMPORTANT PROJECT DATA LIMIT
+The uploaded Team 11 PDF describes a 97-review set (90 collected + 7 written tests) and a 3,300-review Flipkart laptop extract across 14 listings. It does not include the full raw 97-review CSV or full 3,300-review CSV. The ZIP does not fabricate those missing records. It contains the source PDF, searchable text, ten golden-example summaries and review-ID index.
+
+NETWORK LIMIT
+The environment used to create this ZIP could not directly download external binary files. Therefore, external datasets are provided as verified links and a local downloader script; they are not falsely represented as already included in this archive.

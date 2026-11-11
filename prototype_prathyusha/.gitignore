@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+lapfit_data_pack/datasets/downloaded/
+lapfit_data_pack/datasets/_amazon_work/
+node_modules/
+frontend/dist/
+.pytest_cache/
+.DS_Store
+# review data and databases built from it: course use only, licences unverified (Flipkart) or absent (Amazon); rebuild with SETUP.md
+backend/data/
+lapfit_data_pack/datasets/

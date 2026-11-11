@@ -1,0 +1,11 @@
+{
+ "gold": "g_ext_v1_heldout.json (AI-drafted, unverified); topics outside the reader's list ignored",
+ "reader_version": "topics-v3",
+ "reviews": 40,
+ "topic_precision": 0.695,
+ "topic_recall": 0.943,
+ "f1": 0.8,
+ "opinion_right_on_matched": "62/62",
+ "reviews_with_no_topic_handled": "2/4",
+ "seconds_per_review": 1.2275
+}

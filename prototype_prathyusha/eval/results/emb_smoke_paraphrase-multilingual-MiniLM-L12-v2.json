@@ -1,0 +1,14 @@
+{
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "device": "mps:0",
+  "dim": 384,
+  "load_s": 1.7,
+  "triple_accuracy": "11/12",
+  "mean_margin": 0.33,
+  "failed_triples": [
+    "battery drains very fast"
+  ],
+  "encode_400_reviews_s": 2.18,
+  "reviews_per_s": 183.4,
+  "note": "Smoke test on synthetic triples; selection requires recall@k on G-RET."
+}

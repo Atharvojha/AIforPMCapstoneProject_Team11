@@ -1,0 +1,549 @@
+{
+ "status": "draft_ai_unverified",
+ "author": "Claude, labelled by reading review text only (visible first 260 chars); model output not consulted",
+ "labels": "category + polarity; generic praise ('good product') = no claim; speakers/camera/audio = other",
+ "items": [
+  {
+   "item_id": "E01",
+   "review_id": "FK-01520",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "neutral"
+    }
+   ]
+  },
+  {
+   "item_id": "E02",
+   "review_id": "FK-02551",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "display",
+     "polarity": "negative"
+    },
+    {
+     "category": "build_reliability",
+     "polarity": "negative"
+    },
+    {
+     "category": "value",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E03",
+   "review_id": "FK-01531",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "value",
+     "polarity": "neutral"
+    }
+   ]
+  },
+  {
+   "item_id": "E04",
+   "review_id": "FK-01393",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E05",
+   "review_id": "FK-01651",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "display",
+     "polarity": "positive"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E06",
+   "review_id": "FK-01655",
+   "variant_id": "FKL-09",
+   "gold": []
+  },
+  {
+   "item_id": "E07",
+   "review_id": "FK-01580",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "battery",
+     "polarity": "negative"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    },
+    {
+     "category": "display",
+     "polarity": "negative"
+    },
+    {
+     "category": "portability",
+     "polarity": "positive"
+    },
+    {
+     "category": "build_reliability",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E08",
+   "review_id": "FK-02679",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E09",
+   "review_id": "FK-01590",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "build_reliability",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E10",
+   "review_id": "FK-01474",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "thermals_noise",
+     "polarity": "negative"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    },
+    {
+     "category": "battery",
+     "polarity": "negative"
+    },
+    {
+     "category": "delivery_or_seller",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E11",
+   "review_id": "FK-01447",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E12",
+   "review_id": "FK-01533",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "build_reliability",
+     "polarity": "negative"
+    },
+    {
+     "category": "value",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E13",
+   "review_id": "FK-02614",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "memory",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E14",
+   "review_id": "FK-01609",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E15",
+   "review_id": "FK-01597",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "value",
+     "polarity": "positive"
+    },
+    {
+     "category": "build_reliability",
+     "polarity": "positive"
+    },
+    {
+     "category": "thermals_noise",
+     "polarity": "negative"
+    },
+    {
+     "category": "battery",
+     "polarity": "negative"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E16",
+   "review_id": "FK-02631",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "display",
+     "polarity": "negative"
+    },
+    {
+     "category": "delivery_or_seller",
+     "polarity": "negative"
+    },
+    {
+     "category": "memory",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E17",
+   "review_id": "FK-02628",
+   "variant_id": "FKL-11",
+   "gold": []
+  },
+  {
+   "item_id": "E18",
+   "review_id": "FK-02645",
+   "variant_id": "FKL-11",
+   "gold": []
+  },
+  {
+   "item_id": "E19",
+   "review_id": "FK-01558",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "battery",
+     "polarity": "positive"
+    },
+    {
+     "category": "build_reliability",
+     "polarity": "positive"
+    },
+    {
+     "category": "display",
+     "polarity": "negative"
+    },
+    {
+     "category": "value",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E20",
+   "review_id": "FK-01509",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E21",
+   "review_id": "FK-02672",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E22",
+   "review_id": "FK-01389",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "ports_connectivity",
+     "polarity": "negative"
+    },
+    {
+     "category": "build_reliability",
+     "polarity": "positive"
+    },
+    {
+     "category": "battery",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E23",
+   "review_id": "FK-02669",
+   "variant_id": "FKL-11",
+   "gold": []
+  },
+  {
+   "item_id": "E24",
+   "review_id": "FK-01507",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "mixed"
+    }
+   ]
+  },
+  {
+   "item_id": "E25",
+   "review_id": "FK-01434",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E26",
+   "review_id": "FK-02640",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E27",
+   "review_id": "FK-01661",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "delivery_or_seller",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E28",
+   "review_id": "FK-01505",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E29",
+   "review_id": "FK-01635",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E30",
+   "review_id": "FK-02569",
+   "variant_id": "FKL-11",
+   "gold": []
+  },
+  {
+   "item_id": "E31",
+   "review_id": "FK-02589",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E32",
+   "review_id": "FK-01496",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    },
+    {
+     "category": "other",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E33",
+   "review_id": "FK-01470",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E34",
+   "review_id": "FK-02615",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "value",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E35",
+   "review_id": "FK-02584",
+   "variant_id": "FKL-11",
+   "gold": []
+  },
+  {
+   "item_id": "E36",
+   "review_id": "FK-01627",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "thermals_noise",
+     "polarity": "negative"
+    },
+    {
+     "category": "performance",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E37",
+   "review_id": "FK-02603",
+   "variant_id": "FKL-11",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    }
+   ]
+  },
+  {
+   "item_id": "E38",
+   "review_id": "FK-01454",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "positive"
+    },
+    {
+     "category": "battery",
+     "polarity": "neutral"
+    }
+   ]
+  },
+  {
+   "item_id": "E39",
+   "review_id": "FK-01617",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "performance",
+     "polarity": "negative"
+    }
+   ]
+  },
+  {
+   "item_id": "E40",
+   "review_id": "FK-01585",
+   "variant_id": "FKL-09",
+   "gold": [
+    {
+     "category": "battery",
+     "polarity": "negative"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "key": "G-LISTING v1",
+ "run": "2026-11-11 11:07",
+ "results": {
+  "rules": {
+   "claims": 68,
+   "found": 68,
+   "verdict_ok": 68,
+   "kind_ok": 67,
+   "items": 24,
+   "matched_ok": 24,
+   "ask_ok": 5,
+   "ask_n": 5,
+   "ign_ok": 1,
+   "ign_n": 1,
+   "forbid_bad": 0,
+   "failures": [
+    "L19 KIND 'Blazing fast' expected marketing got experience"
+   ],
+   "unreviewed": [
+    "L06 [supported] Smooth performance -> 87% of the 97 owners of ASUS TUF Gaming F15 who wrote about speed were happy.",
+    "L08 [supported] 13.3 inch Retina -> Screen is 13.3 inches: matches our data",
+    "L08 [supported] Great keyboard -> 75% of the 12 owners of APPLE 2020 Macbook Air M1 who wrote about keyboard and touchpad we",
+    "L09 [supported] 512GB SSD -> Storage is 512 GB: matches our data",
+    "L09 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "L10 [supported] 512GB SSD -> Storage is 512 GB: matches our data",
+    "L10 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "L22 [supported] 8GB RAM -> RAM of 8 GB for this laptop: matches our data",
+    "L22 [supported] 512GB SSD -> Storage is 512 GB: matches our data",
+    "L22 [supported] games run smooth -> 87% of the 97 owners of ASUS TUF Gaming F15 who wrote about speed were happy.",
+    "L23 [supported] 8GB RAM -> RAM of 8 GB for this laptop: matches our data",
+    "L23 [supported] 512GB SSD -> Storage is 512 GB: matches our data"
+   ],
+   "confusion": {
+    "insufficient->insufficient": 26,
+    "mixed->mixed": 6,
+    "supported->supported": 23,
+    "contradicted->contradicted": 13
+   },
+   "seconds": 1.4
+  }
+ }
+}

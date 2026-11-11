@@ -1,0 +1,10 @@
+{
+ "gold": "g_needs_v1_heldout.json (AI-drafted, unverified)",
+ "items": 24,
+ "uses_exact": "24/24",
+ "budget_exact": "24/24",
+ "brands_avoid_exact": "24/24",
+ "priority_precision": 1.0,
+ "priority_recall": 1.0,
+ "failures": []
+}

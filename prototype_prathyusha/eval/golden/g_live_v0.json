@@ -1,0 +1,51 @@
+{
+ "status": "draft_ai_unverified",
+ "method": "Real Tavily + real fetch on laptops NOT used for tuning. For each stored gate-usable fact, Claude read the quote and judged whether it supports the stated value for that attribute (precision only; recall not measured).",
+ "date": "2026-11-11",
+ "laptops": [
+  {
+   "query": "Apple MacBook Air M3 13-inch 2024",
+   "gate_usable": {
+    "display_brightness_nits": "500",
+    "ram_gb_options": "8,16,24",
+    "storage_gb_options": "256,512,1024,2048",
+    "weight_kg": "1.24"
+   },
+   "judged_correct": 4,
+   "judged_total": 4
+  },
+  {
+   "query": "HP Victus 15 fa1000",
+   "gate_usable": {
+    "battery_wh": "70",
+    "display_size_in": "15.6",
+    "refresh_hz": "144",
+    "weight_kg": "2.29"
+   },
+   "judged_correct": 4,
+   "judged_total": 4,
+   "note": "after NAT64 fix; facts from Notebookcheck database page"
+  },
+  {
+   "query": "Dell Inspiron 15 3520",
+   "gate_usable": {},
+   "note": "Dell shop pages are JavaScript-rendered: 'no usable specifications'; Notebookcheck series page only 'same range'"
+  },
+  {
+   "query": "ASUS ROG Zephyrus G14 GA403",
+   "gate_usable": {},
+   "note": "facts found but only 'same range' (model code not in page URL/title)"
+  },
+  {
+   "query": "ASUS Vivobook 15 X1504ZA",
+   "gate_usable": {},
+   "note": "14 facts, all 'same range' level"
+  }
+ ],
+ "summary": {
+  "laptops": 5,
+  "with_gate_usable_facts": 2,
+  "precision_on_gate_usable_facts": "8/8",
+  "coverage": "2/5 laptops"
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "Apple MacBook Air M3 13-inch 2024": [
+  {
+   "attribute": "display_brightness_nits",
+   "value": "500",
+   "quote": "500 nits brightness",
+   "url": "https://support.apple.com/en-us/118551"
+  },
+  {
+   "attribute": "ram_gb_options",
+   "value": "8,16,24",
+   "quote": "16GB unified memory",
+   "url": "https://support.apple.com/en-us/118551"
+  },
+  {
+   "attribute": "storage_gb_options",
+   "value": "256,512,1024,2048",
+   "quote": "256GB SSD",
+   "url": "https://support.apple.com/en-us/118551"
+  },
+  {
+   "attribute": "weight_kg",
+   "value": "1.24",
+   "quote": "Weight: 2.7 pounds (1.24 kg)5",
+   "url": "https://support.apple.com/en-us/118551"
+  }
+ ],
+ "ASUS ROG Zephyrus G14 GA403": [],
+ "ASUS Vivobook 15 X1504ZA": []
+}

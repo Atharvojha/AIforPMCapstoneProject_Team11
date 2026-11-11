@@ -1,0 +1,16 @@
+{
+  "gold": "g_safe_v0.json (AI-drafted)",
+  "injection_attack_recall": "30/30",
+  "injection_false_positives_on_real_reviews": "0/60",
+  "ssrf_correct": "23/23",
+  "url_policy_correct": "28/28",
+  "quote_validator_correct": "39/39",
+  "quote_false_accepts": 0,
+  "claim_injection_correct": "8/8",
+  "missed_attacks": [],
+  "false_positives": [],
+  "ssrf_wrong": [],
+  "url_wrong": [],
+  "quote_wrong": [],
+  "claim_wrong": []
+}

@@ -1,0 +1,292 @@
+{
+ "status": "draft_ai_unverified",
+ "note": "Fresh held-out set for the free-text needs parser. Written before the first run. 'uses' must match exactly; priorities score precision/recall.",
+ "items": [
+  {
+   "id": "N01",
+   "text": "I need a laptop for engineering college. Mostly notes, C++ coding and some Zoom classes. Budget 45000.",
+   "uses": [
+    "college_research",
+    "programming"
+   ],
+   "budget_max": 45000,
+   "priorities": [],
+   "brands_avoid": []
+  },
+  {
+   "id": "N02",
+   "text": "Gaming laptop under 80k. Valorant and GTA. Should not heat up much.",
+   "uses": [
+    "gaming"
+   ],
+   "budget_max": 80000,
+   "priorities": [
+    "thermals_noise"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N03",
+   "text": "Mujhe coding ke liye laptop chahiye, budget 50k, battery achi honi chahiye",
+   "uses": [
+    "programming"
+   ],
+   "budget_max": 50000,
+   "priorities": [
+    "battery"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N04",
+   "text": "Video editing in Premiere and Photoshop, budget 1.2 lakh, display should be good",
+   "uses": [
+    "design_video"
+   ],
+   "budget_max": 120000,
+   "priorities": [
+    "display"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N05",
+   "text": "Just browsing, YouTube and Netflix for my mom. Cheap, around 30k.",
+   "uses": [
+    "office"
+   ],
+   "budget_max": 30000,
+   "priorities": [
+    "value"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N06",
+   "text": "I do machine learning projects and some gaming, 90k max",
+   "uses": [
+    "ai_ml",
+    "gaming"
+   ],
+   "budget_max": 90000,
+   "priorities": [],
+   "brands_avoid": []
+  },
+  {
+   "id": "N07",
+   "text": "Student. Needs to be very light because I travel by bus every day. Budget 55k.",
+   "uses": [
+    "college_research"
+   ],
+   "budget_max": 55000,
+   "priorities": [
+    "portability"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N08",
+   "text": "Best laptop for data science, 16GB RAM minimum, not Dell",
+   "uses": [
+    "ai_ml"
+   ],
+   "budget_max": null,
+   "priorities": [],
+   "brands_avoid": [
+    "DELL"
+   ]
+  },
+  {
+   "id": "N09",
+   "text": "I want a quiet laptop for writing my thesis, long battery life, no budget limit",
+   "uses": [
+    "college_research"
+   ],
+   "budget_max": null,
+   "priorities": [
+    "battery",
+    "thermals_noise"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N10",
+   "text": "Work from home. Excel, PowerPoint, lots of meetings. Under 40k. Good keyboard please.",
+   "uses": [
+    "office"
+   ],
+   "budget_max": 40000,
+   "priorities": [
+    "keyboard_trackpad"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N11",
+   "text": "Freelance graphic designer, colour accurate screen, budget around 70k",
+   "uses": [
+    "design_video"
+   ],
+   "budget_max": 70000,
+   "priorities": [
+    "display"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N12",
+   "text": "Looking for something durable that will last me 5 years, college use, 60,000 rupees",
+   "uses": [
+    "college_research"
+   ],
+   "budget_max": 60000,
+   "priorities": [
+    "build_reliability"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N13",
+   "text": "fast laptop for programming and docker, 16GB RAM, 65k, avoid MSI",
+   "uses": [
+    "programming"
+   ],
+   "budget_max": 65000,
+   "priorities": [
+    "performance"
+   ],
+   "brands_avoid": [
+    "MSI"
+   ]
+  },
+  {
+   "id": "N14",
+   "text": "My kid needs a laptop for online classes. Nothing fancy. 35k.",
+   "uses": [
+    "college_research"
+   ],
+   "budget_max": 35000,
+   "priorities": [],
+   "brands_avoid": []
+  },
+  {
+   "id": "N15",
+   "text": "Streaming and casual gaming, 75k, decent speakers not needed",
+   "uses": [
+    "gaming"
+   ],
+   "budget_max": 75000,
+   "priorities": [],
+   "brands_avoid": []
+  },
+  {
+   "id": "N16",
+   "text": "I edit videos for YouTube and want smooth performance without lag, budget 95k",
+   "uses": [
+    "design_video"
+   ],
+   "budget_max": 95000,
+   "priorities": [
+    "performance"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N17",
+   "text": "Android app development, 8 hours of battery, lightweight, up to 58k",
+   "uses": [
+    "programming"
+   ],
+   "budget_max": 58000,
+   "priorities": [
+    "battery",
+    "portability"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N18",
+   "text": "Office laptop for my team, 50 to 60k each, must be reliable",
+   "uses": [
+    "office"
+   ],
+   "budget_max": 60000,
+   "priorities": [
+    "build_reliability"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N19",
+   "text": "Which laptop for deep learning with a good GPU, I have 1.5 lakh",
+   "uses": [
+    "ai_ml"
+   ],
+   "budget_max": 150000,
+   "priorities": [],
+   "brands_avoid": []
+  },
+  {
+   "id": "N20",
+   "text": "Ek simple laptop chahiye for MS Word and internet, 25k tak",
+   "uses": [
+    "office"
+   ],
+   "budget_max": 25000,
+   "priorities": [],
+   "brands_avoid": []
+  },
+  {
+   "id": "N21",
+   "text": "I travel a lot for work, need all day battery and something light, budget flexible",
+   "uses": [
+    "office"
+   ],
+   "budget_max": null,
+   "priorities": [
+    "battery",
+    "portability"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N22",
+   "text": "Cheap but fast machine for coding, I am a first year student, 40k",
+   "uses": [
+    "college_research",
+    "programming"
+   ],
+   "budget_max": 40000,
+   "priorities": [
+    "performance",
+    "value"
+   ],
+   "brands_avoid": []
+  },
+  {
+   "id": "N23",
+   "text": "Gaming and video editing, RTX graphics, budget 1 lakh, no HP",
+   "uses": [
+    "design_video",
+    "gaming"
+   ],
+   "budget_max": 100000,
+   "priorities": [],
+   "brands_avoid": [
+    "HP"
+   ]
+  },
+  {
+   "id": "N24",
+   "text": "Anything good for photo editing in Lightroom, 85k, screen is important",
+   "uses": [
+    "design_video"
+   ],
+   "budget_max": 85000,
+   "priorities": [
+    "display"
+   ],
+   "brands_avoid": []
+  }
+ ]
+}

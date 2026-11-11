@@ -1,0 +1,83 @@
+{
+ "key": "G-LISTING v2 (held-out)",
+ "run": "2026-11-11 11:02",
+ "results": {
+  "rules": {
+   "claims": 32,
+   "found": 32,
+   "verdict_ok": 29,
+   "kind_ok": 31,
+   "items": 13,
+   "matched_ok": 12,
+   "ask_ok": 3,
+   "ask_n": 3,
+   "ign_ok": 0,
+   "ign_n": 1,
+   "forbid_bad": 0,
+   "failures": [
+    "M01 MATCH expected None got FKL-09",
+    "M01 VERDICT '512GB SSD' expected insufficient got supported | Storage is 512 GB: matches our data",
+    "M01 VERDICT '15.6 inch' expected insufficient got supported | Screen is 15.6 inches: matches our data",
+    "M06 VERDICT 'Good battery life' expected contradicted got mixed | Meets the minimum for studies and research, not the comfortable level.",
+    "M06 KIND 'Good battery life' expected experience got fit",
+    "M10 instructions NOT reported as ignored"
+   ],
+   "unreviewed": [
+    "M05 [supported] 512GB SSD -> Storage is 512 GB: matches our data",
+    "M05 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "M06 [supported] 8GB RAM -> RAM of 8 GB for this laptop: matches our data",
+    "M06 [supported] 14 inch -> Screen is 14 inches: matches our data",
+    "M07 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "M13 [supported] the keyboard feels great -> 75% of the 12 owners of APPLE 2020 Macbook Air M1 who wrote about keyboard and touchpad we"
+   ],
+   "confusion": {
+    "insufficient->insufficient": 11,
+    "insufficient->supported": 2,
+    "mixed->mixed": 2,
+    "supported->supported": 10,
+    "contradicted->contradicted": 6,
+    "contradicted->mixed": 1
+   },
+   "seconds": 0.6
+  },
+  "model": {
+   "claims": 32,
+   "found": 32,
+   "verdict_ok": 29,
+   "kind_ok": 31,
+   "items": 13,
+   "matched_ok": 12,
+   "ask_ok": 3,
+   "ask_n": 3,
+   "ign_ok": 0,
+   "ign_n": 1,
+   "forbid_bad": 0,
+   "failures": [
+    "M01 MATCH expected None got FKL-09",
+    "M01 VERDICT '512GB SSD' expected insufficient got supported | Storage is 512 GB: matches our data",
+    "M01 VERDICT '15.6 inch' expected insufficient got supported | Screen is 15.6 inches: matches our data",
+    "M06 VERDICT 'Good battery life' expected contradicted got mixed | Meets the minimum for studies and research, not the comfortable level.",
+    "M06 KIND 'Good battery life' expected experience got fit",
+    "M10 instructions NOT reported as ignored"
+   ],
+   "unreviewed": [
+    "M05 [supported] 512GB SSD -> Storage is 512 GB: matches our data",
+    "M05 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "M06 [supported] 8GB RAM -> RAM of 8 GB for this laptop: matches our data",
+    "M06 [supported] 14 inch -> Screen is 14 inches: matches our data",
+    "M07 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "M13 [supported] 256GB SSD -> Storage is 256 GB: matches our data",
+    "M13 [supported] the keyboard feels great -> 75% of the 12 owners of APPLE 2020 Macbook Air M1 who wrote about keyboard and touchpad we"
+   ],
+   "confusion": {
+    "insufficient->insufficient": 11,
+    "insufficient->supported": 2,
+    "mixed->mixed": 2,
+    "supported->supported": 10,
+    "contradicted->contradicted": 6,
+    "contradicted->mixed": 1
+   },
+   "seconds": 63.9
+  }
+ }
+}

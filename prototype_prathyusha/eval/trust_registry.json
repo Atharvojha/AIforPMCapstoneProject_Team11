@@ -1,0 +1,105 @@
+{
+ "updated": "2026-11-11",
+ "note": "First-run results are recorded history. “Now” values are read from the latest result files each time this page loads.",
+ "items": [
+  {
+   "id": "search",
+   "title": "Finding the right laptop",
+   "question": "If you type a laptop name, do we find the right one (and not a wrong one)?",
+   "first": "48 of 51 questions right",
+   "first_note": "It treated “laptop bag” as a laptop.",
+   "held_out": false,
+   "meaning": "Specific model names, ambiguous families, unknown laptops and typos were all handled; accessories are now recognised."
+  },
+  {
+   "id": "safety",
+   "title": "Safety checks on web pages and quotes",
+   "question": "Can a link or a page trick the app into reading private addresses, and can an invented quote slip in?",
+   "first": "Blocked 23 of 23 unsafe addresses; got 28 of 28 link rules right; rejected 39 of 39 altered quotes",
+   "first_note": "Zero invented quotes were accepted.",
+   "held_out": true,
+   "meaning": "The guards that decide what we may read, and whether a quote is word-for-word real, held up in every test."
+  },
+  {
+   "id": "inj_screen",
+   "title": "Spotting hidden instructions in reviews (pattern filter)",
+   "question": "Do we catch text that tries to give orders to the software?",
+   "first": "Caught 1 of 20 attacks we had not seen; 3 of 20 harmless sentences wrongly flagged",
+   "first_note": "After tuning it caught 20 of 20 on the examples it was tuned on, which proves nothing.",
+   "held_out": true,
+   "meaning": "A pattern filter cannot recognise new wording. We do not rely on it alone."
+  },
+  {
+   "id": "inj_e2e",
+   "title": "What a hidden instruction can actually do",
+   "question": "If someone plants an instruction in a review, can it change what you see?",
+   "first": "3 of 20 unseen attacks slipped through as one fake positive claim",
+   "first_note": "The model flagged 4, and 12 produced nothing.",
+   "held_out": true,
+   "meaning": "The damage is limited: one fake claim counts as one owner, a Serious Problem needs two, the report text is written by rules, and every claim must be an exact quote."
+  },
+  {
+   "id": "claims",
+   "title": "Checking claims (battery, RAM, weight, price…)",
+   "question": "Does the Claim Checker reach the verdict a careful person would?",
+   "first": "First run on new claims: 26 of 35, then 19 of 41",
+   "first_note": "Both sets were then used to fix the engine, so the “now” score is not a fair test.",
+   "held_out": true,
+   "meaning": "It handled the common cases, but each fresh set exposed new gaps. Expect more until a person checks it."
+  },
+  {
+   "id": "extraction",
+   "title": "Reading owner reviews",
+   "question": "When the software reads a review, does it pull out the right topics and opinions?",
+   "first": "Right topic found about 66% of the time (precision) and 69% of the topics found (recall); opinion right on 46 of 55",
+   "first_note": "Measured on 40 fresh reviews, before looking at results.",
+   "held_out": true,
+   "meaning": "Good enough to show what owners say, not good enough to treat a single finding as certain. That is why every finding opens the original review."
+  },
+  {
+   "id": "retrieval",
+   "title": "Finding the relevant reviews",
+   "question": "Does search pull up the reviews that are actually about your topic?",
+   "first": "Keyword search alone 0.52, meaning-based 0.63, both together 0.64 (scale 0 to 1)",
+   "first_note": "Small test: 40 reviews, 15 questions.",
+   "held_out": false,
+   "meaning": "Using both kinds of search beat keywords alone."
+  },
+  {
+   "id": "live",
+   "title": "Looking up a laptop we don’t have",
+   "question": "When we read a maker’s page, are the facts we keep correct?",
+   "first": "8 of 8 kept facts correct, but only 2 of 5 new laptops gave any usable facts",
+   "first_note": "Many maker pages are blocked, rate-limited or need a browser to display.",
+   "held_out": true,
+   "meaning": "What we show is accurate, but we often show little. Looked-up laptops never have owner reviews."
+  },
+  {
+   "id": "needs",
+   "title": "Understanding what you type",
+   "question": "When you describe your needs in your own words, do we get the use, budget and brands to avoid right?",
+   "first": "What you'll use it for: 21 of 24 right. Budget: 24 of 24. Brands to avoid: 24 of 24",
+   "first_note": "24 fresh requests including Hinglish. Missed: 'edit videos for YouTube', 'streaming', 'travel for work'. Priority words were all found, but I wrote the test knowing the word list, so treat that as optimistic.",
+   "held_out": true,
+   "meaning": "Reliable for ordinary phrasing. Unusual wording can be missed, which is why the page shows what we understood and lets you correct it."
+  },
+  {
+   "id": "topics",
+   "title": "Rating each topic from reviews",
+   "question": "When the fast reader labels a review (battery, screen…), is the label right, and does it find the topics owners mention?",
+   "first": "Reader 1: right 89% of the time when it labelled but found only 46% of topics. Reader 2 (fresh reviews): precision 81%, finds 95%, happy/unhappy right 68 of 72. Reader 3, the one in use, 4 times faster (fresh reviews): precision 88%, finds 83%, happy/unhappy right 58 of 65",
+   "first_note": "Each reader was tested on reviews labelled before the test was run, once. Labels were written by Claude, not a person.",
+   "held_out": true,
+   "meaning": "Ratings now cover most of what owners say. About 1 in 8 happy/unhappy calls is wrong, so a single rating can be off; many owners per rating average that out, which is why each rating shows how many owners it rests on."
+  },
+  {
+   "id": "listing",
+   "title": "Checking a pasted listing (Listing Lie Detector)",
+   "question": "Given a laptop listing, are the verdicts on each claim right, and is the right laptop matched?",
+   "first": "First run on 24 listings: 46 of 68 verdicts right (68%); right laptop for only 17 of 24",
+   "first_note": "It matched a 2024 M3 MacBook to our 2020 M1, matched US Dell and Acer listings to US laptops, and called Apple's published 18-hour claim 'very unlikely'. Fresh sets afterwards: 29 of 32 right (91%), then 23 of 23 (100%, but the set was easy and one Hinglish sentence got a verdict on half its meaning). The answer keys were written by the same AI that wrote the code, from real published specs retyped into listing style; no person has checked them.",
+   "held_out": true,
+   "meaning": "Good on the clear cases it was tested on. Treat it as promising, not proven: small sets, one author, no real seller listings yet."
+  }
+ ]
+}

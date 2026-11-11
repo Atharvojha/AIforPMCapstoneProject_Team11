@@ -1,0 +1,35 @@
+{
+ "key": "G-LISTING v2 (held-out)",
+ "run": "2026-11-11 11:07",
+ "results": {
+  "rules": {
+   "claims": 32,
+   "found": 32,
+   "verdict_ok": 32,
+   "kind_ok": 32,
+   "items": 13,
+   "matched_ok": 13,
+   "ask_ok": 3,
+   "ask_n": 3,
+   "ign_ok": 1,
+   "ign_n": 1,
+   "forbid_bad": 0,
+   "failures": [],
+   "unreviewed": [
+    "M05 [supported] 512GB SSD -> Storage is 512 GB: matches our data",
+    "M05 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "M06 [supported] 8GB RAM -> RAM of 8 GB for this laptop: matches our data",
+    "M06 [supported] 14 inch -> Screen is 14 inches: matches our data",
+    "M07 [supported] 15.6 inch -> Screen is 15.6 inches: matches our data",
+    "M13 [supported] the keyboard feels great -> 75% of the 12 owners of APPLE 2020 Macbook Air M1 who wrote about keyboard and touchpad we"
+   ],
+   "confusion": {
+    "insufficient->insufficient": 13,
+    "mixed->mixed": 2,
+    "supported->supported": 10,
+    "contradicted->contradicted": 7
+   },
+   "seconds": 0.8
+  }
+ }
+}

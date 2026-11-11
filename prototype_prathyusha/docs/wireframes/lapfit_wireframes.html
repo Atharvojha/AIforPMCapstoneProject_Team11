@@ -1,0 +1,417 @@
+<title>LapFit Wireframes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: an instrument-panel style review deck. Top tab rail switches six low-fidelity screens;
+   each screen sits in a flat "sheet" with design notes underneath. Greyscale structure, status colour only where meaning lives. */
+:root{
+  --bg:#F5F6F8; --surface:#FFFFFF; --line:#D9DDE3; --ink:#14181F; --ink2:#4A5260;
+  --accent:#1F4FD8; --accent-bg:#E8EEFF;
+  --ok:#1B7F4B; --ok-bg:#E2F3EA; --bad:#B3261E; --bad-bg:#FBE7E5; --mix:#9A5B00; --mix-bg:#FBEFD6;
+  --unk:#5B6578; --unk-bg:#ECEFF4; --note:#FFF7D6; --note-line:#E3C85A;
+  --font:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace; --disp:'IBM Plex Sans Condensed','IBM Plex Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1216; --surface:#171B21; --line:#2A3039; --ink:#E8EBF0; --ink2:#A5ADBA;
+  --accent:#7FA2FF; --accent-bg:#1B2742;
+  --ok:#5FD39A; --ok-bg:#12301F; --bad:#FF8A80; --bad-bg:#3A1816; --mix:#F2B84B; --mix-bg:#3A2A08;
+  --unk:#9AA4B5; --unk-bg:#222833; --note:#2F2A12; --note-line:#8A7623; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1216; --surface:#171B21; --line:#2A3039; --ink:#E8EBF0; --ink2:#A5ADBA;
+  --accent:#7FA2FF; --accent-bg:#1B2742;
+  --ok:#5FD39A; --ok-bg:#12301F; --bad:#FF8A80; --bad-bg:#3A1816; --mix:#F2B84B; --mix-bg:#3A2A08;
+  --unk:#9AA4B5; --unk-bg:#222833; --note:#2F2A12; --note-line:#8A7623; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:28px} h2{font-size:20px} h3{font-size:16px}
+p{margin:0}
+.mono{font-family:var(--mono);font-size:12.5px}
+.muted{color:var(--ink2)}
+header.top{display:flex;flex-direction:column;gap:6px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--ink2)}
+.rail{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);padding-bottom:0}
+.rail a{padding:10px 14px;text-decoration:none;color:var(--ink2);border:1px solid transparent;border-bottom:0;border-radius:4px 4px 0 0;white-space:nowrap;font-weight:500}
+.rail a[aria-current="page"]{background:var(--surface);color:var(--ink);border-color:var(--line);margin-bottom:-1px}
+.rail a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.screen{display:none;flex-direction:column;gap:16px}
+.screen.on{display:flex}
+.notes{background:var(--note);border:1px dashed var(--note-line);border-radius:8px;padding:14px 16px;font-size:13.5px;display:flex;flex-direction:column;gap:6px}
+.notes b{font-family:var(--disp);font-size:14px}
+.notes ul{margin:0;padding-left:18px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
+.box{border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0;background:var(--surface)}
+.box.flat{border-style:dashed}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-weight:500;padding:9px 14px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:default}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0F1216}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0F1216}}
+.input{border:1px solid var(--line);border-radius:4px;padding:10px 12px;color:var(--ink2);background:var(--bg);flex:1;min-width:180px}
+/* status chips: glyph + word + fill, never colour alone */
+.chip{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border-radius:4px;font-size:12.5px;font-weight:600;border:1px solid;white-space:nowrap}
+.chip.ok{color:var(--ok);background:var(--ok-bg);border-color:var(--ok)}
+.chip.bad{color:var(--bad);background:var(--bad-bg);border-color:var(--bad)}
+.chip.mix{color:var(--mix);background:var(--mix-bg);border-color:var(--mix)}
+.chip.unk{color:var(--unk);border-color:var(--unk);border-style:dashed;background:repeating-linear-gradient(135deg,var(--unk-bg) 0 5px,transparent 5px 10px)}
+.chip.neq{color:var(--bad);border-color:var(--bad);border-style:dashed;background:var(--surface)}
+/* source-class tags */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:1px 7px;white-space:nowrap}
+.tag.sib{border-style:dashed}
+.badge{font-size:12px;padding:1px 7px;border-radius:4px;background:var(--accent-bg);color:var(--accent);font-weight:600;white-space:nowrap}
+.ph{border:1px dashed var(--ink2);border-radius:6px;padding:10px 12px;color:var(--ink2);font-size:13px;background:repeating-linear-gradient(135deg,transparent 0 8px,var(--unk-bg) 8px 9px)}
+.cov{height:8px;background:var(--unk-bg);border-radius:4px;position:relative;overflow:hidden;min-width:80px;flex:1}
+.cov i{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+.cov u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);left:60%}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--ink2);background:var(--bg);font-size:12.5px}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.cell{display:inline-block;min-width:44px;padding:3px 8px;border-radius:4px;text-align:center;font-family:var(--mono);font-size:12px;border:1px solid var(--line)}
+.cell.has{background:var(--accent-bg);color:var(--accent);border-color:var(--accent)}
+.cell.none{background:repeating-linear-gradient(135deg,var(--unk-bg) 0 5px,transparent 5px 10px);color:var(--unk);border-style:dashed}
+.quote{border-left:3px solid var(--line);padding:4px 0 4px 12px;font-size:14px}
+mark{background:var(--mix-bg);color:var(--ink);padding:0 2px}
+.drawer{border:1px solid var(--accent);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--surface);box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.lane h3{display:flex;gap:8px;align-items:center;font-size:14px}
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media(max-width:860px){.lanes{grid-template-columns:minmax(0,1fr)}}
+.sub{border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.sub>header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between}
+.k{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);font-weight:600}
+.theme{align-self:flex-start}
+.theme button{font:inherit;font-size:13px;padding:4px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;cursor:pointer}
+@media (prefers-reduced-motion: no-preference){.screen.on{animation:fade .15s ease-out}@keyframes fade{from{opacity:.4}to{opacity:1}}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>LapFit wireframes</h1>
+    <p class="muted">Stage 2 draft for Gate 2 review. Low fidelity, six screens, built with the proposed design tokens.</p>
+    <div class="legend" aria-label="Legend">
+      <span><span class="chip ok">✓ Real data</span> filled from the curated files or the Flipkart listing</span>
+      <span><span class="ph" style="padding:1px 8px;display:inline-block">Placeholder</span> analysis not built yet</span>
+      <span><span class="tag">■ Spec</span> <span class="tag">◆ Lab</span> <span class="tag">● Owner</span> <span class="tag sib">◆ Sibling</span></span>
+    </div>
+    <div class="theme"><button id="themeBtn" type="button">Toggle light / dark</button></div>
+  </header>
+
+  <nav class="rail" aria-label="Screens">
+    <a href="#home">1 Home</a><a href="#search">2 Search anything</a><a href="#profile">3 Profile</a><a href="#report">4 Laptop report</a>
+    <a href="#rating">5 Rating drawer</a><a href="#evidence">6 Evidence drawer</a><a href="#claim">7 Claim ledger</a><a href="#compare">8 Compare</a>
+  </nav>
+
+  <!-- 1 HOME -->
+  <section class="screen" id="s-home" aria-labelledby="h-home">
+    <div class="sheet">
+      <div class="row" style="justify-content:space-between"><strong>LapFit</strong><span class="muted mono">Laptops · Check a claim · My profile · How it works</span></div>
+      <h2 id="h-home">Find the laptop that fits the way you work, with evidence you can verify.</h2>
+      <div class="row"><div class="input">Search a model or listing, e.g. “IdeaPad 3 15ALC6”</div><span class="btn primary">Search laptops</span></div>
+      <div class="grid2">
+        <div class="box"><h3>Find what fits my use</h3><p class="muted">Tell us your workload. We show which owner reviews apply to you.</p><span class="btn">Tell us how you’ll use it</span></div>
+        <div class="box"><h3>Check a claim</h3><p class="muted">Paste something a seller or video said. See the evidence for and against.</p>
+          <div class="row"><span class="tag">“12 hours of battery”</span><span class="tag">“RAM is upgradeable”</span><span class="tag">“fan too loud for a library”</span></div></div>
+      </div>
+      <div class="box flat"><span class="k">Data honesty strip</span>
+        <p>14 laptops · 3,300 owner reviews (2,590 distinct texts) · 4 laptops with curated specs · 12 benchmark records (10 lab, 2 manufacturer claims) · gaps are shown, not hidden</p>
+        <p class="muted mono">Counts come from the processed Flipkart subset and curated files dated 10 Nov 2026.</p></div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>Two equal entry cards: personalised fit and claim checking. Example claims are the five headline demo claims (D-014).</li>
+      <li>The honesty strip is real numbers, so the data limits are visible before the first search.</li>
+      <li>Empty state: no profile is required to search; a non-blocking nudge appears on results.</li></ul></div>
+  </section>
+
+  <!-- 2 PROFILE -->
+  <section class="screen" id="s-profile" aria-labelledby="h-profile">
+    <div class="sheet">
+      <h2 id="h-profile">Profile card — confirm how we read you</h2>
+      <p class="muted">Shown after the adaptive interview and the optional free-text note. Example profile (hypothetical).</p>
+      <div class="grid2">
+        <div class="box"><span class="k">Workloads</span>
+          <div class="row"><span class="tag">Programming · daily</span><span class="tag">College &amp; research · daily</span><span class="tag">Video editing · weekends</span></div>
+          <span class="k">Follow-ups answered</span>
+          <p>Docker or WSL: yes · 20+ browser tabs: yes · Local databases: no</p>
+          <span class="k">Conditions</span>
+          <p>Often unplugged · carries to campus · quiet rooms sometimes</p></div>
+        <div class="box"><span class="k">Hard requirements</span>
+          <table><tbody>
+            <tr><td>Budget</td><td class="n">≤ ₹60,000</td></tr>
+            <tr><td>RAM</td><td class="n">≥ 16 GB</td></tr>
+            <tr><td>Weight</td><td class="n">≤ 1.7 kg</td></tr>
+            <tr><td>Battery in real use</td><td class="n">≥ 6 h</td></tr></tbody></table>
+          <span class="k">Top priorities (ranked)</span><p>1 RAM and upgradeability · 2 Keyboard · 3 Real battery</p></div>
+      </div>
+      <div class="box flat"><span class="k">How we read your note</span>
+        <p class="quote">“I also edit <mark>1080p video</mark> on weekends and need it quiet in the library.”</p>
+        <p class="muted">→ added <span class="tag">Video editing · weekends</span> and <span class="tag">Quiet rooms: sometimes</span>. Wrong? Edit or remove below.</p></div>
+      <div class="row"><span class="btn primary">Confirm profile</span><span class="btn">Edit a field</span><span class="btn">Start over</span></div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>The model only fills a schema. Every field is editable and nothing is used until confirmed.</li>
+      <li>“How we read your note” shows exactly which words produced which fields.</li>
+      <li>If the model is offline, the free-text box is hidden and presets still work.</li></ul></div>
+  </section>
+
+  <!-- 4 REPORT -->
+  <section class="screen" id="s-report" aria-labelledby="h-report">
+    <div class="sheet">
+      <div class="row" style="justify-content:space-between"><h2 id="h-report">Lenovo IdeaPad 3 15ALC6 · Ryzen 5 5500U · 8 GB / 512 GB</h2><span class="badge">Variant: exact listing</span></div>
+      <div class="row muted"><span>₹46,999</span><span>·</span><span>1.65 kg</span><span>·</span><span>15.6 in</span><span>·</span><span>147 owner reviews (listing FKL-11)</span><span class="chip ok">✓ real</span></div>
+
+      <div class="box"><span class="k">1 · Requirement gate (profile: example student)</span>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Requirement</th><th>This listing</th><th>Status</th><th>Source</th></tr></thead>
+          <tbody>
+          <tr><td>Budget ≤ ₹60,000</td><td class="n">₹46,999</td><td><span class="chip ok">✓ Met</span></td><td><span class="tag">■ Spec</span> listing</td></tr>
+          <tr><td>RAM ≥ 16 GB</td><td class="n">8 GB</td><td><span class="chip neq">≠ Spec mismatch</span></td><td><span class="tag">■ Spec</span> listing title</td></tr>
+          <tr><td>Weight ≤ 1.7 kg</td><td class="n">1.65 kg</td><td><span class="chip ok">✓ Met</span></td><td><span class="tag">■ Spec</span> listing title</td></tr>
+          <tr><td>Battery ≥ 6 h real use</td><td class="n">no exact-variant test</td><td><span class="chip unk">? Unknown</span></td><td><span class="tag sib">◆ Sibling</span> 10 h 28 min web surfing, conditions partly unstated</td></tr>
+          </tbody></table></div>
+        <p class="muted">RAM upgrade path for this SKU is unconfirmed. A sibling review (Ryzen 3 5300U) reports 4 GB soldered plus one SODIMM slot.</p></div>
+
+      <div class="box"><span class="k">2 · Dealbreakers and watch-outs</span>
+        <div class="row"><span class="chip neq">≠ Spec mismatch (from spec sheet) · RAM 8 GB vs 16 GB needed</span></div>
+        <div class="ph">Placeholder: review-based dealbreakers need ≥2 independent applicable reports. Not computed yet. This block will list each with counts, “See the reviews”, and “Verify this”.</div></div>
+
+      <div class="box"><span class="k">3 · Fit by use (your workloads)</span>
+        <div class="tablewrap"><table><thead><tr><th>Workload</th><th>Fit label</th><th>Driven by</th></tr></thead><tbody>
+        <tr><td>Programming · daily</td><td><span class="chip bad">✕ Weak</span> <span class="tag">placeholder</span></td><td>Memory (Weak for your profile), Thermals (no exact-variant evidence)</td></tr>
+        <tr><td>College and research · daily</td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td>Battery and display have no exact-variant evidence</td></tr>
+        <tr><td>Video editing · weekends</td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td>GPU and thermals unmeasured</td></tr>
+        </tbody></table></div>
+        <p class="muted mono">Labels are Strong · Good with trade-offs · Weak · Not enough evidence. Numbers appear only inside “How computed”.</p></div>
+
+      <div class="box"><span class="k">4 · Category ratings with coverage (12 categories)</span>
+        <p class="muted">Each row: headline label, how much of the weighted evidence exists (tick = 60% needed to show a number), and the evidence mix: ■ spec · ◆ lab · ● owner. “sib” means sibling variant. Real values are marked; placeholders are not analysed yet.</p>
+        <div class="tablewrap"><table><thead><tr><th>Category</th><th>Label</th><th>Coverage</th><th>■ Spec · ◆ Lab · ● Owner</th><th></th></tr></thead><tbody><tr><td><strong>Performance (CPU)</strong><div class="muted" style="font-size:12.5px">Ryzen 5 5500U is a listing spec; no benchmark curated yet</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 15%"><i style="width:15%"></i><u></u></div><span class="mono">15%</span></div></td><td><span class="cell has">1</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Memory</strong><div class="muted" style="font-size:12.5px">8 GB vs 16 GB required · deterministic from spec</div></td><td><span class="chip bad">✕ Weak for your profile</span> <span class="chip ok">✓ from spec</span></td><td><div class="row"><div class="cov" aria-label="Coverage 100%"><i style="width:100%"></i><u></u></div><span class="mono">100%</span></div></td><td><span class="cell has">1</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>GPU</strong><div class="muted" style="font-size:12.5px">Integrated Radeon graphics (sibling); your video editing needs context</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 15%"><i style="width:15%"></i><u></u></div><span class="mono">15%</span></div></td><td><span class="cell has">1</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Battery</strong><div class="muted" style="font-size:12.5px">No exact-variant lab test; owner reports not analysed</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 25%"><i style="width:25%"></i><u></u></div><span class="mono">25%</span></div></td><td><span class="cell has">1 sib</span> <span class="cell has">1 sib</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Display</strong><div class="muted" style="font-size:12.5px">No display measurement curated</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 0%"><i style="width:0%"></i><u></u></div><span class="mono">0%</span></div></td><td><span class="cell none">none</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Thermals and noise</strong><div class="muted" style="font-size:12.5px">Sibling lab only: CPU peak 80 °C, fan 44 dB(A) max</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 25%"><i style="width:25%"></i><u></u></div><span class="mono">25%</span></div></td><td><span class="cell none">none</span> <span class="cell has">3 sib</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Portability</strong><div class="muted" style="font-size:12.5px">1.65 kg vs 1.7 kg limit · spec only</div></td><td><span class="chip ok">✓ Meets your limit</span> <span class="chip ok">✓ from spec</span></td><td><div class="row"><div class="cov" aria-label="Coverage 100%"><i style="width:100%"></i><u></u></div><span class="mono">100%</span></div></td><td><span class="cell has">1</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Keyboard and trackpad</strong><div class="muted" style="font-size:12.5px">Owner reports not analysed</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 0%"><i style="width:0%"></i><u></u></div><span class="mono">0%</span></div></td><td><span class="cell none">none</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Ports and connectivity</strong><div class="muted" style="font-size:12.5px">No spec curated for this SKU</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 0%"><i style="width:0%"></i><u></u></div><span class="mono">0%</span></div></td><td><span class="cell none">none</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Upgradeability</strong><div class="muted" style="font-size:12.5px">1 SODIMM slot on the sibling; this SKU unconfirmed</div></td><td><span class="chip mix">◐ Partly (unconfirmed)</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 30%"><i style="width:30%"></i><u></u></div><span class="mono">30%</span></div></td><td><span class="cell has">1 sib</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Build and reliability</strong><div class="muted" style="font-size:12.5px">Owner reports not analysed</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 0%"><i style="width:0%"></i><u></u></div><span class="mono">0%</span></div></td><td><span class="cell none">none</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr><tr><td><strong>Value for price</strong><div class="muted" style="font-size:12.5px">₹46,999 known; value needs the other categories</div></td><td><span class="chip unk">? Not enough evidence</span> <span class="tag">placeholder</span></td><td><div class="row"><div class="cov" aria-label="Coverage 20%"><i style="width:20%"></i><u></u></div><span class="mono">20%</span></div></td><td><span class="cell has">1</span> <span class="cell none">none</span> <span class="cell none">tbd</span></td><td><span class="btn">How computed</span></td></tr></tbody></table></div>
+        <p class="muted mono">No overall score and no rank across laptops. A hard-requirement failure (RAM) shows above, whatever the average.</p></div>
+<div class="grid2">
+        <div class="box"><span class="k">5 · Owner experience</span><div class="ph">Placeholder: “N set aside — why?”, disagreements shown as two sides with conditions, duplicates collapsed.</div></div>
+        <div class="box"><span class="k">6 · Independent tests and specs</span>
+          <div class="row"><span class="tag">■ Spec</span><span>45 Wh battery</span><span class="tag sib">sibling</span></div>
+          <div class="row"><span class="tag sib">◆ Lab</span><span>Fan 25.8 / 44 dB(A) idle / max</span><span class="tag sib">sibling</span></div>
+          <p class="muted">Sibling = a different CPU of the same model. Shown apart and labelled; never counted as this laptop’s result.</p></div>
+      </div>
+      <div class="box"><span class="k">7 · What we don’t know</span>
+        <ul style="margin:0;padding-left:18px"><li>Battery under coding or lectures: no independent test found.</li><li>RAM slots and upgrade path for the Ryzen 5 5500U SKU: not confirmed by a primary source.</li></ul>
+        <span class="btn" style="align-self:flex-start">Seller questions and in-store checks</span></div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>Order follows D-009/Gate-first IA: the requirement gate comes before ratings so a hard failure cannot be averaged away.</li>
+      <li>Category ratings are now a full 12-row table. Memory and Portability are real because they are deterministic from the listing spec; every other row honestly says “Not enough evidence” until an exact-variant source exists.</li>
+      <li>The Spec mismatch chip is dashed and separate from review dealbreakers (D-011).</li>
+      <li>All values marked as spec and sibling come from the Flipkart listing and the curated Notebookcheck sibling review; the rest is placeholder.</li></ul></div>
+  </section>
+
+  <!-- 4 EVIDENCE DRAWER -->
+  <section class="screen" id="s-evidence" aria-labelledby="h-ev">
+    <div class="sheet">
+      <h2 id="h-ev">Evidence drawer (side panel on desktop, bottom sheet on phones)</h2>
+      <div class="grid2">
+        <div class="box flat"><span class="k">Report behind the panel</span><p class="muted">Dealbreakers · “Heating under load”</p><span class="chip mix">◐ Watch-out · 1 report</span><p class="muted">The chip that was tapped keeps focus ring; closing the drawer returns here at the same scroll position.</p></div>
+        <div class="drawer" role="dialog" aria-labelledby="dtitle">
+          <div class="row" style="justify-content:space-between"><h3 id="dtitle">Heating under load</h3><span class="btn">Close</span></div>
+          <p class="muted"><b>Why it matters for you:</b> you work unplugged and study in quiet rooms.</p>
+          <div class="tabs row"><span class="badge">Quotes (1)</span><span class="tag">Set aside (4)</span><span class="tag">Source</span></div>
+          <div class="quote"><mark>Placeholder quote shown exactly as written, with the matching words highlighted</mark><br><span class="mono muted">FK-00000 · ★3 · listing FKL-xx · date not available in this source</span></div>
+          <div class="row"><span class="tag">● Owner</span><span class="badge">Variant: exact listing</span><span class="tag">distinct texts: 1</span></div>
+          <p class="muted"><b>What we don’t know:</b> workload, duration, room temperature.</p>
+          <div class="row"><span class="btn">Open source</span><span class="btn">Previous</span><span class="btn">Next</span><span class="btn">This is wrong</span></div>
+          <div class="ph">Set aside tab: each review with a reason (different variant, different use, duplicate, promotional, off-topic, instruction-like content, unclear context) and the rule applied.</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>Quotes are verified as exact substrings before they can appear here; otherwise the card shows “quote unavailable”.</li>
+      <li>Focus trap, Escape closes, background inert, focus returns to the opener.</li>
+      <li>“This is wrong” feeds a correction queue that becomes evaluation candidates, never automatic training.</li></ul></div>
+  </section>
+
+  <!-- 5 CLAIM LEDGER -->
+  <section class="screen" id="s-claim" aria-labelledby="h-claim">
+    <div class="sheet">
+      <div class="row" style="justify-content:space-between"><h2 id="h-claim">Claim: “12 hours of battery life”</h2><span class="badge">Apple MacBook Air M1 (2020) · exact family</span></div>
+      <div class="row"><span class="chip mix" style="font-size:14px">◐ Mixed — depends on conditions</span><span class="muted">Evidence from 1 manufacturer page and 1 independent lab · checked 10 Nov 2026 against LapFit’s corpus · live web search not performed</span></div>
+      <div class="box flat"><span class="k">What we checked</span><p>We split the claim by how you might use it: video playback, web browsing at moderate brightness, web browsing at maximum brightness, and a coding or campus day.</p></div>
+
+      <div class="sub"><header><h3>A · Web browsing at moderate brightness lasts 12 h or more</h3><span class="chip ok">✓ Supported</span></header>
+        <div class="lanes">
+          <div class="lane"><h3>For (2)</h3>
+            <div class="box"><span class="tag">◆ Lab</span><p>16 h Wi-Fi web surfing at 150 nits, auto-brightness off · Notebookcheck, 27 Nov 2020</p></div>
+            <div class="box"><span class="tag">◆ Lab</span><p>15.2 h, fullscreen variant, same conditions</p></div></div>
+          <div class="lane"><h3>Against (0)</h3><div class="ph">Counter-evidence search ran. Nothing found for this condition.</div></div>
+          <div class="lane"><h3>Not applicable</h3>
+            <div class="box"><span class="tag">■ Claimed</span><p>Apple: up to 15 h wireless web, brightness 8 clicks from bottom. Manufacturer claim, not independent.</p></div></div>
+        </div></div>
+
+      <div class="sub"><header><h3>B · Web browsing at maximum brightness lasts 12 h or more</h3><span class="chip bad">✕ Contradicted</span></header>
+        <div class="lanes">
+          <div class="lane"><h3>For (0)</h3><div class="ph">No evidence supports 12 h at this brightness.</div></div>
+          <div class="lane"><h3>Against (1)</h3><div class="box"><span class="tag">◆ Lab</span><p>8.5 h at about 400 nits · Notebookcheck, 27 Nov 2020</p></div></div>
+          <div class="lane"><h3>Not applicable</h3><div class="ph">—</div></div>
+        </div></div>
+
+      <div class="sub"><header><h3>C · Video playback lasts 12 h or more</h3><span class="chip unk">? Insufficient · claimed only</span></header>
+        <div class="lanes">
+          <div class="lane"><h3>For (0)</h3><div class="box"><span class="tag">■ Claimed</span><p>Apple: up to 18 h Apple TV movie playback, 1080p. Manufacturer claim only.</p></div></div>
+          <div class="lane"><h3>Against (0)</h3><div class="ph">None found.</div></div>
+          <div class="lane"><h3>Not applicable</h3><div class="ph">No independent video-playback test found in the corpus.</div></div>
+        </div></div>
+
+      <div class="sub"><header><h3>D · A full coding or campus day lasts 12 h or more</h3><span class="chip unk">? Insufficient</span></header>
+        <div class="ph">No independent test under coding workloads. Owner reports for this listing (752 reviews) have not been analysed yet — placeholder for the owner lane.</div></div>
+
+      <div class="box"><span class="k">Conditions table (claim vs evidence)</span>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Condition</th><th>Your claim</th><th>Lab test (150 nits)</th><th>Lab test (~400 nits)</th></tr></thead>
+          <tbody>
+          <tr><td>Brightness</td><td>not stated</td><td class="n">150 nits <span class="chip ok">✓</span></td><td class="n">≈400 nits <span class="chip ok">✓</span></td></tr>
+          <tr><td>Workload</td><td>not stated</td><td class="n">Wi-Fi web surfing</td><td class="n">Wi-Fi web surfing</td></tr>
+          <tr><td>Browser, OS version</td><td>not stated</td><td class="n">not stated <span class="chip unk">?</span></td><td class="n">not stated <span class="chip unk">?</span></td></tr>
+          <tr><td>Comparable to the claim?</td><td></td><td><span class="chip mix">◐ Only if you mean moderate-brightness browsing</span></td><td><span class="chip mix">◐ Only if you mean maximum brightness</span></td></tr>
+          </tbody></table></div></div>
+
+      <div class="grid2">
+        <div class="box"><span class="k">What this does not prove</span><p>It does not show 12 h for coding, video calls or video editing. Lab web-surfing scripts are not coding workloads.</p></div>
+        <div class="box"><span class="k">What would change the verdict</span><p>An independent coding-workload test, an independent video-playback test, or owner reports that state brightness and tasks.</p></div>
+      </div>
+      <div class="row"><span class="btn primary">Copy report with sources</span><span class="btn">Check another claim</span><span class="chip ok">✓ real data: Apple Support page and Notebookcheck article</span></div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>This is the worked example from the real curated data. The verdict word “Mixed” comes from the ladder in MVP_SCOPE; the overall verdict is shown only after sub-claims.</li>
+      <li>Manufacturer claims sit in a separate lane and never count as independent support.</li>
+      <li>A “Counter-evidence search ran” line is always present, even when it finds nothing.</li></ul></div>
+  </section>
+
+  <!-- 2 SEARCH ANYTHING -->
+  <section class="screen" id="s-search" aria-labelledby="h-search">
+    <div class="sheet">
+      <h2 id="h-search">Search anything — every query gets a real answer or an honest “not found”</h2>
+      <div class="row"><div class="input">Dell Inspiron 15 3520, i5, 16 GB</div><span class="btn primary">Search</span></div>
+      <p class="muted">Example query (hypothetical laptop). Results below show the states, not real findings.</p>
+      <div class="grid2">
+        <div class="box"><span class="k">What happens to any query</span>
+          <ol style="margin:0;padding-left:18px"><li>Match against the catalogue and aliases (exact SKU first).</li><li>If it is a laptop we do not hold, offer <b>Research this laptop</b>.</li><li>If it is a claim, route and decompose it.</li><li>If it is neither, say what LapFit can and cannot do.</li></ol></div>
+        <div class="box"><span class="k">Result groups</span>
+          <div class="row"><span class="badge">In catalogue</span><span class="muted">indexed corpus, analysed</span></div>
+          <div class="row"><span class="badge">Researched live</span><span class="muted">found today, with sources</span></div>
+          <div class="row"><span class="tag">Not found</span><span class="muted">nothing usable; links only</span></div></div>
+      </div>
+      <div class="box"><span class="k">Research this laptop (live pipeline, user-triggered)</span>
+        <div class="tablewrap"><table><thead><tr><th>Step</th><th>What it does</th><th>Possible outcomes</th></tr></thead><tbody>
+          <tr><td>1 Identify</td><td>Resolve brand, model and exact SKU; ask if ambiguous</td><td><span class="chip ok">✓ exact</span> <span class="chip mix">◐ family only</span> <span class="chip unk">? ask user</span></td></tr>
+          <tr><td>2 Find sources</td><td>Search for official spec pages and independent reviews</td><td>N URLs found</td></tr>
+          <tr><td>3 Permission check</td><td>Allowlist, robots and terms; decide fetch, or keep link only</td><td>fetched · <span class="tag">link only</span></td></tr>
+          <tr><td>4 Extract</td><td>Pull exact facts with conditions; a model reads, code checks quotes and units</td><td>validated · rejected (reason)</td></tr>
+          <tr><td>5 Build report</td><td>Same report as catalogue laptops, labelled “researched live”</td><td>coverage shown per category</td></tr></tbody></table></div>
+        <div class="ph">Placeholder: a progress list with real step results, elapsed time, and a Cancel button. Sections appear as they finish; specs first.</div></div>
+      <div class="grid2">
+        <div class="box"><span class="k">What a live-researched report can and cannot include</span>
+          <p class="muted">Specs and independent test facts, each with a link. Owner reviews only if a permitted source provides them, so the Owner lane often says “no owner evidence available” and ratings stay conservative.</p></div>
+        <div class="box"><span class="k">Anything typed gets a response</span>
+          <ul style="margin:0;padding-left:18px"><li>Typo or alias: “Did you mean …?”</li><li>Not a laptop: “LapFit answers laptop questions. Try a model or a claim.”</li><li>Claim without a laptop: asks which laptop.</li><li>Offline or no search key: says live research is unavailable and shows the catalogue only.</li></ul></div>
+      </div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>This implements the “whole app is real” requirement: nothing is canned. Catalogue laptops are fast and deep; any other laptop is researched on demand, slower and thinner, and labelled as such.</li>
+      <li>Open decisions for you: which search provider and key to use, and which domains are allowed for fetching.</li>
+      <li>Live research always shows when it was run, which sources it fetched and which it only linked.</li></ul></div>
+  </section>
+
+  <!-- 5 RATING DRAWER -->
+  <section class="screen" id="s-rating" aria-labelledby="h-rating">
+    <div class="sheet">
+      <h2 id="h-rating">How “Battery” is computed — IdeaPad 3 15ALC6 (Ryzen 5 5500U)</h2>
+      <div class="row"><span class="chip unk">? Not enough evidence</span><span class="muted">Reason: no exact-variant lab test, and owner reports are not analysed yet</span></div>
+      <div class="box"><span class="k">Inputs found</span>
+        <div class="tablewrap"><table><thead><tr><th>Class</th><th>Input</th><th>Variant match</th><th>Counted in a number?</th></tr></thead><tbody>
+          <tr><td><span class="tag sib">■ Spec</span></td><td class="n">45 Wh battery</td><td><span class="badge">sibling</span></td><td>Context only</td></tr>
+          <tr><td><span class="tag sib">◆ Lab</span></td><td class="n">10 h 28 min Wi-Fi web surfing (brightness not stated)</td><td><span class="badge">sibling</span></td><td>Context only</td></tr>
+          <tr><td><span class="tag">● Owner</span></td><td class="n">147 reviews for this listing, not yet analysed</td><td><span class="badge">exact listing</span></td><td>Needs ≥3 independent applicable reports</td></tr></tbody></table></div>
+        <p class="muted">Rule: only exact-variant evidence is scored; sibling evidence is shown beside it and never pooled.</p></div>
+      <div class="box"><span class="k">Weights for the example profile (starting hypothesis, editable by the student)</span>
+        <div class="tablewrap"><table><thead><tr><th>Category</th><th>Weight</th><th>Has usable evidence?</th></tr></thead><tbody>
+          <tr><td>CPU performance</td><td class="n">25%</td><td><span class="cell none">no</span></td></tr>
+          <tr><td>Memory</td><td class="n">20%</td><td><span class="cell has">yes (spec)</span></td></tr>
+          <tr><td>Thermals</td><td class="n">15%</td><td><span class="cell none">no</span></td></tr>
+          <tr><td>Keyboard</td><td class="n">10%</td><td><span class="cell none">no</span></td></tr>
+          <tr><td>Battery</td><td class="n">10%</td><td><span class="cell none">no</span></td></tr>
+          <tr><td>Display</td><td class="n">10%</td><td><span class="cell none">no</span></td></tr>
+          <tr><td>Portability</td><td class="n">10%</td><td><span class="cell has">yes (spec)</span></td></tr></tbody></table></div>
+        <p class="mono">Coverage = (20 + 10) / 100 = 30%. Below the 60% threshold, so no number is shown.</p></div>
+      <div class="box flat"><span class="k">The rule in words</span>
+        <p>Score = weighted average of the categories that have enough evidence. Coverage = share of the total weight that has evidence. A number is shown only at 60% coverage or more. A failed hard requirement overrides the average. Missing data is never counted as zero or as a pass. The model never calculates any of this.</p></div>
+      <div class="row"><span class="btn">Edit my weights</span><span class="btn">Open the evidence</span></div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>Weights and 60% threshold are proposals from MVP_SCOPE; the arithmetic shown is exact for the listed weights.</li>
+      <li>This is the methodology drawer behind every “How computed” button on the report.</li></ul></div>
+  </section>
+
+  <!-- 6 COMPARE -->
+  <section class="screen" id="s-compare" aria-labelledby="h-compare">
+    <div class="sheet">
+      <h2 id="h-compare">Compare three listings</h2>
+      <p class="muted">Specs are real (listing titles and curated sources). Evidence rows are placeholders. No winner is marked.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Row</th><th>IdeaPad 3 15ALC6<br><span class="badge">exact listing</span></th><th>VivoBook 15 X515JA<br><span class="badge">exact listing</span></th><th>MacBook Air M1<br><span class="badge">exact listing</span></th></tr></thead>
+        <tbody>
+        <tr><td>Price (listing)</td><td class="n">₹46,999</td><td class="n">₹33,990</td><td class="n">₹86,990</td></tr>
+        <tr><td>RAM ≥ 16 GB</td><td><span class="chip neq">≠ 8 GB</span></td><td><span class="chip neq">≠ 8 GB</span></td><td><span class="chip neq">≠ 8 GB</span></td></tr>
+        <tr><td>Weight</td><td class="n">1.65 kg</td><td class="n">1.80 kg</td><td class="n">1.29 kg</td></tr>
+        <tr><td>Battery capacity</td><td class="n">45 Wh <span class="tag sib">sibling</span></td><td class="n">37 Wh <span class="tag sib">sibling</span></td><td class="n">49.9 Wh <span class="tag">■ Spec</span></td></tr>
+        <tr><td>RAM upgrade path</td><td><span class="chip mix">◐ Partly: 1 slot (sibling)</span></td><td><span class="chip unk">? Unknown</span></td><td><span class="chip unk">? Not stated by source</span></td></tr>
+        <tr><td>Dealbreakers (reviews)</td><td><div class="ph">placeholder</div></td><td><div class="ph">placeholder</div></td><td><div class="ph">placeholder</div></td></tr>
+        <tr><td>Memory (vs your profile)</td><td><span class="chip bad">✕ Weak</span></td><td><span class="chip bad">✕ Weak</span></td><td><span class="chip bad">✕ Weak</span></td></tr>
+        <tr><td>Portability (≤ 1.7 kg)</td><td><span class="chip ok">✓ Meets</span></td><td><span class="chip bad">✕ 1.80 kg</span></td><td><span class="chip ok">✓ Meets</span></td></tr>
+        <tr><td>Battery · Thermals · Display · Keyboard · Build</td><td><div class="ph">placeholder labels</div></td><td><div class="ph">placeholder labels</div></td><td><div class="ph">placeholder labels</div></td></tr>
+        <tr><td>Evidence coverage</td><td><div class="row"><div class="cov"><i style="width:35%"></i><u></u></div><span class="mono">35%</span></div></td><td><div class="row"><div class="cov"><i style="width:25%"></i><u></u></div><span class="mono">25%</span></div></td><td><div class="row"><div class="cov"><i style="width:55%"></i><u></u></div><span class="mono">55%</span></div></td></tr>
+        </tbody></table></div>
+      <p class="muted mono">Coverage bars are illustrative placeholders. The tick on each bar is the 60% threshold.</p>
+
+      <div class="box"><span class="k">Evidence coverage map — IdeaPad 3 15ALC6 (real counts from curated files)</span>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Category</th><th>■ Spec</th><th>◆ Lab</th><th>● Owner</th></tr></thead>
+          <tbody>
+          <tr><td>Battery</td><td><span class="cell has">1 sib</span></td><td><span class="cell has">1 sib</span></td><td><span class="cell none">tbd</span></td></tr>
+          <tr><td>Thermals</td><td><span class="cell none">none</span></td><td><span class="cell has">2 sib</span></td><td><span class="cell none">tbd</span></td></tr>
+          <tr><td>Fan noise</td><td><span class="cell none">none</span></td><td><span class="cell has">1 sib</span></td><td><span class="cell none">tbd</span></td></tr>
+          <tr><td>RAM upgradeability</td><td><span class="cell has">1 sib</span></td><td><span class="cell none">none</span></td><td><span class="cell none">tbd</span></td></tr>
+          <tr><td>Keyboard</td><td><span class="cell none">none</span></td><td><span class="cell none">none</span></td><td><span class="cell none">tbd</span></td></tr>
+          </tbody></table></div>
+        <p class="muted">“sib” = from a sibling variant. “tbd” = owner evidence not analysed yet. Hatched cells show where evidence is missing.</p></div>
+    </div>
+    <div class="notes"><b>Design notes</b><ul>
+      <li>Same row order in every column; no ranking, no highlighted winner. Unequal evidence coverage is shown instead.</li>
+      <li>On phones the columns become swipeable cards with the first column pinned as labels.</li>
+      <li>Grid cells announce their content, e.g. “Battery, Lab: 1 sibling measurement”.</li></ul></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var names=['home','search','profile','report','rating','evidence','claim','compare'];
+  function show(){
+    var h=(location.hash||'#home').slice(1); if(names.indexOf(h)<0)h='home';
+    names.forEach(function(n){document.getElementById('s-'+n).classList.toggle('on',n===h)});
+    document.querySelectorAll('.rail a').forEach(function(a){
+      if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('hashchange',show); show();
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var r=document.documentElement,c=r.getAttribute('data-theme');
+    var dark=c?c==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    r.setAttribute('data-theme',dark?'light':'dark');
+  });
+})();
+</script>

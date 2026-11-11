@@ -1,0 +1,1 @@
+evidence_id,review_id,laptop_variant_id,topic,claim,sentiment,usage_context,configuration_context,applicability,applicability_reason,conditions,original_quote,confidence,model_name,prompt_version,created_at
