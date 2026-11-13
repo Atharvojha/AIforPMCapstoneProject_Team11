@@ -1,5 +1,7 @@
 > Part of the LapFit feature specifications. Shared services, conventions and privacy rules are in `../04_FEATURE_SPECS.md` ("Shared platform"). Questions raised here are answered in `../05_ANSWERS.md`.
 
+> **Functional requirements only.** This file says what the system must do, not which screens exist. Screen specifications are written after the frontend is built (see `../../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md`). Earlier UI notes are kept as drafts in `../../build-plan/frontend-notes-for-later/`.
+
 # F08. My laptops
 
 **Opportunity.** As an owner, I want one place that tells me my warranty status, what my laptop is worth and what others report about it, so I can look after it and decide when to act.
@@ -9,27 +11,27 @@
 
 ## Phase 2. Feature decomposition
 
-| ID | Feature | What it does | Why | Who | Where and when | User actions | Inputs → outputs | Business rules | Depends on | Prototype |
-|---|---|---|---|---|---|---|---|---|---|---|
-| F08.1 | Add a laptop | Choose the exact version, purchase date, optional price paid | Everything is calculated from these | Owner | Mine screen | Fill and add | Form → saved item | Version from the catalog list | Catalog | Built |
-| F08.2 | Validation | Date not in the future; price paid 1 to 1,00,00,000 or empty | Quality | System | On add | — | Form → errors | — | — | Partial |
-| F08.3 | On-device storage | Saves the list in the browser; works without saving if storage is blocked, and says so | Privacy | System | Always | — | Items → storage | Reads and writes in try and catch | — | Built |
-| F08.4 | Summary calculation | The server returns computed figures for the saved items; nothing is stored there | Keeps logic in one place | System | On open | — | Items → summaries | Stateless; ten items at most | `garage` function | Built |
-| F08.5 | Warranty countdown | Days left and end date | The most-forgotten fact | Owner | Card | — | Date, years → days left | Warranty runs from the purchase date [A: invoice date]; shows the catalog text too | Catalog | Built |
-| F08.6 | Price now vs paid | Today's price with its as-of date, and the gap | Know value | Owner | Card | — | Price → gap | Neutral wording; no claims about refunds or price protection | Catalog | Built |
-| F08.7 | Rough resale range | A range from the sell-plan rules, labelled sample | Value in the future | Owner | Card | Tap "Sell this laptop" | Price → range | Same function as F09; "A real range needs real used prices" | F09 | Built |
-| F08.8 | Owner reports and complaints | Rating with n and rising complaints for the model | Context | Owner | Card | "What owners say" | Evidence → text | n shown; under 20 reads "not enough evidence" | F05, F07 | Built |
-| F08.9 | Actions | What owners say; share my experience (after 1 month); sell this laptop; remove | Connects features | Owner | Card | Tap | — | — | F05, F06, F09 | Built |
-| F08.10 | Edit and remove | Change the date or price; remove | Mistakes happen | Owner | Card | Edit, remove with confirm | Item → item | Remove asks to confirm | — | Partial (remove only) |
-| F08.11 | Export and import (V1) | Download the list as a file; load it on another device | Backup without an account | Owner | Mine | Tap | Items ↔ file | Local file only; never uploaded | — | **New** |
-| F08.12 | Reminders (V2) | Warranty and report reminders | The job includes remembering | Account holder | Notifications | Opt in | Dates → messages | Needs accounts and a channel | Accounts, n8n | New |
-| F08.13 | Accounts and sync (V2) | Keep the list across devices | Continuity | Account holder | Settings | Sign up | Items → server | Consent and deletion | Accounts | New |
+| ID | Feature | What it does | Why | Who | Inputs → outputs | Business rules | Depends on | Prototype |
+|---|---|---|---|---|---|---|---|---|
+| F08.1 | Add a laptop | Choose the exact version, purchase date, optional price paid | Everything is calculated from these | Owner | Form → saved item | Version from the catalog list | Catalog | Built |
+| F08.2 | Validation | Date not in the future; price paid 1 to 1,00,00,000 or empty | Quality | System | Form → errors | — | — | Partial |
+| F08.3 | On-device storage | Saves the list in the browser; works without saving if storage is blocked, and says so | Privacy | System | Items → storage | Reads and writes in try and catch | — | Built |
+| F08.4 | Summary calculation | The server returns computed figures for the saved items; nothing is stored there | Keeps logic in one place | System | Items → summaries | Stateless; ten items at most | `garage` function | Built |
+| F08.5 | Warranty countdown | Days left and end date | The most-forgotten fact | Owner | Date, years → days left | Warranty runs from the purchase date [A: invoice date]; shows the catalog text too | Catalog | Built |
+| F08.6 | Price now vs paid | Today's price with its as-of date, and the gap | Know value | Owner | Price → gap | Neutral wording; no claims about refunds or price protection | Catalog | Built |
+| F08.7 | Rough resale range | A range from the sell-plan rules, labelled sample | Value in the future | Owner | Price → range | Same function as F09; "A real range needs real used prices" | F09 | Built |
+| F08.8 | Owner reports and complaints | Rating with n and rising complaints for the model | Context | Owner | Evidence → text | n shown; under 20 reads "not enough evidence" | F05, F07 | Built |
+| F08.9 | Actions | What owners say; share my experience (after 1 month); sell this laptop; remove | Connects features | Owner | — | — | F05, F06, F09 | Built |
+| F08.10 | Edit and remove | Change the date or price; remove | Mistakes happen | Owner | Item → item | Remove asks to confirm | — | Partial (remove only) |
+| F08.11 | Export and import (V1) | Download the list as a file; load it on another device | Backup without an account | Owner | Items ↔ file | Local file only; never uploaded | — | **New** |
+| F08.12 | Reminders (V2) | Warranty and report reminders | The job includes remembering | Account holder | Dates → messages | Needs accounts and a channel | Accounts, n8n | New |
+| F08.13 | Accounts and sync (V2) | Keep the list across devices | Continuity | Account holder | Items → server | Consent and deletion | Accounts | New |
 
 ### Supporting, system and administrative
 
 | ID | Feature | What it does | Who | Rules | Prototype |
 |---|---|---|---|---|---|
-| F08.S1 | Gate for figures | Recomputes dates and gaps from stored values | System | Mismatch drops the card's figures | New |
+| F08.S1 | Gate for figures | Recomputes dates and gaps from stored values | System | Mismatch drops the result item's figures | New |
 | F08.S2 | Privacy notice | One line: "Saved on this device only" | System | Always shown | Built |
 | F08.A1 | Warranty rule table | Per brand or model exceptions to "years from purchase" | Admin | Versioned, with source | New |
 | F08.A2 | Catalog warranty fields | `warranty`, `warranty_years` | Admin | Verified | Built |
@@ -40,7 +42,7 @@
 F08 My laptops
  └─ F08.5 Warranty countdown
      └─ Behaviour: bought 1 Mar 2026, warranty 1 year, today 13 Nov 2026
-         ├─ User interaction: sees "Warranty: 108 days left (1 year, ends 1 Mar 2027)"
+         ├─ User receives: "Warranty: 108 days left (1 year, ends 1 Mar 2027)"
          └─ System behaviour: purchase date + warranty years → end date → days between today and end → label "ended" if not positive
 ```
 
@@ -48,17 +50,11 @@ F08 My laptops
 
 ```mermaid
 flowchart TD
-  A[Owner opens Mine] --> B{Saved items?}
-  B -->|No| C[Empty state: add a laptop]
-  B -->|Yes| D[Send list to the summary function]
-  C --> E[Fill the form]
-  E --> F{Valid?}
-  F -->|No| G[Show what to fix]
-  G --> E
-  F -->|Yes| H[Save on device]
-  H --> D
-  D --> I[Show cards: warranty, price, resale, reports]
-  I --> J[What owners say, Share my experience, Sell, Remove]
+  A[Items received from the caller] --> B{Valid?}
+  B -->|No| C[Return what to fix]
+  B -->|Yes| D[Compute summary per item]
+  D --> E[Pre-send gate]
+  E --> F[Return warranty, price, resale range, reports, issues]
 ```
 
 | Situation | Behaviour |
@@ -68,23 +64,6 @@ flowchart TD
 | Server unreachable | Shows the saved facts without computed figures and a notice |
 | Date today | Allowed; "Owned 0 months" |
 | Abandon | Nothing leaves the device |
-
-## Phase 4. Frontend specification
-
-| Screen | Purpose | Entry | Exit |
-|---|---|---|---|
-| S1 Mine | List and add | Tab "Mine" | Owners, Sell, form |
-
-| Component | Purpose | Action | Data | API | States |
-|---|---|---|---|---|---|
-| Banner and "saved on this device" note | Honesty | — | — | — | Always |
-| Laptop card | Name, version, months owned, warranty, price now, resale, reports, issues | Buttons | Summary | `POST /garage` | Loaded; partial; catalog-missing |
-| Add form | Version select, date, optional price | Add | Catalog list | `GET /catalog` | Initial (today's date); error |
-| Empty state | "No laptops yet" | Add | — | — | Shown when empty |
-| Buttons | Owners, share, sell, remove | Tap | — | — | Share appears after 1 month |
-| Export and import (V1) | Backup | Tap | File | — | Idle; error |
-
-Validation: date not after today; price paid 1 to 1,00,00,000; version must exist. UI states: initial, loading, success, empty, error, partial (no computed figures), offline (saved facts only), permission denied (n/a).
 
 ## Phase 5. Backend specification
 
@@ -114,7 +93,7 @@ summary(item):
 
 | Feature | Visitor | Account holder (V2) | Admin |
 |---|---|---|---|
-| Use Mine | Use | Use, sync | Use |
+| Use the My-laptops functions | Use | Use, sync | Use |
 | Delete own data | (device) | Delete | Delete on request |
 | Warranty rules, catalog fields | – | – | Manage |
 
@@ -149,27 +128,26 @@ Supabase; n8n (V2). Dependencies: F08.4 → catalog; F08.7 → F09 value functio
 | Browser data cleared | The list is gone; export (V1) is the remedy |
 | Time zones | Dates are calendar dates in Indian time |
 | Performance | Summary under 300 ms for 10 items |
-| Accessibility | Countdown as text; buttons labelled |
 | Privacy | Device only (V1); consent and notice before any account |
 
 ## Phase 10. Backlog
 
-| ID | Feature | Frontend | Backend | Dependencies | Priority | Complexity | Prototype |
-|---|---|---|---|---|---|---|---|
-| F08.1, F08.3, F08.4, F08.5, F08.6, F08.8, F08.9 | Add, storage, summary, warranty, price, reports, actions | Mine screen | `garage` | Catalog | MVP | M | Built |
-| F08.2, F08.10 | Validation, edit | Form | — | — | MVP | S | Partial |
-| F08.7 | Resale range | Card line | F09 function | F09 | MVP | S | Built |
-| F08.S1 | Gate for figures | — | Gate | — | MVP | S | New |
-| F08.11 | Export and import | Buttons | — | — | V1 | S | New |
-| F08.A1 | Warranty rule table | Admin | Table | Source data | V1 | S | New |
-| F08.12, F08.13 | Reminders, accounts | Settings, sign-up | Accounts, n8n | Consent, notice | V2 | L | New |
-| — | Price alerts | Screens | Alerts | Accounts | Future | M | New |
+| ID | Feature | Backend | Dependencies | Priority | Complexity | Prototype |
+|---|---|---|---|---|---|---|
+| F08.1, F08.3, F08.4, F08.5, F08.6, F08.8, F08.9 | Add, storage, summary, warranty, price, reports, actions | `garage` | Catalog | MVP | M | Built |
+| F08.2, F08.10 | Validation, edit | — | — | MVP | S | Partial |
+| F08.7 | Resale range | F09 function | F09 | MVP | S | Built |
+| F08.S1 | Gate for figures | Gate | — | MVP | S | New |
+| F08.11 | Export and import | — | — | V1 | S | New |
+| F08.A1 | Warranty rule table | Table | Source data | V1 | S | New |
+| F08.12, F08.13 | Reminders, accounts | Accounts, n8n | Consent, notice | V2 | L | New |
+| — | Price alerts | Alerts | Accounts | Future | M | New |
 
-Reasoning: accounts are L because of security, consent, deletion and support, not because of the screens.
+Reasoning: accounts are L because of security, consent, deletion and support, not because of the interface.
 
 ## Phase 11. Blueprint and acceptance criteria
 
-**Sequence:** catalog → summary function and gate → Mine screen → validation and edit → export (V1) → accounts only after the core is proven.
+**Sequence:** catalog → summary function and gate → summary endpoint tests → validation and edit → export (V1) → accounts only after the core is proven.
 
 | ID | Criterion |
 |---|---|
@@ -180,8 +158,8 @@ Reasoning: accounts are L because of security, consent, deletion and support, no
 | F08.6 | **Given** paid ₹69,990 and now ₹62,990, **when** shown, **then** it says the price is ₹7,000 lower and gives no refund claim. |
 | F08.7 | **Given** a price now, **when** shown, **then** a resale range appears labelled as a sample band. |
 | F08.8 | **Given** n under 20, **when** shown, **then** "not enough evidence (n = …)" appears. |
-| F08.9 | **Given** owned under 1 month, **when** shown, **then** no "Share my experience" button appears. |
-| F08.10 | **Given** Remove, **when** tapped, **then** a confirmation appears before deletion. |
+| F08.9 | **Given** owned under 1 month, **when** shown, **then** no "Share my experience" option appears. |
+| F08.10 | **Given** Remove, **when** selected, **then** a confirmation appears before deletion. |
 | F08.S1 | **Given** a changed figure, **when** the gate runs, **then** that figure is dropped and logged. |
 
 Hard metrics: a warranty date or price gap that differs from the fixture; any list stored server-side.

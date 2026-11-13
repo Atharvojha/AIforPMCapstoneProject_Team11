@@ -1,37 +1,39 @@
 > Part of the LapFit feature specifications. Shared services, conventions and privacy rules are in `../04_FEATURE_SPECS.md` ("Shared platform"). Questions raised here are answered in `../05_ANSWERS.md`.
 
+> **Functional requirements only.** This file says what the system must do, not which screens exist. Screen specifications are written after the frontend is built (see `../../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md`). Earlier UI notes are kept as drafts in `../../build-plan/frontend-notes-for-later/`.
+
 # F09. Sell plan
 
 **Opportunity.** When I want to sell my laptop, I want to know what it may fetch, which fixes are worth paying for, how to price it and when to sell, so I get more for it.
 **Class:** extension; a demonstrated extension, not core (Q-F09-2). AI anatomy: `../features/F09_sell_plan.md`. Prompts: P1g (condition reader), P6 (listing writer, V1), P3 (photos, V1).
 **Answers applied:** real data sources (Q-F03-2, Q-F09-1); listing text V1 (Q-F09-3); new answers Q-F09-4 to Q-F09-9 (outcome capture, calibration, editable costs, range rules).
-**Important:** every factor and repair cost is a **sample assumption**. The plan says so on screen.
+**Important:** every factor and repair cost is a **sample assumption**. Every plan says so in its response.
 **Prototype key:** Built, Partial, New.
 
 ## Phase 2. Feature decomposition
 
-| ID | Feature | What it does | Why | Who | Where and when | User actions | Inputs → outputs | Business rules | Depends on | Prototype |
-|---|---|---|---|---|---|---|---|---|---|---|
-| F09.1 | Sell form | Version, age in months, body, screen, battery %, keyboard, bill and box, warranty left, software, reason, how soon; each with "Not sure" | Structured, quick | Seller | Sell screen | Fill; submit | Form → plan | Unknown stays unknown | Catalog | Built |
-| F09.2 | "Use my words" | Describe the laptop in free text | Faster for some | Seller | Sell screen | Type; press | Text → fields (P1g) | Null for anything not said; never guess a battery % | P1g | Built |
-| F09.3 | Laptop resolution | Match to one catalog version; ask if several; if not in catalog, generic tips and no figures | Figures need a real price | System | After reading | Choose which | Mention → version | Same as F02.1 | F02.1 | Built |
-| F09.4 | Condition normalisation | One normaliser for form and text: body (like new, good, scratched, damaged), screen (perfect, marks, cracked), battery 0 to 100, keyboard, docs (bill and box, bill, none), software (fresh, cluttered), reason, urgency | Same meaning every time | System | Always | — | Raw → state | Unknown → null; idempotent | — | Built |
-| F09.5 | Value range | Middle value = today's new price × age × condition factors; range = middle ± a spread | The headline number | System | Plan | — | State → low, mid, high | Factors from the resale table; rounded to ₹100 | Factor table | Built (sample) |
-| F09.6 | Range widening | Each unknown field widens the range by 1.5 points, up to 20% | Honesty about uncertainty | System | Plan | — | Unknowns → spread | Settings | F09.5 | Built |
-| F09.7 | Fix evaluation | For each applicable fix, recompute the value with it applied and subtract its cost; "Do this" if the net gain is at least ₹500 (or free), else "Skip this" with the numbers | The core question | System | Plan | Expand "How" | State → verdicts | Counterfactual, not a guess | F09.5, repair costs | Built |
-| F09.8 | Memory upgrade | Suggested only if the catalog shows a free memory slot and a higher-RAM version with the same storage; value from the catalog price gap | Uses real catalog data | System | Plan | — | Variant → option | Never suggested for soldered memory | Catalog | Built |
-| F09.9 | Combined fixes | Chains the worthwhile fixes for an "after fixes" range, total cost and net gain | The answer to "what should I do" | System | Plan | — | Fixes → range | Net can be negative and is then not shown as a gain | F09.7 | Built |
-| F09.10 | Pricing pairs | Quick sale: list at the middle, accept down to the low. Best price: list at the high, accept down to the middle. The user's urgency highlights one | Practical guidance | System | Plan | — | Range → prices | Labelled as an estimate | F09.5 | Built |
-| F09.11 | Timing | Notes a fall in the model's new price over 30 days, and a warranty ending within 3 months | When to sell | System | Plan | — | History → notes | Uses recorded prices only | Price history | Built |
-| F09.12 | Disclosures and reason note | What to disclose (battery number, keys, cracks, scratches) and advice tied to the reason (upgrading, need money, not using, fault, gift, other) | Honest listings | System | Plan | — | State → text | Reasoned text from a table, not generated | — | Built |
-| F09.13 | Missing-details list | Lists what would tighten the range and offers the form pre-filled | Closes the gap | System | Plan | Tap | Unknowns → list | — | F09.4 | Built |
-| F09.14 | "How this is worked out" | Shows every factor used and why, and what cannot be judged | Transparency | Seller | Plan | Expand | State → table | Always available | — | Built |
-| F09.15 | Generic tips | If the laptop is not in the catalog | No guessing | System | Plan | — | — | No figures | — | Built |
-| F09.16 | Prefill | From My laptops (version, months) and from the offer button | Less typing | Seller | Sell screen | — | Item → form | — | F08 | Built |
-| F09.17 | Listing text (V1) | Writes a plain, honest listing from the plan's facts | Saves effort | Seller | Plan | Tap "Write my listing" | Facts → text (P6) | Includes every flaw; no extra claims; price as given; falls back to a template | P6 | New |
-| F09.18 | Photo checklist (V1) | What photos to take and in what order | Better listings | Seller | Plan | Tick | Static | — | — | New |
-| F09.19 | Sale outcome capture (V1) | After selling: sold or not, sold price, days to sell, fixes done; with a receipt code | Real data to replace samples | Seller | Plan, status page | Enter | Outcome → row | Optional; consent notice; receipt code like F06 | `sale_outcome` | **New** |
-| F09.20 | Calibration job | Compares plan ranges with outcomes; proposes factor changes | Turns samples into facts | Admin | Admin | Review | Outcomes → report | Needs at least 30 outcomes per segment before any change | F09.19 | **New** |
+| ID | Feature | What it does | Why | Who | Inputs → outputs | Business rules | Depends on | Prototype |
+|---|---|---|---|---|---|---|---|---|
+| F09.1 | Structured seller input | Version, age in months, body, screen, battery %, keyboard, bill and box, warranty left, software, reason, how soon; each with "Not sure" | Structured, quick | Seller | Form → plan | Unknown stays unknown | Catalog | Built |
+| F09.2 | "Use my words" | Describe the laptop in free text | Faster for some | Seller | Text → fields (P1g) | Null for anything not said; never guess a battery % | P1g | Built |
+| F09.3 | Laptop resolution | Match to one catalog version; ask if several; if not in catalog, generic tips and no figures | Figures need a real price | System | Mention → version | Same as F02.1 | F02.1 | Built |
+| F09.4 | Condition normalisation | One normaliser for form and text: body (like new, good, scratched, damaged), screen (perfect, marks, cracked), battery 0 to 100, keyboard, docs (bill and box, bill, none), software (fresh, cluttered), reason, urgency | Same meaning every time | System | Raw → state | Unknown → null; idempotent | — | Built |
+| F09.5 | Value range | Middle value = today's new price × age × condition factors; range = middle ± a spread | The headline number | System | State → low, mid, high | Factors from the resale table; rounded to ₹100 | Factor table | Built (sample) |
+| F09.6 | Range widening | Each unknown field widens the range by 1.5 points, up to 20% | Honesty about uncertainty | System | Unknowns → spread | Settings | F09.5 | Built |
+| F09.7 | Fix evaluation | For each applicable fix, recompute the value with it applied and subtract its cost; "Do this" if the net gain is at least ₹500 (or free), else "Skip this" with the numbers | The core question | System | State → verdicts | Counterfactual, not a guess | F09.5, repair costs | Built |
+| F09.8 | Memory upgrade | Suggested only if the catalog shows a free memory slot and a higher-RAM version with the same storage; value from the catalog price gap | Uses real catalog data | System | Variant → option | Never suggested for soldered memory | Catalog | Built |
+| F09.9 | Combined fixes | Chains the worthwhile fixes for an "after fixes" range, total cost and net gain | The answer to "what should I do" | System | Fixes → range | Net can be negative and is then not shown as a gain | F09.7 | Built |
+| F09.10 | Pricing pairs | Quick sale: list at the middle, accept down to the low. Best price: list at the high, accept down to the middle. The user's urgency highlights one | Practical guidance | System | Range → prices | Labelled as an estimate | F09.5 | Built |
+| F09.11 | Timing | Notes a fall in the model's new price over 30 days, and a warranty ending within 3 months | When to sell | System | History → notes | Uses recorded prices only | Price history | Built |
+| F09.12 | Disclosures and reason note | What to disclose (battery number, keys, cracks, scratches) and advice tied to the reason (upgrading, need money, not using, fault, gift, other) | Honest listings | System | State → text | Reasoned text from a table, not generated | — | Built |
+| F09.13 | Missing-details list | Lists what would tighten the range and offers the form pre-filled | Closes the gap | System | Unknowns → list | — | F09.4 | Built |
+| F09.14 | Calculation explanation | Shows every factor used and why, and what cannot be judged | Transparency | Seller | State → table | Always available | — | Built |
+| F09.15 | Generic tips | If the laptop is not in the catalog | No guessing | System | — | No figures | — | Built |
+| F09.16 | Prefill | From My laptops (version, months) and from the offer option | Less typing | Seller | Item → form | — | F08 | Built |
+| F09.17 | Listing text (V1) | Writes a plain, honest listing from the plan's facts | Saves effort | Seller | Facts → text (P6) | Includes every flaw; no extra claims; price as given; falls back to a template | P6 | New |
+| F09.18 | Photo checklist (V1) | What photos to take and in what order | Better listings | Seller | Static | — | — | New |
+| F09.19 | Sale outcome capture (V1) | After selling: sold or not, sold price, days to sell, fixes done; with a receipt code | Real data to replace samples | Seller | Outcome → row | Optional; consent notice; receipt code like F06 | `sale_outcome` | **New** |
+| F09.20 | Calibration job | Compares plan ranges with outcomes; proposes factor changes | Turns samples into facts | Admin | Outcomes → report | Needs at least 30 outcomes per segment before any change | F09.19 | **New** |
 
 ### Supporting, system and administrative
 
@@ -51,7 +53,7 @@
 F09 Sell plan
  └─ F09.7 Fix evaluation
      └─ Behaviour: battery health 60%; a new battery costs ₹2,500 to ₹4,000
-         ├─ User interaction: sees "Skip this: Costs ₹2,500 to ₹4,000 and adds about ₹2,700, so you would be about ₹500 worse off. Sell as it is and say so in the listing."
+         ├─ User receives: "Skip this: Costs ₹2,500 to ₹4,000 and adds about ₹2,700, so you would be about ₹500 worse off. Sell as it is and say so in the listing."
          └─ System behaviour: value now → value with the battery factor set to new → gain; net = gain − mid cost; compare with ₹500
 ```
 
@@ -59,24 +61,20 @@ F09 Sell plan
 
 ```mermaid
 flowchart TD
-  A[Seller opens Sell] --> B{Input}
-  B -->|Form| C[Fill the form]
-  B -->|Own words| D[Read with P1g]
-  B -->|From Mine| E[Prefilled form]
-  C --> F[Resolve the laptop]
-  D --> F
-  E --> F
-  F --> G{Found?}
-  G -->|Several versions| H[Choose which]
-  H --> I
-  G -->|Not in catalog| J[Generic tips. No figures]
-  G -->|One| I[Compute value range]
-  I --> K[Evaluate each fix]
-  K --> L[Combine worthwhile fixes]
-  L --> M[Pricing, timing, disclosures, missing details]
-  M --> N[Gate recomputes]
-  N --> O[Show the plan]
-  O --> P[Fill missing details, write listing V1, record outcome V1]
+  A[Structured input or free text] --> B{Free text?}
+  B -->|Yes| C[Read with the model]
+  B -->|No| D[Normalise input]
+  C --> D
+  D --> E[Resolve the laptop]
+  E --> F{Found?}
+  F -->|Several versions| G[Return choices]
+  F -->|Not in catalog| H[Return generic tips. No figures]
+  F -->|One| I[Compute value range]
+  I --> J[Evaluate each fix]
+  J --> K[Combine worthwhile fixes]
+  K --> L[Pricing, timing, disclosures, missing details]
+  L --> M[Pre-send gate]
+  M --> N[Return the plan]
 ```
 
 | Situation | Behaviour |
@@ -87,28 +85,6 @@ flowchart TD
 | Seller says "need money fast" | Quick-sale pair highlighted; advice not to say so in the listing |
 | Seller hides a fault | The plan lists what to disclose; no way to force it |
 | Abandon | Nothing stored |
-
-## Phase 4. Frontend specification
-
-| Screen | Purpose | Entry | Exit |
-|---|---|---|---|
-| S1 Sell | Form, own-words box, plan | Tab "Sell"; Mine; offer button | Owners, Mine |
-| S2 Outcome (V1) | Record the sale | Plan link, receipt code | — |
-
-| Component | Purpose | Action | Data | API | States |
-|---|---|---|---|---|---|
-| Sell form | 12 inputs, each with "Not sure" | Fill; submit | Catalog list | `POST /query` (`sellerForm`) | Initial; prefilled; Loading |
-| Own-words box | Free text | Type; "Use my words" | Text | `POST /query` (forceFlow) | Initial; Loading |
-| Result tiles | Today; after fixes; net | — | Plan | — | Loaded; no fixes worth it |
-| Action cards | Title, Do or Skip, summary, why, steps | Expand | Actions | — | Do; Skip |
-| Pricing pair | Quick and best | — | Prices | — | One highlighted |
-| Timing, disclosures, reason note | Text lists | — | Plan | — | Hidden if none |
-| Missing-details panel | What to add | Tap button | List | — | Hidden if none |
-| "How this is worked out" | Factors table, limits | Expand | Factors | — | Collapsed |
-| Listing writer (V1) | Text | Tap; copy | Text | `POST /query` | Idle; loading; fallback template |
-| Outcome form (V1) | Sold, price, days, fixes | Submit | Fields | `POST /sale-outcome` | Idle; sent |
-
-Validation: age 0 to 240 months; battery 0 to 100; warranty 0 to 60 months; sold price ₹1,000 to ₹10,00,000. States: initial, loading, success, empty (generic tips), error, partial (many unknowns), offline, permission denied (n/a).
 
 ## Phase 5. Backend specification
 
@@ -220,24 +196,23 @@ Gemini (P1g, P6, P3), n8n (price ingestion, calibration, retention), Supabase. D
 | Injection in own words | Ignored with a notice |
 | Outcome entered twice | The latest replaces the earlier for the same code |
 | Performance | Plan under 500 ms excluding the model |
-| Accessibility | Do or Skip as words; tables readable |
 | Privacy | As above; sample factors labelled |
 
 ## Phase 10. Backlog
 
-| ID | Feature | Frontend | Backend | Dependencies | Priority | Complexity | Prototype |
-|---|---|---|---|---|---|---|---|
-| F09.1 to F09.16 | Form, words, resolution, value, fixes, memory, combined, pricing, timing, disclosures, missing, factors panel, tips, prefill | Sell screen | `sell` | Catalog, factors, costs | MVP | L | Built |
-| F09.S1, F09.S3 | Gate, injection | — | Gate | — | MVP | M | Built |
-| F09.A1, A2 | Factor and cost tables | Admin | Tables | — | V1 | S | Partial |
-| F09.17 | Listing text | Button | P6 | Paid tier | V1 | M | New |
-| F09.18 | Photo checklist | Checklist | Static | — | V1 | S | New |
-| F09.19, F09.S2 | Outcome capture, anonymous log | Outcome form | `outcomes` | Receipt, consent | V1 | M | New |
-| F09.A3 | Real prices and quotes import | Admin | Import | Sources | V1 | M | New |
-| F09.20 | Calibration | Admin report | Job | 30 outcomes | V2 | M | New |
-| — | Learned value model | — | Model | About 1,000 per segment | V2 | L | New |
-| — | Condition grading from photos | Upload | Image model | About 2,000 labelled photos | Future | XL | New |
-| — | Buyer hand-off | — | Partners | Partners | Future | XL | New |
+| ID | Feature | Backend | Dependencies | Priority | Complexity | Prototype |
+|---|---|---|---|---|---|---|
+| F09.1 to F09.16 | Form, words, resolution, value, fixes, memory, combined, pricing, timing, disclosures, missing, calculation explanation, tips, prefill | `sell` | Catalog, factors, costs | MVP | L | Built |
+| F09.S1, F09.S3 | Gate, injection | Gate | — | MVP | M | Built |
+| F09.A1, A2 | Factor and cost tables | Tables | — | V1 | S | Partial |
+| F09.17 | Listing text | P6 | Paid tier | V1 | M | New |
+| F09.18 | Photo checklist | Static | — | V1 | S | New |
+| F09.19, F09.S2 | Outcome capture, anonymous log | `outcomes` | Receipt, consent | V1 | M | New |
+| F09.A3 | Real prices and quotes import | Import | Sources | V1 | M | New |
+| F09.20 | Calibration | Job | 30 outcomes | V2 | M | New |
+| — | Learned value model | Model | About 1,000 per segment | V2 | L | New |
+| — | Condition grading from photos | Image model | About 2,000 labelled photos | Future | XL | New |
+| — | Buyer hand-off | Partners | Partners | Future | XL | New |
 
 Reasoning: the Built group is L because many rules must agree (value, fixes, chains, gate). Photo grading and hand-offs are XL because they need data and partners that do not exist yet.
 
@@ -259,7 +234,7 @@ Reasoning: the Built group is L because many rules must agree (value, fixes, cha
 | F09.10 | **Given** urgency "quick", **when** shown, **then** the quick-sale pair is highlighted. |
 | F09.11 | **Given** a 10% fall in the new price in 30 days, **when** shown, **then** the timing note gives the fall and both dates. |
 | F09.12 | **Given** reason "need money", **when** shown, **then** the note says not to mention urgency in the listing. |
-| F09.14 | **Given** any plan, **when** the panel is opened, **then** every factor used appears with its value. |
+| F09.14 | **Given** any plan, **when** the calculation explanation is requested, **then** every factor used appears with its value. |
 | F09.17 | **Given** a plan with a battery at 62%, **when** the listing is written, **then** it states 62% and the price from the plan, or the template is used. |
 | F09.19 | **Given** a receipt code and consent, **when** an outcome is submitted, **then** it is stored against the hashed code only. |
 | F09.S1 | **Given** a changed figure, **when** the gate runs, **then** the plan is dropped and logged. |

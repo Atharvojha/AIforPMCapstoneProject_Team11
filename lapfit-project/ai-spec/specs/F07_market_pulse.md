@@ -1,5 +1,7 @@
 > Part of the LapFit feature specifications. Shared services, conventions and privacy rules are in `../04_FEATURE_SPECS.md` ("Shared platform"). Questions raised here are answered in `../05_ANSWERS.md`.
 
+> **Functional requirements only.** This file says what the system must do, not which screens exist. Screen specifications are written after the frontend is built (see `../../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md`). Earlier UI notes are kept as drafts in `../../build-plan/frontend-notes-for-later/`.
+
 # F07. Market pulse
 
 **Opportunity.** When I am deciding when and what to buy, I want to see what is trending, what people are complaining about and which prices are falling, so I can time the purchase.
@@ -9,18 +11,18 @@
 
 ## Phase 2. Feature decomposition
 
-| ID | Feature | What it does | Why | Who | Where and when | User actions | Inputs → outputs | Business rules | Depends on | Prototype |
-|---|---|---|---|---|---|---|---|---|---|---|
-| F07.1 | Window selector | 7, 30 or 90 days | Different time horizons | Buyer | Market screen | Tap a window | Days → lists | Choices from settings | — | Built |
-| F07.2 | Most checked | Top laptops by checks in the window, against the window before | Social proof and trend | Buyer | List 1 | Tap "See owner reports" | Views → list | Counts distinct sessions (once per laptop per session per day); minimum 20 checks to appear; top 5 | F07.7 | Partial (counts raw views, no minimum) |
-| F07.3 | Rising complaints | Laptop and topic pairs with at least 5 low-rated reports (3.0 or below) in the window, and more than the window before | Early warning | Buyer | List 2 | Tap | Evidence → list | Shown with n and the prior count; under 20 total reports marked "early signal" | Evidence data | Built |
-| F07.4 | Price drops | Versions whose current price is at least 3% below the price at the start of the window | Buy-timing | Buyer | List 3 | Tap | Prices → list | Best price per day across verified sellers; both dates shown | Price history | Built (single series) |
-| F07.5 | Links to owner reports | Each item opens Owners filtered to the laptop | Connects features | Buyer | Each item | Tap | Laptop → filters | — | F05 | Built |
-| F07.6 | Thresholds and early-signal labels | Minimums shown on screen | Honesty | System | Under each list | — | Settings → text | Settings versioned | Settings | Built |
-| F07.7 | Distinct-session counting | Views carry a random session id kept in the browser tab; only its hash is stored | Prevents gaming without tracking a person | System | On each view | — | Event → row | Id regenerated per tab session; no address, no account | — | **New** |
-| F07.8 | Pre-computation | A job computes the three lists per window and stores a snapshot | Speed, steady numbers | System (n8n) | Nightly and on demand | — | Data → snapshot | Snapshot records its time and settings version | n8n | **New** |
-| F07.9 | Home tiles | Most checked, rising complaint, biggest drop | Entry point | Buyer | Home | Tap | Snapshot → tiles | Show "No data" when below minimums | F07.8 | Built |
-| F07.10 | Empty and cold-start states | "Nothing meets the minimum for this window" | Honest empties | System | Each list | — | — | — | — | Built |
+| ID | Feature | What it does | Why | Who | Inputs → outputs | Business rules | Depends on | Prototype |
+|---|---|---|---|---|---|---|---|---|
+| F07.1 | Window selector | 7, 30 or 90 days | Different time horizons | Buyer | Days → lists | Choices from settings | — | Built |
+| F07.2 | Most checked | Top laptops by checks in the window, against the window before | Social proof and trend | Buyer | Views → list | Counts distinct sessions (once per laptop per session per day); minimum 20 checks to appear; top 5 | F07.7 | Partial (counts raw views, no minimum) |
+| F07.3 | Rising complaints | Laptop and topic pairs with at least 5 low-rated reports (3.0 or below) in the window, and more than the window before | Early warning | Buyer | Evidence → list | Shown with n and the prior count; under 20 total reports marked "early signal" | Evidence data | Built |
+| F07.4 | Price drops | Versions whose current price is at least 3% below the price at the start of the window | Buy-timing | Buyer | Prices → list | Best price per day across verified sellers; both dates shown | Price history | Built (single series) |
+| F07.5 | Links to owner reports | Each item carries the laptop id so owner reports can be requested for it | Connects features | Buyer | Laptop → filters | — | F05 | Built |
+| F07.6 | Thresholds and early-signal labels | Minimums and thresholds stated in the response | Honesty | System | Settings → text | Settings versioned | Settings | Built |
+| F07.7 | Distinct-session counting | Views carry a random session id kept by the caller for the session; only its hash is stored | Prevents gaming without tracking a person | System | Event → row | Id regenerated per tab session; no address, no account | — | **New** |
+| F07.8 | Pre-computation | A job computes the three lists per window and stores a snapshot | Speed, steady numbers | System (n8n) | Data → snapshot | Snapshot records its time and settings version | n8n | **New** |
+| F07.9 | Summary | Most checked, rising complaint, biggest drop | A short summary for any entry point | Buyer | Snapshot → summary figures | Show "No data" when below minimums | F07.8 | Built |
+| F07.10 | Empty and cold-start states | "Nothing meets the minimum for this window" | Honest empties | System | — | — | — | Built |
 
 ### Supporting, system and administrative
 
@@ -38,7 +40,7 @@
 F07 Market pulse
  └─ F07.4 Price drops
      └─ Behaviour: a version was ₹69,990 at the start of the window and is ₹62,990 now
-         ├─ User interaction: sees "₹62,990 now (as of 13 Nov 2026), down ₹7,000 (10%) from ₹69,990 on 14 Sep 2026"
+         ├─ User receives: "₹62,990 now (as of 13 Nov 2026), down ₹7,000 (10%) from ₹69,990 on 14 Sep 2026"
          └─ System behaviour: best price per day across verified sellers → price at window start → current → drop % → at least 3% → list
 ```
 
@@ -46,16 +48,14 @@ F07 Market pulse
 
 ```mermaid
 flowchart TD
-  A[Buyer opens Market or Home] --> B[Pick a window]
-  B --> C[Read the snapshot for that window]
-  C --> D{Snapshot fresh?}
-  D -->|No| E[Compute now]
-  D -->|Yes| F[Gate recomputes]
-  E --> F
-  F --> G{Matches?}
-  G -->|No| H[Could not show reliably. Logged]
-  G -->|Yes| I[Show three lists with counts and dates]
-  I --> J[Tap See owner reports]
+  A[Request with a window] --> B[Read the snapshot for that window]
+  B --> C{Snapshot fresh?}
+  C -->|No| D[Compute now]
+  C -->|Yes| E[Pre-send gate recomputes]
+  D --> E
+  E --> F{Matches?}
+  F -->|No| G[Return could not show reliably. Log]
+  F -->|Yes| H[Return three lists with counts and dates]
 ```
 
 | Situation | Behaviour |
@@ -65,25 +65,6 @@ flowchart TD
 | Gate mismatch | Block replaced; logged |
 | No price history for a version | Skipped silently from price drops; counted in a calibration report |
 | Abandon | Nothing stored except anonymous view hashes |
-
-## Phase 4. Frontend specification
-
-| Screen | Purpose | Entry | Exit |
-|---|---|---|---|
-| S1 Market | The three lists | Top link "Market"; Home tiles | Owners |
-| S2 Home tiles | Preview | Home | S1 |
-
-| Component | Purpose | Action | Data | API | States |
-|---|---|---|---|---|---|
-| Window selector | Choose 7, 30, 90 | Tap | Choices | `POST /query` (`trending`) | Selected; Loading |
-| Explainer line | "Worked out from checks, owner reports and recorded prices. In this prototype the activity is sample data." | — | — | — | Always |
-| Most checked list | Rank, name, checks, previous window | Tap | Items | — | Loaded; empty |
-| Rising complaints list | Laptop, topic, n, prior | Tap | Items | — | Loaded; empty; early-signal tag |
-| Price drops list | Version, price now with date, drop, was with date | Tap | Items | — | Loaded; empty |
-| "See owner reports" | Deep link | Tap | Laptop | — | — |
-| Home tiles (3) | Previews | Tap | Snapshot | `GET /home` | Data; "No data" |
-
-Validation: window must be one of the settings choices. UI states: initial (30 days), loading, success, empty per list, error, partial (one list empty), offline, permission denied (n/a).
 
 ## Phase 5. Backend specification
 
@@ -97,7 +78,7 @@ Validation: window must be one of the settings choices. UI states: initial (30 d
 | Endpoint | Method | Purpose | Auth | Request | Response | Errors |
 |---|---|---|---|---|---|---|
 | `/query` (`trending`) | POST | The lists | Anonymous | `{ trending: { days } }` | `trending` block: `{ days, most_checked[], rising[], drops[], windows, min_reports, min_drop_pct }` | 400 invalid window |
-| `/home` | GET | Tile summary | Anonymous | — | `{ most_checked, rising, drop, ... }` | — |
+| `/home` | GET | Summary | Anonymous | — | `{ most_checked, rising, drop, ... }` | — |
 | `/view` | POST | Log a view | Anonymous | `{ laptop_id, session_hash }` | 204 | 429 |
 | `/admin/trend-settings`, `/admin/exclusions` | GET, PUT | Admin | Admin | Rows | Row | Range checks |
 
@@ -137,7 +118,7 @@ Privacy: session ids are random, per tab session, hashed; no address, no account
 
 | Data | Class | Origin | Collection | Validation | Stored | Used by |
 |---|---|---|---|---|---|---|
-| Views | System-generated | Screens | Event | Rate limit | `view_events` | F07.2 |
+| Views | System-generated | Client events | Event | Rate limit | `view_events` | F07.2 |
 | Owner reports | User-generated | F06, imports | — | — | `evidence_excerpt` | F07.3 |
 | Prices by seller and day | Third-party | n8n | Nightly | Positive, dated, verified seller | `price_history` | F07.4 |
 | Thresholds | System configuration | Admin | Settings | Range | `settings` | All |
@@ -162,21 +143,20 @@ n8n (prices, snapshots), Supabase. Dependencies: F07.2 → F07.7; F07.3 → evid
 | Clock or time-zone edge at midnight | Windows use calendar days in Indian time |
 | Snapshot job fails | Compute on demand; alert |
 | Performance | Reads from the snapshot under 100 ms; on-demand compute under 2 seconds |
-| Accessibility | Lists as real lists; numbers as text |
 | Privacy | No identity in any event |
 
 ## Phase 10. Backlog
 
-| ID | Feature | Frontend | Backend | Dependencies | Priority | Complexity | Prototype |
-|---|---|---|---|---|---|---|---|
-| F07.1, F07.3, F07.4, F07.5, F07.6, F07.10 | Windows, rising, drops, links, labels, empties | Market screen | `trends` | Data | MVP | M | Built |
-| F07.2 | Most checked with minimum and distinct sessions | List | `view-log` | F07.7 | MVP | M | Partial |
-| F07.S1, F07.S2 | Gate, logging | — | Gate | — | MVP | S | Built |
-| F07.7 | Distinct sessions | Session id | Hash | — | MVP | S | New |
-| F07.8, F07.9 | Snapshots, Home tiles | Tiles | n8n | — | V1 | M | Partial |
-| F07.A1 to A3 | Settings, calibration, exclusions | Admin | Admin | Real data | V1 | M | Partial |
-| — | Change-point alerts | — | Statistics | History | V2 | M | New |
-| — | Price forecasting | — | Model | Proven skill | Future | XL | New |
+| ID | Feature | Backend | Dependencies | Priority | Complexity | Prototype |
+|---|---|---|---|---|---|---|
+| F07.1, F07.3, F07.4, F07.5, F07.6, F07.10 | Windows, rising, drops, links, labels, empties | `trends` | Data | MVP | M | Built |
+| F07.2 | Most checked with minimum and distinct sessions | `view-log` | F07.7 | MVP | M | Partial |
+| F07.S1, F07.S2 | Gate, logging | Gate | — | MVP | S | Built |
+| F07.7 | Distinct sessions | Hash | — | MVP | S | New |
+| F07.8, F07.9 | Snapshots, Summary | n8n | — | V1 | M | Partial |
+| F07.A1 to A3 | Settings, calibration, exclusions | Admin | Real data | V1 | M | Partial |
+| — | Change-point alerts | Statistics | History | V2 | M | New |
+| — | Price forecasting | Model | Proven skill | Future | XL | New |
 
 Reasoning: forecasting is XL and deliberately last: wrong forecasts imply certainty LapFit cannot back.
 
@@ -186,13 +166,13 @@ Reasoning: forecasting is XL and deliberately last: wrong forecasts imply certai
 
 | ID | Criterion |
 |---|---|
-| F07.1 | **Given** the user taps "7 days", **when** the lists load, **then** all three use a 7-day window. |
+| F07.1 | **Given** a request for "7 days", **when** the lists load, **then** all three use a 7-day window. |
 | F07.2 | **Given** a laptop with 19 distinct checks, **when** listed, **then** it is absent; **given** 20, **then** it appears. |
 | F07.2b | **Given** one session views a laptop five times in a day, **when** counted, **then** it counts once. |
 | F07.3 | **Given** 5 low-rated reports in the window and 4 before, **when** listed, **then** the item shows n = 5 and prior 4. |
 | F07.3b | **Given** 5 recent and 5 prior, **when** listed, **then** it is absent. |
 | F07.4 | **Given** a price of ₹100 at the start and ₹97 now, **when** listed, **then** it appears with the drop and both dates; **given** ₹98, **then** it does not. |
-| F07.5 | **Given** an item, **when** "See owner reports" is tapped, **then** Owners opens filtered to that laptop. |
+| F07.5 | **Given** an item, **when** owner reports are requested for it, **then** they are filtered to that laptop. |
 | F07.10 | **Given** no item meets a minimum, **when** shown, **then** the list says so. |
 | F07.S1 | **Given** a changed count, **when** the gate runs, **then** the block is replaced and logged. |
 | F07.7 | **Given** a view, **when** stored, **then** only a hashed session id is kept. |

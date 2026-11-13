@@ -9,7 +9,7 @@ Living record. Each decision says what was decided, why, who decided, and **what
 | D-01 | Core use cases for the course submission | Decided (You) |
 | D-02 | Everything else is an extension | Decided (You) |
 | D-03 | Stack: the cheap stack | Decided (You) |
-| D-04 | Reuse nothing from the team repo | Decided (You) |
+| D-04 | Reuse of the team repo: **revised** to reuse the data, not the old code or labels | Revised (You, 13 Nov) |
 | D-05 | The model never supplies a fact | Decided (Assistant) |
 | D-06 | Which kind of AI per scenario | Decided (Assistant) |
 | D-07 | One shared router call | Decided (Assistant) |
@@ -72,11 +72,12 @@ Living record. Each decision says what was decided, why, who decided, and **what
 
 **Revisit if:** limits, terms or latency fail. Fallback: a paid tier, or the Claude API the prototype already uses.
 
-## D-04. Reuse nothing
+## D-04. Reuse of the team repo (revised)
 
-**Decided:** the team repo (PRD, golden dataset, eval scripts, customer kit) is treated as unusable. Every to-do item is open unless it is built in this folder or the prototype.
-**Consequence:** the golden dataset, the eval scripts and the judge are rebuilt. The existing AI-drafted labels are not used.
-**Revisit if:** you decide a specific file is worth keeping.
+**Original (You):** reuse nothing; treat the repo as unusable.
+**Revised (You, 13 Nov 2026, "find ways to use the existing databases"):** **reuse the data**: the database in `prototype_prathyusha/backend/data/` (29 laptops, about 4,000 reviews, 1,316 extracted opinions with exact quotes, specs with provenance, a sources table with permissions, embeddings) and its data pack. **Do not reuse** the old Python service as the deployed backend, the AI-drafted golden labels as truth, or the older documents as specifications.
+**Why:** I inspected the database: it has provenance, permissions and exact quotes that would take weeks to rebuild, and it matches our data model closely. Its limits (no dates, no user types, unverified licences, machine-read labels) are documented in `../build-plan/01_BACKEND_BUILD_PLAN.md`.
+**Revisit if:** rights on the review text cannot be confirmed; then only the spec facts and our own reports are used.
 
 ## D-05. The model never supplies a fact
 
@@ -228,6 +229,32 @@ Code decides: which laptops qualify, ranking, prices, specs, every tick and cros
 | `features/F01…F10` | The five parts of an AI product for each feature |
 
 ---
+
+## Decisions added with the backend plan (13 Nov 2026, Assistant, on your instruction)
+
+| ID | Decision | Reason | Revisit if |
+|---|---|---|---|
+| D-16 | **Live request path in Supabase Edge Functions. Offline jobs on Supabase Cron plus Edge Functions (revised 13 Nov). Make.com only for connectors.** Make on the live path only as a prototype shortcut, behind an Edge Function, with a secret header, respond-early design and the same fallback | Must answer within 8 s; flows need tests. Make's webhook response limit is **still undocumented** in what I could read, and Make's Free plan is 1,000 credits a month, about 2 active scenarios and a 15-minute minimum interval; Supabase Cron runs any interval and can call functions | A needed connector only Make has |
+| D-17 | **Adopt the existing 14-category topic taxonomy** (performance, battery, display, build_reliability, thermals_noise, keyboard_trackpad, memory, ports_connectivity, gpu, portability, upgradeability, value, delivery_or_seller, other); our seven topics become a grouping | 1,316 opinions are already labelled this way | Users find the groups confusing |
+| D-18 | **Imported opinions show polarity counts; new owner reports keep a 1 to 5 rating** | The imported rows have polarity, not a topic-level score; inventing averages would mislead | A topic-level score is labelled by people |
+| D-19 | **Text search first; re-embed with a hosted embedding model and use pgvector for meaning-based matching; keep the old vectors for a side-by-side test** | A query must be embedded with the same model as the stored vectors; the old model is a local one | The test shows text search is enough |
+| D-20 | **Two data modes: `course` (unverified sources allowed, labelled) and `production` (only confirmed rights)** | Licences are unverified (Flipkart blank, Amazon none) | Rights are confirmed |
+| D-21 | **Existing machine-read opinions are labelled "machine-read, not human-verified" until audited** | Your own figure: precision 0.88, recall 0.83 against AI-written keys | An audit passes |
+| D-22 | **The old Python backend is not deployed**; kept as a reference and a local batch tool | It depends on a local model and a local machine, so it does not fit Lovable, Make or Supabase | Someone wants to host it |
+| D-23 | **Model for reading and writing: `gemini-3.1-flash-lite` as the starting choice**, compared with the next tier on the golden set before it is fixed (to-do 5.1) | Lowest cost of the current Flash-Lite options at the prices checked | Measured accuracy or latency fails |
+| D-24 | **Feature specs are functional only; screens are specified after the frontend is built.** The frontend's jobs and triggers are in `../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md`; earlier UI notes are drafts | Your instruction | — |
+
+## Decisions added by the research round (13 Nov 2026, Assistant)
+
+| ID | Decision | Reason (see `05_ANSWERS.md`) | Revisit if |
+|---|---|---|---|
+| D-25 | **Windows 11 rule uses the processor, not the model year**: Intel Core 8th generation or later and the AMD models on Microsoft's list are supported; others say "check with PC Health Check" | C23, Q-R7 | Microsoft changes its lists |
+| D-26 | **Source rights statuses:** `declared_cc_by_4` (Flipkart: short excerpts up to 25 words with attribution), `research_only` (Amazon 2023: never public), `facts_only` (manufacturer and lab pages: facts and links) | C17, C18, Q-R1, Q-R2 | Legal review or new permission |
+| D-27 | **Embeddings: `gemini-embedding-2` at 768 dimensions**, tested against `gemini-embedding-001` and the old vectors in four language styles | C19, Q-R3 | The test fails |
+| D-28 | **Supabase Free to build, Pro for the demo and pilot** (about $25 a month); keep the Free project active because it pauses after a week | C20, Q-R4 | Cost or size changes |
+| D-29 | **Colours are optional in version 1**; the colour note works only where data exists | Q-R12 | A buyer test shows colour matters |
+| D-30 | **Warranty default 1 year for the 14 laptops**, start date from the purchase date the owner enters, with "keep the invoice" | C25, Q-R9 | A brand differs |
+| D-31 | **Battery: note under 80%, check under 70%**; 80% anchored on Apple's design target, 70% a labelled rule of thumb | C24, Q-R8 | A better source appears |
 
 ## Open decisions
 

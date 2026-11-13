@@ -10,6 +10,52 @@ Your list, carried over with tags, plus what this round changed. A new column sa
 
 **Rule from decision D-04:** the team repo is treated as unusable. Items you marked done before this round are kept as you marked them, but they are **not** in this repo; where a document here covers the same ground, it is noted.
 
+## Update 13 Nov 2026 (backend plan, accuracy plan, frontend jobs, AI PRDs)
+
+| Item | Status now |
+|---|---|
+| Backend build plan (data layer, tools, keys, order) | **Written**: `../build-plan/01_BACKEND_BUILD_PLAN.md` |
+| Accuracy without training | **Written**: `../build-plan/02_ACCURACY_WITHOUT_TRAINING.md` |
+| Frontend jobs and trigger points | **Written**: `../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md` |
+| Specs made functional-only | **Done** (D-24); UI notes in `../build-plan/frontend-notes-for-later/` |
+| AI PRDs (13-part template) for all ten features | **Written**: `../ai-prd/` (10.1, 10.2). Open numbers still to fill once measured (10.4) |
+| Token economics and latency budget | **Drafted** with checked prices and assumed token sizes (11.3, 11.4); measure to confirm |
+| Responsible AI | **Drafted** per feature (11.5) |
+| Existing database reuse | **Inspected**; plan in the build plan (D-04 revised) |
+
+New items from this round:
+
+| # | Item | Owner (proposed) |
+|---|---|---|
+| N14 | Create the Supabase project, add secrets (Gemini key as a secret, never in the browser) and a settings table | Engineering lead |
+| N15 | Write and run the SQLite-to-Postgres import with row-count checks | Engineering lead |
+| N16 | Curate hinge type, colours, warranty, model year and memory slots for the 14 India laptops, with named verifiers | Data lead |
+| N17 | Verify the 13 spec facts marked `needs_human_spot_check` | Data lead |
+| N18 | Re-embed reviews with a hosted embedding model; run the side-by-side retrieval test | Engineering lead |
+| N19 | Audit a sample (first 100) of the 1,316 machine-read opinions with two people | Reviewer lead |
+| N20 | Confirm rights on Flipkart and Amazon review text; decide `course` vs `production` mode | Product owner |
+| N21 | Choose Make.com or n8n for offline jobs and check their current limits | Engineering lead |
+| N22 | Build golden sets per feature, frozen and hashed before scoring; hand-label the core | Product owner and reviewers |
+| N23 | Write the first 10 claim-ledger entries with named approvers | Reviewers |
+| N24 | Run five real-student sessions (to-do 9.1) | Product owner |
+
+
+## Research round 2 (13 Nov 2026): you asked me to research and answer
+
+| Item | Result |
+|---|---|
+| N20 Rights on review text | **Researched and settled** (Q-R1, Q-R2, D-26). Flipkart: CC BY 4.0 declared, short attributed excerpts; Amazon: research only |
+| N18 Embedding model | **Settled** (Q-R3, D-27): `gemini-embedding-2`, 768 dimensions; test against the alternatives |
+| N14 Supabase plan, limits | **Settled** (Q-R4, D-28) |
+| N21 Make or n8n | **Settled** (Q-R5, D-16): neither is needed for scheduling; Supabase Cron; Make for connectors |
+| N16 Curate the 14 laptops | **Started**: `../data-model/curation/catalog_curation_14.csv`; verification by a named person remains |
+| Windows 11 rule | **Settled** (Q-R7, D-25) |
+| Battery thresholds, warranty, GST reminder | **Settled** (Q-R8 to Q-R10) |
+| DPDP | **Updated** (C22): 72-hour breach report; 3-year erasure only for very large platforms |
+| First claim-ledger candidates | **Listed** (Q-R13); validate with students |
+| Used-price sources | **Researched** (Q-R14): none licensed; build from Sell outcomes |
+| Still people-only | Due date; named reviewers; brand contacts; native speakers; real-student sessions (Q-R15) |
+
 ---
 
 ## New items added this round

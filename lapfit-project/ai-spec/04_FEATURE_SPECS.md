@@ -19,7 +19,7 @@ Implementation-level specification for every opportunity, based on the prompt "P
 | F09 | Sell plan | Extension | `specs/F09_sell_plan.md` | `features/F09_…` |
 | F10 | Brand and retailer insights | Extension | `specs/F10_brand_insights.md` | `features/F10_…` |
 
-All ten are fully specified. Every spec follows the same eleven phases: context, decomposition, workflows, frontend, backend, roles, data and intelligence, integrations, edge cases, backlog, blueprint and acceptance criteria. Questions that came up are answered in `05_ANSWERS.md`.
+All ten are fully specified as **functional requirements**. They name no screens or controls: screen specifications come only after the frontend is built (`../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md` lists what the frontend must do and what triggers each job). Each spec has these parts: context, decomposition, functional flows, backend, roles, data and intelligence, integrations, edge cases, backlog, acceptance criteria. Earlier UI notes are kept as drafts in `../build-plan/frontend-notes-for-later/`. Questions that came up are answered in `05_ANSWERS.md`.
 
 ---
 
@@ -80,7 +80,7 @@ Each spec refers to this section and lists only what is specific to its feature.
 | Brand user (F10) | View insights for their own brand's models and aggregates for the category |
 | Account holder (V2) | Sync My laptops and alerts; delete their data |
 
-### Shared UI conventions
+### Shared client conventions (functional)
 
 | Convention | Rule |
 |---|---|
@@ -116,8 +116,8 @@ I checked India's data protection law on 13 Nov 2026 (sources in `05_ANSWERS.md`
 | A notice must accompany or precede a consent request | Every form that collects anything shows a short notice: what is collected, why, how long, how to delete |
 | Children under 18 need verifiable parental consent, and tracking, behavioural monitoring and targeted ads aimed at children are prohibited | The owner-report form asks the submitter to confirm they are 18 or older. LapFit does not knowingly collect children's data. Parents buy for children; the child is never the user. Nothing is tracked per person |
 | Erasure on request | Anyone who submits a report or a sell-plan outcome gets a **receipt code** that lets them see status and ask for deletion. No account is needed |
-| Retention limits | Typed text in `unhandled_requests` 90 days; pending reports 30 days after rejection; raw uploads 30 days (V1); activity logs 24 months then aggregated |
-| Breach reporting (secondary source: 72 hours) | An incident process is a launch task; **not verified** against the Rules |
+| Retention limits (the law's 3-year erasure rule applies only to very large platforms, with 48 hours' notice; ours are shorter) | Typed text in `unhandled_requests` 90 days; pending reports 30 days after rejection; raw uploads 30 days (V1); activity logs 24 months then aggregated |
+| Breach reporting: tell affected people without delay and send a detailed report to the Data Protection Board **within 72 hours** (several law-firm sources agree; gazette text not read) | An incident process is a launch task |
 
 ---
 

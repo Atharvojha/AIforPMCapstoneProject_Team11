@@ -1,5 +1,7 @@
 > Part of the LapFit feature specifications. Shared services, conventions and privacy rules are in `../04_FEATURE_SPECS.md` ("Shared platform"). Questions raised here are answered in `../05_ANSWERS.md`.
 
+> **Functional requirements only.** This file says what the system must do, not which screens exist. Screen specifications are written after the frontend is built (see `../../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md`). Earlier UI notes are kept as drafts in `../../build-plan/frontend-notes-for-later/`.
+
 # F05. Owner voice
 
 **Opportunity.** When I am choosing, I want to hear from owners like me (same use, owned for months, about one topic, recently), so I can trust what I read.
@@ -9,22 +11,22 @@
 
 ## Phase 2. Feature decomposition
 
-| ID | Feature | What it does | Why | Who | Where and when | User actions | Inputs → outputs | Business rules | Depends on | Prototype |
-|---|---|---|---|---|---|---|---|---|---|---|
-| F05.1 | Filter bar | Selects: who said it (user type), about (topic), owned for (3+, 6+, 12+ months), written in the (last 7, 30, 90 days), laptop, region | The core control | Buyer | Owners screen | Change a select; results update | Selections → filters | Any combination; "Any" removes a filter | F05.3 | Partial (no region) |
-| F05.2 | Question reading | "What do gamers say about heat after 6 months?" becomes filters | Typed questions | System | Home ask box | Type | Text → filters (P1f) | Only what the user said; unknown personas and topics are reported | P1f | Built |
-| F05.3 | Filter normalisation | Maps words to the fixed lists of six user types and seven topics | Honest counts | System | Always | — | Words → values | Unknown values are named back to the user, never guessed | — | Built |
-| F05.4 | Evidence query | Groups matching reports by laptop with n, average rating, topics, sources | The answer | System | Result | — | Filters → rows | n = sum of report counts; rating weighted by report counts | Evidence data | Built |
-| F05.5 | Minimum-n rule | Below 20 reports: "not enough evidence" with the count and no excerpts; 20 or more: excerpts | Prevents false confidence | System | Each laptop row | — | n → display | Minimum from settings | F05.4 | Built |
-| F05.6 | Ordering | Sorted by rating, then n; labelled "a lens, not a ranking of laptops" | Honest framing | System | Result | — | Rows → order | Laptops with enough evidence first | F05.4 | Built |
-| F05.7 | No-match and loosen | Says nothing matches, changes no filter, and offers the filter whose removal shows the most reports | Avoid dead ends | System, Buyer | Result | Tap a loosen button | Filters → offers | Counted in code | F05.4 | Built |
-| F05.8 | "Only this laptop" | Narrows to one laptop | Drill-down | Buyer | Each row | Tap | Row → filter | — | — | Built |
-| F05.9 | "People like you" lens | When a buyer arrives from a shortlist or second opinion with a stated use, preselects the matching user type and shows that group's rating separately, with n | Your "Zomato-style" job | System, Buyer | Owners screen, card link | Remove the preselection | Use → user type | Mapping table (coding → developer, gaming → gamer, study → student, editing → creator, office → office, parent buying → parent); never blended silently with other groups; below 20 shows the wider view labelled | F05.1, F01 | **New** |
-| F05.10 | Region filter and label | Filter "India" or "All"; each excerpt shows its region | Your "India vs US" lens | Buyer | Filter bar | Choose | Region → filter | Default All; label always shown | `region` column | **New** |
-| F05.11 | Source attribution | Each excerpt shows source name, months owned, user type, date, and a link where allowed | Traceability and rights | System | Excerpt | Tap link | Row → text | Only licensed or consented text is shown | Source table | Partial (no links) |
-| F05.12 | Deep links | From Market, Mine, a card or a claim row into this screen with filters preset | Flow between features | Buyer | Other screens | Tap | Laptop → filters | — | — | Built |
-| F05.13 | Report a problem (V1) | A "Report this excerpt" link sends it to the review queue | Quality and removal | Buyer | Excerpt | Tap, choose a reason | Row id → flag | No account needed; rate-limited | Review queue | New |
-| F05.14 | Optional summary (V2) | A "Summarise" tap that restates the shown rows with n | Saves reading | Buyer | Laptop row | Tap | Rows → text (P4) | Only restates; n shown; falls back to excerpts | P4 | New |
+| ID | Feature | What it does | Why | Who | Inputs → outputs | Business rules | Depends on | Prototype |
+|---|---|---|---|---|---|---|---|---|
+| F05.1 | Filters | Accepts filters: who said it (user type), about (topic), owned for (3+, 6+, 12+ months), written in the (last 7, 30, 90 days), laptop, region | The core control | Buyer | Selections → filters | Any combination; "Any" removes a filter | F05.3 | Partial (no region) |
+| F05.2 | Question reading | "What do gamers say about heat after 6 months?" becomes filters | Typed questions | System | Text → filters (P1f) | Only what the user said; unknown personas and topics are reported | P1f | Built |
+| F05.3 | Filter normalisation | Maps words to the fixed lists of six user types and seven topics | Honest counts | System | Words → values | Unknown values are named back to the user, never guessed | — | Built |
+| F05.4 | Evidence query | Groups matching reports by laptop with n, average rating, topics, sources | The answer | System | Filters → rows | n = sum of report counts; rating weighted by report counts | Evidence data | Built |
+| F05.5 | Minimum-n rule | Below 20 reports: "not enough evidence" with the count and no excerpts; 20 or more: excerpts | Prevents false confidence | System | n → display | Minimum from settings | F05.4 | Built |
+| F05.6 | Ordering | Sorted by rating, then n; labelled "a lens, not a ranking of laptops" | Honest framing | System | Rows → order | Laptops with enough evidence first | F05.4 | Built |
+| F05.7 | No-match and loosen | Says nothing matches, changes no filter, and offers the filter whose removal shows the most reports | Avoid dead ends | System, Buyer | Filters → offers | Counted in code | F05.4 | Built |
+| F05.8 | "Only this laptop" | Narrows to one laptop | Drill-down | Buyer | Row → filter | — | — | Built |
+| F05.9 | "People like you" lens | When a buyer arrives from a shortlist or second opinion with a stated use, preselects the matching user type and shows that group's rating separately, with n | Your "Zomato-style" job | System, Buyer | Use → user type | Mapping table (coding → developer, gaming → gamer, study → student, editing → creator, office → office, parent buying → parent); never blended silently with other groups; below 20 shows the wider view labelled | F05.1, F01 | **New** |
+| F05.10 | Region filter and label | Filter "India" or "All"; each excerpt shows its region | Your "India vs US" lens | Buyer | Region → filter | Default All; label always shown | `region` column | **New** |
+| F05.11 | Source attribution | Each excerpt shows source name, months owned, user type, date, and a link where allowed | Traceability and rights | System | Row → text | Only licensed or consented text is shown | Source table | Partial (no links) |
+| F05.12 | Deep links | Accepts preset filters from other features (a laptop id, a stated use) | Flow between features | Buyer | Laptop → filters | — | — | Built |
+| F05.13 | Report a problem (V1) | A "Report this excerpt" link sends it to the review queue | Quality and removal | Buyer | Row id → flag | No account needed; rate-limited | Review queue | New |
+| F05.14 | Optional summary (V2) | On request, restates the shown rows with n | Saves reading | Buyer | Rows → text (P4) | Only restates; n shown; falls back to excerpts | P4 | New |
 
 ### Supporting, system and administrative
 
@@ -43,8 +45,8 @@
 ```
 F05 Owner voice
  └─ F05.9 "People like you" lens
-     └─ Behaviour: buyer chose "coding" in Find, then taps "What owners say" on a card
-         ├─ User interaction: sees "Developers" preselected, "n = 22 reports, rating 4.3", and a link "Show all owners"
+     └─ Behaviour: a buyer who chose "coding" asks for owner reports about a laptop
+         ├─ User interaction: receives the Developers group preselected with "n = 22 reports, rating 4.3" and a way to request all owners
          └─ System behaviour: use → user type → filter on the laptop → compute n and rating for that group → if n < 20 show the wider view and say why
 ```
 
@@ -52,22 +54,17 @@ F05 Owner voice
 
 ```mermaid
 flowchart TD
-  A[Buyer opens Owners or taps a link] --> B{Entry}
-  B -->|Filter bar| C[Set filters]
-  B -->|Typed question| D[Read filters with P1f]
-  B -->|From a card or Market| E[Preset filters]
-  C --> F[Query evidence]
-  D --> F
-  E --> F
-  F --> G{Rows?}
-  G -->|None| H[Say so. Offer to loosen one filter]
-  H --> C
-  G -->|Some| I[Gate recomputes]
-  I --> J{n at least 20 per laptop?}
-  J -->|Yes| K[Show excerpts with source, user type, months, date, region]
-  J -->|No| L[Show count and not enough evidence]
-  K --> M[Only this laptop, compare, report a problem]
-  L --> M
+  A[Request with filters or a typed question] --> B{Typed question?}
+  B -->|Yes| C[Read filters with the model]
+  B -->|No| D[Use filters as given]
+  C --> E[Query evidence]
+  D --> E
+  E --> F{Rows?}
+  F -->|None| G[Say so. Offer to loosen one filter]
+  F -->|Some| H[Pre-send gate recomputes]
+  H --> I{n at least 20 per laptop?}
+  I -->|Yes| J[Return excerpts with source, user type, months, date, region]
+  I -->|No| K[Return the count and not enough evidence]
 ```
 
 | Situation | Behaviour |
@@ -77,26 +74,6 @@ flowchart TD
 | Model down | The filter bar still works; typed questions show a notice |
 | Source later withdrawn | Row removed by takedown; counts recompute |
 | Abandon | Nothing stored except an anonymous view when one laptop is filtered |
-
-## Phase 4. Frontend specification
-
-| Screen | Purpose | Entry | Exit |
-|---|---|---|---|
-| S1 Owners | Filter and read | Tab "Owners"; links from Market, Mine, cards, claim rows | Compare, Find, Mine |
-| S2 Add my experience | Form (F06) | Button on S1 | S1 |
-
-| Component | Purpose | User action | Data | API | States |
-|---|---|---|---|---|---|
-| Filter bar | Six selects | Change | Option lists | `POST /query` (`ownerFilters`) | Initial from link or "Any"; Loading dims results |
-| Applied-filter badges | Show what is on | — | Labels | — | Hidden when none |
-| Lens note | "A lens on owner reports, not a ranking of laptops" | — | — | — | Always |
-| Laptop row | Name, n badge, rating, topics, sources | "Only this laptop" | Row | — | Enough; Not enough evidence; Empty |
-| Excerpt list | Quotes with source, user type, months, date, region | Tap link; report | Excerpts | — | Visible only if n ≥ 20 |
-| Loosen buttons | Relax one filter | Tap | Offers | `POST /query` | Only when empty |
-| Lens preselection (new) | "Developers, because you chose coding" | Remove | Use | — | Visible when arrived from a use |
-| Summarise (V2) | Optional | Tap | Rows | `POST /query` | Idle; loading; shown; fallback |
-
-Validation: select values only from the lists; typed questions up to 4,000 characters. UI states: initial (all laptops), loading, success, empty (with loosen buttons), error, partial (some laptops below 20), offline, permission denied (n/a).
 
 ## Phase 5. Backend specification
 
@@ -170,7 +147,7 @@ Privacy: excerpts carry no identity. Audit log on verification, rejection, taked
 | Owner reports | User-generated | F06 and consented imports | Form, CSV | Reviewer | `evidence_excerpt` | All |
 | Imported reviews | Third-party | Licensed sources | CSV | Licence check, tags audited | `evidence_excerpt` | F05.4 |
 | Labels (topic, persona, rating, months) | Derived | P8 | Batch | Confidence, audit | Same row | F05.1 |
-| Filters | User-provided or derived | UI, P1f | Per request | Lists | Not stored | F05.4 |
+| Filters | User-provided or derived | client, P1f | Per request | Lists | Not stored | F05.4 |
 
 **AI capabilities**
 
@@ -199,25 +176,24 @@ Gemini (P1f, P8, P4), n8n (tagging, retention), Supabase. Dependencies: F05.4 �
 | Unknown user type typed | Named back; filter left out |
 | Rights unclear | Row is not quoted until the source register says so |
 | Performance | Query under 200 ms for 100,000 excerpts with the indexes |
-| Accessibility | Filters labelled; counts as text |
 | Privacy and retention | Excerpts kept while licensed; takedown on request |
 
 ## Phase 10. Backlog
 
-| ID | Feature | Frontend scope | Backend scope | Dependencies | Priority | Complexity | Prototype |
-|---|---|---|---|---|---|---|---|
-| F05.1, F05.3, F05.4, F05.5, F05.6 | Filter, normalise, aggregate, minimum-n, order | Filter bar, rows | `evidence` | Evidence data | MVP | M | Built |
-| F05.7, F05.8, F05.12 | Loosen, drill-down, deep links | Buttons | Counts | — | MVP | S | Built |
-| F05.2 | Typed question reading | — | P1f | Gemini | MVP | S | Built |
-| F05.S1 | Gate | — | Gate | — | MVP | M | Built |
-| F05.11 | Source attribution | Excerpt line | Source join | Source register | MVP | S | Partial |
-| F05.A1, A2, A4 | Source register, import, takedown | Admin screens | Admin functions | — | MVP | M | Partial |
-| F05.10 | Region filter | Select | Column and filter | Region data | V1 | S | New |
-| F05.9 | "People like you" lens | Preselect, note | Mapping | F01 | V1 | M | New |
-| F05.S2, F05.A3 | Tagging pipeline and review queue | Review screen | n8n, P8 | Licensed data | V1 | L | New |
-| F05.13 | Report an excerpt | Link | `report_flag` | — | V1 | S | New |
-| F05.14 | Optional summary | Button | P4 | Volume | V2 | M | New |
-| — | Trained tag classifier | — | Model service | About 5,000 labelled rows | Future | L | New |
+| ID | Feature | Backend scope | Dependencies | Priority | Complexity | Prototype |
+|---|---|---|---|---|---|---|
+| F05.1, F05.3, F05.4, F05.5, F05.6 | Filter, normalise, aggregate, minimum-n, order | `evidence` | Evidence data | MVP | M | Built |
+| F05.7, F05.8, F05.12 | Loosen, drill-down, deep links | Counts | — | MVP | S | Built |
+| F05.2 | Typed question reading | P1f | Gemini | MVP | S | Built |
+| F05.S1 | Gate | Gate | — | MVP | M | Built |
+| F05.11 | Source attribution | Source join | Source register | MVP | S | Partial |
+| F05.A1, A2, A4 | Source register, import, takedown | Admin functions | — | MVP | M | Partial |
+| F05.10 | Region filter | Column and filter | Region data | V1 | S | New |
+| F05.9 | "People like you" lens | Mapping | F01 | V1 | M | New |
+| F05.S2, F05.A3 | Tagging pipeline and review queue | n8n, P8 | Licensed data | V1 | L | New |
+| F05.13 | Report an excerpt | `report_flag` | — | V1 | S | New |
+| F05.14 | Optional summary | P4 | Volume | V2 | M | New |
+| — | Trained tag classifier | Model service | About 5,000 labelled rows | Future | L | New |
 
 Reasoning: the tagging pipeline is L because labels shape every count, so the audit and release rules matter more than the code.
 
@@ -233,7 +209,7 @@ Reasoning: the tagging pipeline is L because labels shape every count, so the au
 | F05.5 | **Given** n = 19, **when** shown, **then** "Not enough evidence (n = 19)" appears and no excerpt. |
 | F05.5b | **Given** n = 20, **when** shown, **then** excerpts appear. |
 | F05.6 | **Given** two laptops with enough evidence, **when** shown, **then** the higher rating is first. |
-| F05.7 | **Given** no match, **when** shown, **then** a message says no filter was changed and up to two loosen buttons show the counts. |
+| F05.7 | **Given** no match, **when** shown, **then** a message says no filter was changed and up to two loosen options show the counts. |
 | F05.9 | **Given** the buyer chose "coding", **when** owners open, **then** Developers is preselected and removable; **given** n under 20, **then** the wider view shows with a note. |
 | F05.10 | **Given** region India, **when** applied, **then** no excerpt from another region appears. |
 | F05.11 | **Given** an excerpt from a source that does not allow quoting, **when** shown, **then** it is not shown. |

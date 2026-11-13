@@ -39,6 +39,9 @@ Living documents for the LapFit AI product. Written for the cheap stack (Lovable
 
 ## Related folders
 
+Also: `../build-plan/` (backend plan, accuracy without training, frontend jobs) and `../ai-prd/` (AI PRDs). The specs here are **functional only**.
+
+
 | Folder | Contents |
 |---|---|
 | `../prototype/` | Working reference implementation (Node, SQLite, Claude) on sample data |

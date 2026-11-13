@@ -568,6 +568,20 @@ Also note: `unhandled_requests` already collects the jobs the app cannot do yet 
 
 ---
 
+## 17. Changes after inspecting the existing database (13 Nov 2026)
+
+The team's database (`prototype_prathyusha/backend/data/lapfit.db`) changes three things in this model. Details and the import plan are in `../build-plan/01_BACKEND_BUILD_PLAN.md`.
+
+| Change | Detail |
+|---|---|
+| **Topic taxonomy** | The evidence topic list becomes the existing 14 categories (performance, battery, display, build_reliability, thermals_noise, keyboard_trackpad, memory, ports_connectivity, gpu, portability, upgradeability, value, delivery_or_seller, other). The seven topics in section 13 become a grouping |
+| **Sentiment** | `evidence_excerpt` gains a nullable `polarity` (positive, negative, mixed, neutral) and `rating` becomes nullable. Imported opinions carry polarity only; owner reports carry a 1 to 5 rating |
+| **Provenance and rights** | Keep `quote`, `quote_start`, `quote_end`, `variant_match`, `validation_status`, `prompt_version` and `model` on imported rows; add `rights_status` (`confirmed`, `unverified_course_use`) on `source`; count distinct duplicate clusters, not rows |
+| **Aliases** | `laptop_variants.aliases` becomes the `model_alias` table |
+| **Spec facts** | Kept as an attribute-value table with provenance, plus a wide view for filtering |
+
+---
+
 ## Appendix A. Postgres DDL for the media tables (Needed)
 
 ```sql

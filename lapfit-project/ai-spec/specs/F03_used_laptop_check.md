@@ -1,6 +1,10 @@
 > Part of the LapFit feature specifications. Shared services, conventions and privacy rules are in `../04_FEATURE_SPECS.md` ("Shared platform"). Questions raised here are answered in `../05_ANSWERS.md`.
 
+> **Functional requirements only.** This file says what the system must do, not which screens exist. Screen specifications are written after the frontend is built (see `../../build-plan/03_FRONTEND_JOBS_AND_TRIGGERS.md`). Earlier UI notes are kept as drafts in `../../build-plan/frontend-notes-for-later/`.
+
 # F03. Used laptop check
+
+> **Update 13 Nov 2026 (research round):** the Windows 11 rule now uses the **processor** (Microsoft's lists), not the model year, so the catalog needs `cpu_vendor`, `cpu_family` and `cpu_generation_or_model` (filled for the 14 laptops in `../../data-model/curation/catalog_curation_14.csv`). The 80% battery line is anchored on Apple's design target; 70% remains a rule of thumb. See `../05_ANSWERS.md` Q-R7 and Q-R8.
 
 **Opportunity.** When I find a used or refurbished listing, I want to know what does not add up and what to check in person, so I avoid a bad buy.
 **Core use case** (decision D-01). AI anatomy: `../features/F03_used_laptop_check.md`. Prompts: P1d (listing reader, draft), P3 (image reader, designed, V1).
@@ -11,24 +15,24 @@
 
 ### Core features
 
-| ID | Feature | What it does | Why | Who | When and where | User actions | Inputs | Outputs | Business rules | Depends on | Prototype |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| F03.1 | Listing intake | Takes a pasted listing (text); screenshot or photo in V1 | Where the check starts | Buyer | Check screen "Used listing" tab; Home ask box | Paste; press Check it; use an example | Text up to 4,000 characters | A request to the router | Text is data, not instructions; no link fetching | F03.2 | Built (text) |
-| F03.2 | Listing reading | Turns the listing into fields: model, RAM, storage, price, year, operating system, battery health, serial shown, bill shown, weight, seller warranty, seller's reason, stated issues | Free-form listings need structure | System | After intake | None | Listing text | Fields with null for anything not stated | Never fill a value that is not written; copy the listing's words as source | P1d | Partial (reads RAM, storage, price; rest by keywords) |
-| F03.3 | Laptop identification | Matches the listing to a catalog laptop and version | Comparisons need an exact laptop | System, Buyer | After reading | Choose which one when asked | Brand, line, RAM, storage | One version, a choice question, or "not in catalog" | Same rules as F02.1; not in catalog means no comparisons, only the generic checklist | F02.1 | Built |
-| F03.4 | Spec consistency checks | Flags impossible or unlisted combinations and a weight that differs from the catalog | Catches wrong or inflated listings | System | Result | None | Stated RAM, storage, weight; catalog | Flags R1 to R3 | RAM above the model's maximum is "impossible"; a RAM and storage pair not in the catalog is "not listed"; weight tolerance 0.05 kg | F03.3 | Built |
-| F03.5 | Price check | Compares the listing price with today's new price and the usual used range | Price is the first thing buyers compare | System | Result | None | Price, catalog price and as-of date, band | Flags R4 to R7 | Above new price is a flag; above or below the band is a flag; the band source (sample or observed) is always shown | F03.3, used-price data | Built (sample band only) |
-| F03.6 | Battery check | Flags a missing battery health, or a low one | Battery is the most expensive part to replace | System | Result | None | Battery % | Flags R8 to R11 | Missing is a check; under 70% a check; 70 to 79% a note; 80% or more fine (settings) | F03.2 | Partial (missing only) |
-| F03.7 | Proof check | Flags a missing serial number, bill or seller warranty | Proof protects the buyer | System | Result | None | Serial shown, bill shown, seller warranty | Flags R12 to R14 | Serial missing is a check; no bill is a note; refurbished with no seller warranty is a note | F03.2 | Partial (serial only) |
-| F03.8 | Age and operating-system check | Flags unsupported operating systems for the date and the model's age | A laptop without updates is a risk | System | Result | None | OS, model year, OS rule table | Flags R15 to R18 | Windows 7 and 8.1 always flagged; Windows 10 flagged (support ended 14 Oct 2025); Windows 11 on a pre-2018 model is a note | F03.3, OS table | Built (dates in settings) |
-| F03.9 | Seller reason note | Notes a stated fault or a vague reason | Reasons hide faults | System | Result | None | Seller's reason | Flag R19 | A fault word in the reason gives "ask exactly what the problem is" | F03.2 | **New** |
-| F03.10 | Flag list | Shows the flags in a fixed order with a level and an "ask for" line | The main output | Buyer | Result | Read; expand | Flags | Ordered list | Order: impossible or unlisted combinations, price, battery, serial and proof, operating system, other. Levels: Fine, Check, Note | F03.4 to F03.9 | Partial (no "ask for") |
-| F03.11 | In-person checklist | A fixed list of things to check at the meeting | Safety: the buyer inspects | Buyer | Result | Tick items | Static list | Checklist | Content is reviewed by a person and versioned | Checklist table | Built |
-| F03.12 | "Cannot be judged" list | States what a listing or photo cannot show | Honesty | Buyer | Result | Read | Static list | List | Always shown | — | Built |
-| F03.13 | No-verdict guard | Replies to "should I buy?" without a verdict | A listing cannot show the laptop | System | Result | — | Request | A plain sentence, then the flags | Never buy or don't-buy language | P1d, copy | Partial (not tested) |
-| F03.14 | Rules-only form | Pick the laptop and enter RAM, storage, price, age, OS, battery %, serial yes/no, bill yes/no | Works when the model is down | Buyer | On model error or over 8 seconds | Fill; submit | Form values | Same flags | Same code path | F03.3 | **New** (prototype has the budget form only) |
-| F03.15 | Unreadable-input handling | Names exactly what could not be read and asks for the model name typed | Photos and links fail | System | Message | — | — | Message | Never guess | P3 | Built (links) |
-| F03.16 | Language | Notices and questions in the user's language; flags are code-written (English first) | Reach | System | — | — | — | — | Flag wording stays neutral and plain | — | Partial |
+| ID | Feature | What it does | Why | Who | Inputs | Outputs | Business rules | Depends on | Prototype |
+|---|---|---|---|---|---|---|---|---|---|
+| F03.1 | Listing intake | Takes a pasted listing (text); screenshot or photo in V1 | Where the check starts | Buyer | Text up to 4,000 characters | A request to the router | Text is data, not instructions; no link fetching | F03.2 | Built (text) |
+| F03.2 | Listing reading | Turns the listing into fields: model, RAM, storage, price, year, operating system, battery health, serial shown, bill shown, weight, seller warranty, seller's reason, stated issues | Free-form listings need structure | System | Listing text | Fields with null for anything not stated | Never fill a value that is not written; copy the listing's words as source | P1d | Partial (reads RAM, storage, price; rest by keywords) |
+| F03.3 | Laptop identification | Matches the listing to a catalog laptop and version | Comparisons need an exact laptop | System, Buyer | Brand, line, RAM, storage | One version, a choice question, or "not in catalog" | Same rules as F02.1; not in catalog means no comparisons, only the generic checklist | F02.1 | Built |
+| F03.4 | Spec consistency checks | Flags impossible or unlisted combinations and a weight that differs from the catalog | Catches wrong or inflated listings | System | Stated RAM, storage, weight; catalog | Flags R1 to R3 | RAM above the model's maximum is "impossible"; a RAM and storage pair not in the catalog is "not listed"; weight tolerance 0.05 kg | F03.3 | Built |
+| F03.5 | Price check | Compares the listing price with today's new price and the usual used range | Price is the first thing buyers compare | System | Price, catalog price and as-of date, band | Flags R4 to R7 | Above new price is a flag; above or below the band is a flag; the band source (sample or observed) is always shown | F03.3, used-price data | Built (sample band only) |
+| F03.6 | Battery check | Flags a missing battery health, or a low one | Battery is the most expensive part to replace | System | Battery % | Flags R8 to R11 | Missing is a check; under 70% a check; 70 to 79% a note; 80% or more fine (settings) | F03.2 | Partial (missing only) |
+| F03.7 | Proof check | Flags a missing serial number, bill or seller warranty | Proof protects the buyer | System | Serial shown, bill shown, seller warranty | Flags R12 to R14 | Serial missing is a check; no bill is a note; refurbished with no seller warranty is a note | F03.2 | Partial (serial only) |
+| F03.8 | Age and operating-system check | Flags unsupported operating systems for the date and the model's age | A laptop without updates is a risk | System | OS, processor, OS rule table, Microsoft processor lists | Flags R15 to R18 | Windows 7 and 8.1 always flagged; Windows 10 flagged (support ended 14 Oct 2025); Windows 11 on a processor that is not on Microsoft's supported lists is a note; an unknown processor is a note to check with PC Health Check | F03.3, OS table | Built (dates in settings) |
+| F03.9 | Seller reason note | Notes a stated fault or a vague reason | Reasons hide faults | System | Seller's reason | Flag R19 | A fault word in the reason gives "ask exactly what the problem is" | F03.2 | **New** |
+| F03.10 | Flag list | Shows the flags in a fixed order with a level and an "ask for" line | The main output | Buyer | Flags | Ordered list | Order: impossible or unlisted combinations, price, battery, serial and proof, operating system, other. Levels: Fine, Check, Note | F03.4 to F03.9 | Partial (no "ask for") |
+| F03.11 | In-person checklist | A fixed list of things to check at the meeting | Safety: the buyer inspects | Buyer | Static list | Checklist | Content is reviewed by a person and versioned | Checklist table | Built |
+| F03.12 | "Cannot be judged" list | States what a listing or photo cannot show | Honesty | Buyer | Static list | List | Always shown | — | Built |
+| F03.13 | No-verdict guard | Replies to "should I buy?" without a verdict | A listing cannot show the laptop | System | Request | A plain sentence, then the flags | Never buy or don't-buy language | P1d, copy | Partial (not tested) |
+| F03.14 | Rules-only form | Pick the laptop and enter RAM, storage, price, age, OS, battery %, serial yes/no, bill yes/no | Works when the model is down | Buyer | Form values | Same flags | Same code path | F03.3 | **New** (prototype has the budget form only) |
+| F03.15 | Unreadable-input handling | Names exactly what could not be read and asks for the model name typed | Photos and links fail | System | — | Message | Never guess | P3 | Built (links) |
+| F03.16 | Language | Notices and questions in the user's language; flags are code-written (English first) | Reach | System | — | — | Flag wording stays neutral and plain | — | Partial |
 
 ### Supporting, system and administrative features
 
@@ -49,7 +53,7 @@
 F03 Used laptop check
  └─ F03.5 Price check
      └─ Behaviour: listing price ₹40,000 for a model whose new price is ₹49,990
-         ├─ User interaction: sees "Check: ₹40,000 is high for a used one. Usual range (sample) ₹15,000 to ₹37,500, new price ₹49,990 as of 13 Nov 2026."
+         ├─ User receives: "Check: ₹40,000 is high for a used one. Usual range (sample) ₹15,000 to ₹37,500, new price ₹49,990 as of 13 Nov 2026."
          └─ System behaviour: find version → read new price and as-of date → get band (observed if 20+ prices, else sample) → compare → build flag → gate re-checks → return
 ```
 
@@ -57,35 +61,30 @@ F03 Used laptop check
 
 ```mermaid
 flowchart TD
-  A[Buyer opens Check, Used listing tab] --> B[Pastes listing, presses Check it]
-  B --> C[route-request reads message]
-  C --> D{Flow is used_check and confidence at least 0.6?}
-  D -->|No| E[One question with choices]
-  E --> B
-  D -->|Yes| F[Match laptop to catalog]
-  F --> G{Match}
-  G -->|Several| H[Choose which one]
-  H --> I
-  G -->|None| J[Say not in catalog. Generic checklist only]
-  G -->|One| I[Run rules]
-  I --> K[Spec checks, price, battery, serial and proof, OS, seller reason]
-  K --> L[Order the flags]
-  L --> M[Gate recomputes]
-  M --> N[Show flags, checklist, what cannot be judged]
-  N --> O[Buyer ticks the checklist at the meeting]
+  A[Used-listing request received] --> B[Read listing fields]
+  B --> C{Flow is used_check and confidence at least 0.6?}
+  C -->|No| D[Return one question with choices]
+  C -->|Yes| E[Match laptop to catalog]
+  E --> F{Match}
+  F -->|Several| G[Return choices]
+  F -->|None| H[Say not in catalog. Generic checklist only]
+  F -->|One| I[Run rules: specs, price, battery, serial and proof, OS, seller reason]
+  I --> J[Order the flags]
+  J --> K[Pre-send gate]
+  K --> L[Return flags, checklist, what cannot be judged]
 ```
 
 ### Step-by-step
 
-| Step | User | System |
+| Step | Input or event | System behaviour |
 |---|---|---|
-| 1 | Opens Check, taps "Used listing" | Shows the explanation: "I flag what does not add up and give a checklist. I do not say buy or do not buy." |
-| 2 | Pastes "Used Sample Laptop H 8GB RAM 512GB for ₹25,000. Windows 10. Selling because I upgraded." and presses Check it | Disables the button; "Working on it" |
+| 1 | Used-listing check requested | System states: "I flag what does not add up and give a checklist. I do not say buy or do not buy." |
+| 2 | Pasted listing: "Used Sample Laptop H 8GB RAM 512GB for ₹25,000. Windows 10. Selling because I upgraded." | Request in progress |
 | 3 | — | Router returns used_check; fields: line H, RAM 8, storage 512, price 25,000, OS Windows 10, reason "upgraded"; battery and serial null |
 | 4 | — | One version matches; rules run |
 | 5 | — | Flags: price within or outside the band (tagged sample); battery missing; serial missing; Windows 10 support ended 14 Oct 2025; reason is fine |
 | 6 | — | Order and gate; return the block |
-| 7 | Reads flags; follows "Ask for a screenshot of the battery report"; ticks checklist items later | Checklist ticks stay on the device for the session |
+| 7 | Flags returned with "Ask for" lines; checklist items carry stable ids | The caller can track completion; the server stores nothing |
 
 ### Alternative and failure flows
 
@@ -101,62 +100,6 @@ flowchart TD
 | Injection in the listing | Treated as text; a notice says so |
 | Gate drops the block | "I could not show this reliably" and the generic checklist |
 | Abandons | Nothing stored except an anonymous log row |
-
-## Phase 4. Frontend specification
-
-### A. Screens and navigation
-
-| Screen | Purpose | Entry points | Exit points |
-|---|---|---|---|
-| S1 Check, Used listing tab | Paste and check | Bottom tab "Check"; Home ask box | Result below; Find; Owners |
-| S2 Result (inline) | Flags, checklist, limits | After "Check it" | Check another; Find; Sell (if they own one) |
-| S3 Which-one chooser | Choose model or version | When several match | Back to S2 |
-| S4 Rules-only form | Fallback | Model failure | S2 |
-
-### B and C. Components and interactions
-
-| Component | Purpose | User action | Data required | API dependency | UI states |
-|---|---|---|---|---|---|
-| Mode tabs | Pitch or listing | Tap | — | — | Initial: Seller pitch; selecting "Used listing" shows its help text |
-| Help text | States the rules ("no buy or don't-buy verdict") | Read | — | — | Always |
-| Listing textarea | Input | Paste or type | Text up to 4,000 | — | Initial placeholder and example; Disabled while running; Error over limit |
-| "Use an example" | Fills a sample | Tap | — | — | Enabled |
-| Photo button (V1) | Attach a screenshot | Choose | Image 1280 px | — | Hidden in the first version |
-| "Check it" | Run | Tap | Text | `POST /query` | Disabled when empty or running |
-| Laptop header | Names the matched laptop | — | Laptop | — | Matched; Not in catalog |
-| Price line | New price with as-of date and the band with its source | — | Band | — | "(sample range)" or "(from N used prices)" |
-| Flag row | One flag with a level label, text and "Ask for" | Expand | Flag | — | Fine (✓), Check (▲), Note (i) |
-| Checklist | Things to inspect | Tick | Items | — | Unticked; ticked (kept for the session) |
-| Cannot-judge list | Limits | Read | List | — | Always shown |
-| Choice buttons | Choose a version | Tap | Choices | `POST /query` | Loaded |
-| Rules-only form | Fallback | Fill; submit | Laptop picker, numbers | `POST /query` (form) | Initial; Submitting |
-| Offline notice | Network lost | Retry | — | — | Offline |
-
-**Sorting:** fixed by rule. **Pagination:** none. **Real-time:** none.
-
-### D. UI states
-
-| State | Behaviour |
-|---|---|
-| Initial | Empty textarea, example button, help text |
-| Loading | Button disabled, "Working on it" |
-| Success | Banner, laptop header, price line, flags, checklist, cannot-judge list, footer |
-| Empty | Not applicable; if nothing is flagged, the list shows "Fine" lines and the checklist |
-| Error | Plain message and the rules-only form |
-| Disabled | "Check it" with no text |
-| Partial data | Missing fields shown as "Not stated in the listing" with an "Ask for" line |
-| Offline | "You seem to be offline. Your text is kept." |
-| Permission denied | Not applicable |
-
-### E. Validation
-
-| Field | Rule | Message |
-|---|---|---|
-| Listing text | 1 to 4,000 characters | "Please paste the listing (up to 4,000 characters)." |
-| Form: price | ₹1,000 to ₹10,00,000 | "That price looks wrong. Please check it." |
-| Form: battery % | 0 to 100 | "Battery health must be between 0 and 100." |
-| Form: RAM, storage | Positive whole numbers; storage in GB or TB | — |
-| Form: age | 0 to 20 years | — |
 
 ## Phase 5. Backend specification
 
@@ -207,7 +150,8 @@ flowchart TD
 | R14 no seller warranty | Note | Refurbished with no seller warranty stated | "No seller warranty is stated. Ask what it covers and for how long." |
 | R15 old OS | Check | Windows 7 or 8.1 | "Windows {v} no longer gets security updates." |
 | R16 Windows 10 | Check | Windows 10 | "Windows 10 stopped getting regular updates on 14 Oct 2025. Ask about Windows 11, or a newer model." |
-| R17 Windows 11, old hardware | Note | Windows 11 and model year under 2018 | "Windows 11 on a {year} model is unusual. Check that it is supported on this hardware." |
+| R17 Windows 11, processor not listed | Note | Windows 11 stated and the catalog processor is not on Microsoft's lists (Intel Core 8th generation or later; the listed AMD models) | "Windows 11 on this processor is unusual. Check that it is supported with PC Health Check." |
+| R17b Windows 11, processor unknown | Note | Windows 11 stated and the catalog processor is not specific enough | "I cannot tell from the catalog whether this processor supports Windows 11. Check with PC Health Check." |
 | R18 OS missing | Note | Not stated | "The listing does not say which operating system is installed." |
 | R19 fault in reason | Note | Reason contains a fault word | "The seller's reason mentions a problem. Ask exactly what it is." |
 | R20 not in catalog | Info | No match | "I could not match the laptop to the catalog, so I cannot compare its specs." |
@@ -338,38 +282,37 @@ F03.14 → F03.3 and the same rules
 | "Should I buy?" | No verdict; flags and checklist |
 | Concurrent imports of prices | Batches; last verified wins; undo by batch |
 | Performance | Rules and one catalog query in under 300 ms; router within 8 s |
-| Accessibility | Level shown with a word and a symbol, not colour alone; 44 px targets; checklist keyboard-operable |
 | Security | Parameterised queries; admin by role; no keys in the browser |
 | Privacy and retention | No listing text stored; anonymous log only; admin logs kept per policy |
 
 ## Phase 10. Prioritisation and backlog
 
-| ID | Opportunity | Feature | Subfeatures | Frontend scope | Backend scope | Dependencies | Priority | Complexity | Prototype |
-|---|---|---|---|---|---|---|---|---|---|
-| F03.1 | F03 | Listing intake | Text, example | Textarea, tabs | Router | — | MVP | S | Built |
-| F03.2 | F03 | Listing reading | All fields, null if unstated | — | P1d | Gemini | MVP | M | Partial |
-| F03.3 | F03 | Laptop identification | Choices, not in catalog | Chooser | `catalog` | Catalog | MVP | M | Built |
-| F03.4 | F03 | Spec consistency checks | R1 to R3 | Flag rows | Rules | F03.3 | MVP | S | Built |
-| F03.5 | F03 | Price check | New-price anchor, band, source label | Price line, flag | Band function | Used prices | MVP | M | Built (sample) |
-| F03.6 | F03 | Battery check | R8 to R11 | Flag rows | Rules | F03.2 | MVP | S | Partial |
-| F03.7 | F03 | Proof check | R12 to R14 | Flag rows | Rules | F03.2 | MVP | S | Partial |
-| F03.8 | F03 | Age and OS check | R15 to R18 | Flag rows | Rules, OS table | OS table | MVP | S | Built |
-| F03.9 | F03 | Seller reason note | R19 | Flag row | Rules | F03.2 | V1 | S | New |
-| F03.10 | F03 | Flag list | Order, levels, "ask for" | Flag list | Orderer | F03.4 to F03.9 | MVP | S | Partial |
-| F03.11 | F03 | In-person checklist | Tick items | Checklist | Table | Checklist | MVP | S | Built |
-| F03.12 | F03 | Cannot-judge list | — | List | Static | — | MVP | S | Built |
-| F03.13 | F03 | No-verdict guard | Copy and test | Sentence | Prompt rule | P1d | MVP | S | Partial |
-| F03.14 | F03 | Rules-only form | Fields | Form | Same rules | F03.3 | MVP | M | New |
-| F03.15 | F03 | Unreadable-input handling | Named failures | Message | Messages | — | MVP | S | Built |
-| F03.S1 | F03 | Pre-send gate | Recompute flags | — | Gate | All | MVP | M | New |
-| F03.S2 | F03 | Used-check log | Anonymous codes | — | Insert | — | V1 | S | New |
-| F03.A1 | F03 | Used-price import | Batches, verify | Admin screen | Import | — | V1 | M | New |
-| F03.A2 | F03 | OS support table | Versioned rules | Admin screen | Table | — | V1 | S | Partial |
-| F03.A3, A4 | F03 | Flag settings, checklist editor | Approval | Admin screens | Tables | — | V1 | S | Partial |
-| — | F03 | Photo and screenshot reading | Read, verify, name failures | Photo button | P3 | Paid tier | V1 | L | New |
-| — | F03 | Real used-price band | Percentiles, buckets, minimum count | — | Views | 20+ prices per bucket | V1 | L | New |
-| — | F03 | Learned price model | Quantile model | — | Model service | About 1,000 prices per segment | V2 | L | New |
-| — | F03 | Anomaly detection | Pattern flags | — | Model service | Labelled cases | Future | XL | New |
+| ID | Opportunity | Feature | Subfeatures | Backend scope | Dependencies | Priority | Complexity | Prototype |
+|---|---|---|---|---|---|---|---|---|
+| F03.1 | F03 | Listing intake | Text, example | Router | — | MVP | S | Built |
+| F03.2 | F03 | Listing reading | All fields, null if unstated | P1d | Gemini | MVP | M | Partial |
+| F03.3 | F03 | Laptop identification | Choices, not in catalog | `catalog` | Catalog | MVP | M | Built |
+| F03.4 | F03 | Spec consistency checks | R1 to R3 | Rules | F03.3 | MVP | S | Built |
+| F03.5 | F03 | Price check | New-price anchor, band, source label | Band function | Used prices | MVP | M | Built (sample) |
+| F03.6 | F03 | Battery check | R8 to R11 | Rules | F03.2 | MVP | S | Partial |
+| F03.7 | F03 | Proof check | R12 to R14 | Rules | F03.2 | MVP | S | Partial |
+| F03.8 | F03 | Age and OS check | R15 to R18 | Rules, OS table | OS table | MVP | S | Built |
+| F03.9 | F03 | Seller reason note | R19 | Rules | F03.2 | V1 | S | New |
+| F03.10 | F03 | Flag list | Order, levels, "ask for" | Orderer | F03.4 to F03.9 | MVP | S | Partial |
+| F03.11 | F03 | In-person checklist | Tick items | Table | Checklist | MVP | S | Built |
+| F03.12 | F03 | Cannot-judge list | — | Static | — | MVP | S | Built |
+| F03.13 | F03 | No-verdict guard | Copy and test | Prompt rule | P1d | MVP | S | Partial |
+| F03.14 | F03 | Rules-only form | Fields | Same rules | F03.3 | MVP | M | New |
+| F03.15 | F03 | Unreadable-input handling | Named failures | Messages | — | MVP | S | Built |
+| F03.S1 | F03 | Pre-send gate | Recompute flags | Gate | All | MVP | M | New |
+| F03.S2 | F03 | Used-check log | Anonymous codes | Insert | — | V1 | S | New |
+| F03.A1 | F03 | Used-price import | Batches, verify | Import | — | V1 | M | New |
+| F03.A2 | F03 | OS support table | Versioned rules | Table | — | V1 | S | Partial |
+| F03.A3, A4 | F03 | Flag settings, checklist editor | Approval | Tables | — | V1 | S | Partial |
+| — | F03 | Photo and screenshot reading | Read, verify, name failures | P3 | Paid tier | V1 | L | New |
+| — | F03 | Real used-price band | Percentiles, buckets, minimum count | Views | 20+ prices per bucket | V1 | L | New |
+| — | F03 | Learned price model | Quantile model | Model service | About 1,000 prices per segment | V2 | L | New |
+| — | F03 | Anomaly detection | Pattern flags | Model service | Labelled cases | Future | XL | New |
 
 **Reasoning for the large estimates**
 - **Photo reading (L):** privacy (paid tier, consent, no storage), reliability on small text, and clear failure messages all have to be right before it is safe.
@@ -404,10 +347,10 @@ Relative estimates, not commitments. The MVP is the smallest set that turns a pa
 | F03.6 | **Given** battery health 65%, **when** checked, **then** a Check flag shows the number; **given** 75%, **then** a Note; **given** 85%, **then** Fine. |
 | F03.7 | **Given** no serial number, **when** checked, **then** a Check flag asks for a photo of the sticker and says the middle digits can be hidden. |
 | F03.8 | **Given** Windows 10, **when** checked, **then** a Check flag says support ended on 14 Oct 2025; **given** Windows 7, **then** a Check flag says it gets no security updates. |
-| F03.8b | **Given** Windows 11 on a 2016 model, **when** checked, **then** a Note says it is unusual and to check hardware support. |
+| F03.8b | **Given** Windows 11 on a laptop whose catalog processor is Intel Core 7th generation, **when** checked, **then** a Note says it is unusual and to check with PC Health Check. |
 | F03.9 | **Given** a reason that says "keyboard has a problem", **when** checked, **then** a Note says to ask exactly what it is. |
 | F03.10 | **Given** several flags, **when** shown, **then** the order is impossible or unlisted combinations, price, battery, serial and proof, operating system, other. |
-| F03.11 | **Given** the checklist, **when** the user ticks an item, **then** it stays ticked until they leave the screen. |
+| F03.11 | **Given** the checklist, **when** it is returned, **then** each item has a stable id so a caller can track completion, and the server stores no progress. |
 | F03.12 | **Given** any result, **when** shown, **then** the "cannot be judged" list is present. |
 | F03.13 | **Given** "should I buy this?", **when** answered, **then** the reply says LapFit gives no buy or don't-buy verdict and never uses such language. |
 | F03.14 | **Given** the model is down, **when** the user submits the form, **then** the same flags appear. |
@@ -422,4 +365,4 @@ Relative estimates, not commitments. The MVP is the smallest set that turns a pa
 
 ## F03 review notes
 
-The questions this spec raised are answered in `../05_ANSWERS.md` (Q-F03-4 to Q-F03-13) and applied above. The least certain parts are the **Windows 11 processor stand-in** (model year 2018) and the **battery cut-offs**, because sources disagree; both are settings you can change. The **used-price band is a sample** until real prices are imported, and the screen says so. Next opportunity: **F04 Buy for others or a team**.
+The questions this spec raised are answered in `../05_ANSWERS.md` (Q-F03-4 to Q-F03-13) and applied above. The least certain part now is the **battery cut-off of 70%**, which has no authoritative source (80% is anchored on Apple's design target); the Windows 11 rule now follows Microsoft's own processor lists (research round, `../05_ANSWERS.md` Q-R7). The **used-price band is a sample** until real prices are imported, and the response says so. Next opportunity: **F04 Buy for others or a team**.

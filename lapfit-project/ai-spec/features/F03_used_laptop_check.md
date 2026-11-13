@@ -44,7 +44,7 @@ P1d and P3 for reading only. Everything else is code. Gemini Flash-class (D-03).
 | `laptop_model`, `variant` | Catalog specs, new price, model year |
 | `price_history` | New-price anchor and as-of date |
 | Settings (sample) | Used price band: 30% to 75% of today's new price. **A sample assumption** |
-| OS support facts (dated) | Windows 10 support end date; Windows 11 minimum model year |
+| OS support facts (dated) | Windows 10 support end date; Windows 11 processor lists (Intel Core 8th generation and later; the AMD models on Microsoft's list) |
 | `used_listing`, `used_price_observation` (Needed) | The real used-price band, replacing the sample |
 
 ### Eval loop
