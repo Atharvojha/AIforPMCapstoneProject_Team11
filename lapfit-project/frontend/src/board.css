@@ -104,3 +104,9 @@
 .match-why > summary { cursor: pointer; color: var(--accent); font-weight: 700; list-style: none; min-height: 32px; display: inline-flex; align-items: center; } .match-why > summary::-webkit-details-marker { display: none; }
 .match-why ul { margin: 4px 0 4px; padding-left: 18px; display: grid; gap: 2px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .match-pill.high b { background: #124a33; color: #9ff0c8; } :root:not([data-theme="light"]) .match-pill.mid b { background: #4a3a10; color: #ffd98a; } :root:not([data-theme="light"]) .match-pill.low b { background: #4d1d1d; color: #ffb3b3; } }
+
+/* compare table: columns share the sheet's width equally and never sit under the label column; it only scrolls sideways when 120px per laptop does not fit */
+.cmp-table { width: 100%; min-width: calc(84px + var(--cols, 3) * 120px); table-layout: fixed; }
+.cmp-table th, .cmp-table td { width: auto; min-width: 0; overflow-wrap: anywhere; }
+.cmp-table th[scope="row"], .cmp-table .cmp-corner { width: 84px; min-width: 84px; }
+.cmp-scroll { scroll-padding-left: 84px; }

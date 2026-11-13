@@ -6,6 +6,7 @@ import { HINGE_LABEL } from '../normalise.ts';
 import { imageOf } from '../cards.ts';
 import type { Deps, Row, Block } from '../types.ts';
 import { askBlock } from './ask.ts';
+import { webLaptop } from './weblaptop.ts';
 import { findInjections } from '../util.ts';
 import type { Mention } from '../router.ts';
 
@@ -49,7 +50,19 @@ export async function compare(deps: Deps, mentions: Mention[], wantLive = false,
     const v = await deps.tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: String(id) });
     if (v.found && !seen.has(v.specs.variant_id)) { seen.add(v.specs.variant_id); rows.push(v.specs); }
   }
-  const cu = cleanCustom(custom); if (cu.dropped.length) blocks.push({ type: 'notice', text: `I left out values that are not believable for a laptop: ${cu.dropped.join(', ')}. They show as "?".` });
+  const cu = cleanCustom(custom);
+  // a laptop that is not in the catalog is looked up on the web so its blanks are not just "?": the values are read from the pages by a model and checked by code, and only fill what the person left empty
+  const webFilled = new Map<number, Set<string>>(); const webBlocks: Block[] = []; const customStatus = new Map<number, string>();
+  const CUSTOM_KEYS = ['price_inr', 'ram_gb', 'storage_gb', 'display_size', 'weight_kg', 'battery_wh', 'cpu'] as const;
+  await Promise.all(cu.laptops.map(async (c, i) => {
+    if (!CUSTOM_KEYS.some((k) => (c as any)[k] == null)) return;
+    const wb: any = await webLaptop(deps, c.name, { deep: true }).catch(() => null); if (!wb || wb.type !== 'web_laptop') return; customStatus.set(i, wb.status); if (wb.status === 'ok' || wb.status === 'cached') webBlocks[i] = wb; const f = wb.fields ?? {}; const got = new Set<string>();
+    for (const k of CUSTOM_KEYS) { if ((c as any)[k] == null && f[k] != null && (k === 'cpu' || (CB[k] && f[k] >= CB[k][0] && f[k] <= CB[k][1]))) { (c as any)[k] = f[k]; got.add(k); } }
+    if (got.size) webFilled.set(i, got);
+  }));
+  const L2K: Record<string, string> = { Price: 'price_inr', RAM: 'ram_gb', Storage: 'storage_gb', Screen: 'display_size', Weight: 'weight_kg', Battery: 'battery_wh', Processor: 'cpu' };
+  const webMark = (label: string, i: number) => (webFilled.get(i)?.has(L2K[label]) ? ' (from the web, not verified)' : '');
+  if (cu.dropped.length) blocks.push({ type: 'notice', text: `I left out values that are not believable for a laptop: ${cu.dropped.join(', ')}. They show as "?".` });
   const ms = mentions.slice(0, 3);
   for (let i = 0; i < ms.length; i++) {
     const m = ms[i]; if (rows.length + cu.laptops.length >= 4) break;
@@ -73,16 +86,38 @@ export async function compare(deps: Deps, mentions: Mention[], wantLive = false,
     const nums = d.num ? all.map((r) => d.num!(r)) : []; const known = nums.filter((x): x is number => x != null);
     const bestVal = known.length > 1 && d.better ? (d.better === 'low' ? Math.min(...known) : Math.max(...known)) : null;
     const ties = bestVal != null && nums.filter((x) => x === bestVal).length > 1;
-    return { label: d.label, values: all.map((r, i) => (isCustom(i) ? customValue(d.label, r) : d.get(r) ?? 'not in catalog')), best: bestVal != null && !ties ? nums.indexOf(bestVal) : null, better: d.better ?? null };
+    return { label: d.label, values: all.map((r, i) => (isCustom(i) ? customValue(d.label, r) + (customValue(d.label, r) === '?' ? '' : webMark(d.label, i - rows.length)) : d.get(r) ?? 'not in catalog')), best: bestVal != null && !ties ? nums.indexOf(bestVal) : null, better: d.better ?? null };
   });
+  // NO BARE GAPS: whatever the catalog or the person left blank is looked up on the web (search + a model that reads the pages, every number checked against the page text by code).
+  // A found value is shown with "from the web, not verified"; a value nobody published is "not found online"; if the web could not be searched it says so. A number is never made up.
+  const BLANK = /^(not in catalog|\?)$/; const catLookup = new Map<number, any>(); const searchedCols = new Set<number>();
+  await Promise.all(rows.map(async (r, i) => {
+    if (!table.some((t) => L2K[t.label] && BLANK.test(String(t.values[i])))) return; searchedCols.add(i);
+    const wb: any = await webLaptop(deps, r.display_name.split(' · ')[0]).catch(() => null); if (wb?.type === 'web_laptop') { catLookup.set(i, wb); if (wb.status === 'ok' || wb.status === 'cached') webBlocks[100 + i] = wb; }
+  }));
+  const gapText = (status: string | undefined) => (status === 'ok' || status === 'cached' || status === 'empty' ? 'not found online' : 'web search unavailable right now');
+  for (const t of table) {
+    const key = L2K[t.label];
+    if (!key) { t.values = t.values.map((v: string, col: number) => (col >= rows.length && v === '?' ? 'not available for your own laptop' : v)); continue; }   // graphics, type, warranty... are not read from the web for a laptop you entered
+    t.values = t.values.map((v: string, col: number) => {
+      if (!BLANK.test(String(v))) return v;
+      const custom = col >= rows.length; const wb = custom ? undefined : catLookup.get(col); const status = custom ? customStatus.get(col - rows.length) : wb?.status;
+      if (!custom && !searchedCols.has(col)) return v;
+      const f = wb?.fields?.[key];
+      if (f != null) { const shown = customValue(t.label, customRow({ name: 'x', [key]: f } as any, 0)); if (shown !== '?') return `${shown} (from the web, not verified)`; }
+      if (custom && !/\d/.test(String(cu.laptops[col - rows.length]?.name ?? ''))) return status === 'ok' || status === 'cached' || status === 'empty' ? 'name too general: add the model number' : gapText(status);
+      return custom && status == null ? v : gapText(status);
+    });
+  }
   const evRows = await Promise.all(rows.map(async (r) => ({ variant_id: r.variant_id, name: r.display_name, ...(await deps.tools.call<any>('evidence_summary', { variant_id: r.variant_id })) })));
   const min = deps.settings.MIN_EVIDENCE_N ?? 20;
   const evidence = [...evRows.map((e) => ({ variant_id: e.variant_id, name: e.name, n: e.total.n, positive: e.total.positive, negative: e.total.negative, enough: e.total.n >= e.min_n, min_n: e.min_n, label: e.label })),
     ...cu.laptops.map((c, i) => ({ variant_id: `custom-${i + 1}`, name: `${c.name} ${YOURS}`, n: 0, positive: 0, negative: 0, enough: false, min_n: min, label: 'No owner opinions: this is a laptop you entered yourself.', custom: true }))];
   blocks.push({ type: 'compare', laptops: [...rows.map((r) => ({ variant_id: r.variant_id, name: r.display_name, image: imageOf(r), brand: r.brand, screen_in: r.display_size ?? null, weight_kg: r.weight_kg ?? null, data_status: r.verified ? 'Verified' : r.is_sample ? 'Sample data' : 'Imported listing data, not human-verified' })),
-      ...cu.laptops.map((c, i) => ({ variant_id: `custom-${i + 1}`, name: `${c.name} ${YOURS}`, image: null, brand: null, screen_in: c.display_size ?? null, weight_kg: c.weight_kg ?? null, data_status: 'Entered by you, not checked', custom: true }))], rows: table, evidence,
+      ...cu.laptops.map((c, i) => ({ variant_id: `custom-${i + 1}`, name: `${c.name} ${YOURS}`, image: null, brand: null, screen_in: c.display_size ?? null, weight_kg: c.weight_kg ?? null, data_status: webFilled.get(i)?.size ? 'Entered by you; blanks filled from the web, not verified' : 'Entered by you, not checked', web_filled: [...(webFilled.get(i) ?? [])], custom: true }))], rows: table, evidence,
     note: `The marker shows the lower price, lower weight, or higher RAM, storage or battery, when the values are known. I do not pick an overall winner: that depends on what you need.${cu.laptops.length ? ' Values for a laptop marked "yours" are what you entered; I have not checked them, and "?" means you left it blank.' : ''}` });
   if (wantLive && rows.length) blocks.push(...(await liveFor(deps, rows)));
+  for (const wb of webBlocks) if (wb) blocks.push(wb);   // the sources the blanks were read from
   return { blocks };
 }
 function customValue(label: string, r: Row): string {

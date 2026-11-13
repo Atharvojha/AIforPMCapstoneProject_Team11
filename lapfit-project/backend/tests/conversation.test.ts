@@ -171,7 +171,7 @@ test('not in the catalog also works for used checks, seller claims, compare and 
 test('compare accepts the user\'s own laptop: bounded numbers, "?" for blanks, marked custom, no image, no owner opinions', async () => {
   const r = await ask({ action: 'compare', variant_ids: ['FKL-10'], custom: [{ name: 'My <b>old</b> Dell  Inspiron', ram_gb: 8, price_inr: 30000, weight_kg: 99, display_size: 15.6, evil: 'x' }] });
   const c = blk(r, 'compare'); assert.equal(c.laptops.length, 2); const me = c.laptops[1]; assert.equal(me.custom, true); assert.equal(me.image, null); assert.match(me.name, /\(yours, as you entered\)/); assert.doesNotMatch(me.name, /[<>]/); assert.equal(c.laptops[0].custom, undefined);
-  const row = (l: string) => c.rows.find((x: any) => x.label === l).values; assert.equal(row('RAM')[1], '8 GB'); assert.equal(row('Weight')[1], '?'); assert.equal(row('Storage')[1], '?'); assert.equal(row('Screen')[1], '15.6 inch'); assert.equal(row('Price')[1], '₹30,000'); assert.equal(row('Graphics')[1], '?');
+  const row = (l: string) => c.rows.find((x: any) => x.label === l).values; assert.equal(row('RAM')[1], '8 GB'); assert.equal(row('Weight')[1], 'web search unavailable right now'); assert.equal(row('Storage')[1], 'web search unavailable right now'); assert.equal(row('Screen')[1], '15.6 inch'); assert.equal(row('Price')[1], '₹30,000'); assert.equal(row('Graphics')[1], 'not available for your own laptop');
   assert.ok(r.blocks.some((b: any) => b.type === 'notice' && /weight/.test(b.text))); assert.ok(c.evidence[1].custom && c.evidence[1].n === 0 && /no owner opinions/i.test(c.evidence[1].label)); assert.match(c.note, /yours/);
   assert.ok(c.rows.find((x: any) => x.label === 'Price').best === 1 || c.rows.find((x: any) => x.label === 'Price').best === 0);   // best marks still work among known values
   const two = await ask({ action: 'compare', custom: [{ name: 'A laptop', ram_gb: 16 }, { name: 'B laptop', ram_gb: 8 }, { name: 'C laptop' }] }); const c2 = blk(two, 'compare'); assert.equal(c2.laptops.length, 2); assert.equal(c2.rows.find((x: any) => x.label === 'RAM').best, 0);
@@ -209,4 +209,25 @@ test('the starter buttons start a guided step and never run a canned example (th
   const budget = await ask('Get a shortlist for my budget'); assert.equal(budget.blocks[0].type, 'choices'); assert.ok(budget.blocks[0].choices.length >= 4); assert.ok(!budget.blocks.some((b: any) => b.type === 'cards'));
   for (const t of ['Check what a seller told me', 'Compare two laptops', 'Check a used listing']) { const r = await ask(t); assert.ok(r.blocks.some((b: any) => b.type === 'text'), t); assert.ok(!r.blocks.some((b: any) => b.type === 'cards' || b.type === 'evidence'), t); }
   assert.equal((await ask('What owners say')).blocks[0].type, 'ask_laptop');
+});
+
+test('compare with a laptop that is not in the catalog looks it up on the web and fills only the blanks, labelled as not verified', async () => {
+  const { handleQuery } = await import('../supabase/functions/_shared/handler.ts'); const { loadSettings } = await import('../supabase/functions/_shared/settings.ts'); const { FakeLive } = await import('../supabase/functions/_shared/live.ts'); const { getDb } = await import('./helpers.ts');
+  const { tools, db } = await getDb(); await db.query("delete from live_review_cache where variant_id like 'WEB:%'"); await db.query('delete from live_usage'); const settings: any = await loadSettings(tools);
+  const live = new FakeLive(() => ({ items: [] }), () => ({ items: [{ snippet: 'ASUS Zenbook 14 OLED laptop with 16 GB RAM, 512 GB SSD, a 14 inch screen and Intel Core i5-1340P weighs 1.2 kg.', url: 'https://reviews.example.test/zenbook', site: 'reviews.example.test', topic: '', kind: 'excerpt' as const }] }));
+  const model: any = { generate: async () => JSON.stringify({ ram_gb: 16, storage_gb: 512, display_size: 14, weight_kg: 1.2, cpu: 'Intel Core i5-1340P', price_inr: 99999 }) };
+  const r: any = await handleQuery({ tools, model, live, settings, requestId: 'cz' }, { session_hash: 'cz', action: 'compare', variant_ids: ['FKL-10', 'FKL-14'], custom: [{ name: 'asus zenbook 14 oled', ram_gb: 8 }] });
+  const c = r.blocks.find((b: any) => b.type === 'compare'); const col = c.laptops.findIndex((l: any) => l.custom); assert.ok(col >= 0);
+  const row = (l: string) => c.rows.find((x: any) => x.label === l).values[col];
+  assert.equal(row('RAM'), '8 GB'); assert.match(row('Storage'), /512 GB.*from the web, not verified/); assert.match(row('Weight'), /1\.2 kg.*not verified/); assert.match(row('Screen'), /14 inch.*not verified/);
+  assert.equal(row('Price'), 'not found online'); assert.match(c.laptops[col].data_status, /blanks filled from the web, not verified/); assert.deepEqual(c.laptops[col].web_filled.sort(), ['cpu', 'display_size', 'storage_gb', 'weight_kg']);
+  assert.ok(r.blocks.some((b: any) => b.type === 'web_laptop' && b.items.length));
+});
+
+test('a custom laptop whose name is too general (no model number) says so instead of guessing which model', async () => {
+  const { handleQuery } = await import('../supabase/functions/_shared/handler.ts'); const { loadSettings } = await import('../supabase/functions/_shared/settings.ts'); const { FakeLive } = await import('../supabase/functions/_shared/live.ts'); const { getDb } = await import('./helpers.ts');
+  const { tools, db } = await getDb(); await db.query("delete from live_review_cache where variant_id like 'WEB:%'"); await db.query('delete from live_usage'); const settings: any = await loadSettings(tools);
+  const live = new FakeLive(() => ({ items: [] }), () => ({ items: [{ snippet: 'Many ASUS Zenbook laptops exist, from the Zenbook 13 to the Zenbook Pro 16.', url: 'https://reviews.example.test/zb', site: 'reviews.example.test', topic: '', kind: 'excerpt' as const }] }));
+  const r: any = await handleQuery({ tools, model: null, live, settings, requestId: 'cg' }, { session_hash: 'cg', action: 'compare', variant_ids: ['FKL-10', 'FKL-14'], custom: [{ name: 'asus zenbook' }] });
+  const c = r.blocks.find((b: any) => b.type === 'compare'); const col = c.laptops.findIndex((l: any) => l.custom); assert.match(c.rows.find((x: any) => x.label === 'Weight').values[col], /name too general: add the model number/);
 });
