@@ -9,7 +9,7 @@ import { guardRequest, visitorId, BLOCK_MESSAGE } from '../_shared/guard.ts';
 import { newRequestId } from '../_shared/util.ts';
 import { inputRecord } from '../_shared/inputlog.ts';
 
-const CORS = { 'access-control-allow-origin': Deno.env.get('ALLOWED_ORIGIN') ?? '*', 'access-control-allow-headers': 'content-type, authorization, apikey, x-lapfit-image', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-expose-headers': 'retry-after' };
+const CORS = { 'access-control-allow-origin': Deno.env.get('ALLOWED_ORIGIN') ?? '*', 'access-control-allow-headers': 'content-type, authorization, apikey, x-lapfit-image, x-region', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-expose-headers': 'retry-after' };
 const json = (body: unknown, status = 200, extra: Record<string, string> = {}) => new Response(JSON.stringify(body), { status, headers: { ...CORS, ...extra, 'content-type': 'application/json' } });
 
 Deno.serve(async (req) => {

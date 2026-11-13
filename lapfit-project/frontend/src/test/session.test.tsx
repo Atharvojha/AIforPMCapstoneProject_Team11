@@ -101,3 +101,15 @@ describe('ask_laptop', () => {
   });
 });
 void AskLaptopForm;
+
+describe('startup speed', () => {
+  it('asks Supabase to run the function in the region given in the config, and retries on the default route if that region fails', async () => {
+    const { sendQuery } = await import('../lib/api'); const ok = { ok: true, blocks: [{ type: 'text', text: 'x' }], request_id: 'r' };
+    const seen: any[] = []; const good: any = async (_u: string, init: any) => { seen.push(init.headers['x-region']); return new Response(JSON.stringify(ok), { status: 200 }); };
+    await sendQuery({ url: 'https://x.test', key: 'k', region: 'ap-south-1' }, { text: 'hi' }, { fetchImpl: good }); await sendQuery({ url: 'https://x.test', key: 'k' }, { text: 'hi' }, { fetchImpl: good }); expect(seen).toEqual(['ap-south-1', undefined]);
+    const calls: any[] = []; const flaky: any = async (_u: string, init: any) => { calls.push(init.headers['x-region']); return init.headers['x-region'] ? new Response('{}', { status: 502 }) : new Response(JSON.stringify(ok), { status: 200 }); };
+    const r = await sendQuery({ url: 'https://x.test', key: 'k', region: 'ap-south-1' }, { text: 'hi' }, { fetchImpl: flaky }); expect(r.ok).toBe(true); expect(calls).toEqual(['ap-south-1', undefined]);
+    const down: any = async (_u: string, init: any) => { calls.push('n' + init.headers['x-region']); if (init.headers['x-region']) throw new TypeError('failed'); return new Response(JSON.stringify(ok), { status: 200 }); };
+    expect((await sendQuery({ url: 'https://x.test', key: 'k', region: 'ap-south-1' }, { text: 'hi' }, { fetchImpl: down })).ok).toBe(true);
+  });
+});
