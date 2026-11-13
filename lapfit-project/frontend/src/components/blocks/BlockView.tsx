@@ -4,13 +4,17 @@ import { EvidenceBlock, OwnerReports, LiveReviews, TopicBoard } from './Evidence
 import { CompareBlock, TeamPlan, SellPlan, MyLaptopsBlock, MarketPulse, BrandInsights } from './Tables';
 import { Notice, TextBlock, Choices, Offer, Understood, Findings, Checklist, Claims, Receipt, FormRequest, Unknown, ImageRead, Provenance, WhereToBuy, DataStatus } from './Misc';
 import { LaptopAnswer } from './LaptopAnswer';
+import { AskLaptop } from './AskLaptop';
+import { WebLaptop } from './WebLaptop';
 
 /** One component per backend block type. An unknown type is mentioned, never a crash. */
 export function BlockView({ block }: { block: Block }) {
   switch (block.type) {
+    case 'web_laptop': return <WebLaptop b={block} />;
     case 'notice': return <Notice b={block} />;
     case 'text': return <TextBlock b={block} />;
     case 'choices': return <Choices b={block} />;
+    case 'ask_laptop': return <AskLaptop b={block} />;
     case 'offer': return <Offer b={block} />;
     case 'understood': return <Understood b={block} />;
     case 'cards': return <CardsBlock b={block} />;

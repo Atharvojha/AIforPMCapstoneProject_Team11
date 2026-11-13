@@ -41,3 +41,37 @@ export function isTie(cards: Card[]): boolean {
 export const verdictOf = (c: Card): string | null => c.reasons.find((r) => !/^Costs /.test(r)) ?? c.reasons[0] ?? null;
 export const musts = (c: Card) => c.musts.filter((m) => !m.label.startsWith('Within your budget'));
 export const missesMust = (c: Card) => c.musts.some((m) => m.ok === false);
+
+// ---- sort (what the board says about its own order) ----
+export interface SortInfo { key: string; label: string; note?: string }
+/** The hero label. "Best fit" is claimed only when the order really is best fit; any other order says what it is first by. */
+export function heroEyebrow(sort: SortInfo | null | undefined, fit: boolean): string | null {
+  if (!sort || sort.key === 'best') return fit ? 'Best fit for what you said' : null;
+  return `First by ${sort.label.toLowerCase()}`;
+}
+
+// ---- the person's own laptop (custom compare column) ----
+export interface CustomLaptop { name: string; price_inr?: number; ram_gb?: number; storage_gb?: number; display_size?: number; weight_kg?: number; battery_wh?: number; cpu?: string }
+export const CUSTOM_FIELDS: { key: Exclude<keyof CustomLaptop, 'name' | 'cpu'>; label: string; unit: string; min: number; max: number; int?: boolean }[] = [
+  { key: 'price_inr', label: 'Price', unit: '₹', min: 1000, max: 1000000, int: true },
+  { key: 'ram_gb', label: 'RAM', unit: 'GB', min: 1, max: 256, int: true },
+  { key: 'storage_gb', label: 'Storage', unit: 'GB', min: 16, max: 16384, int: true },
+  { key: 'display_size', label: 'Screen size', unit: 'inch', min: 7, max: 21 },
+  { key: 'weight_kg', label: 'Weight', unit: 'kg', min: 0.3, max: 6 },
+  { key: 'battery_wh', label: 'Battery', unit: 'Wh', min: 5, max: 200 },
+];
+/** Checks what was typed. Blank stays unknown ("?"). Returns either the clean laptop or one message per bad field. */
+export function parseCustom(form: Record<string, string>): { ok: true; laptop: CustomLaptop } | { ok: false; errors: Record<string, string> } {
+  const errors: Record<string, string> = {}; const out: CustomLaptop = { name: '' };
+  const name = (form.name ?? '').trim(); if (!name) errors.name = 'Give your laptop a name.'; else if (name.length > 80) errors.name = 'Keep the name under 80 characters.'; else out.name = name;
+  for (const f of CUSTOM_FIELDS) {
+    const raw = (form[f.key] ?? '').trim().replace(/,/g, ''); if (!raw) continue;
+    const n = Number(raw);
+    if (!/^\d+(\.\d+)?$/.test(raw) || !isFinite(n)) errors[f.key] = `${f.label}: type a number (${f.unit}).`;
+    else if (n < f.min || n > f.max) errors[f.key] = `${f.label}: between ${f.min} and ${f.max} ${f.unit}.`;
+    else if (f.int && !Number.isInteger(n)) errors[f.key] = `${f.label}: a whole number.`;
+    else out[f.key] = n;
+  }
+  const cpu = (form.cpu ?? '').trim(); if (cpu.length > 60) errors.cpu = 'Keep the processor under 60 characters.'; else if (cpu) out.cpu = cpu;
+  return Object.keys(errors).length ? { ok: false, errors } : { ok: true, laptop: out };
+}

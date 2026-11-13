@@ -15,6 +15,7 @@ const blk = (r: any, t: string) => r.blocks.find((b: any) => b.type === t);
 test('the exact questions from the screenshot are follow-ups about the laptop in focus; new searches, other laptops and sales are not', () => {
   for (const [q, i] of [['Will this last for 8 years?', 'lifespan'], ['Which one did you show me based on my specifications?', 'why'], ['Why this one?', 'why'], ['Can I upgrade it?', 'upgrade'], ['What are the common problems with this?', 'problems'], ['Is this good for video editing?', 'suit'], ['How long will it last?', 'lifespan']] as const) assert.equal(followUpIntent(q, ctx), i, q);
   for (const q of ['show me a lighter one than this', 'laptop under 40k', 'compare this with the MacBook Air', 'how much can I sell it for?', 'Will the Dell XPS last 8 years?', 'hello', '', 'a'.repeat(400)]) assert.equal(followUpIntent(q, ctx), null, q);
+  for (const q of ['which brand is more reliable for laptops', 'Which brand is more reliable?', 'will a gaming laptop last 5 years?', 'are laptops durable']) assert.equal(followUpIntent(q, ctx), null, q);
   assert.equal(followUpIntent('Will this last for 8 years?', { focus: null, shown: [] }), null);
   assert.equal(followUpIntent('It lasts long', ctx), null);   // a statement, not a question
 });
@@ -56,8 +57,8 @@ test('"why this one" uses only what the person said, shows the reasons card, and
 });
 
 test('with several laptops shown and none in focus it asks which, with their names as buttons; choosing one answers that question', async () => {
-  const r: any = await ask({ text: 'Will this last for 8 years?', shown: [ASUS, PRO] }); const c = blk(r, 'choices'); assert.equal(c.choices.length, 2); assert.match(c.choices[0].send, /ASUS VivoBook 15 \(2022\) Core i3 10th Gen — Will this last for 8 years\?/);
-  const r2: any = await ask({ text: c.choices[1].send, shown: [ASUS, PRO] }); assert.equal(blk(r2, 'laptop_answer').laptop.variant_id, 'FKL-08');
+  const r: any = await ask({ text: 'Will this last for 8 years?', shown: [ASUS, PRO] }); const c = blk(r, 'ask_laptop'); assert.equal(c.choices.length, 2); assert.match(c.choices[0].label, /ASUS VivoBook 15 \(2022\) Core i3 10th Gen/); assert.deepEqual(c.choices.map((x: any) => x.variant_id), ['FKL-09', 'FKL-08']);   // changed on purpose: an ask_laptop block replaces the old text choices
+  const r2: any = await ask({ ...c.base, variant_id: c.choices[1].variant_id }); assert.equal(blk(r2, 'laptop_answer').laptop.variant_id, 'FKL-08');
 });
 
 test('without any context, or with an unrelated question, nothing changes: no follow-up answer is invented', async () => {

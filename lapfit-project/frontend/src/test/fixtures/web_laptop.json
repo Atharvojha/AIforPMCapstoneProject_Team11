@@ -1,0 +1,46 @@
+{
+  "request": {
+    "text": "Acer Aspire Lite 14 AL14-71M"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-web-laptop",
+    "flow": "web_laptop",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "ignored_instructions": [],
+    "blocks": [
+      {
+        "type": "web_laptop",
+        "query": "Acer Aspire Lite 14 AL14-71M",
+        "status": "ok",
+        "note": "Live web search, fetched just now. Not verified.",
+        "fields": {
+          "price_inr": 38990,
+          "ram_gb": 16,
+          "storage_gb": 512,
+          "display_size": 14,
+          "cpu": "Intel Core i5-12450H"
+        },
+        "fields_note": "Read from the web pages below by an AI model and checked against their text. Not verified, may be wrong.",
+        "items": [
+          {
+            "snippet": "Acer Aspire Lite 14 with Core i5 12th Gen, 16 GB RAM and 512 GB SSD listed at Rs 38,990.",
+            "url": "https://example.com/acer-aspire-lite-14",
+            "site": "example.com",
+            "published": "2026-10-02"
+          },
+          {
+            "snippet": "Unsafe link must not render",
+            "url": "http://insecure.example.com/x",
+            "site": "insecure.example.com"
+          }
+        ],
+        "can_compare": true
+      }
+    ]
+  }
+}

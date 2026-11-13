@@ -48,11 +48,11 @@ describe('look visuals', () => {
 });
 
 describe('look in the results', () => {
-  it('the hero shows a drawing first, a switch brings the photo (with attribution), and another switch brings the drawing back', async () => {
+  it('the hero shows the photo first (with its source), a switch brings the drawing, and another switch brings the photo back', async () => {
     render(withCtx(<BlockView block={block('shortlist', 'cards')} />)); const hero = document.querySelector('.bhero') as HTMLElement;
-    expect(hero.querySelector('.spec-portrait')).toBeInTheDocument(); expect(within(hero).getByText(/Drawn from the specs, not a photo/)).toBeInTheDocument();
-    await userEvent.click(within(hero).getByRole('button', { name: 'Show photo' })); expect(hero.querySelector('img')).toBeInTheDocument(); expect(within(hero).getByText(/Photo:/)).toBeInTheDocument(); expect(hero.querySelector('.spec-portrait')).toBeNull();
-    await userEvent.click(within(hero).getByRole('button', { name: 'Show drawing' })); expect(hero.querySelector('.spec-portrait')).toBeInTheDocument();
+    expect(hero.querySelector('img')).toBeInTheDocument(); expect(within(hero).getByText(/Photo:/)).toBeInTheDocument(); expect(hero.querySelector('.spec-portrait')).toBeNull();
+    await userEvent.click(within(hero).getByRole('button', { name: 'Show drawing' })); expect(hero.querySelector('.spec-portrait')).toBeInTheDocument(); expect(within(hero).getByText(/Drawn from the specs, not a photo/)).toBeInTheDocument(); expect(hero.querySelector('img')).toBeNull();
+    await userEvent.click(within(hero).getByRole('button', { name: 'Show photo' })); expect(hero.querySelector('img')).toBeInTheDocument();
   });
   it('compare shows the screens at the same scale above the table', () => { render(withCtx(<BlockView block={block('compare', 'compare')} />)); expect(document.querySelector('.scale-screens')).toBeInTheDocument(); expect(screen.getByRole('img', { name: /same scale/ })).toBeInTheDocument(); });
   it('a laptop with no photo on file still shows the drawing, says there is no photo, and has no Show photo button', () => {

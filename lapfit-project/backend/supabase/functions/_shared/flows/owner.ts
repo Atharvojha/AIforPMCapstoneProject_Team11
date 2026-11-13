@@ -1,6 +1,7 @@
 // F05 Owner voice: what owners say, by topic, with counts. Dataset opinions, approved owner reports, and live web results kept apart.
 import { resolveVariant, TOPIC_OF } from './pitch.ts';
 import { liveFor } from './livecards.ts';
+import { askBlock, withBase } from './ask.ts';
 import type { Deps, Row, Block } from '../types.ts';
 import type { Mention } from '../router.ts';
 
@@ -15,7 +16,7 @@ export async function ownerVoice(deps: Deps, mention: Mention | undefined, text:
   if (persona || MONTHS.test(text)) blocks.push({ type: 'notice', text: `The recorded dataset has no user type or months-owned on its reviews, so I cannot filter by ${[persona && `"${persona}"`, MONTHS.test(text) && 'time owned'].filter(Boolean).join(' or ')} there. ${persona ? 'Approved owner reports that carry a user type are shown separately below when they exist.' : ''}` });
   if (!mention && !variantId) {
     // no laptop named: leaderboard of laptops on this topic, only where there is enough evidence
-    if (!topic) return { blocks: [{ type: 'text', text: 'Which laptop, and which topic (battery, heat, keyboard, display, performance)?' }] };
+    if (!topic) return { blocks: [...blocks, askBlock('Which laptop do you want owner opinions on?', { action: 'owner_voice', topic: text.slice(0, 200) }, null)] };
     const names = await tools.call<{ rows: Row[] }>('find_variants', {});
     const list = (await Promise.all(names.rows.map(async (r) => { const s = await tools.call<any>('evidence_summary', { variant_id: r.variant_id, topic }); const t = s.topics[0]; return t ? { name: r.display_name, variant_id: r.variant_id, ...t } : null; }))).filter(Boolean) as any[];
     const enough = list.filter((x) => x.enough).sort((a, b) => b.positive / b.n - a.positive / a.n);
@@ -25,8 +26,8 @@ export async function ownerVoice(deps: Deps, mention: Mention | undefined, text:
   }
   let vid = variantId ?? '';
   if (!vid) {
-    const res = await resolveVariant(deps, mention!, { pickFirst: true }); if ((res as any).assumed) blocks.push({ type: 'notice', text: `I used ${(res as any).assumed}.` });
-    if (res.kind !== 'one') return { blocks: res.blocks };
+    const res = await resolveVariant(deps, mention!, { pickFirst: true, web: true }); if ((res as any).assumed) blocks.push({ type: 'notice', text: `I used ${(res as any).assumed}.` });
+    if (res.kind !== 'one') return { blocks: [...blocks, ...withBase(res.blocks, { action: 'owner_voice', topic: text.slice(0, 200) })] };
     vid = res.variantId;
   }
   const got = await tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: vid });

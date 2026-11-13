@@ -1,12 +1,12 @@
 /* shared sheet + trust line (written by the lead so every builder uses the same ones) */
 .sheet-wrap { position: fixed; inset: 0; z-index: 60; }
 .sheet-backdrop { position: absolute; inset: 0; background: rgba(30, 22, 70, .42); animation: sheet-fade .2s var(--ease, cubic-bezier(.23, 1, .32, 1)); }
-.sheet { position: absolute; left: 0; right: 0; bottom: 0; max-height: 88dvh; display: flex; flex-direction: column; background: var(--solid, #fff); border-radius: 28px 28px 0 0; box-shadow: 0 -12px 40px rgba(60, 40, 140, .25); padding-bottom: env(safe-area-inset-bottom); animation: sheet-up .28s var(--ease, cubic-bezier(.23, 1, .32, 1)); }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; max-height: 88dvh; min-height: 0; display: flex; flex-direction: column; background: var(--solid, #fff); border-radius: 28px 28px 0 0; box-shadow: 0 -12px 40px rgba(60, 40, 140, .25); padding-bottom: env(safe-area-inset-bottom); animation: sheet-up .28s var(--ease, cubic-bezier(.23, 1, .32, 1)); }
 .sheet-grab { width: 40px; height: 5px; border-radius: 99px; background: var(--line, #ddd); margin: 10px auto 0; }
 .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 20px 6px; } .sheet-head h2 { margin: 0; font-size: 1.15rem; }
 .sheet-close { min-width: 44px; min-height: 44px; border-radius: 50%; border: 0; background: var(--info-soft, #eee); cursor: pointer; font-size: 1rem; } .sheet-close:active { transform: scale(.95); }
-.sheet-body { overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 24px; -webkit-overflow-scrolling: touch; }
-@media (min-width: 1024px) { .sheet-backdrop { background: rgba(30, 22, 70, .18); } .sheet { left: auto; top: 0; width: min(440px, 40vw); max-height: none; border-radius: 28px 0 0 28px; animation-name: sheet-in; } }
+.sheet-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 24px; -webkit-overflow-scrolling: touch; }
+@media (min-width: 1024px) { .sheet-backdrop { background: rgba(30, 22, 70, .18); } .sheet { left: auto; top: 0; bottom: 0; height: 100dvh; width: min(440px, 40vw); max-height: none; border-radius: 28px 0 0 28px; animation-name: sheet-in; } }
 @keyframes sheet-up { from { transform: translateY(24px); opacity: 0; } } @keyframes sheet-in { from { transform: translateX(24px); opacity: 0; } } @keyframes sheet-fade { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .sheet, .sheet-backdrop { animation: none; } }
 .trust-line { display: flex; flex-wrap: wrap; gap: 2px 10px; margin: 0; font-size: .8rem; color: var(--muted, #5b567a); } .trust-line span + span::before { content: '·'; margin-right: 10px; } .trust-line .warn { color: #8a5a00; font-weight: 700; } .trust-line .ok { color: #0d7a4c; font-weight: 700; }

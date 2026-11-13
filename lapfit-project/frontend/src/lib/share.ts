@@ -12,7 +12,7 @@ export function cardLines(reply: Reply): CardLine[] {
   for (const b of reply.blocks) {
     if (b.type === 'cards') for (const c of (b.cards as any[]).slice(0, 3)) out.push({ title: `${String(c.name).split(' · ')[0]}  ${c.price_text}`, sub: `as of ${c.as_of_text}. ${c.reasons?.[0] ?? c.evidence?.text ?? ''}` });
     if (b.type === 'compare') for (const l of (b.laptops as any[]).slice(0, 3)) out.push({ title: String(l.name).split(' · ')[0], sub: String(l.name).split(' · ')[1] ?? '' });
-    if (b.type === 'sell_plan') out.push({ title: String(b.laptop).split(' · ')[0], sub: `A used one might sell for ${b.range.low_text} to ${b.range.high_text}` });
+    if (b.type === 'sell_plan') out.push({ title: String(b.laptop).split(' · ')[0], sub: b.range?.low_text && b.range?.high_text ? `A used one might sell for ${b.range.low_text} to ${b.range.high_text}` : 'No price range yet' });
   }
   return out;
 }

@@ -10,7 +10,7 @@ export function summaryLines(reply: Reply, max = 3): string[] {
     else if (b.type === 'compare') { out.push(`Comparing ${(b.laptops as any[]).map((l) => String(l.name).split(' · ')[0]).join(' and ')}.`); out.push(String(b.note)); }
     else if (b.type === 'claims') for (const r of (b.rows as any[]).slice(0, 5)) out.push(`${r.claim_text}: ${r.label ?? r.status}. ${r.detail ?? ''}`.trim());
     else if (b.type === 'findings') for (const f of (b.findings as any[]).slice(0, 5)) out.push(String(f.text));
-    else if (b.type === 'sell_plan') out.push(`${b.laptop}: a used one might sell for ${b.range.low_text} to ${b.range.high_text}. ${(b.disclaimers as string[])[0] ?? ''}`.trim());
+    else if (b.type === 'sell_plan') out.push((b.range?.low_text && b.range?.high_text ? `${b.laptop}: a used one might sell for ${b.range.low_text} to ${b.range.high_text}. ${(b.disclaimers as string[] | undefined)?.[0] ?? ''}` : `${b.laptop}: no price range yet, I need to know what you paid.`).trim());
     else if (b.type === 'evidence') for (const t of (b.topics as any[]).slice(0, 3)) out.push(t.enough ? `${t.topic}: ${t.positive} positive and ${t.negative} negative owner opinions, of ${t.n}.` : `${t.topic}: not enough owner evidence yet (n = ${t.n}).`);
     else if (b.type === 'text' && out.length < 2) out.push(String(b.text));
     else if (b.type === 'image_read' && b.readable) out.push(`I read your picture as ${b.kind_label}.`);

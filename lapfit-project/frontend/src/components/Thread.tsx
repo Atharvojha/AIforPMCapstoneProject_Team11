@@ -7,10 +7,11 @@ import { Lappy, type Mood } from './viz/Lappy';
 import { ReplyActions } from './ReplyActions';
 import { fmtWait } from '../lib/wait';
 import { shortName } from '../lib/focus';
+import { AskRepeatContext } from './blocks/AskLaptop';
 
 const STEPS = ['Reading your request', 'Checking the catalog', 'Counting owner opinions', 'Looking at live reviews', 'Re-checking every price'];
 
-export function ThreadView({ thread, ctx, empty }: { thread: ThreadState; ctx: Ctx; empty?: React.ReactNode }) {
+export function ThreadView({ thread, ctx, empty, onEdit }: { thread: ThreadState; ctx: Ctx; empty?: React.ReactNode; onEdit?(turn: { id: number; text: string }): void }) {
   const end = useRef<HTMLDivElement>(null);
   const [detail, setDetail] = useState<{ card: DetailCard; tab: DetailTab } | null>(null); const closeDetail = useCallback(() => setDetail(null), []);
   useEffect(() => { end.current?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest' }); }, [thread.turns.length, thread.busy]);
@@ -22,20 +23,22 @@ export function ThreadView({ thread, ctx, empty }: { thread: ThreadState; ctx: C
     <CtxContext.Provider value={ctx2}>
       <div className="thread" aria-live="polite" aria-busy={thread.busy}>
         {turns.length === 0 && empty}
-        {turns.map((t) => (
+        {turns.map((t, ti) => {
+          const prevAsk = [...turns.slice(0, ti)].reverse().find((x) => x.reply)?.reply?.blocks.find((b) => b.type === 'ask_laptop');
+          return (
           <div className="turn" key={t.id}>
-            {t.user && <p className="user-bubble">{t.user}</p>}
+            {t.user && <div className="user-line"><p className="user-bubble">{t.user}</p>{t.typed && onEdit && !t.pending && <button type="button" className="link edit-msg" disabled={thread.busy} onClick={() => onEdit({ id: t.id, text: t.user! })} aria-label={`Edit your message: ${t.user!.slice(0, 40)}`}><span aria-hidden="true">✎</span> Edit</button>}</div>}
             {t.pending && <Waiting />}
             {t.reply && <div className="reply">
               <div className="reply-mood"><Lappy key={moodOf(t.reply)} mood={moodOf(t.reply)} size={44} /></div>
-              {t.reply.blocks.map((b, i) => <div className="reveal" style={{ ['--i' as any]: Math.min(i, 8) }} key={i}><BlockView block={b} /></div>)}
+              {t.reply.blocks.map((b, i) => <div className="reveal" style={{ ['--i' as any]: Math.min(i, 8) }} key={i}><AskRepeatContext.Provider value={b.type === 'ask_laptop' && !!prevAsk && prevAsk.question === b.question}><BlockView block={b} /></AskRepeatContext.Provider></div>)}
               {t.reply.router_mode === 'fallback' && <p className="muted small">I used a simpler reader this time because the smart reader was slow. Please check what I understood.</p>}
               {t.id === lastReplyId && lastIsReply && !thread.busy && thread.focus && <FollowUps thread={thread} reply={t.reply} />}
               <ReplyActions reply={t.reply} />
             </div>}
             {t.error && <ErrorBanner thread={thread} error={t.error} />}
           </div>
-        ))}
+        ); })}
         <div ref={end} />
       </div>
       <DetailSheet card={detail?.card ?? null} tab={detail?.tab} blocks={detailBlocks} busy={ctx.busy} onClose={closeDetail} onAction={ctx.action} />

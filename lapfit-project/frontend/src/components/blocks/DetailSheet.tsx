@@ -47,7 +47,7 @@ export function DetailSheet({ card, tab: first = 'fit', blocks, busy, onClose, o
       <div className="detail">
         <div className="detail-top">
           <LaptopImage pic={c.image} brand={c.brand ?? brand.split(' ')[0]} name={brand} screen={s.display_size} weight={s.weight_kg} />
-          <div><p className="detail-price"><strong>{c.price_text || '?'}</strong></p>{version && <p className="muted small">{version}</p>}
+          <div><p className="detail-price"><strong>{typeof c.price_inr === 'number' && c.price_inr > 0 && c.price_text ? c.price_text : '?'}</strong></p>{version && <p className="muted small">{version}</p>}
             <TrustLine asOf={c.as_of_text || '?'} owners={c.evidence.n} verified={verified} compact /></div>
         </div>
         <div className="detail-tabs" role="tablist" aria-label="About this laptop" onKeyDown={onKey}>

@@ -20,6 +20,7 @@ import { MarketScreen } from './screens/MarketScreen';
 import { AboutScreen } from './screens/AboutScreen';
 import { TrustSheet } from './components/TrustSheet';
 import { getJson, setJson } from './lib/storage';
+import { createSessionStore } from './lib/session';
 
 const ICON: Record<string, string> = { ask: '✨', explore: '🗺️', check: '🕵️', sell: '💰', you: '🙂' };
 const TABS = [
@@ -49,12 +50,13 @@ function Shell({ cfg }: { cfg: ApiConfig }) {
   const [trustOpen, setTrustOpen] = useState(false); const closeTrust = useCallback(() => setTrustOpen(false), []);
   const [chipOpen, setChipOpen] = useState(() => !getJson<boolean>('lapfit.chipseen.v1', false));   // first visit: the line is shown in full for 3 s, then it folds to one line
   useEffect(() => { if (!chipOpen) return; const t = setTimeout(() => { setChipOpen(false); setJson('lapfit.chipseen.v1', true); }, 3000); return () => clearTimeout(t); }, [chipOpen]);
-  const th = { ask: useThread(cfg, undefined, reporter('ask')), explore: useThread(cfg, undefined, reporter('explore')), check: useThread(cfg, undefined, reporter('check')), sell: useThread(cfg, undefined, reporter('sell')),
+  const session = useMemo(() => createSessionStore(), []);   // the saved brief of the Ask conversation: needs, recommendations, selection
+  const th = { ask: useThread(cfg, undefined, reporter('ask'), session), explore: useThread(cfg, undefined, reporter('explore')), check: useThread(cfg, undefined, reporter('check')), sell: useThread(cfg, undefined, reporter('sell')),
     mine: useThread(cfg, undefined, reporter('mine')), share: useThread(cfg, undefined, reporter('share')), market: useThread(cfg, undefined, reporter('market')) };
 
   // laptops picked for comparison (kept for this browser session)
   const [picks, setPicks] = useState<{ ids: string[]; names: Record<string, string> }>(() => getSession('lapfit.picks', { ids: [], names: {} }));
-  useEffect(() => { setSession('lapfit.picks', picks); }, [picks]);
+  useEffect(() => { setSession('lapfit.picks', picks); session.set({ picks: picks.ids.map((id) => ({ id, name: picks.names[id] ?? id })) }); }, [picks, session]);
   const compare: ComparePicks = useMemo(() => ({
     ids: picks.ids, names: picks.names, has: (id) => picks.ids.includes(id),
     toggle: (id, name) => setPicks((p) => (p.ids.includes(id) ? { ids: p.ids.filter((x) => x !== id), names: p.names } : p.ids.length >= 4 ? p : { ids: [...p.ids, id], names: { ...p.names, [id]: name } })),

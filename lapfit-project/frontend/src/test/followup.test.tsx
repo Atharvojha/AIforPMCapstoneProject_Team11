@@ -52,13 +52,13 @@ describe('composer chip and follow-ups', () => {
     expect(screen.getByPlaceholderText('Ask about this laptop, or a new one')).toBeTruthy();
     await userEvent.click(await screen.findByRole('button', { name: 'Will it last long?' }));
     await waitFor(() => expect(send).toHaveBeenCalledTimes(2)); expect(send.mock.calls[1][1].text).toBe('Will it last long?'); expect(send.mock.calls[1][1].focus).toBeTruthy();
-    await userEvent.click(screen.getByRole('button', { name: /^Stop asking about/ }));
+    await userEvent.click(screen.getByRole('button', { name: /^Clear my selection/ }));
     expect(screen.queryByText(/Asking about/)).toBeNull(); expect(screen.queryByText(/I only talk about laptops/)).toBeNull(); expect(screen.queryByRole('button', { name: 'Common problems?' })).toBeNull();
   });
   it('opening Details makes that laptop the focus', async () => {
     const send: any = vi.fn(ok({ ...fx('shortlist') })); render(<Harness send={send} />);
     await userEvent.type(screen.getByLabelText('Your message'), 'laptop{Enter}'); await screen.findByText(/Asking about/);
-    await userEvent.click(screen.getByRole('button', { name: /^Stop asking about/ })); expect(screen.queryByText(/Asking about/)).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: /^Clear my selection/ })); expect(screen.queryByText(/Asking about/)).toBeNull();
     const cards = fx('shortlist').blocks.find((b) => b.type === 'cards')!.cards as any[];
     await userEvent.click(screen.getAllByRole('button', { name: /details|check|more/i })[0]);
     await screen.findByText(/Asking about/); expect(screen.getByText(/Asking about/).textContent).toContain(cards[0].name.split(' · ')[0]);

@@ -1,4 +1,5 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { SliderInput } from './SliderInput';
 import { useCatalog } from '../state/useCatalog';
 import type { Needs } from '../lib/types';
 
@@ -16,8 +17,10 @@ const short = (n: number | null) => (n == null ? 'No limit' : n >= 100000 ? `₹
 /** The state of the Ask form, kept in one place so the picker (tiles + budget) and the sticky button can sit apart on the page. */
 export function useVibes(onNeeds: (n: Needs, label: string) => void, onText: (t: string) => void) {
   const { rows, load } = useCatalog(); useEffect(load, [load]);
-  const [picked, setPicked] = useState<string[]>([]); const [idx, setIdx] = useState(3);
-  const budget = BUDGETS[idx]; const cap = budget == null ? ` ` : ` under ${budgetText(budget)}`;
+  const [picked, setPicked] = useState<string[]>([]); const [idx, setIdx0] = useState(3); const [typed, setTyped] = useState<number | null>(null);   // typed = an amount typed into the number field (not one of the stops)
+  const setIdx = (i: number) => { setIdx0(i); setTyped(null); };
+  const setBudget = (n: number) => { setTyped(n); const i = BUDGETS.findIndex((b) => b != null && b >= n); setIdx0(i === -1 ? BUDGETS.length - 2 : i); };
+  const budget = typed ?? BUDGETS[idx]; const cap = budget == null ? ` ` : ` under ${budgetText(budget)}`;
   const prices = rows.filter((r) => r.recommendable && r.price_inr != null).map((r) => r.price_inr as number);
   const within = prices.filter((p) => budget == null || p <= budget).length;
   const uses = VIBES.filter((v) => picked.includes(v.id) && v.use).map((v) => v.use); const stylish = picked.includes('stylish');
@@ -26,21 +29,21 @@ export function useVibes(onNeeds: (n: Needs, label: string) => void, onText: (t:
     if (stylish) onText(`A stylish laptop${uses.length ? ` for ${uses.join(' and ')}` : ''}${cap}`.trimEnd());
     else onNeeds({ budget_max_inr: budget, budget_min_inr: null, musts: [], shoulds: [], nices: [], use_cases: uses }, `${uses.length ? uses.join(' + ') : 'Anything'}${budget == null ? ', no budget limit' : cap}`);
   };
-  return { picked, toggle, idx, setIdx, budget, within, go };
+  return { picked, toggle, idx, setIdx, budget, setBudget, within, go };
 }
 export type Vibes = ReturnType<typeof useVibes>;
 
 /** Six tiles and one budget slider with five quick stops. That is the whole form; the button is the sticky AskCta. */
 export function VibePicker({ v }: { v: Vibes }) {
-  const id = useId();
   return (
     <section className="vibe-picker" aria-label="Pick what you need">
       <h3>What’s it for?</h3>
       <div className="tiles" role="group" aria-label="Pick one or more">{VIBES.map((x) => <button type="button" key={x.id} className={`tile ${v.picked.includes(x.id) ? 'on' : ''}`} aria-pressed={v.picked.includes(x.id)} onClick={() => v.toggle(x.id)}><span className="tile-icon" aria-hidden="true">{x.icon}</span><span className="tile-text">{x.label}</span></button>)}</div>
       <div className="budget-pick">
-        <label htmlFor={id}>Budget up to <strong>{budgetText(v.budget)}</strong></label>
-        <input id={id} type="range" min={0} max={BUDGETS.length - 1} step={1} value={v.idx} aria-valuetext={`${budgetText(v.budget)}, ${v.within} laptops in the catalog ${v.budget == null ? 'in all' : 'at or under this price'}`} onChange={(e) => v.setIdx(Number(e.target.value))} />
-        <div className="stops" role="group" aria-label="Quick budgets">{STOPS.map((i) => <button type="button" key={i} className={`stop ${v.idx === i ? 'on' : ''}`} aria-pressed={v.idx === i} onClick={() => v.setIdx(i)}>{short(BUDGETS[i])}</button>)}</div>
+        <SliderInput label="Budget up to" fieldLabel="Type a budget in rupees" value={v.budget} onChange={(n) => (n === Infinity ? v.setIdx(BUDGETS.length - 1) : v.setBudget(n))} min={5000} max={500000} stops={BUDGETS.map((b) => b ?? Infinity)} prefix="₹" format={(n) => n.toLocaleString('en-IN')} nullText="No limit"
+          hint="You can also type an amount, like 75000 or 1.5 lakh."
+          valueText={() => `${budgetText(v.budget)}, ${v.within} laptops in the catalog ${v.budget == null ? 'in all' : 'at or under this price'}`} />
+        <div className="stops" role="group" aria-label="Quick budgets">{STOPS.map((i) => <button type="button" key={i} className={`stop ${v.idx === i && v.budget === BUDGETS[i] ? 'on' : ''}`} aria-pressed={v.idx === i && v.budget === BUDGETS[i]} onClick={() => v.setIdx(i)}>{short(BUDGETS[i])}</button>)}</div>
       </div>
     </section>
   );

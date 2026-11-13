@@ -3,6 +3,7 @@
 import { extractJson } from '../model.ts';
 import { findInjections, scrub, fmtInr } from '../util.ts';
 import { usedCheck } from './used.ts';
+import { askBlock } from './ask.ts';
 import { secondOpinionAndPitch, claimsForMention } from './pitch.ts';
 import type { Deps, Block, Needs } from '../types.ts';
 import type { Mention, Claim, Listing, RouterResult } from '../router.ts';
@@ -93,6 +94,12 @@ export async function readImage(deps: Deps, img: Image, intent: string | undefin
   const wantClaims = r.kind === 'seller_message' || (r.claims.length > 0 && intent !== 'listing');
   const wantListing = r.kind === 'listing_screenshot' || r.kind === 'battery_report' || intent === 'listing' || (r.listing.battery_health_pct != null || r.listing.has_bill != null);
   const cards: Card[] = [];
+  const noLaptop = !mention;
+  if (noLaptop && (wantListing || wantClaims || r.kind === 'laptop_photo' || r.kind === 'spec_sheet')) {
+    // nothing else was sent: ask once, with what was read riding along, so the answer finishes the check
+    const base = wantClaims && !wantListing ? { action: 'check_pitch', claims: r.claims } : { action: 'used_check', listing, ...(r.claims.length ? { claims: r.claims } : {}) };
+    blocks.push({ type: 'text', text: 'I could not tell which laptop this is from the picture. Pick or type it, and I will finish the check with what I read.' }, askBlock('Which laptop is this?', base, null)); return { blocks, cards, read: r };
+  }
   if (wantListing && !(r.kind === 'seller_message')) { blocks.push(...(await usedCheck(deps, listing, mention)).blocks); if (wantClaims) blocks.push(...(await claimsForMention(deps, mention, r.claims))); }
   else if (wantClaims) blocks.push(...(await claimsForMention(deps, mention, r.claims)));
   else if (mention) {

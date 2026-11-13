@@ -7,7 +7,7 @@ import type { Settings } from './types.ts';
 
 export interface LiveItem { snippet: string; url: string; site: string; topic: string; kind: 'web_summary' | 'excerpt'; published?: string | null }
 export interface LiveFetch { items: LiveItem[]; note?: string }
-export interface WebQuery { query: string; news?: boolean; need?: string[]; signal?: AbortSignal }
+export interface WebQuery { query: string; news?: boolean; anyTime?: boolean; need?: string[]; signal?: AbortSignal }
 export interface LiveSource { readonly name: string; fetch(q: { laptop: string; topic?: string; signal?: AbortSignal }): Promise<LiveFetch>; web?(q: WebQuery): Promise<LiveFetch> }
 export interface LiveResult { status: 'ok' | 'cached' | 'off' | 'limit' | 'error' | 'empty'; provider: string | null; fetched_at: string | null; items: LiveItem[]; note: string; error?: string }
 
@@ -106,7 +106,7 @@ export async function tavilyWeb(o: { apiKey: string; baseUrl?: string; country?:
   const res = await fetch(`${o.baseUrl ?? 'https://api.tavily.com'}/search`, {
     method: 'POST', signal: q.signal, headers: { 'content-type': 'application/json', authorization: `Bearer ${o.apiKey}` },
     body: JSON.stringify({ query: q.query, search_depth: 'basic', max_results: q.news ? 10 : 12, topic: q.news ? 'news' : 'general', include_answer: false, include_raw_content: false,
-      ...(q.news ? { time_range: 'month', include_domains: MARKET_SITES } : { time_range: 'year', exclude_domains: NOT_SOURCES, ...(o.country ? { country: o.country } : {}) }) }),
+      ...(q.news ? { time_range: 'month', include_domains: MARKET_SITES } : { ...(q.anyTime ? {} : { time_range: 'year' }), exclude_domains: NOT_SOURCES, ...(o.country && !q.anyTime ? { country: o.country } : {}) }) }),
   });
   if (!res.ok) throw new Error(`tavily_http_${res.status}`);
   const data: any = await res.json(); const items: LiveItem[] = []; const need = (q.need ?? []).map((w) => w.toLowerCase());

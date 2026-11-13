@@ -91,12 +91,52 @@ export async function routeWithModel(model: ModelClient, input: RouteInput, time
   throw last instanceof Error ? last : new Error('router_failed');
 }
 
+// ---------- budget reading (pure): ranges, above/below, units that are not money ----------
+export interface Budget { max: number | null; min: number | null; bare: number | null; invalid: boolean; contradiction: boolean }
+const MULT: Record<string, number> = { k: 1000, thousand: 1000, hazaar: 1000, hazar: 1000, lakh: 1e5, lakhs: 1e5, lac: 1e5, lacs: 1e5, crore: 1e7 };
+const MIN_CUE = /(above|over|more than|greater than|at least|minimum|min|starting (?:from|at)|from|beyond)\W*(?:rs\.?|₹|inr)?\W*$/;
+const MAX_CUE = /(under|below|upto|up to|within|max|maximum|less than|at most|budget|around|about|make it|to|at|of|is|only|=|:)\W*(?:rs\.?|₹|inr)?\W*$/;
+const MIN_AFTER = /^\s*(ke upar|or more|and above|plus|\+|and up|or above|minimum|onwards)/; const MAX_AFTER = /^\s*(tak|ke andar|ke ander|or less|and below|max|maximum|or under|and under)/;
+export function parseBudget(text: string): Budget {
+  const t = String(text ?? '').toLowerCase().replace(/(?<=\d),(?=\d{2,3}(?!\d))/g, ''); const out: Budget = { max: null, min: null, bare: null, invalid: false, contradiction: false };
+  if (/(?:under|below|upto|up to|within|budget|max(?:imum)?|less than|around|about)\s*(?:rs\.?|₹|inr)?\s*(?:-\s*\d|0+(?![\d.]))/.test(t)) { out.invalid = true; return out; }
+  const re = /(?<![\d.])(\d+(?:\.\d+)?)\s*(k|lakhs?|lacs?|thousand|hazaar|hazar|crore)?(?![a-z0-9])(?!\s*(?:kg|gb|tb|inch|"|hours?|hrs?|wh|hz|mah|years?|yrs?|months?|%|mp|ghz)\b)/g;
+  type Tok = { n: number; mult: string | null; start: number; end: number; value: number; small: boolean; used: boolean };
+  const toks: Tok[] = []; let m: RegExpExecArray | null;
+  while ((m = re.exec(t))) { const n = parseFloat(m[1]); const mult = m[2] ?? null; const value = Math.round(n * (mult ? MULT[mult] : 1)); toks.push({ n, mult, start: m.index, end: m.index + m[0].length, value, small: !mult && n < 1000, used: false }); }
+  const ok = (v: number) => v >= 5000 && v <= 50_000_000;
+  const setMax = (v: number) => { out.max = v; }; const setMin = (v: number) => { out.min = v; };
+  for (let i = 0; i + 1 < toks.length; i++) {
+    const a = toks[i], b = toks[i + 1]; if (a.used || b.used || !/^\s*(?:to|-|–|—|and|se)\s*$/.test(t.slice(a.end, b.start))) continue;
+    const av = a.small && b.mult ? Math.round(a.n * MULT[b.mult]) : a.value; if (!ok(av) || !ok(b.value)) continue;
+    a.used = b.used = true; setMin(Math.min(av, b.value)); setMax(Math.max(av, b.value));
+  }
+  for (const k of toks) {
+    if (k.used || k.small) continue; const before = t.slice(Math.max(0, k.start - 24), k.start); const after = t.slice(k.end, k.end + 16);
+    const cueMin = MIN_CUE.test(before) || MIN_AFTER.test(after); const cueMax = MAX_CUE.test(before) || MAX_AFTER.test(after);
+    if (!cueMin && !cueMax) { if (out.bare == null && ok(k.value)) out.bare = k.value; continue; }
+    if (k.value < 5000) { out.invalid = true; continue; }
+    if (!ok(k.value)) continue; if (MIN_CUE.test(before) || MIN_AFTER.test(after)) setMin(k.value); else setMax(k.value);
+  }
+  if (!toks.some((k) => !k.small)) {
+    const w = parseInrAmounts(t)[0]; if (w) { if (/under|below|upto|up to|within|budget|max|around|about|less than/.test(t)) out.max = out.max ?? w.value; else out.bare = out.bare ?? w.value; }
+  }
+  if (out.min != null && out.max != null && out.min > out.max) out.contradiction = true;
+  return out;
+}
+/** Distress is confirmed only by strong, specific phrases, and never when the same message holds a task (a number, budget or laptop word). */
+const DISTRESS = /want to die|kill myself|end my life|end it all|suicid|no reason to live|can'?t (?:take|cope|do) (?:it|this)(?: anymore| any more)?|breaking down|nervous breakdown|(?:i am|i'?m|im|feel(?:ing)?|so) (?:completely |totally )?(?:hopeless|panick?ing|panicked)|give up on (?:everything|life)/i;
+const TASK = /\d|budget|\bram\b|\bssd\b|\bgb\b|lakh|\bunder\b|\bbelow\b|\bupto\b|\bkg\b|\bnot (hp|dell|asus|lenovo|acer|apple)\b/i;
+export const isDistress = (t: string) => DISTRESS.test(String(t ?? '')) && !TASK.test(String(t ?? ''));
+const ABUSE = /idiot|stupid|useless|shut up|hate you|bakwas|moron|\bdumb\b|f+u+c+k|bastard|bitch/i;
+export const isAbusive = (t: string) => ABUSE.test(String(t ?? ''));
+
 // ---------- offline reader: a rules-based stand-in used only when no model is configured (demo and tests) ----------
 const LAPTOP = /laptop|notebook|macbook|chromebook|ultrabook|\bssd\b|\bram\b|keyboard|windows|hinge|2[- ]?in[- ]?1|thinkpad|ideapad|vivobook|zenbook|inspiron|\bxps\b/i;
 const COLOURS = ['black', 'blue', 'red', 'green', 'white', 'silver', 'grey', 'gray', 'navy', 'pink', 'gold', 'purple', 'orange'];
 const MUSTWORD = /compulsory|\bmust\b|has to|have to|required|mandatory|\bneed(?:s)?\b|\bonly\b|without fail/i;
 const SOFTWORD = /prefer|ideally|if possible|would be nice|nice to have|preferably/i;
-const USES: [string, RegExp][] = [['study', /study|student|college|school|class/], ['office', /office|work|account|admin|sales/], ['coding', /cod(e|ing)|program|develop/], ['editing', /edit|video|photo|design|render/], ['gaming', /gam(e|ing)/], ['travel', /travel|light|portable|carry|commut/], ['notes', /notes|draw|sketch|pen|handwrit/]];
+const USES: [string, RegExp][] = [['study', /study|student|college|school|class/], ['office', /office|work|account|admin|sales/], ['coding', /cod(e|ing)|program|develop/], ['editing', /edit|video|photo|design|render/], ['gaming', /gam(e|ing)/], ['travel', /travel|portable|carry|commut/], ['notes', /notes|draw|sketch|pen|handwrit/]];
 const BRAND_RE = '(?:asus|hp|msi|lenovo|acer|apple|macbook|dell|samsung|xiaomi|redmi|realme|infinix|thinkpad|ideapad|inspiron|vivobook|zenbook|surface|legion|tuf|rog|nitro|predator)';
 const BRAND = new RegExp(`\\b${BRAND_RE}\\b\\s*([\\w-]+(?:\\s+[\\w-]+){0,3})?`, 'gi');
 const GENERIC = new Set(['laptop', 'laptops', 'notebook', 'notebooks', 'one', 'ones', 'only', 'brand', 'brands', 'models', 'model', 'series', 'preferably', 'prefer', 'or', 'and', 'is', 'are', 'for', 'under', 'with', 'in', 'india', 'please', 'good', 'best', 'better', 'which', 'should', 'buy', 'reliable', 'worth', 'vs', 'versus', 'compare', 'not', 'no', 'any', 'other', 'than', 'but', 'a', 'the', 'my', 'i', 'want', 'need', 'like', 'also', 'have', 'has', 'from', 'at', 'to', 'around', 'budget']);
@@ -139,7 +179,7 @@ function brandCriteria(t: string, mentions: Mention[], out: { musts: RawCriterio
 }
 function criteria(t: string, mentions: Mention[]): { musts: RawCriterion[]; shoulds: RawCriterion[]; nices: RawCriterion[] } {
   const musts: RawCriterion[] = [], shoulds: RawCriterion[] = [], nices: RawCriterion[] = [];
-  for (const clause of t.split(/[.;\n,]|\band\b|\bbut\b/i)) {
+  for (const clause of t.split(/\.(?!\d)|[;\n,]|\band\b|\bbut\b/i)) {
     const c = clause.trim(); if (!c) continue;
     const must = MUSTWORD.test(c), soft = SOFTWORD.test(c);
     const push = (item: RawCriterion, explicit = false) => (must || (explicit && !soft) ? musts : soft ? nices : shoulds).push({ ...item, source_text: c });
@@ -215,18 +255,18 @@ export function offlineRoute(text: string): RouterResult {
   const r = offlineRouteClean(fixTypos(t)); r.ignored_instructions = injected; return r;
 }
 function offlineRouteClean(t: string): RouterResult {
-  const lang = language(t); const mentions = mentionsOf(t); const amounts = parseInrAmounts(t);
+  const lang = language(t); const mentions = mentionsOf(t); const amounts = parseInrAmounts(t); const bud = parseBudget(t);
   const base = { language: lang, needs: emptyNeeds(), laptop_mentions: [] as Mention[], claims: [] as Claim[], listing: null as Listing | null, ignored_instructions: [] as string[], clarifying_question: null as string | null, choices: [] as string[], tone: 'normal' as RouterResult['tone'], followup_flow: null as Flow | null };
   const done = (flow: Flow, confidence: number, extra: Partial<RouterResult> = {}): RouterResult => ({ ...base, flow, confidence, ...extra });
   const askWhat = (): RouterResult => done('clarify', 0.4, { clarifying_question: 'What would you like to do?', choices: ['Check a laptop I am considering', 'Check what a seller told me', 'Get a shortlist', 'Check a used listing'] });
   if (!t.trim()) return askWhat();
-  if (/idiot|stupid|useless|shut up|hate you|bakwas/i.test(t)) return done('clarify', 0.9, { tone: 'abusive' });
-  if (/can'?t take (it|this)|hopeless|panic|want to die/i.test(t)) return done('clarify', 0.9, { tone: 'distressed' });
+  if (isAbusive(t)) return done('clarify', 0.9, { tone: 'abusive' });
+  if (isDistress(t)) return done('clarify', 0.9, { tone: 'distressed' });
   if (/^\s*(hi|hello|hey|hii+|namaste|namaskar|good (morning|evening|afternoon)|thanks?|thank you|ok(ay)?|cool|bye)\b[\s!.?]*$/i.test(t) || /what (can|do) you (do|help)|how (does|do) (this|you) work|^\s*help\s*[!?.]*$|who are you/i.test(t)) return done('help', 0.95);
   if ((t.match(/\|/g) ?? []).length >= 2 && t.split(/\r?\n/).filter((l) => l.includes('|')).length >= 1 && /\d/.test(t) && !/vs/i.test(t)) return done('buy_for_others', 0.85, { needs: { ...emptyNeeds(), ...criteria(t, []) } });
   const hasLaptop = LAPTOP.test(t) || mentions.length > 0 || new RegExp(`\\b${BRAND_RE}\\b`, 'i').test(t) || /\bsell(ing)?\b|owners?\b|trending|price drops?/i.test(t);
   if (!hasLaptop && /phone|iphone|\btv\b|television|watch|headphone|earbud|camera|weather|joke|recipe|cricket|movie|fridge|capital of|stock|bitcoin|medicine|doctor|lawyer|visa\b/i.test(t)) return done('not_laptop', 0.9);
-  if (!hasLaptop && !/budget|under|recommend|suggest|buy|need|chahiye|kavali|venum|stylish|premium|best|cheap|affordable|good/i.test(t)) return askWhat();
+  if (!hasLaptop && bud.max == null && bud.min == null && !bud.invalid && !/budget|under|recommend|suggest|buy|need|chahiye|kavali|venum|stylish|premium|best|cheap|affordable|good/i.test(t)) return askWhat();
   if (/(my|mera|naa|en)\s+laptop\b.*(slow|hang|virus|not turning|won'?t (start|turn)|broken|crash|screen flick|not charging)|how (do i|to) (install|fix|speed)|fix (my|the) laptop|battery repair/i.test(t)) return done('out_of_scope_laptop', 0.9);
   if (/(share|submit|add|write|post|give)\b.{0,25}\b(my )?(experience|review|feedback)|i (own|have been using|use) (a|an|the|my)\b.{0,50}\b(want to|would like to)\b.{0,15}\b(share|tell|report)/i.test(t)) return done('submit_experience', 0.85, { laptop_mentions: mentions });
   if (/\bmy laptops?\b|warranty (left|ends?|expir|status)|how long.*warranty|(bought|purchased)\s+.+\s+on\s+\d/i.test(t) && !/\bsell|should i buy/i.test(t)) return done('my_laptops', 0.85, { laptop_mentions: mentions });
@@ -239,8 +279,10 @@ function offlineRouteClean(t: string): RouterResult {
   if (/what do (gamers?|students?|developers?|creators?|parents?|owners?|people)\b.*\b(say|think|report|feel)|owner (reports?|reviews?)|(real|live|latest|recent|actual) reviews?|reviews? (of|for|on)|complaints? (about|on|with)|problems? with|issues? (with|on)|what are people saying|how is the (battery|keyboard|screen|display|heating|build)/i.test(t) && !/\b(under|budget)\b/i.test(t)) return done('owner_voice', 0.85, { laptop_mentions: mentions });
   const needs: Needs = { ...emptyNeeds(), ...criteria(t, mentions) };
   needs.use_cases = USES.filter(([, re]) => re.test(t)).map(([n]) => n);
-  const cue = t.match(/(?:under|below|upto|up to|within|budget|max(?:imum)?|around|about|tak|ke andar|less than)\D{0,12}?((?:₹|rs\.?\s*)?[\d.,]+\s*(?:k|lakh|lac)?)/i);
-  if (cue) { const a = parseInrAmounts(cue[1]); if (a.length) needs.budget_max_inr = a[0].value; } else if (amounts.length && mentions.length === 0 && !/\bused|second[- ]?hand/i.test(t)) needs.budget_max_inr = amounts[0].value;
+  if (bud.invalid) return done('clarify', 0.8, { clarifying_question: 'I could not use that budget. What is your budget in rupees, for example 60000 or 1 lakh?', choices: ['Under 40k', 'Under 60k', 'Under 1 lakh'] });
+  if (bud.contradiction) return done('clarify', 0.8, { clarifying_question: `You gave a lowest price of ₹${bud.min!.toLocaleString('en-IN')} that is above your highest of ₹${bud.max!.toLocaleString('en-IN')}. Which budget do you mean?`, choices: [`Up to ₹${bud.max!.toLocaleString('en-IN')}`, `From ₹${bud.min!.toLocaleString('en-IN')}`] });
+  needs.budget_max_inr = bud.max; needs.budget_min_inr = bud.min;
+  if (bud.max == null && bud.min == null && bud.bare != null && mentions.length === 0 && !/\bused|second[- ]?hand/i.test(t)) needs.budget_max_inr = bud.bare;
   if (/\bused\b|second[- ]?hand|refurb|olx|battery health/i.test(t)) return done('used_check', 0.85, { needs, laptop_mentions: mentions, listing: listingOf(t, mentions[0]) });
   if (/\bfor (my|a|our|the) (mom|mother|dad|father|parents?|son|daughter|kid|child|team|staff|employees?|students?|company|office)\b|\|.*\||\t/.test(t)) return done('buy_for_others', 0.85, { needs, laptop_mentions: mentions });
   if (/salesperson|sales ?man|seller|shopkeeper|told me|they (said|say|claim)|claims?|advert|listing says|video (said|says)|pitch|promised|\bsays\b/i.test(t) && /["“”:]|said|says|claim|told/i.test(t)) {

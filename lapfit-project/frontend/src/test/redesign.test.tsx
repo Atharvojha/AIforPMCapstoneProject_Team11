@@ -133,7 +133,7 @@ describe('laptop pictures', () => {
     expect(w(17)).toBeGreaterThan(w(13)); const fill = (b: string) => { const { container, unmount } = render(<LaptopArt brand={b} />); const f = container.querySelector('linearGradient')!.innerHTML; unmount(); return f; }; expect(fill('Asus')).toBe(fill('Asus')); expect(fill('Asus')).not.toBe(fill('Lenovo'));
   });
   it('every card in a real reply shows a picture, and the compare heads show one per laptop', () => {
-    show(block('shortlist', 'cards')); expect(document.querySelectorAll('.brow img').length).toBeGreaterThanOrEqual(2); expect(document.querySelector('.bhero .spec-portrait')).toBeInTheDocument(); expect(document.querySelectorAll('.bhero img').length).toBe(0); document.body.innerHTML = '';
+    show(block('shortlist', 'cards')); expect(document.querySelectorAll('.brow img').length).toBeGreaterThanOrEqual(2); expect(document.querySelectorAll('.bhero img').length).toBe(1); expect(document.querySelector('.bhero .spec-portrait')).toBeNull(); document.body.innerHTML = '';
     show(block('compare', 'compare')); expect(document.querySelectorAll('.tug-head img').length).toBe(3);
   });
   it('the receipt names where the pictures came from and that they are not verified', async () => { show(block('shortlist', 'provenance')); await userEvent.click(screen.getByText(/How I built this answer/)); expect(document.body.textContent).toMatch(/Pictures.*From the web \(.+\).*not verified.*licence is not verified/s); });

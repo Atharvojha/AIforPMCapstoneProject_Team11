@@ -1,0 +1,66 @@
+/* SESSION + COMPOSER DOCK + SLIDER INPUT. Transform/opacity motion only; hover only where hover exists. */
+.slider-input { display: grid; gap: 6px; }
+.si-label { font-weight: 600; } .si-label .big { margin-left: 4px; }
+.si-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.si-range { flex: 1 1 160px; min-width: 120px; min-height: 44px; }
+.si-field { display: inline-flex; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: var(--radius-s, 12px); background: var(--solid); padding: 0 10px; min-height: 44px; }
+.si-field:focus-within { border-color: var(--accent); box-shadow: var(--focus); }
+.si-num { width: 6.5em; border: 0; background: transparent; font-size: 16px; min-height: 40px; padding: 0 2px; text-align: right; outline: none; color: inherit; font-variant-numeric: tabular-nums; }
+.si-affix { color: var(--muted); font-weight: 600; }
+.si-hint { margin: 0; min-height: 1.3em; } .si-hint.show { color: var(--accent); font-weight: 600; }
+.si-num[aria-invalid=true] { color: var(--bad, #b3261e); }
+
+/* session bar */
+.session-bar { margin: 0 0 12px; }
+.session-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.s-part { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 4px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--solid); font-size: .88rem; max-width: 100%; color: inherit; cursor: pointer; }
+.s-part.on { border-color: var(--accent); background: var(--accent-soft, var(--pastel-lav)); }
+.s-part .s-k { color: var(--muted); } .s-part .s-v { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 22ch; }
+.s-part.sel { padding: 0; gap: 0; cursor: default; }
+.s-main, .s-x { background: transparent; border: 0; color: inherit; font: inherit; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; gap: 4px; }
+.s-main { padding: 4px 4px 4px 14px; } .s-x { min-width: 44px; justify-content: center; border-radius: 999px; }
+.s-panel { margin-top: 8px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-s, 12px); background: var(--solid); display: grid; gap: 8px; }
+.s-list { margin: 0; padding-left: 20px; } ul.s-list { list-style: none; padding: 0; }
+.s-list li { padding: 2px 0; }
+
+/* edit a sent message */
+.user-line { display: flex; align-items: flex-end; justify-content: flex-end; gap: 6px; flex-wrap: wrap; }
+.edit-msg { min-height: 44px; min-width: 44px; font-size: .85rem; }
+.editing-note { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: 0 0 6px; padding: 6px 12px; border-radius: 12px; background: var(--accent-soft, var(--pastel-lav)); }
+
+/* ask_laptop */
+.ask-laptop { display: grid; gap: 10px; }
+.ask-type { display: flex; gap: 8px; align-items: center; }
+.ask-type input { flex: 1 1 auto; min-width: 0; min-height: 44px; font-size: 16px; padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--radius-s, 12px); background: var(--solid); }
+.ask-type input:focus-visible { outline: none; border-color: var(--accent); box-shadow: var(--focus); }
+.ask-type .btn { min-height: 44px; }
+
+/* composer as a pill: bottom right, above the nav, expands in place. Only the pill reserves page space. */
+.ask-docked { padding-bottom: 72px; }
+.composer-plain { display: contents; }
+.composer-dock { position: fixed; right: 16px; bottom: calc(var(--nav-h, 64px) + 16px + env(safe-area-inset-bottom)); z-index: 15; max-width: calc(100vw - 32px); pointer-events: none; }
+.has-tray .composer-dock { bottom: calc(var(--nav-h, 64px) + 76px + env(safe-area-inset-bottom)); }
+.composer-dock > * { pointer-events: auto; }
+.ask-pill { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; max-width: 100%; padding: 6px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--solid); color: inherit; font: inherit; font-weight: 700; box-shadow: var(--shadow); cursor: pointer; transition: transform var(--dur, 160ms) var(--ease-out, ease-out); }
+.ask-pill[hidden], .dock-panel[hidden] { display: none; }
+.ask-pill:active { transform: scale(.97); }
+@media (hover: hover) { .ask-pill:hover { border-color: var(--accent); } }
+.ask-pill:focus-visible { outline: none; box-shadow: var(--focus); }
+.pill-chip { max-width: 16ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft, var(--pastel-lav)); color: var(--accent); font-size: .8rem; }
+.pill-draft { font-size: .72rem; color: var(--muted); }
+.dock-panel { width: min(440px, calc(100vw - 32px)); animation: dock-in 180ms var(--ease-out, ease-out); transform-origin: bottom right; }
+.dock-panel .composer { position: static; max-width: none; margin: 0; box-shadow: var(--shadow); }
+@keyframes dock-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (max-width: 640px) {
+  .composer-dock.open { left: 0; right: 0; bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom)); max-width: none; }
+  .composer-dock.open .dock-panel { width: auto; }
+  .composer-dock.open .dock-panel .composer { border-radius: 22px 22px 0 0; border-bottom-width: 0; box-shadow: 0 -6px 24px rgba(0, 0, 0, .12); }
+}
+@media (prefers-reduced-motion: reduce) { .dock-panel { animation: none; } .ask-pill { transition: none; } }
+/* a forwards-filled transform animation would make the section the containing block of the fixed pill */
+.ask.page-enter { animation-fill-mode: backwards; }
+.dock-panel .composer-row { flex-wrap: wrap; row-gap: 6px; }
+.dock-panel .tool { flex-direction: row; white-space: nowrap; width: auto; padding: 0 12px; }
+.dock-panel .tool-label { display: inline; white-space: nowrap; }
+.dock-panel .composer-row .hint { display: none; }
+.dock-panel .composer-row .btn { margin-left: auto; }

@@ -56,7 +56,7 @@ describe('understood needs', () => {
     musts: [{ attribute: 'ram_gb', operator: '>=', value: 8, label: 'RAM 8 GB or more', supported: true }, { attribute: 'touchscreen', operator: '=', value: 'yes', label: 'touchscreen yes', supported: false }] } });
   it('shows the use, each need as a chip with its importance, the budget as a slider, and marks needs that cannot be checked', () => {
     show(needsBlock()); expect(screen.getAllByText(/coding/).length).toBeGreaterThanOrEqual(1); expect(screen.getByLabelText(/Budget up to/)).toHaveAttribute('type', 'range'); expect(screen.getByLabelText(/Budget up to/)).toHaveValue('4');
-    expect(screen.getByRole('button', { name: /RAM 8 GB or more: Must/ })).toBeInTheDocument(); expect(screen.getByText(/cannot be checked yet/)).toBeInTheDocument(); expect(document.querySelectorAll('select, input[type=text], input:not([type=range])')).toHaveLength(0);
+    expect(screen.getByRole('button', { name: /RAM 8 GB or more: Must/ })).toBeInTheDocument(); expect(screen.getByText(/cannot be checked yet/)).toBeInTheDocument(); expect(document.querySelectorAll('select, input:not([type=range]):not([type=text])')).toHaveLength(0); expect(screen.getByRole('textbox', { name: /Type a budget/ })).toHaveValue('60000');   // the budget now also has a number field
   });
   it('tapping a chip changes how much it matters (Should, then Must, then Nice); the cross removes it; Update sends the edited needs', async () => {
     const sendNeeds = vi.fn(); show(needsBlock(), { sendNeeds }); expect(screen.queryByRole('button', { name: 'Update results' })).toBeNull();

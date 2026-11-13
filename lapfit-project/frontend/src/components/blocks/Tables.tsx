@@ -1,3 +1,4 @@
+import { CopyButton } from '../CopyButton';
 import { useCtx } from '../ctx';
 import type { Block } from '../../lib/types';
 import { CardView } from './Cards';
@@ -27,22 +28,48 @@ export function TeamPlan({ b }: { b: Block }) {
   );
 }
 
+const SRC: Record<string, string> = { rule: 'Rule', owners: 'Owners', web: 'Web' };
+const httpsOnly = (u: unknown): u is string => typeof u === 'string' && /^https:\/\//i.test(u);
+
+/** "How to get more": what else the seller can do. Each item says where it comes from; web items are links, live and not verified. */
+function Boosters({ items }: { items: any[] }) {
+  return (
+    <div className="boosters"><h4>How to get more</h4>
+      <ul className="booster-list">{items.map((x, i) => (
+        <li key={i}><p><strong>{x.title}</strong> <span className={`src-tag ${x.source}`}>{SRC[x.source] ?? 'Rule'}</span>{x.gain_text && <span className="muted small"> · {x.gain_text}</span>}</p>
+          {x.why && <p className="muted small">{x.why}</p>}
+          {x.source === 'web' && Array.isArray(x.items) && x.items.filter((l: any) => httpsOnly(l.url)).length > 0 && <>
+            <ul className="web-links">{x.items.filter((l: any) => httpsOnly(l.url)).map((l: any) => <li key={l.url}><a href={l.url} target="_blank" rel="noopener noreferrer">{l.site ?? new URL(l.url).hostname}</a>{l.snippet && <span className="muted small"> {String(l.snippet).slice(0, 140)}</span>}</li>)}</ul>
+            <p className="muted small">Live, not verified.</p></>}
+        </li>))}</ul></div>
+  );
+}
+
 export function SellPlan({ b }: { b: Block }) {
   const ctx = useCtx(); const top = Number(b.new_price) || 1; const pct = (n: number) => `${Math.max(0, Math.min(100, (n / top) * 100))}%`;
+  const hasRange = !!(b.range && b.range.low_text && b.range.high_text); const factors = (b.factors as any[] | undefined) ?? []; const unknown = (b.unknown as string[] | undefined) ?? [];
+  const checklist = Array.isArray(b.checklist) ? (b.checklist as string[]) : []; const boosters = Array.isArray(b.boosters) ? (b.boosters as any[]) : [];
   return (
     <section className="sell" aria-label="Sell plan">
       <h3>Selling your {String(b.laptop).split(' · ')[0]}</h3>
-      <p className="range"><span className="muted small">A used laptop like this might sell for</span><br /><strong>{b.range.low_text} to {b.range.high_text}</strong></p>
-      <div className="range-track" role="img" aria-label={`Between ${b.range.low_text} and ${b.range.high_text}, on a scale up to the new price ${b.new_price_text}`}>
-        <span className="zone" style={{ left: pct(b.range.low), width: `calc(${pct(b.range.high)} - ${pct(b.range.low)})` }} /><span className="pin" style={{ left: pct(b.list_at) }} title={`Suggested asking price ${b.list_at_text}`} />
-      </div>
-      <div className="range-scale muted small"><span>₹0</span><span>New: {b.new_price_text}</span></div>
-      <p>New price now: {b.new_price_text} (as of {b.as_of}). A sensible asking price: <strong>{b.list_at_text}</strong>.</p>
-      <h4>How this was worked out</h4>
-      <ul className="factor-bars">{(b.factors as any[]).map((f) => <li key={f.label}><span>{f.label}</span><span className="fbar" aria-hidden="true"><i style={{ width: `${Math.max(4, Math.min(100, f.factor * 100))}%` }} /></span><strong>×{f.factor}</strong></li>)}</ul>
-      {b.unknown.length > 0 && <p className="notice">The range is wider because I do not know: {b.unknown.join(', ')}. <button className="link" onClick={() => ctx.goto('sell')}>Add details</button></p>}
-      {(b.fixes as any[]).map((f) => <p key={f.fix} className={`fix ${f.worth_it ? 'good' : 'warn'}`}><strong>{f.fix}:</strong> costs about ₹{f.cost.toLocaleString('en-IN')}, adds about ₹{f.adds.toLocaleString('en-IN')}, net {f.net >= 0 ? '+' : '−'}₹{Math.abs(f.net).toLocaleString('en-IN')}. {f.worth_it ? 'Worth doing.' : 'Not worth doing.'} <span className="muted small">({f.cost_basis})</span></p>)}
-      <ul className="muted small">{(b.disclaimers as string[]).map((d) => <li key={d}>{d}</li>)}</ul>
+      {hasRange ? <>
+        <p className="range"><span className="muted small">A used laptop like this might sell for</span><br /><strong>{b.range.low_text} to {b.range.high_text}</strong></p>
+        <div className="range-track" role="img" aria-label={`Between ${b.range.low_text} and ${b.range.high_text}, on a scale up to the new price ${b.new_price_text}`}>
+          <span className="zone" style={{ left: pct(b.range.low), width: `calc(${pct(b.range.high)} - ${pct(b.range.low)})` }} />{b.list_at != null && <span className="pin" style={{ left: pct(b.list_at) }} title={`Suggested asking price ${b.list_at_text}`} />}
+        </div>
+        <div className="range-scale muted small"><span>₹0</span><span>New: {b.new_price_text}</span></div>
+        <p>{b.new_price_text ? <>Price when new: {b.new_price_text} (as of {b.as_of}). </> : null}{b.list_at_text ? <>A sensible asking price: <strong>{b.list_at_text}</strong>.</> : null}</p>
+      </> : <p className="notice" role="status">{b.needs_paid_price ? 'No price on file for this laptop, so there is no range yet. Tell me what you paid and I will work it out.' : 'No range could be worked out yet.'}</p>}
+      {factors.length > 0 && <><h4>How this was worked out</h4>
+        <ul className="factor-bars">{factors.map((f) => <li key={f.label}><span>{f.label}</span><span className="fbar" aria-hidden="true"><i style={{ width: `${Math.max(4, Math.min(100, f.factor * 100))}%` }} /></span><strong>×{f.factor}</strong></li>)}</ul></>}
+      {unknown.length > 0 && <p className="notice">The range is wider because I do not know: {unknown.join(', ')}. <button className="link" onClick={() => ctx.goto('sell')}>Add details</button></p>}
+      {boosters.length > 0 && <Boosters items={boosters} />}
+      {checklist.length > 0 && <div className="sell-checklist"><h4>Before you list it</h4>
+        <ul className="plain-list">{checklist.map((t, i) => <li key={i}>{t}</li>)}</ul>
+        <p className="inline"><CopyButton text={checklist.map((t) => `- ${t}`).join('\n')} label="Copy list" />{typeof b.copy_text === 'string' && b.copy_text && <CopyButton text={b.copy_text} label="Copy the whole plan" />}</p></div>}
+      {checklist.length === 0 && typeof b.copy_text === 'string' && b.copy_text && <p className="inline"><CopyButton text={b.copy_text} label="Copy the whole plan" /></p>}
+      {((b.fixes as any[]) ?? []).map((f) => <p key={f.fix} className={`fix ${f.worth_it ? 'good' : 'warn'}`}><strong>{f.fix}:</strong> costs about ₹{f.cost.toLocaleString('en-IN')}, adds about ₹{f.adds.toLocaleString('en-IN')}, net {f.net >= 0 ? '+' : '−'}₹{Math.abs(f.net).toLocaleString('en-IN')}. {f.worth_it ? 'Worth doing.' : 'Not worth doing.'} <span className="muted small">({f.cost_basis})</span></p>)}
+      <ul className="muted small">{((b.disclaimers as string[]) ?? []).map((d) => <li key={d}>{d}</li>)}</ul>
     </section>
   );
 }

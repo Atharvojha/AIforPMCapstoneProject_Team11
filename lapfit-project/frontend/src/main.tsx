@@ -12,6 +12,9 @@ import './detail.css';
 import './screens.css';
 import './looks.css';
 import './followups.css';
+import './screens2.css';
+import './session.css';
+import './sortbar.css';
 
 async function start() {
   if (import.meta.env.DEV && location.search.includes('mock')) await (await import('./dev/seed')).seed();   // development review without the live backend

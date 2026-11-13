@@ -24,6 +24,8 @@ export function followUpIntent(text: string, ctx: Context): Intent | null {
   if (!ctx.focus && !ctx.shown.length) return null;
   if (NEW_REQUEST.test(t) && !/\bwhy\b|which (one|laptop) did you/i.test(t)) return null;
   const hit = INTENTS.find(([, re]) => re.test(t)); if (!hit) return null;
+  // a question about a brand, a maker or laptops in general ("which brand is more reliable", "will a gaming laptop last") is not about the one on screen
+  if (!DEICTIC.test(t) && (/\b(brands?|makers?|manufacturers?|companies|company)\b/i.test(t) || /\b(a|an|any|the best|best|gaming|cheap|good)\b[^?]{0,25}\blaptops?\b/i.test(t) || /\blaptops\b/i.test(t))) return null;
   const named = t.match(BRANDS); if (named && ![ctx.focus, ...ctx.shown].some((r) => r && r.name.toLowerCase().includes(named[0].toLowerCase()))) return null;   // a laptop we have not been talking about is named: normal routing
   const asks = /\?\s*$/.test(t) || /^(will|can|could|does|do|is|are|how|what|should|would|which|any|why)\b/i.test(t);
   if (hit[0] !== 'why' && !asks) return null;                                                                                         // a statement is not a question about the current laptop

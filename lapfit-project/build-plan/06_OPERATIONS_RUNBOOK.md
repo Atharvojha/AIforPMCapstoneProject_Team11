@@ -206,3 +206,12 @@ The web app lives in `frontend/` (see its README). It needs only the project URL
 4. Confirm rights for quoting Flipkart review text (declared CC BY 4.0) and keep Amazon text internal.
 5. Add a notice and consent text for the typed-text-to-Gemini flow, and review the owner-report notice and 18+ control with someone who can give legal advice.
 6. Build the reviewer notification (D-42) so owner reports do not sit unseen.
+
+## Deploying everything (14 Nov 2026)
+
+1. **Database:** apply every migration in `backend/supabase/migrations/` in order to the project (`supabase db query --remote --yes -f <file>` from `backend/`, or `supabase db push`). Latest: 18 input log, 19 picture seed, 20 sell, market and launch fields.
+2. **Secrets (names only, set once, never in the repo):** `GEMINI_API_KEY`, `TAVILY_API_KEY`, `SESSION_SALT` (the `SUPABASE_*` ones exist by default). Check with `supabase secrets list`. Set CORS to the app's address after hosting: `supabase secrets set ALLOWED_ORIGIN=https://<your-host>`.
+3. **Function:** `supabase functions deploy query --use-api --yes`.
+4. **Frontend:** `frontend/.env.local` (or the host's environment settings) holds only `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, both public by design. `npm run build` makes `dist/`; any static host works (Vercel, Netlify, Cloudflare Pages). Routing uses `#/...`, so no rewrite rules are needed. `frontend/vercel.json` sets basic security headers. The bundle was scanned: no Gemini, Tavily or service-role key in it.
+5. **Logs:** nothing to deploy: `query_log` and `input_log` fill on their own; read them with `npm run logs -- ...` in `backend/` (see 07_LOGGING_GUIDE.md); `export-all` saves a dated copy.
+6. **Before real users:** paid Gemini plan (free-tier inputs may be used by the provider), legal review of the logging notice, raise the rate limit for a test room sharing one network, and tell testers what is saved.

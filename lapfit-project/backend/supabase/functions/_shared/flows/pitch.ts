@@ -4,6 +4,8 @@ import { rank, onePerModel, type Evidence } from '../rank.ts';
 import { buildCard, evidenceView, type Card } from '../cards.ts';
 import { fmtInr, fmtDate, fmtStorage, normText } from '../util.ts';
 import { liveFor } from './livecards.ts';
+import { askBlock, withBase, slimNeeds, variantLabel } from './ask.ts';
+import { webLaptop } from './weblaptop.ts';
 import type { Deps, Needs, Row, Block } from '../types.ts';
 import type { Mention, Claim, RouterResult } from '../router.ts';
 
@@ -20,14 +22,22 @@ async function fuzzyCandidates(deps: Deps, m: Mention): Promise<Candidate[]> {
   return all.rows.filter((r) => { const words = r.text.split(' '); return toks.every((t) => words.some((w) => lev(t, w) <= (t.length >= 7 ? 2 : t.length >= 4 ? 1 : 0))); });
 }
 
-export async function resolveVariant(deps: Deps, m: Mention, o: { pickFirst?: boolean } = {}): Promise<Resolution & { assumed?: string }> {
+export async function resolveVariant(deps: Deps, m: Mention, o: { pickFirst?: boolean; web?: boolean } = {}): Promise<Resolution & { assumed?: string }> {
   if (m.variant_id) return { kind: 'one', variantId: m.variant_id };   // the browser's focus, already checked against the catalog
   const r = await deps.tools.call<{ candidates: Candidate[] }>('resolve_laptop', { brand: m.brand ?? '', line: m.line ?? '' });
   let c = r.candidates;
   if (!c.length) c = await fuzzyCandidates(deps, m);
   // still nothing: drop trailing words one at a time ("macbook air m1 battery life" -> "macbook air m1"), keeping at least two words
   if (!c.length) { const toks = `${m.line ?? ''}`.trim().split(/\s+/); for (let n = toks.length - 1; n >= 2 && !c.length; n--) { const r2 = await deps.tools.call<{ candidates: Candidate[] }>('resolve_laptop', { brand: '', line: toks.slice(0, n).join(' ') }); c = r2.candidates; } }
-  if (!c.length) return { kind: 'not_found', blocks: [{ type: 'text', text: `I could not find ${[m.brand, m.line].filter(Boolean).join(' ') || 'that laptop'} in the LapFit catalog, so I will not guess its specs or price.` }, { type: 'offer', label: 'Show me laptops that fit my needs instead', flow: 'shortlist' }] };
+  // a model number the person typed (3520, 5600H) must appear in the match: a different model of the same family is not the laptop they meant
+  if (c.length) { const need = `${m.line ?? ''}`.toLowerCase().match(/\b[a-z]*\d{3,}[a-z]*\b/g) ?? []; if (need.length) c = c.filter((x) => need.every((t) => x.display_name.toLowerCase().includes(t))); }
+  if (!c.length) {
+    const shown = [m.brand, m.line].filter(Boolean).filter((x, i, a) => a.findIndex((y, j) => j !== i && String(y).toLowerCase().includes(String(x).toLowerCase()) && String(y).length > String(x).length) < 0).join(' ');
+    const blocks: Block[] = [{ type: 'text', text: `I could not find ${shown || 'that laptop'} in the LapFit catalog, so I will not guess its specs or price.` }];
+    if (o.web && shown) blocks.push(await webLaptop(deps, shown));
+    blocks.push({ type: 'offer', label: 'Show me laptops that fit my needs instead', flow: 'shortlist' });
+    return { kind: 'not_found', blocks };
+  }
   const narrow = (f: (x: Candidate) => boolean) => { const n = c.filter(f); if (n.length) c = n; };
   if (m.ram_gb) narrow((x) => x.ram_gb === m.ram_gb);
   if (m.storage_gb) narrow((x) => x.storage_gb === m.storage_gb);
@@ -35,9 +45,9 @@ export async function resolveVariant(deps: Deps, m: Mention, o: { pickFirst?: bo
   const models = [...new Set(c.map((x) => x.model_id))];
   if (c.length === 1) return { kind: 'one', variantId: c[0].variant_id };
   if (o.pickFirst && models.length === 1) { const best = [...c].sort((a, b) => Number(b.recommendable) - Number(a.recommendable) || (a.price_inr ?? 1e9) - (b.price_inr ?? 1e9))[0]; return { kind: 'one', variantId: best.variant_id, assumed: `${best.display_name} (the lowest-priced of ${c.length} versions; tell me if you mean another)` }; }
-  const label = (x: Candidate) => x.display_name;
-  if (models.length > 1) return { kind: 'ask', blocks: [{ type: 'choices', question: 'Which laptop do you mean?', choices: c.slice(0, 4).map((x) => ({ label: label(x), send: x.display_name })) }] };
-  return { kind: 'ask', blocks: [{ type: 'choices', question: 'That laptop comes in more than one version. Which one?', choices: c.slice(0, 4).map((x) => ({ label: label(x), send: x.display_name })) }] };
+  // every choice carries its variant id, so tapping it answers the question and cannot be mistaken for another version
+  const choices = [...c].sort((a, b) => (a.price_inr ?? 1e9) - (b.price_inr ?? 1e9) || a.variant_id.localeCompare(b.variant_id)).slice(0, 6).map((x) => ({ variant_id: x.variant_id, label: variantLabel(x) }));
+  return { kind: 'ask', blocks: [askBlock(models.length > 1 ? 'Which laptop do you mean?' : 'That laptop comes in more than one version. Which one?', null, choices)] };
 }
 
 // ---------- spec claims ----------
@@ -98,9 +108,14 @@ export async function checkClaims(deps: Deps, claims: Claim[], rows: Row[] | nul
 export async function secondOpinionAndPitch(deps: Deps, router: RouterResult, needs: Needs, variantId?: string): Promise<{ blocks: Block[]; cards: Card[] }> {
   const { tools, settings } = deps; const minN = settings.MIN_EVIDENCE_N ?? 20; const blocks: Block[] = [];
   const mention = router.laptop_mentions[0];
-  if (!mention && !variantId) return { blocks: [{ type: 'text', text: 'Which laptop are you asking about? Type its name, for example "Asus TUF Gaming F15".' }], cards: [] };
-  const res: Resolution = variantId ? { kind: 'one', variantId } : await resolveVariant(deps, mention!);
-  if (res.kind !== 'one') return { blocks: res.blocks, cards: [] };
+  const base: Record<string, unknown> = router.claims.length ? { action: 'check_pitch', claims: router.claims, needs: slimNeeds(needs) } : { action: 'second_opinion', needs: slimNeeds(needs) };
+  if (!mention && !variantId) return { blocks: [askBlock('Which laptop are you asking about?', base, null)], cards: [] };
+  const res: Resolution = variantId ? { kind: 'one', variantId } : await resolveVariant(deps, mention!, { web: true });
+  if (res.kind !== 'one') {
+    const blocks = withBase(res.blocks, base);
+    if (res.kind === 'not_found' && router.claims.length) { const cr = await checkClaims(deps, router.claims, null, []); blocks.splice(Math.max(0, blocks.findIndex((b) => b.type === 'offer')), 0, { type: 'claims', laptop: 'the laptop', rows: cr.map(({ _spec, ...r }) => r) }); }
+    return { blocks, cards: [] };
+  }
   const v = await tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: res.variantId });
   if (!v.found) return { blocks: [{ type: 'text', text: 'That laptop is not in the catalog.' }], cards: [] };
   const row = v.specs; const crit = criteriaFromNeeds(needs);
@@ -147,7 +162,7 @@ const card0 = (c: any, row: Row) => { const a = (c.attribute as string); return 
 export async function claimsForMention(deps: Deps, mention: Mention | undefined, claims: Claim[]): Promise<Block[]> {
   if (!claims.length) return [];
   let rows: Row[] | null = null; let name = 'the laptop'; let scope: string[] = [];
-  if (mention && (mention.brand || mention.line)) {
+  if (mention && (mention.brand || mention.line || mention.variant_id)) {
     const res = await resolveVariant(deps, mention, { pickFirst: true });
     if (res.kind === 'one') {
       const v = await deps.tools.call<{ specs: Row }>('get_variant', { variant_id: res.variantId });

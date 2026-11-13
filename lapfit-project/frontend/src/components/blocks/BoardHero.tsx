@@ -42,14 +42,14 @@ const priceKnownOrSpecs = (l: { screen: number | null; weight: number | null }) 
 /** The best fit: seven things. Photo (with the compare toggle), name, price, why it fits, key specs, trust line, one button. */
 export function BoardHero({ c, eyebrow, tie = false }: { c: Card; eyebrow: string | null; tie?: boolean }) {
   const ctx = useCtx(); const open = useOpenDetail(); const s = c.specs ?? {}; const brand = brandOf(c); const version = versionOf(c); const verdict = verdictOf(c); const must = musts(c);
-  const [photo, setPhoto] = useState(false); const all = useAllLooks(); const look = fromCard(c); const tags = differenceTags(look, all, 2);
+  const [drawing, setDrawing] = useState(false); const photo = !!c.image && !drawing; const all = useAllLooks(); const look = fromCard(c); const tags = differenceTags(look, all, 2);
   return (
     <article className={`bhero ${tie ? 'tie' : ''}`} aria-label={c.name}>
       <div className="bhero-photo">
         {photo || !priceKnownOrSpecs(look)
           ? <LaptopImage pic={c.image} brand={c.brand ?? brand.split(' ')[0]} name={brand} screen={s.display_size} weight={s.weight_kg} />
           : <div className="look-art"><SpecPortrait look={look} /><span className="look-note">{c.image ? 'Drawn from the specs, not a photo' : 'Drawn from the specs. No photo on file for this laptop'}</span></div>}
-        {priceKnownOrSpecs(look) && c.image && <button type="button" className="look-switch" aria-pressed={photo} onClick={() => setPhoto(!photo)}>{photo ? 'Show drawing' : 'Show photo'}</button>}
+        {priceKnownOrSpecs(look) && c.image && <button type="button" className="look-switch" aria-pressed={drawing} onClick={() => setDrawing(!drawing)}>{photo ? 'Show drawing' : 'Show photo'}</button>}
         <CompareToggle c={c} />
       </div>
       <div className="bhero-body">

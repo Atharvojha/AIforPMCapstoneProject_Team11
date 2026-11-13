@@ -77,7 +77,7 @@ vi.mock('../lib/image', async (orig) => { const m: any = await orig(); return { 
 import * as imageLib from '../lib/image';
 const prepared = { mime: 'image/jpeg' as const, data: 'QUJD', bytes: 120_000, width: 800, height: 600, previewUrl: 'blob:p' };
 describe('composer: text, voice and pictures', () => {
-  const setup = (props: any = {}) => { const onSend = vi.fn().mockResolvedValue(true); const onSendImage = vi.fn().mockResolvedValue(true); render(<Composer onSend={onSend} onSendImage={onSendImage} busy={false} cooldown={0} {...props} />); return { onSend, onSendImage }; };
+  const setup = (props: any = {}) => { const onSend = vi.fn().mockResolvedValue(true); const onSendImage = vi.fn().mockResolvedValue(true); render(<Composer onSend={onSend} onSendImage={onSendImage} busy={false} cooldown={0} {...props} />); fireEvent.click(screen.getByRole('button', { name: /Ask a follow-up/ })); return { onSend, onSendImage }; };
   const attach = async () => { (imageLib.prepareImage as any).mockResolvedValue(prepared); const input = document.querySelector('input[type=file]') as HTMLInputElement; await userEvent.upload(input, new File(['x'], 'p.png', { type: 'image/png' })); };
   beforeEach(() => { (imageLib.prepareImage as any).mockReset(); localStorage.clear(); });
 
