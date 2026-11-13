@@ -1,4 +1,5 @@
 // F01 Shortlist. Needs in, a short list that meets every Must out. Filtering, ranking and relaxing are code and SQL.
+import { capability } from '../rank.ts';
 import { criteriaFromNeeds, publicNeeds, actualText, evalCriterion } from '../normalise.ts';
 import { rank, onePerModel, colourNotes, relaxOptions, findRows, budgetOnly, strengthsOf, KNOWN_USE, gpuScore, isSortKey, sellable, SORT_KEYS, SORT_LABEL, type Evidence, type Scored, type SortKey } from '../rank.ts';
 import { buildCard, type Card } from '../cards.ts';
@@ -154,7 +155,15 @@ export async function runShortlist(deps: Deps, needs: Needs, o: { lenses?: LensI
   const top = pool.slice(0, settings.SHORTLIST_MAX ?? 5);
   const note = sortNote(useSort, needs, crit, noBudget);
   const bonly = budgetOnly(needs, crit);
-  const cards = top.map((s, i) => buildCard(s.row, { musts: crit.musts, requireAll: true, evidence: s.evidence, minN, factLines: factLinesFor(s, needs, crit, minN, [...(lens.facts.get(s.row.variant_id) ?? []), ...siblingLines(s.row, rows)], orderLine(s, i, useSort, needs, bonly)) }));
+  // MATCH %: capability for the stated use measured against the strongest laptop in the WHOLE catalog for that use (so a ₹30k laptop is not scored against an imaginary ideal), blended with the Shoulds/Nices met. Recorded values only.
+  const matchOf = (s: Scored, uses: string[]) => {
+    const m = s.match; if (!m) return undefined; const maxP = Math.max(0, ...all.map((r) => (r.price_inr != null && r.price_inr > 0 ? (r.price_inr as number) : 0))) || null; const refCap = Math.max(1, ...all.map((r) => capability(r, uses, maxP)));
+    const rel = Math.min(100, (100 * m.cap) / refCap); const pct = Math.max(0, Math.min(100, Math.round(m.sat == null ? rel : 0.65 * rel + 35 * m.sat)));
+    const basis = [`Meets ${crit.musts.length ? `all ${crit.musts.length} of your Must${crit.musts.length === 1 ? '' : 's'}` : 'every Must you set'} and your budget`, `Strength for ${uses.length ? uses.join(', ') : 'everyday use'}: ${Math.round(rel)}% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)`];
+    if (m.shouldsAll + m.nicesAll) basis.push(`Meets ${m.shouldsMet} of ${m.shouldsAll} Shoulds and ${m.nicesMet} of ${m.nicesAll} Nices`); if (m.unknown.length) basis.push(`Not recorded, so not counted: ${m.unknown.join(', ')}`);
+    return { pct, label: `${pct}% match`, basis };
+  };
+  const cards = top.map((s, i) => Object.assign(buildCard(s.row, { musts: crit.musts, requireAll: true, evidence: s.evidence, minN, factLines: factLinesFor(s, needs, crit, minN, [...(lens.facts.get(s.row.variant_id) ?? []), ...siblingLines(s.row, rows)], orderLine(s, i, useSort, needs, bonly)) }), { match: matchOf(s, needs.use_cases ?? []) }));
   for (const c of crit.shoulds.filter((x) => x.supported)) if (top.length && top.every((s) => evalCriterion(c, s.row) !== true)) blocks.push({ type: 'notice', text: `None of these meets your Should: ${c.label}. They are the closest I have that meet every Must.` });
   const wanted = [...crit.nices, ...crit.shoulds].filter((c) => c.supported && c.attribute === 'colour').flatMap((c) => c.value as string[]);
   for (const n of colourNotes(wanted, top.map((s) => s.row))) blocks.push({ type: 'notice', text: n });

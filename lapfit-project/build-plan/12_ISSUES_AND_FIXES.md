@@ -1201,3 +1201,10 @@ Found by real users in a test session (screenshots), plus two red-team critic ag
 - Catalog rows had no photo fields, so the Explore board showed drawings: added to the catalog list.
 - The My laptops date message used a different field name from the one the screen reads: aligned.
 - Launch years from processor generations are approximate (10th gen Intel is 2019 or 2020): one year of tolerance.
+
+### Follow-up requests (14 Nov 2026, after the first round)
+| # | Request | Cause | Fix |
+|---|---|---|---|
+| 21 | "First recommendation 90%, others 60%": show how well each satisfies the needs | Only an internal rank score existed; nothing was shown | `match` on every card: capability for the stated use measured against the strongest laptop in the whole catalog for that use (recorded values only; unknown earns nothing and is listed), blended 65/35 with the Shoulds/Nices met; shown as "NN% match" with a "Why?" list on the best fit and each row. The order also weighs owner opinions and budget closeness, so percentages are not strictly descending |
+| 22 | Search is limited to the categories | A fixed list of 7 uses; unknown uses silently dropped, "architecture student using AutoCAD" read as plain "study", "stock trading... under 60k" rejected as not about laptops (the word "stock" in the off-topic list) | 10 more real-world uses with documented capability profiles (CAD, 3D/animation, data science, trading, music, streaming, online classes, accounting, kids, medical); "stock trading" is a laptop request while other stock questions are still declined; an unrecognised use ("bird watching") is said out loud: "I can't rank by ... directly, so I used general performance and your budget" |
+| 23 | Selling should show my laptops automatically | The picker only offered the catalog or typing | The laptops saved in You appear as quick picks on step 1 of Sell; tapping one fills the laptop, the age from the purchase date and the price paid |

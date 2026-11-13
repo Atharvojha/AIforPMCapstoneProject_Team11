@@ -267,6 +267,10 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
       needs = mergeNeeds(input.prior_needs, needs);
       for (const m of MODS) if (m.re.test(text)) m.apply(needs, input.context?.max_price ?? null, notes);
     }
+    if (flow === 'shortlist' && text && !refined && !(needs.use_cases ?? []).length) {   // a use we do not recognise is never echoed as understood: say what was used instead
+      const m = text.match(/\b(?:for|use(?:d)? for|to do|doing)\s+([a-z][\w\s/&+.-]{2,40}?)(?=\s+(?:under|below|within|upto|up to|around|budget|with|and|which|that)\b|[,.?!]|$)/i); const what = m?.[1]?.trim();
+      if (what && !/^(a|an|the|me|my|us|our|laptop|laptops|something|anything|best|good|work)$/i.test(what) && !/\d/.test(what)) notes.push(`I can't rank by "${what}" directly, so I used general performance and your budget.`);
+    }
     const soft = applySoftTerms(refined ? '' : text, needs, { lightKg: settings.LIGHT_KG ?? 1.5 }); needs = soft.needs;
     lensesUsed = soft.lenses; for (const n of [...notes, ...soft.notices]) reply.blocks.push({ type: 'notice', text: n });
     const cards: Card[] = [];

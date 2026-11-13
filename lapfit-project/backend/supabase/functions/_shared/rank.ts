@@ -4,7 +4,8 @@ import type { Needs, Row, RawCriterion, Settings } from './types.ts';
 import type { Tools } from './tools.ts';
 
 export interface Evidence { n: number; positive: number; negative: number }
-export interface Scored { row: Row; score: number; metShoulds: Criterion[]; metNices: Criterion[]; evidence: Evidence }
+export interface MatchInfo { pct: number; cap: number; sat: number | null; shouldsMet: number; shouldsAll: number; nicesMet: number; nicesAll: number; unknown: string[] }
+export interface Scored { row: Row; score: number; metShoulds: Criterion[]; metNices: Criterion[]; evidence: Evidence; match?: MatchInfo }
 
 // ---------- the transparent fit score (docs: prototype/fixes/RANKING.md) ----------
 // Every term below comes from a RECORDED value. An unknown value earns nothing; it is never guessed.
@@ -40,6 +41,15 @@ const USE_WEIGHTS: [RegExp, Partial<Record<Comp, number>>][] = [
   [/light|travel|portab|commut|carry/, { weight: 4, battery: 2.5 }],
   [/^value$/, { cheap: 4 }],
   [/note|draw|sketch|tablet|pen|handwrit|present/, { form: 3 }],
+  // wider real-world uses: which recorded specs matter for each (documented in prototype/fixes/RANKING.md)
+  [/^cad$|architect|3d|animation|vfx|blender|solidworks/, { gpu: 4, ram: 3, cpu: 3, storage: 1.5, screen: 1 }],
+  [/data|machine|^ml$|analytics/, { ram: 4, cpu: 4, storage: 1.5, gpu: 1 }],
+  [/trading|stock|forex/, { ram: 2, cpu: 2, screen: 2, battery: 0.5 }],
+  [/music|audio/, { ram: 3, cpu: 3, storage: 2 }],
+  [/stream|youtube|content|vlog/, { cpu: 3, ram: 2, gpu: 2, storage: 1.5 }],
+  [/online class|teach|meeting|call/, { battery: 1.5, weight: 1, ram: 1.5, cpu: 1 }],
+  [/accounting|excel|finance|business/, { ram: 2, cpu: 2, screen: 1, storage: 0.5 }],
+  [/kid|child|medical/, { ram: 1, cpu: 1, battery: 1, weight: 0.5 }],
 ];
 export function weightsFor(uses: string[]): Record<Comp, number> {
   const w = { ...BASE_WEIGHTS };
@@ -99,7 +109,13 @@ export function rank(rows: Row[], needs: Needs, crit: CriteriaSet, evidence: Map
     // secondary factor, only when the person gave nothing but a budget: among laptops that fit, one that uses more of the budget is the "more laptop for the money" side. Not when the person asked for cheap.
     if (budget && bonly && hasPrice(row) && !wantsCheap) score += wNear * clamp01((row.price_inr as number) / budget);
     if (ev.n >= minN && ev.positive + ev.negative > 0) { const ratio = ev.positive / (ev.positive + ev.negative); score += wEv * (ratio - 0.5) + (ratio >= 0.5 ? 2 * Math.min(1, ev.n / 100) : 0); }
-    return { row, score, metShoulds, metNices, evidence: ev };
+    // MATCH %: how well this laptop satisfies what was stated, from recorded values only. With only a use and a budget it is the capability score itself (0..100);
+    // with Shoulds/Nices it blends capability (65%) with the share of them met (35%). Unknown values earn nothing and are listed.
+    const cap = capability(row, uses, maxPrice); const nS = crit.shoulds.length, nN = crit.nices.length;
+    const sat = nS + nN ? (metShoulds.length + 0.5 * metNices.length) / (nS + 0.5 * nN) : null;
+    const unknown = ([['ram_gb', 'RAM'], ['storage_gb', 'storage'], ['cpu_text', 'processor'], ['display_size', 'screen size'], ['weight_kg', 'weight'], ['battery_wh', 'battery']] as [keyof Row, string][]).filter(([k]) => (row as any)[k] == null).map(([, n]) => n);
+    const match: MatchInfo = { pct: Math.max(0, Math.min(100, Math.round(sat == null ? cap : 0.65 * cap + 35 * sat))), cap: Math.round(cap), sat, shouldsMet: metShoulds.length, shouldsAll: nS, nicesMet: metNices.length, nicesAll: nN, unknown };
+    return { row, score, metShoulds, metNices, evidence: ev, match };
   });
   out.sort(comparator(sort));
   return out;

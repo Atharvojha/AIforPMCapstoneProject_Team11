@@ -7,6 +7,7 @@ import { NumberField } from '../components/NumberField';
 import { SellFactors } from '../components/SellFactors';
 import { TrustLine } from '../components/TrustLine';
 import { maxAgeYears } from '../lib/launch';
+import { loadOwned, type OwnedLaptop } from '../lib/storage';
 import { fmtWait } from '../lib/wait';
 
 const SHAPES: { id: string; label: string; line: string }[] = [
@@ -25,6 +26,8 @@ export function SellScreen({ thread, compare, goto }: { thread: Thread; compare:
   const [step, setStep] = useState<0 | 1 | 2 | 3 | 4>(plan ? 4 : 0);
   const [lap, setLap] = useState({ id: '', name: '', free: false }); const [row, setRow] = useState<PickRow | null>(null);
   const [age, setAge] = useState<number | null>(2); const [cond, setCond] = useState('good'); const [bat, setBat] = useState<number | null>(null); const [flags, setFlags] = useState<string[]>([]); const [paid, setPaid] = useState<number | null>(null); const [notes, setNotes] = useState('');
+  const [owned] = useState<OwnedLaptop[]>(() => loadOwned()); const ageFrom = (d: string) => { const t = new Date(d); if (isNaN(+t)) return null; const y = (Date.now() - +t) / 31557600000; return Math.max(0, Math.floor(y)); };
+  const pickOwned = (o: OwnedLaptop) => { setLap({ id: o.variant_id || '', name: o.name, free: !o.variant_id }); const a = ageFrom(o.purchase_date); if (a != null) setAge(a); if (o.price_paid) setPaid(o.price_paid); };
   const last = useRef<Record<string, unknown> | null>(null); const [paidAsk, setPaidAsk] = useState<number | null>(null);
   const busy = thread.busy || thread.cooldown > 0;
   const custom = !lap.id; const needPaid = custom || (row != null && row.price_inr == null);
@@ -44,6 +47,8 @@ export function SellScreen({ thread, compare, goto }: { thread: Thread; compare:
         <div className="q-step">
           <p className="q-count" aria-live="polite"><span className="q-dots" aria-hidden="true">{QUESTIONS.map((_, i) => <i key={i} className={i <= step ? 'on' : ''} />)}</span>Question {step + 1} of 4</p>
           <h3 className="q-title">{QUESTIONS[step]}</h3>
+          {step === 0 && owned.length > 0 && <div className="owned-pick" role="group" aria-label="Your saved laptops"><p className="muted small">Your laptops, saved on this device (tap one, or type or choose another below)</p>
+            <div className="chips">{owned.map((o) => <button type="button" key={o.id} className={`chip ${lap.name === o.name ? 'on' : ''}`} aria-pressed={lap.name === o.name} onClick={() => pickOwned(o)}>{o.name.split(' · ')[0]}{o.purchase_date ? <span className="muted small"> · bought {o.purchase_date.slice(0, 7)}</span> : null}</button>)}</div></div>}
           {step === 0 && <LaptopPicker id="sell-laptop" label="Laptop name" value={lap.id} indiaOnly allowFree onRow={setRow} onChange={(id, name, free) => setLap({ id, name, free: !!free })} hint="Laptops sold in India. Not in the list? Type it anyway." />}
           {step === 1 && <>
             <NumberField id="sell-age" label="Age in years" unit="years" value={age} min={0} max={maxAge} step={1} onChange={setAge} hint={`0 means less than a year.${row && maxAge ? ` This model is at most ${maxAge} year${maxAge === 1 ? '' : 's'} old.` : ''}`} />

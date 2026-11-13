@@ -40,6 +40,18 @@ function FreshTrust({ c, compact }: { c: Card; compact?: boolean }) {
 const priceKnownOrSpecs = (l: { screen: number | null; weight: number | null }) => l.screen != null || l.weight != null;   // the drawing needs at least one recorded size
 
 /** The best fit: seven things. Photo (with the compare toggle), name, price, why it fits, key specs, trust line, one button. */
+/** How well a laptop satisfies what the person stated, from recorded values only. The reasons are one tap away. */
+export function MatchPill({ c, compact = false }: { c: Card; compact?: boolean }) {
+  const m = c.match; if (!m) return null;
+  const tone = m.pct >= 75 ? 'high' : m.pct >= 50 ? 'mid' : 'low';
+  return (
+    <span className={`match-pill ${tone} ${compact ? 'compact' : ''}`}>
+      <b>{m.label}</b>
+      {!compact && <details className="match-why"><summary>Why {m.pct}%?</summary><ul>{m.basis.map((l, i) => <li key={i}>{l}</li>)}</ul><p className="muted small">This is a fit score from recorded values, not a promise. Anything not recorded earns nothing. The order also weighs owner opinions and your budget, so it can differ slightly from the percentages.</p></details>}
+    </span>
+  );
+}
+
 export function BoardHero({ c, eyebrow, tie = false }: { c: Card; eyebrow: string | null; tie?: boolean }) {
   const ctx = useCtx(); const open = useOpenDetail(); const s = c.specs ?? {}; const brand = brandOf(c); const version = versionOf(c); const verdict = verdictOf(c); const must = musts(c);
   const [drawing, setDrawing] = useState(false); const photo = !!c.image && !drawing; const all = useAllLooks(); const look = fromCard(c); const tags = differenceTags(look, all, 2);
@@ -57,6 +69,7 @@ export function BoardHero({ c, eyebrow, tie = false }: { c: Card; eyebrow: strin
         <h4 className="b-name">{brand}</h4>
         {version && <p className="b-version">{version}</p>}
         <p className="b-price"><strong>{priceKnown(c) ? <CountUp to={c.price_inr as number} text={c.price_text} /> : '?'}</strong></p>
+        <MatchPill c={c} />
         {tags.length > 0 && <ul className="b-tags" aria-label="What stands out">{tags.map((t) => <li key={t.txt} className={`tag ${t.hi ? 'hi' : ''}`}>{t.txt}</li>)}</ul>}
         {verdict && <p className="b-verdict">{verdict}</p>}
         {must.length > 0 && (
@@ -87,6 +100,7 @@ export function BoardRow({ c, hero }: { c: Card; hero: Card }) {
         <span className="brow-thumb" aria-hidden="true"><LaptopImage pic={c.image} brand={c.brand ?? brand.split(' ')[0]} name={brand} screen={s.display_size} weight={s.weight_kg} caption={false} /></span>
         <span className="brow-text">
           <span className="brow-top"><strong className="brow-name">{brand}</strong><strong className="brow-price">{priceShown(c)}</strong></span>
+          <MatchPill c={c} compact />
           <span className={`brow-delta ${missesMust(c) ? 'miss' : ''}`}>{deltaLine(c, hero)}{missesMust(c) ? ' · misses a Must' : ''}</span>
           <FreshTrust c={c} compact />
         </span>

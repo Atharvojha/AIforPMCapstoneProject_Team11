@@ -4,7 +4,8 @@ import userEvent from '@testing-library/user-event';
 import { BlockView } from '../components/blocks/BlockView';
 import { CtxContext, noopCtx, type Ctx } from '../components/ctx';
 import { parseCustom, heroEyebrow } from '../components/blocks/BoardLogic';
-import { fx } from './helpers';
+import { fx, cfg } from './helpers';
+import { ApiConfigContext } from '../components/api-context';
 import type { Block } from '../lib/types';
 
 const show = (b: Block, ctx: Partial<Ctx> = {}) => render(<CtxContext.Provider value={{ ...noopCtx, ...ctx }}><BlockView block={b} /></CtxContext.Provider>);
@@ -76,3 +77,14 @@ describe('web_laptop', () => {
     for (const status of ['off', 'limit', 'error', 'empty']) { const { unmount } = show({ ...b(), status, fields: {}, items: [], can_compare: false }); expect(within(screen.getByRole('status')).getByText(/./)).toBeInTheDocument(); expect(screen.queryByRole('button', { name: 'Compare with it' })).toBeNull(); unmount(); }
   });
 });
+
+describe('match percentage', () => {
+  it('shows a % match on the best fit and on each row, with the reasons one tap away and the not-a-promise note', async () => {
+    const b = JSON.parse(JSON.stringify(fx('shortlist').blocks.find((x: any) => x.type === 'cards'))); const pcts = [90, 60, 58, 40, 35];
+    b.cards.forEach((c: any, i: number) => { c.match = { pct: pcts[i], label: `${pcts[i]}% match`, basis: ['Meets all 1 of your Must', `Capability for study: ${pcts[i]} of 100`, 'Not recorded, so not counted: weight'] }; });
+    render(<ApiConfigContext.Provider value={cfg}><CtxContext.Provider value={noopCtx}><BlockView block={b} /></CtxContext.Provider></ApiConfigContext.Provider>);
+    const hero = document.querySelector('.bhero') as HTMLElement; expect(within(hero).getByText('90% match')).toBeInTheDocument(); expect(document.querySelectorAll('.brow .match-pill').length).toBeGreaterThanOrEqual(2); expect(screen.getAllByText('60% match').length).toBeGreaterThanOrEqual(1);
+    await userEvent.click(within(hero).getByText('Why 90%?')); expect(within(hero).getByText(/Capability for study: 90 of 100/)).toBeInTheDocument(); expect(within(hero).getByText(/not a promise/)).toBeInTheDocument();
+  });
+});
+

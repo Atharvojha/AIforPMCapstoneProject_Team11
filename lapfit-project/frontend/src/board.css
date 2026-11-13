@@ -97,3 +97,10 @@
 
 .b-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .b-actions .btn { min-height: 48px; width: 100%; } .b-buy { white-space: nowrap; }
 @media (max-width: 380px) { .b-actions { grid-template-columns: 1fr; } }
+
+.match-pill { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: .85rem; } .match-pill b { padding: 4px 11px; border-radius: 999px; font-weight: 800; border: 1px solid transparent; }
+.match-pill.high b { background: #d9f5e8; color: #0a6b43; } .match-pill.mid b { background: #fff1cf; color: #7a4f00; } .match-pill.low b { background: #ffe1e1; color: #8f1d1d; }
+.match-pill.compact b { padding: 2px 9px; font-size: .78rem; }
+.match-why > summary { cursor: pointer; color: var(--accent); font-weight: 700; list-style: none; min-height: 32px; display: inline-flex; align-items: center; } .match-why > summary::-webkit-details-marker { display: none; }
+.match-why ul { margin: 4px 0 4px; padding-left: 18px; display: grid; gap: 2px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .match-pill.high b { background: #124a33; color: #9ff0c8; } :root:not([data-theme="light"]) .match-pill.mid b { background: #4a3a10; color: #ffd98a; } :root:not([data-theme="light"]) .match-pill.low b { background: #4d1d1d; color: #ffb3b3; } }

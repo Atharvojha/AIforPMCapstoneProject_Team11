@@ -2,7 +2,7 @@
 import type { Pic } from '../LaptopImage';
 
 export interface Card {
-  variant_id: string; name: string; brand?: string; price_inr: number | null; price_text: string; as_of: string; as_of_text: string; data_status: string; spec_lines: string[]; specs: any; image?: Pic | null;
+  variant_id: string; name: string; brand?: string; price_inr: number | null; price_text: string; as_of: string; as_of_text: string; data_status: string; spec_lines: string[]; specs: any; image?: Pic | null; match?: { pct: number; label: string; basis: string[] };
   musts: { label: string; ok: boolean | null; actual: string }[]; evidence: { n: number; enough: boolean; text: string; positive: number; negative: number; min_n?: number }; reasons: string[]; unknown_fields: string[];
 }
 export const inr = (n: number) => `₹${Math.round(n).toLocaleString('en-IN')}`;

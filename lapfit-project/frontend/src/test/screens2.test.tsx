@@ -137,3 +137,15 @@ describe('Explore: board by default, value map second', () => {
     expect(screen.getByText('Show these as a list')).toBeInTheDocument(); expect(document.querySelectorAll('.map-list input[type=checkbox]')).toHaveLength(14); await userEvent.click(screen.getByRole('tab', { name: 'Market' })); expect(screen.getByRole('button', { name: 'Market pulse' })).toBeInTheDocument();
   });
 });
+
+describe('Sell shows your saved laptops', () => {
+  it('lists the laptops saved in You as quick picks, and tapping one fills the laptop, its age from the purchase date and the price paid', async () => {
+    const { saveOwned } = await import('../lib/storage'); const year = new Date().getFullYear() - 3;
+    saveOwned([{ id: 'o1', variant_id: 'FKL-10', name: 'APPLE 2020 Macbook Air M1 · 8 GB / 256 GB', purchase_date: `${year}-03-11`, price_paid: 70000 }]);
+    mount(); await goto(/Sell$/); const group = await screen.findByRole('group', { name: 'Your saved laptops' }); const chip = within(group).getByRole('button', { name: /APPLE 2020 Macbook Air M1/ });
+    expect(chip).toHaveTextContent(`bought ${year}-03`); await userEvent.click(chip); expect(chip).toHaveAttribute('aria-pressed', 'true'); expect((screen.getByLabelText('Laptop name') as HTMLInputElement).value).toMatch(/Macbook Air M1/);
+    await userEvent.click(screen.getByRole('button', { name: 'Next' })); expect((screen.getAllByLabelText('Age in years')[0] as HTMLInputElement).value).toBe('3');
+  });
+  it('without saved laptops the picker looks as before', async () => { localStorage.clear(); mount(); await goto(/Sell$/); await screen.findByLabelText('Laptop name'); expect(screen.queryByRole('group', { name: 'Your saved laptops' })).toBeNull(); });
+});
+
