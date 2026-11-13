@@ -1,7 +1,7 @@
 // The only file that talks to a language model. Edge Functions only: the key never reaches the browser.
 export interface ModelRequest { system: string; user: string; maxTokens?: number; temperature?: number; signal?: AbortSignal; image?: { media_type: string; data: string } | null; /** time limit for each model attempt, when it needs more than the default (photos) */ attemptMs?: number }
 export interface ModelAttempt { model: string; ok: boolean; ms: number; error?: string }
-export interface ModelClient { readonly name: string; generate(req: ModelRequest): Promise<string>; /** Attempts made since the last call, then cleared. Used for the request log. */ drain?(): ModelAttempt[] }
+export interface ModelClient { readonly name: string; /** this client's own time limit in ms (the chain's default applies when absent) */ readonly attemptMs?: number; generate(req: ModelRequest): Promise<string>; /** Attempts made since the last call, then cleared. Used for the request log. */ drain?(): ModelAttempt[] }
 export class NoModelKey extends Error { constructor() { super('no_model_key'); } }
 
 export function extractJson(text: string): any {
@@ -60,7 +60,7 @@ export interface AnthropicOptions { apiKey?: string; model?: string; baseUrl?: s
  * optional picture. The key lives only in the Edge Function's secrets. Anthropic's API does not train on API inputs by default.
  */
 export class AnthropicClient implements ModelClient {
-  readonly name: string; private o: Required<Omit<AnthropicOptions, 'apiKey'>> & { apiKey: string };
+  readonly name: string; readonly attemptMs = 6500; private o: Required<Omit<AnthropicOptions, 'apiKey'>> & { apiKey: string };
   constructor(opts: AnthropicOptions) {
     if (!opts.apiKey) throw new NoModelKey();
     this.o = { apiKey: opts.apiKey, model: opts.model ?? 'claude-haiku-5-5', baseUrl: opts.baseUrl ?? 'https://api.anthropic.com/v1', version: opts.version ?? '2023-06-01' };
@@ -71,7 +71,7 @@ export class AnthropicClient implements ModelClient {
     const res = await fetch(`${baseUrl}/messages`, {
       method: 'POST', signal: req.signal, headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': version },
       body: JSON.stringify({
-        model, max_tokens: req.maxTokens ?? 1200, temperature: req.temperature ?? 0,
+        model, max_tokens: req.maxTokens ?? 1200,   // no temperature: the current Claude models reject it ("temperature is deprecated for this model")
         system: `${req.system}\n\nReply with a single JSON object and nothing else: no prose, no code fences.`,
         messages: [{ role: 'user', content: [{ type: 'text', text: req.user }, ...(req.image ? [{ type: 'image', source: { type: 'base64', media_type: req.image.media_type, data: req.image.data } }] : [])] }],
       }),
@@ -95,13 +95,13 @@ export class FakeModel implements ModelClient {
 export class FallbackModel implements ModelClient {
   readonly name: string; private attempts: ModelAttempt[] = [];
   drain(): ModelAttempt[] { const a = this.attempts; this.attempts = []; return a; }
-  constructor(private clients: ModelClient[], private perAttemptMs = 4000) { this.name = clients.map((c) => c.name).join(' > '); }
+  constructor(private clients: ModelClient[], private perAttemptMs = 3500) { this.name = clients.map((c) => c.name).join(' > '); }
   async generate(req: ModelRequest): Promise<string> {
     let last: unknown;
     for (const c of this.clients) {
       if (req.signal?.aborted) break;
       // each model gets its own time limit so one slow model cannot use up the whole budget
-      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), req.attemptMs ?? this.perAttemptMs); const onAbort = () => ctl.abort(); req.signal?.addEventListener('abort', onAbort);
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), c.attemptMs ?? req.attemptMs ?? this.perAttemptMs); const onAbort = () => ctl.abort(); req.signal?.addEventListener('abort', onAbort);
       // race against the timer as well: a client that ignores the abort signal must not hang the caller
       const limit = new Promise<never>((_, rej) => { ctl.signal.addEventListener('abort', () => rej(Object.assign(new Error('attempt_timeout'), { name: 'AbortError' }))); });
       const t0 = Date.now();
