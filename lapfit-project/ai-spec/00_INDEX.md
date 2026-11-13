@@ -7,7 +7,8 @@ Living documents for the LapFit AI product. Written for the cheap stack (Lovable
 | `01_TODO.md` | Your to-do list, tagged, with what changed this round, plus new items |
 | `02_DECISIONS.md` | Decisions with reasons and "revisit when". **Includes the AI model type per scenario (D-06)** |
 | `03_SYSTEM_PROMPTS.md` | Every system prompt (P1 to P9): input, output, guardrails, trade-offs, fallback, open questions |
-| `04_FEATURE_SPECS.md` | Implementation-level specification, one opportunity at a time. **F02, F01 and F03 (the three core features) are complete** |
+| `04_FEATURE_SPECS.md` | Shared platform (services, API conventions, roles, UI rules, privacy) and the index of specs |
+| `specs/F01…F10` | **One implementation-level specification per feature. All ten are complete** |
 | `05_ANSWERS.md` | Every open question, the answer I chose, how I reached it, and the facts I checked (with sources) |
 | `features/F01…F10` | One document per feature covering the five parts of an AI product |
 

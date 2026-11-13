@@ -4,6 +4,7 @@
 **Users.** Current owners.
 **Prototype status.** Built (Mine screen). Saved on the device only. Sample data.
 **Prompts used.** None. This feature uses no model.
+**Full feature specification:** `../specs/F08_my_laptops.md`.
 
 ## 1. AI model decision
 

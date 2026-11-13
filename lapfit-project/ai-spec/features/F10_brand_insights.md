@@ -4,6 +4,7 @@
 **Users.** Brand and category managers, retailers, refurbishers.
 **Prototype status.** Built (For brands screen). **Sample data**: the demand rows are invented, so the screen demonstrates the view, not evidence of demand.
 **Prompts used.** P7 (insight narrator, designed, optional).
+**Full feature specification:** `../specs/F10_brand_insights.md`.
 
 ## 1. AI model decision
 

@@ -4,6 +4,7 @@
 **Users.** First-time buyers, students and parents, performance seekers, working professionals.
 **Prototype status.** Built: Find screen (live filters) and the Home ask box. On sample data.
 **Prompts used.** P1 (P1a needs reader), P2 (reasons writer). See `../03_SYSTEM_PROMPTS.md`.
+**Full feature specification:** `../specs/F01_shortlist.md`.
 
 ## 1. AI model decision
 

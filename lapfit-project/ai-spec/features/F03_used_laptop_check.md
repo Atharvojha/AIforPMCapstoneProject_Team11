@@ -4,6 +4,7 @@
 **Users.** Used and refurbished buyers; parents buying cheaply for a student.
 **Prototype status.** Built (Check screen, "Used listing" tab; Home ask box). On sample data, with a sample price band.
 **Prompts used.** P1 (P1d used-listing reader, draft), P3 (image reader, designed).
+**Full feature specification:** `../specs/F03_used_laptop_check.md`.
 
 ## 1. AI model decision
 

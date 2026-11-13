@@ -19,7 +19,7 @@ Your list, carried over with tags, plus what this round changed. A new column sa
 | N1 | Finalise every system prompt: the "Questions for you" under each prompt in `03_SYSTEM_PROMPTS.md` (P1 to P9) | **Answered by me** (`05_ANSWERS.md` section 5); you review |
 | N2 | Ask you questions while writing each prompt (tone, refusal wording, languages, examples). Can be done later | Later |
 | N3 | Review the F02 full specification and its four checkpoint questions | **Answered by me** (Q-F02-1 to 4); F02 spec updated; you review |
-| N4 | Full specifications for F01, F03, F04 to F10, one at a time | **F01, F02 and F03 done**; F04 next; rest later |
+| N4 | Full specifications for F01 to F10, one at a time | **All ten done** (`specs/`); you review |
 | N5 | Review the per-feature AI docs `features/F01…F10` and their "Questions for you" | **Answered by me** (`05_ANSWERS.md` section 6); you review |
 | N6 | Confirm the AI model-type choice per scenario (decision D-06) | **Confirmed by me**, you review |
 | N7 | Verify Gemini free-tier limits, data-use terms, JSON-schema and image support (decision D-03) | **Checked 13 Nov 2026** (`05_ANSWERS.md` C1 to C4). Still to check: model name, pricing, your project's numeric limits |

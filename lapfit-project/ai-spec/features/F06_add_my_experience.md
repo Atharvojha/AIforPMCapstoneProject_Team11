@@ -4,6 +4,7 @@
 **Users.** Current owners. Reviewers (internal) approve.
 **Prototype status.** Built (Owners screen: form, queue, admin approve or reject). Sample data. No model is used today.
 **Prompts used.** P5 (moderation triage, designed). Rules do the rest.
+**Full feature specification:** `../specs/F06_add_my_experience.md`.
 
 ## 1. AI model decision
 

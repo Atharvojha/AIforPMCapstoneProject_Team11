@@ -4,6 +4,7 @@
 **Users.** Performance seekers, students, parents, working professionals; later reviewers.
 **Prototype status.** Built (Owners screen; Home ask box). Filters by user type, months owned, topic, time window, laptop. Sample data.
 **Prompts used.** P1 (P1f owner-filter reader), P4 (evidence summariser, designed), P8 (review tagger, designed, offline).
+**Full feature specification:** `../specs/F05_owner_voice.md`.
 
 ## 1. AI model decision
 

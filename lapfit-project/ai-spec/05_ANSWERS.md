@@ -42,6 +42,15 @@ You said you do not know the answers and asked me to check and answer for you. T
 
 Treat the Windows 11 processor rule and the battery cut-offs as the least certain of these; check Microsoft's own page before building.
 
+### Facts checked for the remaining specs (13 Nov 2026)
+
+| # | Fact | Source | What it means for LapFit |
+|---|---|---|---|
+| C11 | India's **Digital Personal Data Protection Rules, 2025** were notified in November 2025 (13 or 14 Nov, sources differ) and phase in over about 18 months; the main duties start around **May 2027**. A **notice** must accompany or precede a consent request. For anyone **under 18**, **verifiable parental consent** is required, and tracking, behavioural monitoring and targeted advertising aimed at children are prohibited. The Rules set retention and erasure timelines for certain classes of fiduciary (one secondary source mentions one year of inactivity; not verified) | [Storyboard18](https://www.storyboard18.com/amp/digital/breaking-govt-notifies-final-dpdp-rules-sets-staggered-rollout-with-key-obligations-for-data-fiduciaries-84201.htm), [Baker Botts](https://ourtake.bakerbotts.com/post/102lund/india-notifies-final-rules-for-digital-data-protection-act), [AZB](https://www.azbpartners.com/bank/update-indias-digital-personal-data-protection-framework-comes-into-effect/) | Every form that collects anything shows a notice. The owner-report form asks for confirmation that the person is 18 or older. LapFit does not track people. Deletion works by receipt code. **Not legal advice; confirm with the Gazette text** |
+| C12 | One secondary source says a breach must be reported to the Data Protection Board within **72 hours**; another says the Rules include one-year inactivity limits for some categories. I found no primary text in these results | [TaxGuru](https://taxguru.in/?p=1064181), [Legal 500](https://www.legal500.com/developments/?p=53484) | An incident process is a launch task. Treat both figures as unverified |
+
+Because the dates differ by a day or two across sources and the primary text was not in the results, **do not quote any DPDP date or number in the PRD without checking the Gazette.**
+
 ---
 
 ## 2. Open decisions from `02_DECISIONS.md`
@@ -58,7 +67,7 @@ Treat the Windows 11 processor rule and the battery cut-offs as the least certai
 
 ---
 
-## 3. Questions from the F02 checkpoint (`04_FEATURE_SPECS.md`)
+## 3. Questions from the F02 checkpoint (`specs/F02_second_opinion_and_pitch_check.md`)
 
 | ID | Question | Answer | How I arrived | Conf. | Revisit if |
 |---|---|---|---|---|---|
@@ -147,3 +156,78 @@ Treat the Windows 11 processor rule and the battery cut-offs as the least certai
 | Q-F03-11 | Should the serial number be requested in photos? | Ask for it, but tell the buyer it can be hidden except the last characters, and do not store it | **Reasoned:** serial numbers identify a device and a person; the check only needs to know whether one is shown | Medium | – |
 | Q-F03-12 | What if the user asks "should I buy?" | Say plainly that LapFit does not give a buy or don't-buy verdict, and give the flags and the checklist | **Your brief:** the used-check flow says "do not give a buy or don't-buy verdict" | High | – |
 | Q-F03-13 | What must be stored from a used check? | Only anonymous codes: model, price band, flag codes, whether the band was sample or observed. No listing text, no price, no serial | **Reasoned:** the unhandled log is already a privacy gap; do not add another | High | A reason to store more appears |
+
+## 10. Questions raised while specifying F04 to F10 (answered)
+
+### F04 Buy for others or a team
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F04-3 | Which team-table formats are accepted? | Role, number of people, use, optional budget each; separated by pipes, tabs or commas; header row optional; up to 30 roles. A bad line is named back | **Prototype:** it already parses these separators. **Reasoned:** people paste from spreadsheets, which give tabs or commas | Medium | Real pastes fail |
+| Q-F04-4 | Per-role budget when none is given? | Remaining total divided by the people in roles without a budget, rounded down | **Prototype:** this is what it does. **Reasoned:** simple and explainable | Medium | Teams want weighted shares |
+| Q-F04-5 | Should it handle business needs such as a GST invoice or on-site warranty? | Only a neutral reminder: "Ask the seller whether a GST invoice is available if your business needs one." Not a claim | **Cannot check:** I did not verify the tax rules, and the data holds neither invoice nor on-site warranty | Low | You verify the rule |
+| Q-F04-6 | Recipients other than parent, child or team? | Treated as "other": ask only the use; no persona defaults | **Reasoned:** defaults for a spouse or friend would be guesses | Medium | – |
+| Q-F04-7 | What if the team is over budget? | State by how much; V1 adds computed savings (the next cheaper qualifying laptop per role) | **Reasoned:** gives a way back under budget without inventing figures | Medium | – |
+| Q-F04-8 | Limits? | 30 roles, 500 people per role, as settings | **Reasoned:** keeps the table readable and the request fast | Low | Real teams exceed them |
+
+### F05 Owner voice
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F05-4 | Region default? | "All regions", every excerpt labelled, with a one-tap "India only" | **Your brief:** "India vs US" is a lens view you asked for. **Reasoned:** hiding other regions by default would hide evidence | Medium | Buyers find other regions misleading |
+| Q-F05-5 | What is "people like you"? | Only reports from the user type that matches the buyer's stated use, shown separately with n; never blended silently; under 20 shows the wider view with a note | **Your brief:** your to-do 3.10 asks for ratings that count only reviewers whose situation matches | Medium | Tests show it confuses |
+| Q-F05-6 | Tagging thresholds? | Model confidence at or above 0.80 is "tagged"; below goes to review; one in ten tagged rows is audited by a person; a batch is released only if the audit agrees on at least 85% of fields | **Reasoned:** starting values; settings. **Cannot check:** no real batch yet | Low | The first audit |
+| Q-F05-7 | Use-to-user-type mapping? | Coding → developer; gaming → gamer; study → student; editing → creator; office → office; buying for a parent → parent | **Prototype:** the six user types and uses already exist. **Reasoned:** the obvious pairings | Medium | Interviews show otherwise |
+| Q-F05-8 | Let people report a bad excerpt? | Yes in V1, with a reason and no account | **Reasoned:** the cheapest route to catch errors | Medium | Abuse of the report link |
+
+### F06 Add my experience
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F06-3 | Review turnaround? | Target 48 hours for the oldest pending report; shown to admins | **Reasoned:** a small team can keep up; adjust to staffing | Low | Reviewers cannot keep up |
+| Q-F06-4 | How to honour deletion without accounts? | A receipt code shown once; only its hash is stored; it gives status and deletion | **Checked (C11):** erasure on request is part of the new law's direction. **Reasoned:** avoids accounts and personal data | Medium | Legal review |
+| Q-F06-5 | Age check? | A required "I am 18 or older" confirmation | **Checked (C11):** under-18s need verifiable parental consent. **Reasoned:** a checkbox is not verifiable, but it avoids knowingly collecting children's data; get legal advice | Low | Legal review |
+| Q-F06-6 | What does the notice say? | What is collected (the note and ratings, no name or contact), why (to help other buyers), how long it is kept, how to delete it with the code, and the notice version | **Checked (C11):** a notice must accompany or precede consent | Medium | Legal review |
+| Q-F06-7 | Can owners edit a published report? | No: delete and resubmit | **Reasoned:** editing would bypass review | High | – |
+| Q-F06-8 | Can owners check status? | Yes, by code | **Reasoned:** closes the loop with no personal data | Medium | – |
+
+### F07 Market pulse
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F07-3 | How to count distinct viewers without tracking people? | A random id per browser tab session, hashed; one view per laptop per session per day | **Reasoned:** limits gaming; links to no person. Also fits the rule against tracking people | Medium | Gaming appears |
+| Q-F07-4 | Which price series for drops? | The lowest price per day among verified sellers | **Reasoned:** buyers care about the best price they can get; one seller's error is excluded by "verified" | Medium | Sellers differ in reliability |
+| Q-F07-5 | Live or pre-computed? | Pre-computed nightly; computed on demand if older than 36 hours | **Reasoned:** steady numbers and speed | Medium | – |
+| Q-F07-6 | Time zone? | Calendar days in Indian time | **Reasoned:** the users are in India | High | – |
+
+### F08 My laptops
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F08-2 | When does the warranty start? | From the purchase date the owner enters, with the catalog text shown alongside | **Cannot check:** I did not verify brands' terms; many start from the invoice date, which is usually the purchase date | Low | A brand differs |
+| Q-F08-3 | Is price paid required? | No, optional | **Reasoned:** less friction and less data | High | – |
+| Q-F08-4 | Privacy for the on-device list? | Say "Saved on this device only"; the list is sent only to compute and is not logged | **Checked (C11):** a notice is needed before collecting; legal check for accounts in V2 | Medium | Legal review |
+| Q-F08-5 | Backup? | V1: download and load a file on the device | **Reasoned:** protects against cleared browser data without accounts | Medium | – |
+| Q-F08-6 | Reminder channel? | V2: email first; no WhatsApp until a consent flow exists | **Cannot check:** channel rules and costs not checked | Low | You decide channels |
+
+### F09 Sell plan
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F09-4 | How to capture sale outcomes without accounts? | An optional "Did it sell?" form tied to a receipt code, with consent | **Reasoned:** same pattern as owner reports; no personal data | Medium | – |
+| Q-F09-5 | When can the sample factors be changed? | Compare at 30 outcomes per segment; if more than 30% fall outside the range, propose a change for review; at about 1,000 outcomes, test a learned model. Target: sale prices inside the range at least 70% of the time | **Reasoned:** rules of thumb, as in decision D-06 | Low | The first outcomes |
+| Q-F09-6 | Can sellers enter their own repair quote? | Yes in V1 | **Reasoned:** a real quote beats a sample cost | Medium | – |
+| Q-F09-7 | Minimum net gain for "Do this"? | ₹500, or any non-negative gain for a free step | **Prototype:** this is the current rule | Medium | Real data shows another line |
+| Q-F09-8 | How wide is the range? | 8% either side, plus 1.5 points per unknown field, up to 20% | **Prototype:** current values; sample assumptions | Low | Real outcomes |
+| Q-F09-9 | What are "quick" and "best price"? | Quick: list at the middle, accept down to the low. Best price: list at the high, accept down to the middle | **Prototype:** current definitions; assumptions | Low | Real outcomes |
+
+### F10 Brand insights
+
+| ID | Question | Answer | How I arrived | Conf. | Revisit if |
+|---|---|---|---|---|---|
+| Q-F10-3 | How are brands authenticated and limited? | Supabase Auth with a role and brand id, and row-level security so the database enforces the scope | **Reasoned:** scope in the database, not only in code | Medium | – |
+| Q-F10-4 | What will a brand pay? | **Cannot answer.** Plan: show the view to three contacts and ask what decision it changes and what they would pay | **Cannot check:** needs real conversations | – | You name contacts |
+| Q-F10-5 | Minimum group sizes? | Hide cells under 5 reports; show 5 to 19 as early signals; demand cells need at least 20 searches | **Reasoned:** consistent with the product's evidence rule of 20; protects against identifying one person | Medium | – |
+| Q-F10-6 | Do buyers need to be told their anonymous searches inform brands? | Yes, in the privacy notice: budget band, use and must-haves are used in aggregate | **Checked (C11):** a notice is required before collecting | Medium | Legal review |
+| Q-F10-7 | Label sample data? | Always | **Reasoned:** the demand figures are invented in the prototype | High | – |
+| Q-F10-8 | What if one source supplies a whole cell? | Show the number of sources for that cell | **Reasoned:** one source can skew an average | Low | – |

@@ -4,6 +4,7 @@
 **Users.** Buyers with a shortlist; brand analysts (the same data).
 **Prototype status.** Built (Market screen, Home "This month" tiles). Windows of 7, 30, 90 days. Activity is sample data.
 **Prompts used.** None. This feature uses no model.
+**Full feature specification:** `../specs/F07_market_pulse.md`.
 
 ## 1. AI model decision
 

@@ -4,6 +4,7 @@
 **Users.** Sellers and upgraders.
 **Prototype status.** Built (Sell screen; Home ask box; "Sell this laptop" in Mine). **Sample assumptions** for the value factors and repair costs. No buyers connected.
 **Prompts used.** P1 (P1g seller-condition reader), P6 (listing writer, designed), P3 (photos, designed).
+**Full feature specification:** `../specs/F09_sell_plan.md`.
 
 ## 1. AI model decision
 

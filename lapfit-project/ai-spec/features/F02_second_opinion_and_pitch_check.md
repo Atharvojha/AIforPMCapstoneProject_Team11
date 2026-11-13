@@ -4,7 +4,7 @@
 **Users.** All buyers; most acute for first-time buyers and parents in a shop.
 **Prototype status.** Built as two flows (`second_opinion`, `check_pitch`) on sample data. The course treats them as one flow (to-do 0.2); the Check screen and Home ask box lead to both.
 **Prompts used.** P1 (P1b laptop and Musts reader, P1c claim reader), P2, P3 (image reader, designed), P4 (evidence summariser, designed, optional).
-**Full feature specification:** `../04_FEATURE_SPECS.md`.
+**Full feature specification:** `../specs/F02_second_opinion_and_pitch_check.md`.
 
 ## 1. AI model decision
 

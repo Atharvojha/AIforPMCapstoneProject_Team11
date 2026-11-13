@@ -4,6 +4,7 @@
 **Users.** Adult children buying for parents, parents buying for children, small-business owners, college administrators.
 **Prototype status.** Built (Home ask box). Parent and child shortcuts; team table with one recommendation per role and total vs budget. Sample data.
 **Prompts used.** P1 (P1e recipient and team reader), P2.
+**Full feature specification:** `../specs/F04_buy_for_others_and_teams.md`.
 
 ## 1. AI model decision
 
