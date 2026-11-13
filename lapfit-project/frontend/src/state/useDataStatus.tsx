@@ -13,6 +13,6 @@ export function DataStatusProvider({ cfg, children, send = sendQuery }: { cfg: A
 }
 /** The one honest line about the data, built from the status the server reported. */
 export const dataLine = (b: Block | null): string => {
-  if (!b) return 'Prices are a saved snapshot, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.';
+  if (!b) return 'Prices are a saved snapshot, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask. Catalog laptops have dated prices and owner opinions. Laptops from the web are read from live pages and are not verified.';
   return b.notice as string;
 };

@@ -11,6 +11,14 @@ import type { Deps, Needs, Row, Block } from '../types.ts';
 import type { CriteriaSet } from '../normalise.ts';
 import type { LensId } from '../soft.ts';
 
+/** Capability for a use as a share (0..100) of the strongest laptop in the whole catalog for that use. Shared with the web catalog so both tiers use ONE fit logic. */
+export function relativeFit(cap: number, uses: string[], all: Row[]): number {
+  const maxP = Math.max(0, ...all.map((r) => (r.price_inr != null && r.price_inr > 0 ? (r.price_inr as number) : 0))) || null; const refCap = Math.max(1, ...all.map((r) => capability(r, uses, maxP)));
+  return Math.min(100, (100 * cap) / refCap);
+}
+/** The catalog rows a fit is measured against, and the maxPrice used by capability(). */
+export async function fitReference(tools: Tools): Promise<Row[]> { return (await tools.call<{ rows: Row[] }>('find_variants', {})).rows.filter(sellable); }
+
 /** One plain sentence: how the list is ordered and why. */
 export function sortNote(sort: SortKey, needs: Needs, crit: CriteriaSet, fellBack = false): string {
   const b = needs.budget_max_inr && needs.budget_max_inr > 0 ? needs.budget_max_inr : null;
@@ -157,8 +165,7 @@ export async function runShortlist(deps: Deps, needs: Needs, o: { lenses?: LensI
   const bonly = budgetOnly(needs, crit);
   // MATCH %: capability for the stated use measured against the strongest laptop in the WHOLE catalog for that use (so a ₹30k laptop is not scored against an imaginary ideal), blended with the Shoulds/Nices met. Recorded values only.
   const matchOf = (s: Scored, uses: string[]) => {
-    const m = s.match; if (!m) return undefined; const maxP = Math.max(0, ...all.map((r) => (r.price_inr != null && r.price_inr > 0 ? (r.price_inr as number) : 0))) || null; const refCap = Math.max(1, ...all.map((r) => capability(r, uses, maxP)));
-    const rel = Math.min(100, (100 * m.cap) / refCap); const pct = Math.max(0, Math.min(100, Math.round(m.sat == null ? rel : 0.65 * rel + 35 * m.sat)));
+    const m = s.match; if (!m) return undefined; const rel = relativeFit(m.cap, uses, all); const pct = Math.max(0, Math.min(100, Math.round(m.sat == null ? rel : 0.65 * rel + 35 * m.sat)));
     const basis = [`Meets ${crit.musts.length ? `all ${crit.musts.length} of your Must${crit.musts.length === 1 ? '' : 's'}` : 'every Must you set'} and your budget`, `Strength for ${uses.length ? uses.join(', ') : 'everyday use'}: ${Math.round(rel)}% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)`];
     if (m.shouldsAll + m.nicesAll) basis.push(`Meets ${m.shouldsMet} of ${m.shouldsAll} Shoulds and ${m.nicesMet} of ${m.nicesAll} Nices`); if (m.unknown.length) basis.push(`Not recorded, so not counted: ${m.unknown.join(', ')}`);
     return { pct, label: `${pct}% match`, basis };

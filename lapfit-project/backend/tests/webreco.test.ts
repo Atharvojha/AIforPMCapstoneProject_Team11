@@ -29,7 +29,7 @@ const N60 = { ...EMPTY, budget_max_inr: 60000, use_cases: ['coding'] };
 const blk = (r: any, t: string) => r.blocks.find((b: any) => b.type === t);
 
 async function ask(body: any, o: { model?: any; live?: any; flags?: any; reset?: boolean } = {}) {
-  const { tools, db } = await getDb(); if (o.reset !== false) { await db.query('delete from live_review_cache'); await db.query('delete from live_usage'); await db.query('delete from rate_bucket'); }
+  const { tools, db } = await getDb(); if (o.reset !== false) { await db.query('delete from live_review_cache'); await db.query('delete from live_usage'); await db.query('delete from rate_bucket'); await db.query('delete from web_laptop'); }
   const settings: any = await loadSettings(tools); if (o.flags) settings.FEATURE_FLAGS = { ...(settings.FEATURE_FLAGS ?? {}), ...o.flags };
   return handleQuery({ tools, model: o.model ?? null, live: o.live ?? null, settings, requestId: 'w' + Math.random().toString(36).slice(2) }, { session_hash: 'wr', ...body }) as Promise<any>;
 }

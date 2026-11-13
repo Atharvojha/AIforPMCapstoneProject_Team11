@@ -23,6 +23,7 @@ import { whereToBuy, logClick } from './flows/buy.ts';
 import { resolveVariant, claimsForMention } from './flows/pitch.ts';
 import { askBlock, laptopChoices, cleanListing, cleanClaims, cleanMentions } from './flows/ask.ts';
 import { webLaptop, cleanLaptopName } from './flows/weblaptop.ts';
+import { webCatalogBlock } from './flows/webcatalog.ts';
 import { webRecoSafe, autoQuery, searchQuery, hasRecoNeed } from './flows/webreco.ts';
 import { fmtDate } from './util.ts';
 import { checkedContext, followUpIntent, pickRef, refersToCurrent } from './followup.ts';
@@ -38,8 +39,8 @@ export interface QueryInput {
   owned?: Owned[]; experience?: ExperienceInput; receipt?: string; client?: { what: string; screen?: string; message?: string; status?: number; action?: string };
   intent?: string; retailer?: string; from?: string; sort?: string;
   focus?: { variant_id: string; name?: string } | null; shown?: { variant_id: string; name?: string }[];
-  action?: 'where_to_buy' | 'outbound_click' | 'read_image' | 'data_status' | 'client_log' | 'report_status' | 'report_delete' | 'submit_experience' | 'live_reviews' | 'compare' | 'owner_voice' | 'second_opinion' | 'check_pitch' | 'sell_plan' | 'used_check' | 'catalog' | 'web_search_laptops'; variant_id?: string; variant_ids?: string[]; topic?: string;
-  query?: string; recommended?: string[]; picked?: string[]; laptop_text?: string; custom?: unknown; claims?: unknown; rest?: unknown;
+  action?: 'where_to_buy' | 'outbound_click' | 'read_image' | 'data_status' | 'client_log' | 'report_status' | 'report_delete' | 'submit_experience' | 'live_reviews' | 'compare' | 'owner_voice' | 'second_opinion' | 'check_pitch' | 'sell_plan' | 'used_check' | 'catalog' | 'web_search_laptops' | 'web_catalog'; variant_id?: string; variant_ids?: string[]; topic?: string;
+  query?: string; brand?: string; q?: string; budget_max_inr?: number; budget_min_inr?: number; offset?: number; limit?: number; recommended?: string[]; picked?: string[]; laptop_text?: string; custom?: unknown; claims?: unknown; rest?: unknown;
   sell?: SellInput; listing?: import('./router.ts').Listing;
 }
 interface Failure { stage: string; kind: string; message: string }
@@ -146,6 +147,12 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
       reply.flow = 'web_search_laptops'; const q = String(input.query ?? '').trim();
       if (q.length < 2 || q.length > 80) { reply.blocks.push({ type: 'text', text: 'Type 2 to 80 characters, for example a laptop name or "lightweight laptop for travel".' }); outcome = 'bad_request'; return; }
       loggedText = scrub(q); textLen = q.length; reply.blocks.push(await webRecoSafe(deps, searchQuery(q))); return;
+    }
+    if (input.action === 'web_catalog') {   // the stored web tier: a database read only, no model, no live search
+      reply.flow = 'web_catalog';
+      try { reply.blocks.push(await webCatalogBlock(deps, { brand: input.brand, q: input.q, budget_min_inr: input.budget_min_inr, budget_max_inr: input.budget_max_inr, offset: input.offset, limit: input.limit })); }
+      catch { reply.blocks.push({ type: 'text', text: 'The web laptop list is not available right now. The LapFit catalog is unaffected.' }); }
+      return;
     }
     if (input.action === 'data_status') {
       reply.flow = 'data_status'; const ds = settings.DATA_STATUS ?? {};
@@ -303,7 +310,7 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
 
     // web picks beyond the catalog run in parallel with the shortlist and can never change or break it
     let webPicks: Promise<Block | null> | null = null;
-    if (flow === 'shortlist' && deps.live?.web && flags.live_reviews !== false && flags.web_recommendations !== false && hasRecoNeed(needs)) {
+    if (flow === 'shortlist' && flags.live_reviews !== false && flags.web_recommendations !== false && hasRecoNeed(needs)) {
       webPicks = webRecoSafe(deps, autoQuery(needs, (deps.now?.() ?? new Date()).getFullYear())).then((b) => (b.status === 'off' || b.status === 'empty' ? null : b), () => null);
     }
 

@@ -40,7 +40,7 @@ export function AboutScreen() {
       </ul>
       <h3>Limits</h3>
       <ul>
-        <li>The catalog is small (14 laptops with Indian prices). Many weights, colours and hinge types are unknown, and an unknown value never counts as meeting a Must.</li>
+        <li>There are two tiers. Catalog laptops have dated prices and owner opinions. Laptops from the web are read from live pages and are not verified. Many weights, colours and hinge types are unknown, and an unknown value never counts as meeting a Must.</li>
         <li>Resale estimates use sample assumptions, not real sales.</li>
         <li>The dataset has no review dates or user types, so I cannot filter owners by “students” or “after 6 months”.</li>
         <li>If you send many requests quickly you may be asked to wait, or get the simpler reader without live web results.</li>

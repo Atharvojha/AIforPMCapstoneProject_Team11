@@ -132,3 +132,13 @@
 .check-details .tri .chip { margin-right: 6px; }
 @media (max-width: 520px) { .check-details .tri { grid-template-columns: 1fr; } .check-details .grid-fields { grid-template-columns: 1fr; } }
 .chip.removable { gap: 6px; }
+
+/* Two tiers in Explore: catalog and from the web */
+.exp-tier { max-width: 360px; } .tier-h { margin: 6px 0; font-size: 1rem; }
+.web-filter { margin: 6px 0; } .web-budget { display: grid; gap: 8px; margin: 6px 0; }
+.web-tag { margin: 0; } .web-card { border-style: dashed; } .web-card .bcard-pic { background: var(--info-soft); }
+.wp-specs-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; }
+.wp-all { display: flex; }
+.wp-compact .wp-card { padding: 8px 12px; gap: 2px; } .wp-compact .wp-card h4 { font-size: .95rem; }
+.wp-compact .wp-card { grid-template-columns: 1fr auto; align-items: center; column-gap: 10px; } .wp-compact .wp-card > * { grid-column: 1; } .wp-compact .wp-card .wl-actions { grid-column: 2; grid-row: 1 / span 4; }
+.wp-compact .wp-price { font-size: .95rem; }

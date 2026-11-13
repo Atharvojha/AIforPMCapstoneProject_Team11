@@ -84,7 +84,7 @@ describe('Explore screen', () => {
     render(<App config={cfg} />); await screen.findByText('5 of 5 laptops'); const btn = screen.getByRole('button', { name: 'Search the web too' }); expect(btn).toBeDisabled();
     await userEvent.type(screen.getByLabelText('Search by name, brand or spec'), 'thin light laptop'); await userEvent.click(btn);
     await waitFor(() => expect(calls.find((c) => c.action === 'web_search_laptops')).toMatchObject({ query: 'thin light laptop' }));
-    expect(await screen.findByText(/not in my catalog, not verified/)).toBeInTheDocument();
+    expect(await screen.findByText(/From the web, not verified/)).toBeInTheDocument();
   });
 });
 
@@ -92,7 +92,7 @@ describe('web picks block', () => {
   const block = () => fx('web_picks').blocks[0];
   const show = (b: any, ctx: any = {}) => render(<CtxContext.Provider value={{ ...noopCtx, ...ctx }}><BlockView block={b} /></CtxContext.Provider>);
   it('shows the labels, the stated price, "?" for missing specs, and links only for https', () => {
-    show(block()); expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('More from the live web (not in my catalog, not verified)');
+    show({ ...block(), items: block().items.slice(0, 2) }); expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('More laptops from the web (From the web, not verified)');
     expect(screen.getByText('₹68,990 (as stated by the page)')).toBeInTheDocument(); expect(screen.getByText('price not stated')).toBeInTheDocument();
     expect(screen.getByText(/Read from web pages by an AI model/)).toBeInTheDocument(); expect(screen.getAllByText(/\? storage/).length).toBe(1);
     const links = screen.getAllByRole('link'); expect(links).toHaveLength(1); expect(links[0]).toHaveAttribute('href', 'https://www.example-shop.in/lenovo-ideapad-slim-5'); expect(links[0]).toHaveAttribute('target', '_blank'); expect(links[0]).toHaveAttribute('rel', expect.stringContaining('noopener'));

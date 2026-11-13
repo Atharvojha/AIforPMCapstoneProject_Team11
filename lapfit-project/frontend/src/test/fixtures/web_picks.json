@@ -34,7 +34,15 @@
        "url": "https://www.example-shop.in/lenovo-ideapad-slim-5",
        "site": "example-shop.in",
        "published": "2026-10-02"
-      }
+      },
+      "match": {
+       "pct": 90,
+       "label": "90% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": true
      },
      {
       "name": "ASUS Zenbook 14 OLED",
@@ -48,7 +56,153 @@
       "source": {
        "url": "http://insecure.example.com/zenbook",
        "site": "insecure.example.com"
-      }
+      },
+      "match": {
+       "pct": 83,
+       "label": "83% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": false
+     },
+     {
+      "name": "Acer Aspire 3",
+      "price_inr": 40000,
+      "price_text": "₹40,000",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6
+      },
+      "why": "Budget pick.",
+      "source": {
+       "url": "https://shop0.example.in/aspire",
+       "site": "shop0.example.in"
+      },
+      "match": {
+       "pct": 76,
+       "label": "76% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": true
+     },
+     {
+      "name": "Acer Aspire 4",
+      "price_inr": 43000,
+      "price_text": "₹43,000",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6
+      },
+      "why": "Budget pick.",
+      "source": {
+       "url": "https://shop1.example.in/aspire",
+       "site": "shop1.example.in"
+      },
+      "match": {
+       "pct": 69,
+       "label": "69% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": false
+     },
+     {
+      "name": "Acer Aspire 5",
+      "price_inr": 46000,
+      "price_text": "₹46,000",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6
+      },
+      "why": "Budget pick.",
+      "source": {
+       "url": "https://shop2.example.in/aspire",
+       "site": "shop2.example.in"
+      },
+      "match": {
+       "pct": 62,
+       "label": "62% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": true
+     },
+     {
+      "name": "Acer Aspire 6",
+      "price_inr": 49000,
+      "price_text": "₹49,000",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6
+      },
+      "why": "Budget pick.",
+      "source": {
+       "url": "https://shop3.example.in/aspire",
+       "site": "shop3.example.in"
+      },
+      "match": {
+       "pct": 55,
+       "label": "55% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": false
+     },
+     {
+      "name": "Acer Aspire 7",
+      "price_inr": 52000,
+      "price_text": "₹52,000",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6
+      },
+      "why": "Budget pick.",
+      "source": {
+       "url": "https://shop4.example.in/aspire",
+       "site": "shop4.example.in"
+      },
+      "match": {
+       "pct": 48,
+       "label": "48% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": true
+     },
+     {
+      "name": "Acer Aspire 8",
+      "price_inr": 55000,
+      "price_text": "₹55,000",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6
+      },
+      "why": "Budget pick.",
+      "source": {
+       "url": "https://shop5.example.in/aspire",
+       "site": "shop5.example.in"
+      },
+      "match": {
+       "pct": 41,
+       "label": "41% fit",
+       "basis": [
+        "Within your budget"
+       ]
+      },
+      "stored": false
      }
     ]
    }

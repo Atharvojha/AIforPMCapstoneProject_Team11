@@ -22,6 +22,7 @@ export function TrustSheet({ open, onClose, notice, footer, status, reply }: { o
         </ul>
         <h3>What the data is</h3>
         <p>{notice}</p>
+        <p className="small muted">Catalog laptops have dated prices and owner opinions. Laptops from the web are read from live pages and are not verified.</p>
         {status && <p className="small muted">{status.variants} laptops ({status.laptops_with_price} with a price), {status.reviews} reviews read, {status.opinions} owner opinions, {status.verified_variants} checked by a person.</p>}
         <p className="small muted">{footer}</p>
         <h3>Receipt for the latest answer</h3>

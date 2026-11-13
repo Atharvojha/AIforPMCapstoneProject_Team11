@@ -1,0 +1,111 @@
+{
+ "request": {
+  "action": "web_catalog",
+  "limit": 24
+ },
+ "reply": {
+  "ok": true,
+  "request_id": "fx-web-catalog",
+  "flow": "web_catalog",
+  "language": "English",
+  "router_mode": "offline",
+  "blocks": [
+   {
+    "type": "web_catalog",
+    "total": 312,
+    "rows": [
+     {
+      "key": "w1",
+      "name": "Lenovo IdeaPad Slim 5 14",
+      "brand": "Lenovo",
+      "price_inr": 68990,
+      "price_text": "₹68,990",
+      "price_as_of": "2026-11-02",
+      "specs": {
+       "ram_gb": 16,
+       "storage_gb": 512,
+       "display_size": 14,
+       "weight_kg": 1.46,
+       "cpu": "Ryzen 7 7730U"
+      },
+      "source": {
+       "url": "https://www.example-shop.in/lenovo-ideapad-slim-5",
+       "site": "example-shop.in"
+      },
+      "match": {
+       "pct": 82,
+       "label": "82% fit",
+       "basis": [
+        "Within your budget",
+        "16 GB RAM meets your Must"
+       ]
+      }
+     },
+     {
+      "key": "w2",
+      "name": "ASUS Zenbook 14 OLED",
+      "brand": "ASUS",
+      "price_inr": null,
+      "price_text": null,
+      "price_as_of": null,
+      "specs": {
+       "ram_gb": 16,
+       "display_size": 14
+      },
+      "source": {
+       "url": "http://insecure.example.com/zenbook",
+       "site": "insecure.example.com"
+      },
+      "match": {
+       "pct": 55,
+       "label": "55% fit",
+       "basis": [
+        "Price not stated, earns nothing"
+       ]
+      }
+     },
+     {
+      "key": "w3",
+      "name": "HP Pavilion 15",
+      "brand": "HP",
+      "price_inr": 54990,
+      "price_text": "₹54,990",
+      "price_as_of": "2026-10-28",
+      "specs": {
+       "ram_gb": 8,
+       "storage_gb": 512,
+       "display_size": 15.6,
+       "weight_kg": 1.75
+      },
+      "source": {
+       "url": "https://shop.example.in/hp-pavilion-15",
+       "site": "shop.example.in"
+      }
+     },
+     {
+      "key": "w4",
+      "name": "Dell Inspiron 14",
+      "brand": "Dell",
+      "price_inr": 61990,
+      "price_text": "₹61,990",
+      "price_as_of": "2026-11-05",
+      "specs": {
+       "ram_gb": 16,
+       "storage_gb": 512,
+       "display_size": 14,
+       "cpu": "Core i5-1335U"
+      },
+      "source": {
+       "url": "https://shop.example.in/dell-inspiron-14",
+       "site": "shop.example.in"
+      }
+     }
+    ],
+    "note": "Read from live web pages. Not verified, may be out of date."
+   }
+  ],
+  "notice": "",
+  "footer": "LapFit shows recorded facts with their dates.",
+  "data_mode": "course"
+ }
+}

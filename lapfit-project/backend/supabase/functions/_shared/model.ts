@@ -11,6 +11,30 @@ export function extractJson(text: string): any {
   return JSON.parse(t.slice(a, b + 1));
 }
 
+/** Like extractJson, but a reply cut off in the middle of a list (the token limit) is repaired by keeping every complete element and closing the brackets. */
+export function extractJsonLoose(text: string): any {
+  try { return extractJson(text); } catch { /* repair below */ }
+  const t = String(text).trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim(); const a = t.indexOf('{'); if (a < 0) throw new Error('no_json');
+  const stack: string[] = []; let inStr = false, esc = false; let cut = -1; let closers = '';
+  for (let i = a; i < t.length; i++) {
+    const c = t[i];
+    if (inStr) { if (esc) esc = false; else if (c === '\\') esc = true; else if (c === '"') inStr = false; continue; }
+    if (c === '"') inStr = true; else if (c === '{' || c === '[') stack.push(c);
+    else if (c === '}' || c === ']') { stack.pop(); if (stack[stack.length - 1] === '[') { cut = i; closers = stack.map((x) => (x === '{' ? '}' : ']')).reverse().join(''); } }
+  }
+  if (cut < 0) throw new Error('no_json');
+  return JSON.parse(t.slice(a, cut + 1) + closers);
+}
+
+/** Ask for JSON; if the reply is empty, cut off beyond repair or invalid, try once more with a bigger limit and the shorter prompt the caller offers. */
+export async function askJson(model: ModelClient, req: ModelRequest, retryUser?: string): Promise<any> {
+  try { return extractJsonLoose(await model.generate(req)); }
+  catch (e) {
+    if ((e as Error)?.name === 'AbortError' || req.signal?.aborted) throw e;
+    return extractJsonLoose(await model.generate({ ...req, user: retryUser ?? req.user, maxTokens: Math.round((req.maxTokens ?? 1200) * 1.6) }));
+  }
+}
+
 export interface GeminiOptions { apiKey?: string; model?: string; style?: 'interactions' | 'generateContent'; apiRevision?: string; baseUrl?: string }
 
 /**

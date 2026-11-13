@@ -51,7 +51,7 @@ describe('shell', () => {
     await userEvent.keyboard('{Escape}'); expect(screen.queryByRole('dialog')).toBeNull();
   });
   it('navigation changes the screen and an unknown address falls back to Ask', async () => {
-    mount(); await goto(/Explore$/); expect(await screen.findByRole('heading', { name: 'Browse every laptop I know' })).toBeInTheDocument(); window.location.hash = '#/nonsense'; window.dispatchEvent(new HashChangeEvent('hashchange')); expect(await screen.findByRole('heading', { name: 'Ask LapFit' })).toBeInTheDocument();
+    mount(); await goto(/Explore$/); expect(await screen.findByRole('heading', { name: 'Browse laptops' })).toBeInTheDocument(); window.location.hash = '#/nonsense'; window.dispatchEvent(new HashChangeEvent('hashchange')); expect(await screen.findByRole('heading', { name: 'Ask LapFit' })).toBeInTheDocument();
   });
   it('after the server reports its status the banner states the snapshot date; About shows the counts; status is fetched once per session', async () => {
     const f = vi.fn(async (_u: string, init: any) => okResponse(JSON.parse(init.body).action === 'data_status' ? fx('data_status') : fx('help'))); vi.stubGlobal('fetch', f);
