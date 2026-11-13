@@ -27,10 +27,10 @@ describe('cards', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Show 2 more' })); expect(screen.getAllByRole('article')).toHaveLength(5); expect(screen.getAllByText(/as of 10 Nov 2026/).length).toBe(5);
   });
   it('rows say how they differ from the best fit using only the card numbers; an unknown price is "?", never ₹0; a near tie shows two heroes', () => {
-    const base = (block('shortlist', 'cards').cards as any[])[0]; const mk = (o: any) => ({ ...base, ...o, specs: { ...base.specs, ...(o.specs ?? {}) } });
+    const fx0 = (block('shortlist', 'cards').cards as any[])[0]; const base = { ...fx0, price_inr: 33990, price_text: '₹33,990', specs: { ...fx0.specs, weight_kg: 1.8 } }; const mk = (o: any) => ({ ...base, ...o, specs: { ...base.specs, ...(o.specs ?? {}) } });
     const cards = [mk({}), mk({ variant_id: 'x1', name: 'B · 8 GB / 512 GB', price_inr: 37990, price_text: '₹37,990', specs: { weight_kg: 1.6 } }), mk({ variant_id: 'x2', name: 'C · 8 GB / 512 GB', price_inr: 0, price_text: '₹0' })];
     show({ type: 'cards', title: '3 laptops within your budget', first: 3, requireAll: true, cards });
-    expect(document.querySelectorAll('.brow-delta').length).toBeGreaterThanOrEqual(1); expect(screen.getAllByText(/(costlier|cheaper)/).length).toBeGreaterThanOrEqual(1); expect(document.body.textContent).not.toMatch(/₹0\b/); expect(within(screen.getByRole('article', { name: /^C ·/ })).getByText('?')).toBeInTheDocument();
+    expect(screen.getByText('₹4,000 costlier · 0.2 kg lighter')).toBeInTheDocument(); expect(document.body.textContent).not.toMatch(/₹0\b/); expect(within(screen.getByRole('article', { name: /^C ·/ })).getByText('?')).toBeInTheDocument();
     document.body.innerHTML = ''; show({ type: 'cards', title: 't', first: 3, requireAll: false, cards: [mk({}), mk({ variant_id: 'x3', name: 'D · 8 GB / 512 GB', price_inr: 34100, price_text: '₹34,100' })] });
     expect(screen.getAllByText('Tie')).toHaveLength(2); expect(document.querySelectorAll('.bhero')).toHaveLength(2);
   });

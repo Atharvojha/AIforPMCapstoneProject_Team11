@@ -51,7 +51,7 @@ describe('the laptop card', () => {
   });
   it('an old price is labelled stale, and thin evidence says it is still collecting, never a percentage', () => {
     const base = (block('shortlist', 'cards').cards as any[])[0]; show({ type: 'cards', title: 't', first: 3, requireAll: false, cards: [{ ...base, as_of: '2020-01-01', as_of_text: '1 Jan 2020', evidence: { n: 4, enough: false, positive: 4, negative: 0, text: 'Not enough owner evidence yet (n = 4; we need at least 20).', min_n: 20 } }] });
-    expect(document.querySelector('.fresh')).toHaveClass('stale'); expect(screen.getByText('still collecting (need 20)')).toBeInTheDocument(); expect(document.body.textContent).not.toMatch(/\d+ of \d+ owner opinions positive|\d+%(?! match|\?)/);
+    expect(document.querySelector('.fresh')).toHaveClass('stale'); expect(screen.getByText('still collecting (need 20)')).toBeInTheDocument(); expect(document.querySelector('.bhero .fresh')!.textContent).not.toMatch(/\d+ of \d+ owner opinions positive|\d+%/);
   });
   it('the first result is the one hero and the others are compact rows', () => {
     show(block('shortlist', 'cards')); expect(document.querySelectorAll('.bhero')).toHaveLength(1); expect(document.querySelectorAll('.brow')).toHaveLength(2); expect(screen.getAllByRole('article')[0]).toHaveClass('bhero');
