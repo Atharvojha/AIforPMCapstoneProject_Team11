@@ -25,10 +25,15 @@
             "storage_gb": 512,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-02",
@@ -40,10 +45,15 @@
             "storage_gb": 32,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-03",
@@ -55,10 +65,15 @@
             "storage_gb": null,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-04",
@@ -70,10 +85,15 @@
             "storage_gb": 1000,
             "recommendable": false,
             "display_size": 15.6,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-05",
@@ -85,10 +105,15 @@
             "storage_gb": 256,
             "recommendable": false,
             "display_size": 15.6,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": 2018
           },
           {
             "variant_id": "AMZ-06",
@@ -100,10 +125,15 @@
             "storage_gb": 256,
             "recommendable": false,
             "display_size": 13.3,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": 2018
           },
           {
             "variant_id": "AMZ-07",
@@ -115,10 +145,15 @@
             "storage_gb": 64,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-08",
@@ -130,10 +165,15 @@
             "storage_gb": 128,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-09",
@@ -145,10 +185,15 @@
             "storage_gb": 1000,
             "recommendable": false,
             "display_size": 15.6,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": 2015
           },
           {
             "variant_id": "AMZ-10",
@@ -160,10 +205,15 @@
             "storage_gb": 32,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-11",
@@ -175,10 +225,15 @@
             "storage_gb": 256,
             "recommendable": false,
             "display_size": 14,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": 2021
           },
           {
             "variant_id": "AMZ-12",
@@ -190,10 +245,15 @@
             "storage_gb": 256,
             "recommendable": false,
             "display_size": 13.5,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-13",
@@ -205,10 +265,15 @@
             "storage_gb": 2000,
             "recommendable": false,
             "display_size": 14.4,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-14",
@@ -220,10 +285,15 @@
             "storage_gb": 1000,
             "recommendable": false,
             "display_size": 15.6,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "AMZ-15",
@@ -235,10 +305,15 @@
             "storage_gb": 1000,
             "recommendable": false,
             "display_size": 15.6,
+            "image_url": null,
+            "image_site": null,
+            "image_page": null,
             "weight_kg": null,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "US",
+            "launch_year": null
           },
           {
             "variant_id": "FKL-01",
@@ -250,10 +325,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 17.3,
+            "image_url": "https://rukminim2.flixcart.com/image/480/480/xif0q/computer/k/k/r/fa706ihrb-hx041w-gaming-laptop-asus-original-imah3my8kb6tsnky.jpeg?q=80",
+            "image_site": "rukminim2.flixcart.com",
+            "image_page": null,
             "weight_kg": 2.6,
             "battery_wh": 90,
             "refresh_hz": 144,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2020
           },
           {
             "variant_id": "FKL-02",
@@ -265,10 +345,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://rukmini1.flixcart.com/image/1500/1500/krtjgcw0/computer/p/n/g/15-ec2004ax-gaming-laptop-hp-original-imag5j3b48askf4b.jpeg?q=70",
+            "image_site": "rukmini1.flixcart.com",
+            "image_page": null,
             "weight_kg": 1.98,
             "battery_wh": null,
             "refresh_hz": 144,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-03",
@@ -280,10 +365,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://rukmini1.flixcart.com/image/1500/1500/kb1470w0/computer/z/5/f/msi-na-gaming-laptop-original-imafsh7ahbgkmvtm.jpeg?q=70",
+            "image_site": "rukmini1.flixcart.com",
+            "image_page": null,
             "weight_kg": 1.86,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-04",
@@ -295,10 +385,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://rukmini1.flixcart.com/image/1500/1500/ks99aq80/computer/y/z/7/na-gaming-laptop-lenovo-original-imag5ve3jvhgvsnx.jpeg?q=70",
+            "image_site": "rukmini1.flixcart.com",
+            "image_page": null,
             "weight_kg": 2.25,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-05",
@@ -310,10 +405,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/p/r/1/-original-imahg52nsgjmxhza.jpeg?q=20",
+            "image_site": "rukminim3.flixcart.com",
+            "image_page": null,
             "weight_kg": 2.3,
             "battery_wh": 48,
             "refresh_hz": 144,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2020
           },
           {
             "variant_id": "FKL-06",
@@ -325,10 +425,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://assets.nvidia.partners/images/png/comgrdc8jb73d8j7.png",
+            "image_site": "assets.nvidia.partners",
+            "image_page": null,
             "weight_kg": 1.86,
             "battery_wh": null,
             "refresh_hz": 144,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-07",
@@ -340,10 +445,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://rukmini1.flixcart.com/image/1500/1500/krtjgcw0/computer/p/n/g/15-ec2004ax-gaming-laptop-hp-original-imag5j3b48askf4b.jpeg?q=70",
+            "image_site": "rukmini1.flixcart.com",
+            "image_page": null,
             "weight_kg": 1.98,
             "battery_wh": null,
             "refresh_hz": 144,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-08",
@@ -355,10 +465,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://in.store.asus.com/media/catalog/product/r/f/rf-m6500qf_cl_slvr_fngrprnt_1__1.jpg",
+            "image_site": "in.store.asus.com",
+            "image_page": null,
             "weight_kg": 1.8,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": "dedicated"
+            "gpu_class": "dedicated",
+            "market": "IN",
+            "launch_year": 2020
           },
           {
             "variant_id": "FKL-09",
@@ -370,10 +485,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",
+            "image_site": "5.imimg.com",
+            "image_page": null,
             "weight_kg": 1.8,
             "battery_wh": 37,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "IN",
+            "launch_year": 2022
           },
           {
             "variant_id": "FKL-10",
@@ -385,10 +505,15 @@
             "storage_gb": 256,
             "recommendable": true,
             "display_size": 13.3,
+            "image_url": "https://rukminim3.flixcart.com/image/480/480/xif0q/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-enriched-transparent-original-imag3gh5xftgbpg3.png?q=90",
+            "image_site": "rukminim3.flixcart.com",
+            "image_page": null,
             "weight_kg": 1.29,
             "battery_wh": 49.9,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "IN",
+            "launch_year": 2020
           },
           {
             "variant_id": "FKL-11",
@@ -400,10 +525,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
+            "image_site": "m.media-amazon.com",
+            "image_page": null,
             "weight_kg": 1.65,
             "battery_wh": 45,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-12",
@@ -415,10 +545,15 @@
             "storage_gb": 256,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://m.media-amazon.com/images/I/61s7sJEpsVL.jpg",
+            "image_site": "m.media-amazon.com",
+            "image_page": null,
             "weight_kg": 1.7,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "IN",
+            "launch_year": null
           },
           {
             "variant_id": "FKL-13",
@@ -430,10 +565,15 @@
             "storage_gb": 512,
             "recommendable": true,
             "display_size": 15.6,
+            "image_url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",
+            "image_site": "rukminim3.flixcart.com",
+            "image_page": null,
             "weight_kg": 1.69,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "IN",
+            "launch_year": 2021
           },
           {
             "variant_id": "FKL-14",
@@ -445,10 +585,15 @@
             "storage_gb": 256,
             "recommendable": true,
             "display_size": 14,
+            "image_url": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/computer/b/w/w/-original-imagp7pfyd8rbp6z.jpeg?q=70",
+            "image_site": "rukmini1.flixcart.com",
+            "image_page": null,
             "weight_kg": 1.41,
             "battery_wh": null,
             "refresh_hz": null,
-            "gpu_class": null
+            "gpu_class": null,
+            "market": "IN",
+            "launch_year": 2021
           }
         ]
       }

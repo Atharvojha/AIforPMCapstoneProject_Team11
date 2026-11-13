@@ -23,6 +23,7 @@ import { whereToBuy, logClick } from './flows/buy.ts';
 import { resolveVariant, claimsForMention } from './flows/pitch.ts';
 import { askBlock, laptopChoices, cleanListing, cleanClaims, cleanMentions } from './flows/ask.ts';
 import { webLaptop, cleanLaptopName } from './flows/weblaptop.ts';
+import { webRecoSafe, autoQuery, searchQuery, hasRecoNeed } from './flows/webreco.ts';
 import { fmtDate } from './util.ts';
 import { checkedContext, followUpIntent, pickRef, refersToCurrent } from './followup.ts';
 import { laptopQuestion, needsLinesOf } from './flows/question.ts';
@@ -37,8 +38,8 @@ export interface QueryInput {
   owned?: Owned[]; experience?: ExperienceInput; receipt?: string; client?: { what: string; screen?: string; message?: string; status?: number; action?: string };
   intent?: string; retailer?: string; from?: string; sort?: string;
   focus?: { variant_id: string; name?: string } | null; shown?: { variant_id: string; name?: string }[];
-  action?: 'where_to_buy' | 'outbound_click' | 'read_image' | 'data_status' | 'client_log' | 'report_status' | 'report_delete' | 'submit_experience' | 'live_reviews' | 'compare' | 'owner_voice' | 'second_opinion' | 'check_pitch' | 'sell_plan' | 'used_check' | 'catalog'; variant_id?: string; variant_ids?: string[]; topic?: string;
-  recommended?: string[]; picked?: string[]; laptop_text?: string; custom?: unknown; claims?: unknown; rest?: unknown;
+  action?: 'where_to_buy' | 'outbound_click' | 'read_image' | 'data_status' | 'client_log' | 'report_status' | 'report_delete' | 'submit_experience' | 'live_reviews' | 'compare' | 'owner_voice' | 'second_opinion' | 'check_pitch' | 'sell_plan' | 'used_check' | 'catalog' | 'web_search_laptops'; variant_id?: string; variant_ids?: string[]; topic?: string;
+  query?: string; recommended?: string[]; picked?: string[]; laptop_text?: string; custom?: unknown; claims?: unknown; rest?: unknown;
   sell?: SellInput; listing?: import('./router.ts').Listing;
 }
 interface Failure { stage: string; kind: string; message: string }
@@ -54,7 +55,7 @@ export function dataNotice(settings: Settings): string {
 export function stripImages(blocks: Block[]) { for (const b of blocks) { if (b.type === 'cards') for (const c of b.cards ?? []) c.image = null; if (b.type === 'compare') for (const l of b.laptops ?? []) l.image = null; } }
 const FOOTER = 'LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.';
 const MAX_TEXT = 4000;
-const HELP_CHOICES = [{ label: 'Get a shortlist for my budget', send: 'Suggest a laptop under 60k' }, { label: 'Check a laptop I am considering', send: 'Should I buy the Macbook Air M1?' }, { label: 'Check what a seller told me', send: 'The seller said: ' }, { label: 'Compare two laptops', send: 'Compare ' }, { label: 'Check a used listing', send: 'Used laptop: ' }, { label: 'What owners say', send: 'What do owners say about ' }];
+const HELP_CHOICES = [{ label: 'Get a shortlist for my budget', send: 'Get a shortlist for my budget' }, { label: 'Check a laptop I am considering', send: 'Check a laptop I am considering' }, { label: 'Check what a seller told me', send: 'Check what a seller told me' }, { label: 'Compare two laptops', send: 'Compare two laptops' }, { label: 'Check a used listing', send: 'Check a used listing' }, { label: 'What owners say', send: 'What owners say' }];
 
 export { mergeNeeds };
 
@@ -140,6 +141,11 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
       reply.flow = 'live_reviews'; const v = await tools.call<any>('get_variant', { variant_id: input.variant_id });
       if (!v.found) reply.blocks.push({ type: 'text', text: 'That laptop is not in the catalog.' }); else reply.blocks.push(...(await liveFor(deps, [v.specs], input.topic)));
       return;
+    }
+    if (input.action === 'web_search_laptops') {
+      reply.flow = 'web_search_laptops'; const q = String(input.query ?? '').trim();
+      if (q.length < 2 || q.length > 80) { reply.blocks.push({ type: 'text', text: 'Type 2 to 80 characters, for example a laptop name or "lightweight laptop for travel".' }); outcome = 'bad_request'; return; }
+      loggedText = scrub(q); textLen = q.length; reply.blocks.push(await webRecoSafe(deps, searchQuery(q))); return;
     }
     if (input.action === 'data_status') {
       reply.flow = 'data_status'; const ds = settings.DATA_STATUS ?? {};
@@ -232,6 +238,18 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
     if (!text && !input.needs) { reply.blocks.push({ type: 'choices', question: 'Tell me what you need, or pick one:', choices: HELP_CHOICES.slice(0, 4) }); outcome = 'empty'; return; }
 
     // ---- read it ----
+    // the four starter buttons start a guided step; they never run a canned example
+    const starter = text.trim();
+    if (!input.action && !input.needs && HELP_CHOICES.some((c) => c.send === starter)) {
+      reply.flow = 'clarify'; outcome = 'clarify';
+      if (starter === 'Get a shortlist for my budget') reply.blocks.push({ type: 'choices', question: 'What is your budget? Pick one, or type it (for example "laptop for coding under 55k").', choices: [30, 45, 60, 80].map((k) => ({ label: `Up to ₹${k},000`, send: `Suggest a laptop under ${k}k` })).concat([{ label: 'Up to ₹1 lakh', send: 'Suggest a laptop under 1 lakh' }]) });
+      else if (starter === 'Check a laptop I am considering') reply.blocks.push(askBlock('Which laptop do you want me to check? Pick one, or type its name.', { action: 'second_opinion' }, await laptopChoices(deps, [...(input.recommended ?? []), ...(input.focus?.variant_id ? [input.focus.variant_id] : [])], 6)));
+      else if (starter === 'Check what a seller told me') reply.blocks.push({ type: 'text', text: 'Paste what the seller said, for example: "seller says 16 GB RAM, 3 year warranty, battery lasts 2 days". You can also use the Check page to add a picture of the listing.' });
+      else if (starter === 'Check a used listing') reply.blocks.push({ type: 'text', text: 'Paste the listing here (title, price, age, battery health, warranty), or use the Check page to add a picture of it.' });
+      else if (starter === 'What owners say') reply.blocks.push(askBlock('Which laptop do you want owner opinions on? Pick one, or type its name.', { action: 'owner_voice' }, await laptopChoices(deps, [...(input.recommended ?? []), ...(input.focus?.variant_id ? [input.focus.variant_id] : [])], 6)));
+      else reply.blocks.push({ type: 'text', text: 'Tick two or three laptops with the + on any result or in Explore, then press Compare. Or type two names, for example "Macbook Air M1 vs Asus TUF Gaming F15".' });
+      return;
+    }
     stage = 'router'; let router: RouterResult; const tRouter = Date.now();
     // what the browser says the person is looking at, checked against the catalog (ids and names only, never typed text)
     const ctxInfo = await checkedContext(deps, { focus: input.focus, shown: input.shown });
@@ -280,6 +298,12 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
     // "this", "it", "the one you showed" in a question about a laptop: the person means the one in focus
     if (ctxInfo.focus && !router.laptop_mentions.length && ['owner_voice', 'second_opinion', 'check_pitch'].includes(flow) && refersToCurrent(text)) {
       router.laptop_mentions = [{ variant_id: ctxInfo.focus.variant_id, line: ctxInfo.focus.name, brand: null }]; reply.blocks.push({ type: 'notice', text: `I took this to mean ${ctxInfo.focus.name.split(' · ')[0]}.` });
+    }
+
+    // web picks beyond the catalog run in parallel with the shortlist and can never change or break it
+    let webPicks: Promise<Block | null> | null = null;
+    if (flow === 'shortlist' && deps.live?.web && flags.live_reviews !== false && flags.web_recommendations !== false && hasRecoNeed(needs)) {
+      webPicks = webRecoSafe(deps, autoQuery(needs, (deps.now?.() ?? new Date()).getFullYear())).then((b) => (b.status === 'off' || b.status === 'empty' ? null : b), () => null);
     }
 
     switch (flow) {
@@ -344,6 +368,10 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
     }
     reply.blocks = reply.blocks.filter((b) => !(b.type === 'cards' && !(b.cards as unknown[]).length));
     reply.blocks = reply.blocks.map((b) => (b.type === 'cards' ? { ...b, cards: (b.cards as any[]).map((c) => (c._gate ? publicCard(c) : c)) } : b));
+    if (webPicks) {
+      const wp = await webPicks;
+      if (wp) { let at = -1; reply.blocks.forEach((b, i) => { if (b.type === 'cards') at = i; }); reply.blocks.splice(at + 1 || reply.blocks.length, 0, wp); }
+    }
     if ((settings.FEATURE_FLAGS ?? {}).web_images === false) stripImages(reply.blocks);
   }
 }

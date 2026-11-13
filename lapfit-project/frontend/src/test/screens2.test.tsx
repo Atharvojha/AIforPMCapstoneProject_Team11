@@ -23,7 +23,7 @@ afterEach(() => { vi.unstubAllGlobals(); });
 const mount = () => render(<App config={cfg} />);
 const goto = async (name: RegExp) => { await userEvent.click(screen.getAllByRole('link', { name })[0]); };
 const sent = (p: (b: any) => boolean) => calls.filter(p);
-const opt = async (label: RegExp | string, text: string) => { const box = await screen.findByRole('combobox', { name: label }); await waitFor(() => expect(sessionStorage.getItem('lapfit.catalog')).toBeTruthy()); await userEvent.clear(box); await userEvent.type(box, text); return box; };
+const opt = async (label: RegExp | string, text: string) => { const box = await screen.findByRole('combobox', { name: label }); await waitFor(() => expect(sessionStorage.getItem('lapfit.catalog.v2')).toBeTruthy()); await userEvent.clear(box); await userEvent.type(box, text); return box; };
 
 describe('typed number fields', () => {
   it('typing sends the number, out-of-range shows a hint, and the buttons nudge by the step', async () => {
@@ -117,17 +117,16 @@ describe('You: purchase date limits', () => {
 });
 
 describe('Explore: board by default, value map second', () => {
-  it('opens as a board with filters, a sort control and photo-or-drawing cards with 2 to 3 tags; budget is typed; the explanation can be dismissed', async () => {
+  it('opens as a board with filters, a sort control and photo-or-drawing cards with 2 to 3 tags; budget is typed', async () => {
     mount(); await goto(/Explore$/); await waitFor(() => expect(document.querySelectorAll('.bcard').length).toBeGreaterThan(0)); expect(screen.getByRole('tab', { name: 'Browse' })).toHaveAttribute('aria-selected', 'true'); expect(document.querySelector('.value-map')).toBeNull();
-    expect(screen.getByLabelText('Sort')).toBeInTheDocument(); expect(screen.getByRole('group', { name: 'Quick budgets' })).toBeInTheDocument(); expect(screen.getByText(/What changed/)).toBeInTheDocument(); const n = document.querySelectorAll('.bcard').length; expect(n).toBeLessThanOrEqual(12);
+    expect(screen.getByLabelText('Sort')).toBeInTheDocument(); expect(screen.getByRole('button', { name: /^Price/ })).toBeInTheDocument(); expect(screen.getByText(/Filters narrow the list/)).toBeInTheDocument(); const n = document.querySelectorAll('.bcard').length; expect(n).toBeLessThanOrEqual(12);
     for (const c of document.querySelectorAll('.bcard')) expect(c.querySelectorAll('.tag').length).toBeLessThanOrEqual(3);
-    const total = Number(screen.getByText(/of 14 laptops/).textContent!.match(/^(\d+)/)![1]); expect(total).toBe(14); await userEvent.type(screen.getByLabelText('Budget up to'), '40000'); await waitFor(() => expect(screen.getByText(/of 14 laptops/).textContent).not.toMatch(/^14 /));
+    const total = Number(screen.getByText(/of 14 laptops/).textContent!.match(/^(\d+)/)![1]); expect(total).toBe(14); await userEvent.click(screen.getByRole('button', { name: /^Price/ })); await userEvent.type(screen.getByLabelText('Up to (₹)'), '40000'); await waitFor(() => expect(screen.getByText(/of 14 laptops/).textContent).not.toMatch(/^14 /));
     await userEvent.selectOptions(screen.getByLabelText('Sort'), 'high'); const prices = Array.from(document.querySelectorAll('.bprice')).map((e) => Number(e.textContent!.match(/₹([\d,]+)/)![1].replace(/,/g, ''))); expect(prices).toEqual([...prices].sort((a, b) => b - a)); expect(prices.every((p) => p <= 40000)).toBe(true);
-    await userEvent.click(screen.getByRole('button', { name: 'Got it' })); expect(screen.queryByText(/What changed/)).toBeNull();
   });
   it('filter chips narrow the board and Clear filters restores it; ticking two cards enables Compare', async () => {
-    mount(); await goto(/Explore$/); await waitFor(() => expect(document.querySelectorAll('.bcard').length).toBeGreaterThan(0)); await userEvent.click(screen.getByRole('button', { name: /^HP$/ })); const hp = document.querySelectorAll('.bcard').length; expect(hp).toBeGreaterThan(0); expect(hp).toBeLessThan(14);
-    await userEvent.click(screen.getByRole('button', { name: 'Clear filters' })); await waitFor(() => expect(document.querySelectorAll('.bcard').length).toBeGreaterThan(hp));
+    mount(); await goto(/Explore$/); await waitFor(() => expect(document.querySelectorAll('.bcard').length).toBeGreaterThan(0)); await userEvent.click(screen.getByRole('button', { name: /^Brand/ })); await userEvent.click(screen.getByRole('button', { name: /^HP\s*\d/ })); const hp = document.querySelectorAll('.bcard').length; expect(hp).toBeGreaterThan(0); expect(hp).toBeLessThan(14);
+    await userEvent.click(screen.getByRole('button', { name: 'Clear all' })); await waitFor(() => expect(document.querySelectorAll('.bcard').length).toBeGreaterThan(hp));
     const boxes = screen.getAllByRole('checkbox', { name: /^Compare / }); expect(screen.getByRole('button', { name: 'Compare' })).toBeDisabled(); await userEvent.click(boxes[0]); await userEvent.click(boxes[1]); expect(screen.getByText('2 picked')).toBeInTheDocument(); await userEvent.click(screen.getByRole('button', { name: 'Compare' })); await waitFor(() => expect(sent((b) => b.action === 'compare')).toHaveLength(1)); expect(sent((b) => b.action === 'compare')[0].variant_ids).toHaveLength(2);
   });
   it('the Value map has plain-language axes and a labelled region, tap = peek card, pick from the peek, and a list is always one tap away', async () => {

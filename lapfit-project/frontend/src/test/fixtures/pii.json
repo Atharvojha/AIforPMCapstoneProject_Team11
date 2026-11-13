@@ -38,32 +38,105 @@
         "title": "5 laptops within your budget",
         "cards": [
           {
-            "variant_id": "FKL-12",
-            "model_id": 12,
-            "name": "Lenovo IdeaPad 3 Celeron Dual Core · 8 GB / 256 GB",
+            "variant_id": "FKL-11",
+            "model_id": 11,
+            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
             "brand": "LENOVO",
-            "price_inr": 27490,
-            "price_text": "₹27,490",
+            "price_inr": 46999,
+            "price_text": "₹46,999",
             "as_of": "2026-11-10",
             "as_of_text": "10 Nov 2026",
             "specs": {
               "ram_gb": 8,
-              "storage_gb": 256,
+              "storage_gb": 512,
               "display_size": 15.6,
-              "weight_kg": 1.7,
-              "battery_wh": null,
+              "weight_kg": 1.65,
+              "battery_wh": 45,
               "refresh_hz": null,
               "gpu_class": null,
-              "cpu": "Celeron Dual Core",
+              "cpu": "Ryzen 5 Hexa Core 5500U",
               "gpu": null,
               "hinge_type": "clamshell",
               "warranty_years": 1,
               "colours": []
             },
             "spec_lines": [
-              "15.6 inch screen, 1.7 kg",
-              "8 GB RAM, 256 GB storage",
-              "Celeron Dual Core, no separate graphics listed",
+              "15.6 inch screen, 1.65 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 45 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹50,000",
+                "ok": true,
+                "actual": "₹46,999"
+              }
+            ],
+            "evidence": {
+              "n": 119,
+              "positive": 75,
+              "negative": 42,
+              "enough": true,
+              "min_n": 20,
+              "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Ranked first on its recorded specs for the money: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core 5500U processor.",
+              "Costs ₹46,999, which uses 94% of your budget of ₹50,000 (as of 10 Nov 2026).",
+              "75 of 119 owner opinions are positive (machine-read)."
+            ],
+            "reasons": [
+              "Ranked first on its recorded specs for the money: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core 5500U processor.",
+              "Costs ₹46,999, which uses 94% of your budget of ₹50,000 (as of 10 Nov 2026).",
+              "75 of 119 owner opinions are positive (machine-read)."
+            ],
+            "image": {
+              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
+              "site": "m.media-amazon.com",
+              "page": null,
+              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
+            },
+            "match": {
+              "pct": 70,
+              "label": "70% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 70% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
+            }
+          },
+          {
+            "variant_id": "FKL-13",
+            "model_id": 13,
+            "name": "HP Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "brand": "HP",
+            "price_inr": 46990,
+            "price_text": "₹46,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.69,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Ryzen 5 Hexa Core 5500U",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.69 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
               "Regular laptop (clamshell) (not yet verified)",
               "Warranty: 1 year (standard; keep the invoice)"
             ],
@@ -73,7 +146,7 @@
               {
                 "label": "Within your budget of ₹50,000",
                 "ok": true,
-                "actual": "₹27,490"
+                "actual": "₹46,990"
               }
             ],
             "evidence": {
@@ -85,16 +158,27 @@
               "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹27,490, ₹22,510 under your budget of ₹50,000 (as of 10 Nov 2026)."
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core 5500U processor.",
+              "Costs ₹46,990, which uses 94% of your budget of ₹50,000 (as of 10 Nov 2026)."
             ],
             "reasons": [
-              "Costs ₹27,490, ₹22,510 under your budget of ₹50,000 (as of 10 Nov 2026)."
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core 5500U processor.",
+              "Costs ₹46,990, which uses 94% of your budget of ₹50,000 (as of 10 Nov 2026)."
             ],
             "image": {
-              "url": "https://m.media-amazon.com/images/I/61s7sJEpsVL.jpg",
-              "site": "m.media-amazon.com",
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",
+              "site": "rukminim3.flixcart.com",
               "page": null,
-              "alt": "A silver Lenovo IdeaPad 3 laptop with a Celeron Dual Core processor is open, displaying a vibrant screen wallpaper of a "
+              "alt": "The laptop screen displays the HP logo and a promotional message about India's number one brand, featuring a silver keyb"
+            },
+            "match": {
+              "pct": 67,
+              "label": "67% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 67% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           },
           {
@@ -146,11 +230,13 @@
               "text": "101 of 196 owner opinions are positive (machine-read, not human-verified)."
             },
             "fact_lines": [
-              "Costs ₹33,990, ₹16,010 under your budget of ₹50,000 (as of 10 Nov 2026).",
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i3 10th Gen processor.",
+              "Costs ₹33,990, which uses 68% of your budget of ₹50,000 (as of 10 Nov 2026).",
               "101 of 196 owner opinions are positive (machine-read)."
             ],
             "reasons": [
-              "Costs ₹33,990, ₹16,010 under your budget of ₹50,000 (as of 10 Nov 2026).",
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i3 10th Gen processor.",
+              "Costs ₹33,990, which uses 68% of your budget of ₹50,000 (as of 10 Nov 2026).",
               "101 of 196 owner opinions are positive (machine-read)."
             ],
             "image": {
@@ -158,6 +244,14 @@
               "site": "5.imimg.com",
               "page": null,
               "alt": "A silver ASUS VivoBook 15 laptop from 2022, powered by a Core i3 10th Gen processor, is shown open with its screen displ"
+            },
+            "match": {
+              "pct": 58,
+              "label": "58% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 58% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
             }
           },
           {
@@ -208,108 +302,56 @@
               "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹38,990, ₹11,010 under your budget of ₹50,000 (as of 10 Nov 2026)."
+              "Recorded specs: 8 GB RAM, 256 GB storage, Core i3 11th Gen processor.",
+              "Costs ₹38,990, which uses 78% of your budget of ₹50,000 (as of 10 Nov 2026)."
             ],
             "reasons": [
-              "Costs ₹38,990, ₹11,010 under your budget of ₹50,000 (as of 10 Nov 2026)."
+              "Recorded specs: 8 GB RAM, 256 GB storage, Core i3 11th Gen processor.",
+              "Costs ₹38,990, which uses 78% of your budget of ₹50,000 (as of 10 Nov 2026)."
             ],
             "image": {
               "url": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/computer/b/w/w/-original-imagp7pfyd8rbp6z.jpeg?q=70",
               "site": "rukmini1.flixcart.com",
               "page": null,
               "alt": "The HP 14s laptop with an Intel Core i3 11th Gen processor is displayed open, showcasing its silver body, black screen b"
+            },
+            "match": {
+              "pct": 52,
+              "label": "52% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 52% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           },
           {
-            "variant_id": "FKL-11",
-            "model_id": 11,
-            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "variant_id": "FKL-12",
+            "model_id": 12,
+            "name": "Lenovo IdeaPad 3 Celeron Dual Core · 8 GB / 256 GB",
             "brand": "LENOVO",
-            "price_inr": 46999,
-            "price_text": "₹46,999",
+            "price_inr": 27490,
+            "price_text": "₹27,490",
             "as_of": "2026-11-10",
             "as_of_text": "10 Nov 2026",
             "specs": {
               "ram_gb": 8,
-              "storage_gb": 512,
+              "storage_gb": 256,
               "display_size": 15.6,
-              "weight_kg": 1.65,
-              "battery_wh": 45,
-              "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Ryzen 5 Hexa Core 5500U",
-              "gpu": null,
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
-            },
-            "spec_lines": [
-              "15.6 inch screen, 1.65 kg",
-              "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)",
-              "Battery: 45 Wh"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [
-              {
-                "label": "Within your budget of ₹50,000",
-                "ok": true,
-                "actual": "₹46,999"
-              }
-            ],
-            "evidence": {
-              "n": 119,
-              "positive": 75,
-              "negative": 42,
-              "enough": true,
-              "min_n": 20,
-              "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
-            },
-            "fact_lines": [
-              "Costs ₹46,999, ₹3,001 under your budget of ₹50,000 (as of 10 Nov 2026).",
-              "75 of 119 owner opinions are positive (machine-read)."
-            ],
-            "reasons": [
-              "Costs ₹46,999, ₹3,001 under your budget of ₹50,000 (as of 10 Nov 2026).",
-              "75 of 119 owner opinions are positive (machine-read)."
-            ],
-            "image": {
-              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
-              "site": "m.media-amazon.com",
-              "page": null,
-              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
-            }
-          },
-          {
-            "variant_id": "FKL-13",
-            "model_id": 13,
-            "name": "HP Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
-            "brand": "HP",
-            "price_inr": 46990,
-            "price_text": "₹46,990",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 1.69,
+              "weight_kg": 1.7,
               "battery_wh": null,
               "refresh_hz": null,
               "gpu_class": null,
-              "cpu": "Ryzen 5 Hexa Core 5500U",
+              "cpu": "Celeron Dual Core",
               "gpu": null,
               "hinge_type": "clamshell",
               "warranty_years": 1,
               "colours": []
             },
             "spec_lines": [
-              "15.6 inch screen, 1.69 kg",
-              "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
+              "15.6 inch screen, 1.7 kg",
+              "8 GB RAM, 256 GB storage",
+              "Celeron Dual Core, no separate graphics listed",
               "Regular laptop (clamshell) (not yet verified)",
               "Warranty: 1 year (standard; keep the invoice)"
             ],
@@ -319,7 +361,7 @@
               {
                 "label": "Within your budget of ₹50,000",
                 "ok": true,
-                "actual": "₹46,990"
+                "actual": "₹27,490"
               }
             ],
             "evidence": {
@@ -331,22 +373,73 @@
               "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹46,990, ₹3,010 under your budget of ₹50,000 (as of 10 Nov 2026)."
+              "Recorded specs: 8 GB RAM, 256 GB storage, Celeron Dual Core processor.",
+              "Costs ₹27,490, which uses 55% of your budget of ₹50,000 (as of 10 Nov 2026)."
             ],
             "reasons": [
-              "Costs ₹46,990, ₹3,010 under your budget of ₹50,000 (as of 10 Nov 2026)."
+              "Recorded specs: 8 GB RAM, 256 GB storage, Celeron Dual Core processor.",
+              "Costs ₹27,490, which uses 55% of your budget of ₹50,000 (as of 10 Nov 2026)."
             ],
             "image": {
-              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",
-              "site": "rukminim3.flixcart.com",
+              "url": "https://m.media-amazon.com/images/I/61s7sJEpsVL.jpg",
+              "site": "m.media-amazon.com",
               "page": null,
-              "alt": "The laptop screen displays the HP logo and a promotional message about India's number one brand, featuring a silver keyb"
+              "alt": "A silver Lenovo IdeaPad 3 laptop with a Celeron Dual Core processor is open, displaying a vibrant screen wallpaper of a "
+            },
+            "match": {
+              "pct": 41,
+              "label": "41% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 41% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           }
         ],
         "first": 3,
         "requireAll": true,
-        "compare": true
+        "compare": true,
+        "needs": {
+          "budget_max_inr": 50000,
+          "budget_min_inr": null,
+          "musts": [],
+          "shoulds": [],
+          "nices": [],
+          "use_cases": []
+        },
+        "sort": {
+          "key": "best",
+          "label": "Best fit",
+          "note": "Strongest laptops within your ₹50,000 budget first (RAM, storage, processor, graphics). If two are close, the one nearer your budget goes first."
+        },
+        "sorts": [
+          {
+            "key": "best",
+            "label": "Best fit"
+          },
+          {
+            "key": "budget",
+            "label": "Closest to budget"
+          },
+          {
+            "key": "price_low",
+            "label": "Price: low to high"
+          },
+          {
+            "key": "price_high",
+            "label": "Price: high to low"
+          },
+          {
+            "key": "light",
+            "label": "Lightest"
+          },
+          {
+            "key": "reviews",
+            "label": "Most owner opinions"
+          }
+        ],
+        "tie": false
       },
       {
         "type": "provenance",
@@ -380,9 +473,9 @@
           "used": true,
           "sites": [
             "m.media-amazon.com",
+            "rukminim3.flixcart.com",
             "5.imimg.com",
-            "rukmini1.flixcart.com",
-            "rukminim3.flixcart.com"
+            "rukmini1.flixcart.com"
           ]
         },
         "checks": {

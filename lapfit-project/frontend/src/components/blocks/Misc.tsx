@@ -67,7 +67,7 @@ export function Understood({ b }: { b: Block }) {
       {budget != null ? <BudgetSlider value={budget} onChange={setBudget} prices={prices} /> : <button type="button" className="chip" onClick={() => setBudget(BUDGET_STEPS[4])}>＋ Add a budget</button>}
       {budget != null && <button type="button" className="link small" onClick={() => setBudget(null)}>No budget limit</button>}
       <p className="muted small">{b.matched === 0 ? 'No laptop meets every Must yet. Tap a Must to make it a Should, or raise the budget.' : `${b.matched} laptop${b.matched === 1 ? '' : 's'} in the catalog meet every Must.`} <strong>Must</strong> filters, <strong>Should</strong> ranks higher, <strong>Nice</strong> is a small bonus.</p>
-      {changed && <button className="btn" disabled={ctx.busy} onClick={() => ctx.sendNeeds(cleanNeeds(edited))}>Update results</button>}
+      {changed && <button className="btn" disabled={ctx.busy} onClick={() => { void ctx.resort({ needs: cleanNeeds(edited) }, 'Update results'); }}>Update results</button>}
       </details>
     </section>
   );

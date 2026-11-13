@@ -7,7 +7,7 @@ export interface Reply {
 }
 export interface RawCriterion { attribute: string; operator?: string; value: unknown; source_text?: string; label?: string; supported?: boolean }
 export interface Needs { budget_max_inr: number | null; budget_min_inr: number | null; musts: RawCriterion[]; shoulds: RawCriterion[]; nices: RawCriterion[]; use_cases: string[] }
-export interface CatalogRow { variant_id: string; model_id: number; name: string; brand: string; price_inr: number | null; ram_gb: number | null; storage_gb: number | null; recommendable: boolean }
+export interface CatalogRow { variant_id: string; model_id: number; name: string; brand: string; price_inr: number | null; ram_gb: number | null; storage_gb: number | null; recommendable: boolean; display_size?: number | null; weight_kg?: number | null; gpu_class?: string | null; market?: string | null }
 
 export type ApiError =
   | { kind: 'rate_limited'; message: string; retryAfter: number }

@@ -15,16 +15,16 @@ beforeEach(() => { localStorage.clear(); sessionStorage.clear(); });
 
 describe('sort', () => {
   it('shows the sort line, its note and the budget note, and a chosen sort is re-sent with the needs', async () => {
-    const action = vi.fn(); const needs = { budget_max_inr: 60000 };
-    show({ ...cards(), needs, sort: { key: 'best', label: 'Best fit', note: 'Ordered by how well each laptop meets your needs.' }, sorts, budget_note: 'Everything in the catalog costs less than your budget.' }, { action });
+    const resort = vi.fn(); const needs = { budget_max_inr: 60000 };
+    show({ ...cards(), needs, sort: { key: 'best', label: 'Best fit', note: 'Ordered by how well each laptop meets your needs.' }, sorts, budget_note: 'Everything in the catalog costs less than your budget.' }, { resort });
     expect(screen.getByText('Sorted by: Best fit')).toBeInTheDocument(); expect(screen.getByText(/Ordered by how well/)).toBeInTheDocument(); expect(screen.getByText(/costs less than your budget/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Best fit' })).toHaveAttribute('aria-pressed', 'true');
     await userEvent.click(screen.getByRole('button', { name: 'Lowest price' }));
-    expect(action).toHaveBeenCalledWith({ needs, sort: 'price_low' }, expect.stringMatching(/lowest price/i));
+    expect(resort).toHaveBeenCalledWith({ needs, sort: 'price_low' }, expect.stringMatching(/lowest price/i));
   });
-  it('uses the app hook when it exists', async () => {
-    const resort = vi.fn(); show({ ...cards(), sort: { key: 'best', label: 'Best fit', note: '' }, sorts }, { resort } as any);
-    await userEvent.click(screen.getByRole('button', { name: 'Lightest' })); expect(resort).toHaveBeenCalledWith('light', 'Lightest');
+  it('falls back to the saved needs when the block carries none', async () => {
+    const resort = vi.fn(); show({ ...cards(), sort: { key: 'best', label: 'Best fit', note: '' }, sorts }, { resort, savedNeeds: () => ({ budget_max_inr: 50000 }) } as any);
+    await userEvent.click(screen.getByRole('button', { name: 'Lightest' })); expect(resort).toHaveBeenCalledWith({ needs: { budget_max_inr: 50000 }, sort: 'light' }, expect.any(String));
   });
   it('claims "Best fit" only when sorted by best fit', () => {
     expect(heroEyebrow({ key: 'best', label: 'Best fit' }, true)).toBe('Best fit for what you said');

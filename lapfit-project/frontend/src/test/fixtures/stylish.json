@@ -14,6 +14,10 @@
     "blocks": [
       {
         "type": "notice",
+        "text": "I can't rank by \"a stylish laptop\" directly, so I used general performance and your budget."
+      },
+      {
+        "type": "notice",
         "text": "Looks and design are not recorded in the catalog. As a stand-in I counted how many owners praised the looks in their reviews. Treat it as a guide, not a fact about the design. I have no colour data yet."
       },
       {
@@ -35,11 +39,12 @@
           "budget": 200000,
           "use_cases": [],
           "musts": []
-        }
+        },
+        "budget_note": "Your budget is above everything I have: the highest price is ₹86,990, so these are the strongest I have."
       },
       {
         "type": "cards",
-        "title": "5 laptops within your budget",
+        "title": "Top 5 of the 13 laptops within your budget",
         "cards": [
           {
             "variant_id": "FKL-10",
@@ -90,21 +95,103 @@
               "text": "210 of 234 owner opinions are positive (machine-read, not human-verified)."
             },
             "fact_lines": [
-              "Costs ₹86,990, ₹1,13,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "Ranked first on its recorded specs for the money: 8 GB RAM, 256 GB storage, M1 processor.",
+              "Costs ₹86,990, which uses 43% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
               "39 owners praised the looks in their reviews. Keyword match, not verified.",
               "42 of 45 owner opinions on battery are positive (machine-read).",
               "210 of 234 owner opinions are positive (machine-read)."
             ],
             "reasons": [
-              "Costs ₹86,990, ₹1,13,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "39 owners praised the looks in their reviews. Keyword match, not verified.",
-              "42 of 45 owner opinions on battery are positive (machine-read)."
+              "Ranked first on its recorded specs for the money: 8 GB RAM, 256 GB storage, M1 processor.",
+              "Costs ₹86,990, which uses 43% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "39 owners praised the looks in their reviews. Keyword match, not verified."
             ],
             "image": {
               "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-enriched-transparent-original-imag3gh5xftgbpg3.png?q=90",
               "site": "rukminim3.flixcart.com",
               "page": null,
               "alt": "A silver MacBook Air with an M1 chip displays a vibrant, colorful abstract wallpaper on its screen, set against a plain "
+            },
+            "match": {
+              "pct": 73,
+              "label": "73% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 73% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
+            }
+          },
+          {
+            "variant_id": "FKL-08",
+            "model_id": 8,
+            "name": "ASUS Vivobook Pro 15 Ryzen 7 Octa Core AMD R7-4800H · 16 GB / 512 GB",
+            "brand": "ASUS",
+            "price_inr": 66990,
+            "price_text": "₹66,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 16,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.8,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": "dedicated",
+              "cpu": "Ryzen 7 Octa Core AMD R7-4800H",
+              "gpu": "NVIDIA GeForce GTX 1650 Max Q",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.8 kg",
+              "16 GB RAM, 512 GB storage",
+              "Ryzen 7 Octa Core AMD R7-4800H, NVIDIA GeForce GTX 1650 Max Q",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹66,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Recorded specs: 16 GB RAM, 512 GB storage, Ryzen 7 Octa Core AMD R7-4800H processor.",
+              "Costs ₹66,990, which uses 33% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "3 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "reasons": [
+              "Recorded specs: 16 GB RAM, 512 GB storage, Ryzen 7 Octa Core AMD R7-4800H processor.",
+              "Costs ₹66,990, which uses 33% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "3 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "image": {
+              "url": "https://in.store.asus.com/media/catalog/product/r/f/rf-m6500qf_cl_slvr_fngrprnt_1__1.jpg",
+              "site": "in.store.asus.com",
+              "page": null,
+              "alt": "The refurbished ASUS Vivobook Pro 15 laptop with Ryzen 7 octa-core AMD R7-4800H processor is displayed open, showcasing "
+            },
+            "match": {
+              "pct": 100,
+              "label": "100% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 100% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           },
           {
@@ -155,11 +242,13 @@
               "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹63,600, ₹1,36,400 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 11th Gen processor.",
+              "Costs ₹63,600, which uses 32% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
               "13 owners praised the looks in their reviews (a small number). Keyword match, not verified."
             ],
             "reasons": [
-              "Costs ₹63,600, ₹1,36,400 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 11th Gen processor.",
+              "Costs ₹63,600, which uses 32% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
               "13 owners praised the looks in their reviews (a small number). Keyword match, not verified."
             ],
             "image": {
@@ -167,15 +256,97 @@
               "site": "assets.nvidia.partners",
               "page": null,
               "alt": "A black MSI gaming laptop with a 144 Hz display showcases its Intel Core i5 11th Gen processor and NVIDIA GeForce RTX gr"
+            },
+            "match": {
+              "pct": 83,
+              "label": "83% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 83% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           },
           {
-            "variant_id": "FKL-07",
+            "variant_id": "FKL-05",
+            "model_id": 5,
+            "name": "ASUS TUF Gaming F15 Core i5 10th Gen · 8 GB / 512 GB",
+            "brand": "ASUS",
+            "price_inr": 58990,
+            "price_text": "₹58,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 2.3,
+              "battery_wh": 48,
+              "refresh_hz": 144,
+              "gpu_class": "dedicated",
+              "cpu": "Core i5 10th Gen",
+              "gpu": "NVIDIA GeForce GTX 1650",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 2.3 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i5 10th Gen, NVIDIA GeForce GTX 1650",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 48 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹58,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 10th Gen processor.",
+              "Costs ₹58,990, which uses 29% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "2 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "reasons": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 10th Gen processor.",
+              "Costs ₹58,990, which uses 29% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "2 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "image": {
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/p/r/1/-original-imahg52nsgjmxhza.jpeg?q=20",
+              "site": "rukminim3.flixcart.com",
+              "page": null,
+              "alt": "The ASUS TUF Gaming F15 laptop, featuring a Core i5 10th Gen processor, displays its vibrant orange and yellow “TUF GAMI"
+            },
+            "match": {
+              "pct": 79,
+              "label": "79% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 79% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
+            }
+          },
+          {
+            "variant_id": "FKL-02",
             "model_id": 2,
             "name": "HP Pavilion Ryzen 5 Hexa Core AMD R5-5600H · 8 GB / 512 GB",
             "brand": "HP",
-            "price_inr": 59990,
-            "price_text": "₹59,990",
+            "price_inr": 67490,
+            "price_text": "₹67,490",
             "as_of": "2026-11-10",
             "as_of_text": "10 Nov 2026",
             "specs": {
@@ -187,7 +358,7 @@
               "refresh_hz": 144,
               "gpu_class": "dedicated",
               "cpu": "Ryzen 5 Hexa Core AMD R5-5600H",
-              "gpu": "NVIDIA GeForce GTX 1650",
+              "gpu": "NVIDIA GeForce RTX 3050",
               "hinge_type": "clamshell",
               "warranty_years": 1,
               "colours": []
@@ -195,7 +366,7 @@
             "spec_lines": [
               "15.6 inch screen, 1.98 kg",
               "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core AMD R5-5600H, NVIDIA GeForce GTX 1650",
+              "Ryzen 5 Hexa Core AMD R5-5600H, NVIDIA GeForce RTX 3050",
               "Regular laptop (clamshell) (not yet verified)",
               "Warranty: 1 year (standard; keep the invoice)"
             ],
@@ -205,7 +376,7 @@
               {
                 "label": "Within your budget of ₹2,00,000",
                 "ok": true,
-                "actual": "₹59,990"
+                "actual": "₹67,490"
               }
             ],
             "evidence": {
@@ -217,151 +388,76 @@
               "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹59,990, ₹1,40,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "8 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core AMD R5-5600H processor.",
+              "Costs ₹67,490, which uses 34% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "Also sold as 8 GB / 512 GB with NVIDIA GeForce GTX 1650 at ₹59,990."
             ],
             "reasons": [
-              "Costs ₹59,990, ₹1,40,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "8 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core AMD R5-5600H processor.",
+              "Costs ₹67,490, which uses 34% of your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "Also sold as 8 GB / 512 GB with NVIDIA GeForce GTX 1650 at ₹59,990."
             ],
             "image": {
               "url": "https://rukmini1.flixcart.com/image/1500/1500/krtjgcw0/computer/p/n/g/15-ec2004ax-gaming-laptop-hp-original-imag5j3b48askf4b.jpeg?q=70",
               "site": "rukmini1.flixcart.com",
               "page": null,
               "alt": "The sleek black HP Pavilion laptop with a purple illuminated logo and backlit keyboard is displayed against a white back"
-            }
-          },
-          {
-            "variant_id": "FKL-11",
-            "model_id": 11,
-            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
-            "brand": "LENOVO",
-            "price_inr": 46999,
-            "price_text": "₹46,999",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 1.65,
-              "battery_wh": 45,
-              "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Ryzen 5 Hexa Core 5500U",
-              "gpu": null,
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
             },
-            "spec_lines": [
-              "15.6 inch screen, 1.65 kg",
-              "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)",
-              "Battery: 45 Wh"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [
-              {
-                "label": "Within your budget of ₹2,00,000",
-                "ok": true,
-                "actual": "₹46,999"
-              }
-            ],
-            "evidence": {
-              "n": 119,
-              "positive": 75,
-              "negative": 42,
-              "enough": true,
-              "min_n": 20,
-              "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
-            },
-            "fact_lines": [
-              "Costs ₹46,999, ₹1,53,001 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "3 owners praised the looks in their reviews (a small number). Keyword match, not verified.",
-              "75 of 119 owner opinions are positive (machine-read)."
-            ],
-            "reasons": [
-              "Costs ₹46,999, ₹1,53,001 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "3 owners praised the looks in their reviews (a small number). Keyword match, not verified.",
-              "75 of 119 owner opinions are positive (machine-read)."
-            ],
-            "image": {
-              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
-              "site": "m.media-amazon.com",
-              "page": null,
-              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
-            }
-          },
-          {
-            "variant_id": "FKL-13",
-            "model_id": 13,
-            "name": "HP Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
-            "brand": "HP",
-            "price_inr": 46990,
-            "price_text": "₹46,990",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 1.69,
-              "battery_wh": null,
-              "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Ryzen 5 Hexa Core 5500U",
-              "gpu": null,
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
-            },
-            "spec_lines": [
-              "15.6 inch screen, 1.69 kg",
-              "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [
-              {
-                "label": "Within your budget of ₹2,00,000",
-                "ok": true,
-                "actual": "₹46,990"
-              }
-            ],
-            "evidence": {
-              "n": 0,
-              "positive": 0,
-              "negative": 0,
-              "enough": false,
-              "min_n": 20,
-              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
-            },
-            "fact_lines": [
-              "Costs ₹46,990, ₹1,53,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "2 owners praised the looks in their reviews (a small number). Keyword match, not verified."
-            ],
-            "reasons": [
-              "Costs ₹46,990, ₹1,53,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
-              "2 owners praised the looks in their reviews (a small number). Keyword match, not verified."
-            ],
-            "image": {
-              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",
-              "site": "rukminim3.flixcart.com",
-              "page": null,
-              "alt": "The laptop screen displays the HP logo and a promotional message about India's number one brand, featuring a silver keyb"
+            "match": {
+              "pct": 81,
+              "label": "81% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for everyday use: 81% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           }
         ],
         "first": 3,
         "requireAll": true,
-        "compare": true
+        "compare": true,
+        "needs": {
+          "budget_max_inr": 200000,
+          "budget_min_inr": null,
+          "musts": [],
+          "shoulds": [],
+          "nices": [],
+          "use_cases": []
+        },
+        "sort": {
+          "key": "best",
+          "label": "Best fit",
+          "note": "Strongest laptops within your ₹2,00,000 budget first (RAM, storage, processor, graphics). If two are close, the one nearer your budget goes first."
+        },
+        "sorts": [
+          {
+            "key": "best",
+            "label": "Best fit"
+          },
+          {
+            "key": "budget",
+            "label": "Closest to budget"
+          },
+          {
+            "key": "price_low",
+            "label": "Price: low to high"
+          },
+          {
+            "key": "price_high",
+            "label": "Price: high to low"
+          },
+          {
+            "key": "light",
+            "label": "Lightest"
+          },
+          {
+            "key": "reviews",
+            "label": "Most owner opinions"
+          }
+        ],
+        "budget_note": "Your budget is above everything I have: the highest price is ₹86,990, so these are the strongest I have.",
+        "tie": true
       },
       {
         "type": "notice",
@@ -374,7 +470,7 @@
         "topic": "design",
         "status": "ok",
         "provider": "fake-live",
-        "fetched_at": "2026-11-13T17:04:59.050Z",
+        "fetched_at": "2026-11-13T20:25:33.234Z",
         "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
         "items": [
           {
@@ -397,16 +493,16 @@
       },
       {
         "type": "live_reviews",
-        "laptop": "MSI Core i5 11th Gen · 8 GB / 512 GB",
-        "variant_id": "FKL-06",
+        "laptop": "ASUS Vivobook Pro 15 Ryzen 7 Octa Core AMD R7-4800H · 16 GB / 512 GB",
+        "variant_id": "FKL-08",
         "topic": "design",
         "status": "ok",
         "provider": "fake-live",
-        "fetched_at": "2026-11-13T17:04:59.050Z",
+        "fetched_at": "2026-11-13T20:25:33.235Z",
         "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
         "items": [
           {
-            "snippet": "Owners of the MSI Core i5 mention steady daily use. Example text, not a real review.",
+            "snippet": "Owners of the ASUS Vivobook Pro mention steady daily use. Example text, not a real review.",
             "url": "https://example.test/reviews/1",
             "site": "example.test",
             "topic": "design",
@@ -433,7 +529,7 @@
         },
         "dataset": {
           "used": true,
-          "opinions": 353,
+          "opinions": 234,
           "machine_read": true,
           "lenses": [
             "looks",
@@ -449,7 +545,7 @@
             "ok"
           ],
           "provider": "fake-live",
-          "fetched_at": "2026-11-13T17:04:59.050Z"
+          "fetched_at": "2026-11-13T20:25:33.235Z"
         },
         "ai": {
           "reader": "rules",
@@ -460,9 +556,9 @@
           "used": true,
           "sites": [
             "rukminim3.flixcart.com",
+            "in.store.asus.com",
             "assets.nvidia.partners",
-            "rukmini1.flixcart.com",
-            "m.media-amazon.com"
+            "rukmini1.flixcart.com"
           ]
         },
         "checks": {

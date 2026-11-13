@@ -90,7 +90,7 @@
         "topic": "battery",
         "status": "ok",
         "provider": "fake-live",
-        "fetched_at": "2026-11-13T17:04:59.180Z",
+        "fetched_at": "2026-11-13T20:25:33.605Z",
         "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
         "items": [
           {
@@ -134,7 +134,7 @@
             "ok"
           ],
           "provider": "fake-live",
-          "fetched_at": "2026-11-13T17:04:59.180Z"
+          "fetched_at": "2026-11-13T20:25:33.605Z"
         },
         "ai": {
           "reader": "none needed",

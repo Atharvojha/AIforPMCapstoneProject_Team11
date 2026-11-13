@@ -21,7 +21,7 @@ export function buildProvenance(i: ProvenanceInput): Block | null {
   }
   const imageSites = new Set<string>(); for (const b of i.blocks) { for (const c of (b.type === 'cards' ? b.cards ?? [] : [])) if (c.image) imageSites.add(c.image.site ?? 'the web'); for (const l of (b.type === 'compare' ? b.laptops ?? [] : [])) if (l.image) imageSites.add(l.image.site ?? 'the web'); }
   const lenses = i.lenses ?? []; const datasetUsed = opinions > 0 || datasetBlocks || lenses.length > 0;
-  const liveBlocks = [...i.blocks.filter((b) => b.type === 'live_reviews' && b.status !== 'off'), ...i.blocks.filter((b) => (b.type === 'market_pulse' || b.type === 'brand_insights') && b.web && b.web.status !== 'off').map((b) => b.web), ...i.blocks.filter((b) => b.type === 'laptop_answer').flatMap((b) => (b.sections ?? []).filter((x: any) => x.web && x.web.status !== 'off').map((x: any) => x.web))];
+  const liveBlocks = [...i.blocks.filter((b) => b.type === 'live_reviews' && b.status !== 'off'), ...i.blocks.filter((b) => (b.type === 'market_pulse' || b.type === 'brand_insights') && b.web && b.web.status !== 'off').map((b) => b.web), ...i.blocks.filter((b) => b.type === 'web_picks' && b.status !== 'off'), ...i.blocks.filter((b) => b.type === 'laptop_answer').flatMap((b) => (b.sections ?? []).filter((x: any) => x.web && x.web.status !== 'off').map((x: any) => x.web))];
   const liveItems = liveBlocks.reduce((n, b) => n + (b.items?.length ?? 0), 0);
   const liveStatuses = [...new Set(liveBlocks.map((b) => String(b.status)))];
   if (!catalogUsed && !datasetUsed && !liveBlocks.length) return null;

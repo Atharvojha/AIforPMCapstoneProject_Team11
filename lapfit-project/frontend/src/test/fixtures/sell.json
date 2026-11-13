@@ -21,9 +21,16 @@
       {
         "type": "sell_plan",
         "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "custom": false,
+        "launch_year": 2020,
+        "date_notes": [],
+        "notes": null,
+        "notes_echo": null,
         "new_price": 86990,
         "new_price_text": "₹86,990",
         "as_of": "10 Nov 2026",
+        "price_basis": "catalog",
+        "price_note": "Based on the new price on file: ₹86,990 as of 10 Nov 2026.",
         "range": {
           "low": 34000,
           "high": 43500,
@@ -33,15 +40,21 @@
         "factors": [
           {
             "label": "Age 2 years",
-            "factor": 0.6
+            "factor": 0.6,
+            "note": null,
+            "sample": true
           },
           {
             "label": "Condition: fair",
-            "factor": 0.8
+            "factor": 0.8,
+            "note": null,
+            "sample": true
           },
           {
             "label": "Battery 70% (below 80)",
-            "factor": 0.93
+            "factor": 0.93,
+            "note": null,
+            "sample": true
           }
         ],
         "unknown": [],
@@ -49,14 +62,67 @@
           {
             "fix": "Replace the battery",
             "cost": 3500,
-            "adds": 3000,
-            "net": -500,
-            "worth_it": false,
+            "adds": 4500,
+            "net": 1000,
+            "worth_it": true,
             "cost_basis": "Sample estimate, not a quote"
           }
         ],
+        "safety": [],
         "list_at": 43500,
         "list_at_text": "₹43,500",
+        "boosters": [
+          {
+            "title": "Replace the battery",
+            "source": "rule",
+            "why": "Battery health is 70%, which lowers what buyers pay.",
+            "gain_text": "Adds about ₹4,500, costs about ₹3,500 (sample estimate, not a quote): net ₹1,000. Worth doing on these numbers."
+          },
+          {
+            "title": "Find the original bill",
+            "source": "rule",
+            "why": "The bill proves the purchase date and that it is yours.",
+            "gain_text": "Adds about ₹1,000 to the middle of the sample estimate if you have it"
+          },
+          {
+            "title": "Find the original box",
+            "source": "rule",
+            "why": "Buyers pay a little more for a complete set.",
+            "gain_text": "Adds about ₹500 to the middle of the sample estimate if you have it"
+          },
+          {
+            "title": "Check whether warranty is still left",
+            "source": "rule",
+            "why": "If it is, show the end date and the invoice: buyers pay more for cover.",
+            "gain_text": "Adds about ₹2,000 to the middle of the sample estimate if it is still under warranty"
+          },
+          {
+            "title": "Sell sooner rather than later",
+            "source": "rule",
+            "why": "The sample age factor goes from 0.6 to 0.5 when the laptop is one year older.",
+            "gain_text": "Waiting a year lowers the sample estimate by about ₹6,500"
+          },
+          {
+            "title": "Clean it and reset it",
+            "source": "rule",
+            "why": "A clean laptop with photos in daylight and a fresh reset looks cared for. I have no data on how much this adds, so I give no figure."
+          },
+          {
+            "title": "What the web says about reselling this laptop",
+            "source": "web",
+            "why": "Live reviews are not switched on in this version, so I am showing only the recorded dataset.",
+            "items": []
+          }
+        ],
+        "checklist": [
+          "Back up your files, sign out of every account on it and do a full reset before the buyer sees it.",
+          "Clean the screen, keyboard and body, and take clear photos in daylight.",
+          "Find the original bill and box if you still have them: they raise the price buyers will pay.",
+          "Include the original charger.",
+          "List at about ₹43,500 and expect offers down to about ₹34,000.",
+          "Meet in a public place and let the buyer test it before they pay."
+        ],
+        "copy_text": "LapFit sell plan for APPLE 2020 Macbook Air M1 · 8 GB / 256 GB\nDate: 13 Nov 2026\n(A sample estimate, not a promise. The factors are sample assumptions, not learned from real sales.)\n\nEstimated range: ₹34,000 to ₹43,500, list at about ₹43,500\nBased on the new price on file: ₹86,990 as of 10 Nov 2026.\n\nFactors used (sample):\n- Age 2 years: x0.6\n- Condition: fair: x0.8\n- Battery 70% (below 80): x0.93\n\nWhat else could get you more:\n- Replace the battery: Battery health is 70%, which lowers what buyers pay. (Adds about ₹4,500, costs about ₹3,500 (sample estimate, not a quote): net ₹1,000. Worth doing on these numbers.) [source: rule]\n- Find the original bill: The bill proves the purchase date and that it is yours. (Adds about ₹1,000 to the middle of the sample estimate if you have it) [source: rule]\n- Find the original box: Buyers pay a little more for a complete set. (Adds about ₹500 to the middle of the sample estimate if you have it) [source: rule]\n- Check whether warranty is still left: If it is, show the end date and the invoice: buyers pay more for cover. (Adds about ₹2,000 to the middle of the sample estimate if it is still under warranty) [source: rule]\n- Sell sooner rather than later: The sample age factor goes from 0.6 to 0.5 when the laptop is one year older. (Waiting a year lowers the sample estimate by about ₹6,500) [source: rule]\n- Clean it and reset it: A clean laptop with photos in daylight and a fresh reset looks cared for. I have no data on how much this adds, so I give no figure. [source: rule]\n- What the web says about reselling this laptop: Live reviews are not switched on in this version, so I am showing only the recorded dataset. [source: web, not verified]\n\nChecklist:\n- Back up your files, sign out of every account on it and do a full reset before the buyer sees it.\n- Clean the screen, keyboard and body, and take clear photos in daylight.\n- Find the original bill and box if you still have them: they raise the price buyers will pay.\n- Include the original charger.\n- List at about ₹43,500 and expect offers down to about ₹34,000.\n- Meet in a public place and let the buyer test it before they pay.",
         "disclaimers": [
           "An estimate, not a promise.",
           "The factors are sample assumptions, not learned from real sales. No real used-price data is connected yet."
@@ -66,7 +132,7 @@
         "type": "checklist",
         "title": "Before you sell",
         "items": [
-          "Remove your accounts and reset the laptop before the buyer sees it.",
+          "Back up your files, sign out of every account on it and do a full reset before the buyer sees it.",
           "Meet in a public place and let the buyer test it before they pay.",
           "Say honestly about any fault: it protects you from a dispute later.",
           "Keep the bill and box: they raise the price buyers will pay."

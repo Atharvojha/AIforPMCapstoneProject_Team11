@@ -201,3 +201,12 @@ test('a typed model number must appear in the match: "Dell Inspiron 15 3520" is 
   const miss: any = await resolveVariant({ tools } as any, { brand: 'Dell', line: 'Inspiron 15 3520' }); assert.equal(miss.kind, 'not_found');
   const hit: any = await resolveVariant({ tools } as any, { brand: 'ASUS', line: 'VivoBook 15 (2022)' }); assert.notEqual(hit.kind, 'not_found');
 });
+
+test('the starter buttons start a guided step and never run a canned example (the "Check a laptop" button used to check the MacBook Air M1)', async () => {
+  const { handleQuery } = await import('../supabase/functions/_shared/handler.ts'); const { loadSettings } = await import('../supabase/functions/_shared/settings.ts'); const { getDb } = await import('./helpers.ts'); const { tools } = await getDb(); const settings: any = await loadSettings(tools);
+  const ask = async (text: string) => (await handleQuery({ tools, model: null, settings, requestId: 'st' + Math.random() }, { session_hash: 'st', text })) as any;
+  const check = await ask('Check a laptop I am considering'); assert.deepEqual(check.blocks.map((b: any) => b.type).filter((t: string) => t !== 'provenance'), ['ask_laptop']); assert.equal(check.blocks[0].base.action, 'second_opinion'); assert.ok(check.blocks[0].choices.length >= 3); assert.ok(!JSON.stringify(check.blocks).includes('Macbook Air M1?'));
+  const budget = await ask('Get a shortlist for my budget'); assert.equal(budget.blocks[0].type, 'choices'); assert.ok(budget.blocks[0].choices.length >= 4); assert.ok(!budget.blocks.some((b: any) => b.type === 'cards'));
+  for (const t of ['Check what a seller told me', 'Compare two laptops', 'Check a used listing']) { const r = await ask(t); assert.ok(r.blocks.some((b: any) => b.type === 'text'), t); assert.ok(!r.blocks.some((b: any) => b.type === 'cards' || b.type === 'evidence'), t); }
+  assert.equal((await ask('What owners say')).blocks[0].type, 'ask_laptop');
+});

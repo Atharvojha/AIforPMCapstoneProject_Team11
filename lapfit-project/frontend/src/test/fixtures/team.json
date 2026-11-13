@@ -152,34 +152,35 @@
             "use": "office",
             "budget": 45000,
             "pick": {
-              "variant_id": "FKL-12",
-              "model_id": 12,
-              "name": "Lenovo IdeaPad 3 Celeron Dual Core · 8 GB / 256 GB",
-              "brand": "LENOVO",
-              "price_inr": 27490,
-              "price_text": "₹27,490",
+              "variant_id": "FKL-09",
+              "model_id": 9,
+              "name": "ASUS VivoBook 15 (2022) Core i3 10th Gen · 8 GB / 512 GB",
+              "brand": "ASUS",
+              "price_inr": 33990,
+              "price_text": "₹33,990",
               "as_of": "2026-11-10",
               "as_of_text": "10 Nov 2026",
               "specs": {
                 "ram_gb": 8,
-                "storage_gb": 256,
+                "storage_gb": 512,
                 "display_size": 15.6,
-                "weight_kg": 1.7,
-                "battery_wh": null,
+                "weight_kg": 1.8,
+                "battery_wh": 37,
                 "refresh_hz": null,
                 "gpu_class": null,
-                "cpu": "Celeron Dual Core",
+                "cpu": "Core i3 10th Gen",
                 "gpu": null,
                 "hinge_type": "clamshell",
                 "warranty_years": 1,
                 "colours": []
               },
               "spec_lines": [
-                "15.6 inch screen, 1.7 kg",
-                "8 GB RAM, 256 GB storage",
-                "Celeron Dual Core, no separate graphics listed",
+                "15.6 inch screen, 1.8 kg",
+                "8 GB RAM, 512 GB storage",
+                "Core i3 10th Gen, no separate graphics listed",
                 "Regular laptop (clamshell) (not yet verified)",
-                "Warranty: 1 year (standard; keep the invoice)"
+                "Warranty: 1 year (standard; keep the invoice)",
+                "Battery: 37 Wh"
               ],
               "unknown_fields": [],
               "data_status": "Imported listing data, not human-verified",
@@ -187,32 +188,32 @@
                 {
                   "label": "Within your budget of ₹45,000",
                   "ok": true,
-                  "actual": "₹27,490"
+                  "actual": "₹33,990"
                 }
               ],
               "evidence": {
-                "n": 0,
-                "positive": 0,
-                "negative": 0,
-                "enough": false,
+                "n": 196,
+                "positive": 101,
+                "negative": 88,
+                "enough": true,
                 "min_n": 20,
-                "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+                "text": "101 of 196 owner opinions are positive (machine-read, not human-verified)."
               },
               "fact_lines": [],
               "reasons": [],
               "image": {
-                "url": "https://m.media-amazon.com/images/I/61s7sJEpsVL.jpg",
-                "site": "m.media-amazon.com",
+                "url": "https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",
+                "site": "5.imimg.com",
                 "page": null,
-                "alt": "A silver Lenovo IdeaPad 3 laptop with a Celeron Dual Core processor is open, displaying a vibrant screen wallpaper of a "
+                "alt": "A silver ASUS VivoBook 15 laptop from 2022, powered by a Core i3 10th Gen processor, is shown open with its screen displ"
               }
             },
-            "subtotal": 54980,
+            "subtotal": 67980,
             "note": ""
           }
         ],
-        "total": 590900,
-        "total_text": "₹5,90,900",
+        "total": 603900,
+        "total_text": "₹6,03,900",
         "laptops": 10,
         "left_out": 0,
         "total_budget": 1000000,

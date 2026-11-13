@@ -26,9 +26,9 @@ afterEach(() => { vi.unstubAllGlobals(); });
 const mount = () => render(<App config={cfg} />);
 const goto = async (name: RegExp) => { await userEvent.click(screen.getAllByRole('link', { name })[0]); };
 const sent = (pred: (b: any) => boolean) => calls.filter(pred);
-const catalogReady = async () => { await waitFor(() => expect(sessionStorage.getItem('lapfit.catalog')).toBeTruthy()); };
+const catalogReady = async () => { await waitFor(() => expect(sessionStorage.getItem('lapfit.catalog.v2')).toBeTruthy()); };
 const dots = () => Array.from(document.querySelectorAll<SVGGElement>('.price-map .dot'));
-const pickOption = async (label: string | RegExp, which = 1) => { const box = await screen.findByRole('combobox', { name: label }); await userEvent.click(box); const opts = await screen.findAllByRole('option'); const opt = opts[which - 1]; const name = opt.querySelector('span')!.textContent!; await userEvent.click(opt); const rows = JSON.parse(sessionStorage.getItem('lapfit.catalog') ?? '[]'); return rows.find((r: any) => r.name === name)?.variant_id as string; };
+const pickOption = async (label: string | RegExp, which = 1) => { const box = await screen.findByRole('combobox', { name: label }); await userEvent.click(box); const opts = await screen.findAllByRole('option'); const opt = opts[which - 1]; const name = opt.querySelector('span')!.textContent!; await userEvent.click(opt); const rows = JSON.parse(sessionStorage.getItem('lapfit.catalog.v2') ?? '[]'); return rows.find((r: any) => r.name === name)?.variant_id as string; };
 
 describe('details', () => {
   it('tapping Details on the best fit opens the detail sheet instead of crashing the screen, and it can be closed and another opened', async () => {
@@ -51,7 +51,7 @@ describe('shell', () => {
     await userEvent.keyboard('{Escape}'); expect(screen.queryByRole('dialog')).toBeNull();
   });
   it('navigation changes the screen and an unknown address falls back to Ask', async () => {
-    mount(); await goto(/Explore$/); expect(await screen.findByRole('heading', { name: 'Explore laptops' })).toBeInTheDocument(); window.location.hash = '#/nonsense'; window.dispatchEvent(new HashChangeEvent('hashchange')); expect(await screen.findByRole('heading', { name: 'Ask LapFit' })).toBeInTheDocument();
+    mount(); await goto(/Explore$/); expect(await screen.findByRole('heading', { name: 'Browse every laptop I know' })).toBeInTheDocument(); window.location.hash = '#/nonsense'; window.dispatchEvent(new HashChangeEvent('hashchange')); expect(await screen.findByRole('heading', { name: 'Ask LapFit' })).toBeInTheDocument();
   });
   it('after the server reports its status the banner states the snapshot date; About shows the counts; status is fetched once per session', async () => {
     const f = vi.fn(async (_u: string, init: any) => okResponse(JSON.parse(init.body).action === 'data_status' ? fx('data_status') : fx('help'))); vi.stubGlobal('fetch', f);

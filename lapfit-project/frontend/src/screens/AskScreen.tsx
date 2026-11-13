@@ -11,16 +11,17 @@ export function AskScreen({ thread, compare, goto }: { thread: Thread; compare: 
   const [prefill, setPrefill] = useState<{ text: string; n: number } | null>(null); const [editing, setEditing] = useState<number | null>(null);
   const ctx = buildCtx(thread, compare, goto, (t) => setPrefill({ text: t, n: Date.now() }));
   const v = useVibes((n, l) => thread.sendNeeds(n, l), (t) => thread.sendText(t));
-  const first = thread.turns.length === 0;
+  const first = thread.turns.length === 0; const startOver = () => { thread.clear(); compare.clear(); setEditing(null); };
   const send = async (t: string) => { if (editing != null) { const ok = await thread.edit(editing, t); if (ok) setEditing(null); return ok; } return thread.sendText(t); };
   return (
     <section className={`page-enter ask ${first ? 'ask-first' : 'ask-docked'}`} aria-labelledby="ask-h">
       <h2 id="ask-h" className="sr-only">Ask LapFit</h2>
+      {!first && <div className="chat-head"><button type="button" className="btn ghost small new-search" onClick={startOver}><span aria-hidden="true">↺</span> New search</button></div>}
       {!first && <SessionBar store={thread.session} busy={thread.busy || thread.cooldown > 0} onClearFocus={thread.clearFocus} onRemovePick={compare.remove} onClearPicks={compare.clear} onUpdateNeeds={(n) => { void thread.sendNeeds(n); }} />}
       <ThreadView thread={thread} ctx={ctx} empty={<VibePicker v={v} />} onEdit={(t) => { setEditing(t.id); setPrefill({ text: t.text, n: Date.now() }); }} />
       <Composer variant={first ? 'bar' : 'full'} onSend={send} onSendImage={(i) => thread.action({ action: 'read_image', image: i.image }, '📷 Picture')} busy={thread.busy} cooldown={thread.cooldown} prefill={prefill} focusName={thread.focus?.name} onClearFocus={thread.clearFocus} editing={editing != null} onCancelEdit={() => setEditing(null)} />
       {first && <AskCta v={v} busy={thread.busy} />}
-      {!first && <p className="center"><button className="link" onClick={() => { thread.clear(); compare.clear(); setEditing(null); }}>Start over</button></p>}
+      {!first && <p className="center"><button className="link" onClick={startOver}>Start over</button></p>}
     </section>
   );
 }

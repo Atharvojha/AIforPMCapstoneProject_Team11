@@ -22,27 +22,27 @@
         "choices": [
           {
             "label": "Get a shortlist for my budget",
-            "send": "Suggest a laptop under 60k"
+            "send": "Get a shortlist for my budget"
           },
           {
             "label": "Check a laptop I am considering",
-            "send": "Should I buy the Macbook Air M1?"
+            "send": "Check a laptop I am considering"
           },
           {
             "label": "Check what a seller told me",
-            "send": "The seller said: "
+            "send": "Check what a seller told me"
           },
           {
             "label": "Compare two laptops",
-            "send": "Compare "
+            "send": "Compare two laptops"
           },
           {
             "label": "Check a used listing",
-            "send": "Used laptop: "
+            "send": "Check a used listing"
           },
           {
             "label": "What owners say",
-            "send": "What do owners say about "
+            "send": "What owners say"
           }
         ]
       }

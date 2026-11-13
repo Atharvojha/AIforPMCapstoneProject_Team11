@@ -63,12 +63,16 @@
         "most_viewed": [],
         "requests_by_budget": [
           {
-            "requests": 2,
-            "budget_band": "Under ₹40,000"
+            "requests": 1,
+            "budget_band": "None"
           },
           {
             "requests": 1,
             "budget_band": "Over ₹70,000"
+          },
+          {
+            "requests": 1,
+            "budget_band": "Under ₹40,000"
           },
           {
             "requests": 1,

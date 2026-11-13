@@ -21,6 +21,7 @@ import { AboutScreen } from './screens/AboutScreen';
 import { TrustSheet } from './components/TrustSheet';
 import { getJson, setJson } from './lib/storage';
 import { createSessionStore } from './lib/session';
+import { loadRoute, saveRoute } from './lib/persist';
 
 const ICON: Record<string, string> = { ask: '✨', explore: '🗺️', check: '🕵️', sell: '💰', you: '🙂' };
 const TABS = [
@@ -29,7 +30,7 @@ const TABS = [
 ] as const;
 type TabId = typeof TABS[number]['id'];
 const galleryOf = (): string | null => { if (!import.meta.env.DEV) return null; const h = window.location.hash.replace(/^#\/?/, ''); return h.startsWith('gallery') ? h.slice('gallery'.length).replace(/^\//, '') : null; };
-const routeOf = (): TabId => { const h = window.location.hash.replace(/^#\/?/, ''); return (TABS.some((t) => t.id === h) ? h : 'ask') as TabId; };
+const routeOf = (): TabId => { const h = window.location.hash.replace(/^#\/?/, ''); if (h === '' && !window.location.hash) { const s = loadRoute(); if (s && TABS.some((t) => t.id === s)) return s as TabId; } return (TABS.some((t) => t.id === h) ? h : 'ask') as TabId; };
 
 const FOOTER = 'LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.';
 /** Market lives inside Explore; About has no tab. */
@@ -41,6 +42,9 @@ export default function App({ config = readConfig() }: { config?: ApiConfig | nu
 
 function Shell({ cfg }: { cfg: ApiConfig }) {
   const [tab, setTab] = useState<TabId>(routeOf());
+  // the screen is remembered for this tab, so a reload (or a dev-server refresh) lands where you were; a bare address restores it
+  useEffect(() => { if (!window.location.hash && tab !== 'ask') window.history.replaceState(null, '', `#/${tab}`); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (TABS.some((t) => t.id === tab)) saveRoute(tab); }, [tab]);
   useEffect(() => { const on = () => setTab(routeOf()); window.addEventListener('hashchange', on); return () => window.removeEventListener('hashchange', on); }, []);
   const goto = useCallback((t: string) => { window.location.hash = `/${t}`; window.scrollTo?.(0, 0); }, []);
   // failures that only this browser can see are reported to the server, with the screen and request kind but never the user's text
@@ -51,7 +55,7 @@ function Shell({ cfg }: { cfg: ApiConfig }) {
   const [chipOpen, setChipOpen] = useState(() => !getJson<boolean>('lapfit.chipseen.v1', false));   // first visit: the line is shown in full for 3 s, then it folds to one line
   useEffect(() => { if (!chipOpen) return; const t = setTimeout(() => { setChipOpen(false); setJson('lapfit.chipseen.v1', true); }, 3000); return () => clearTimeout(t); }, [chipOpen]);
   const session = useMemo(() => createSessionStore(), []);   // the saved brief of the Ask conversation: needs, recommendations, selection
-  const th = { ask: useThread(cfg, undefined, reporter('ask'), session), explore: useThread(cfg, undefined, reporter('explore')), check: useThread(cfg, undefined, reporter('check')), sell: useThread(cfg, undefined, reporter('sell')),
+  const th = { ask: useThread(cfg, undefined, reporter('ask'), session, 'ask'), explore: useThread(cfg, undefined, reporter('explore'), undefined, 'explore'), check: useThread(cfg, undefined, reporter('check')), sell: useThread(cfg, undefined, reporter('sell')),
     mine: useThread(cfg, undefined, reporter('mine')), share: useThread(cfg, undefined, reporter('share')), market: useThread(cfg, undefined, reporter('market')) };
 
   // laptops picked for comparison (kept for this browser session)

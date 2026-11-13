@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Thread as ThreadState } from '../state/useThread';
 import { BlockView } from './blocks/BlockView';
-import { CtxContext, type Ctx, type DetailCard, type DetailTab } from './ctx';
+import { CtxContext, TurnContext, type Ctx, type DetailCard, type DetailTab } from './ctx';
+import { loadDetail, saveDetail } from '../lib/persist';
 import { DetailSheet } from './blocks/DetailSheet';
 import { Lappy, type Mood } from './viz/Lappy';
 import { ReplyActions } from './ReplyActions';
@@ -13,11 +14,19 @@ const STEPS = ['Reading your request', 'Checking the catalog', 'Counting owner o
 
 export function ThreadView({ thread, ctx, empty, onEdit }: { thread: ThreadState; ctx: Ctx; empty?: React.ReactNode; onEdit?(turn: { id: number; text: string }): void }) {
   const end = useRef<HTMLDivElement>(null);
-  const [detail, setDetail] = useState<{ card: DetailCard; tab: DetailTab } | null>(null); const closeDetail = useCallback(() => setDetail(null), []);
-  useEffect(() => { end.current?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest' }); }, [thread.turns.length, thread.busy]);
+  const cardIn = (turns: ThreadState['turns'], id: string): DetailCard | undefined => { for (const t of [...turns].reverse()) for (const b of t.reply?.blocks ?? []) if (b.type === 'cards') { const c = (b.cards as DetailCard[]).find((x) => x.variant_id === id); if (c) return c; } return undefined; };
+  // the open Detail card survives a reload of the page: it is looked up again in the saved replies
+  const [detail, setDetail] = useState<{ card: DetailCard; tab: DetailTab } | null>(() => { const k = thread.persistKey; const d = k ? loadDetail(k) : null; const c = d ? cardIn(thread.turns, d.variant_id) : undefined; return d && c ? { card: c, tab: d.tab as DetailTab } : null; });
+  useEffect(() => { if (thread.persistKey) saveDetail(thread.persistKey, detail ? { variant_id: detail.card.variant_id, tab: detail.tab } : null); }, [detail, thread.persistKey]);
+  useEffect(() => { if (thread.turns.length === 0) setDetail(null); }, [thread.turns.length]);
+  const closeDetail = useCallback(() => setDetail(null), []);
+  // follow a NEW turn only: never on first paint (a screen with a long list above the thread would jump to the bottom) and never for an in-place update
+  const seen = useRef<{ n: number; busy: boolean } | null>(null);
+  useEffect(() => { const prev = seen.current; seen.current = { n: thread.turns.length, busy: thread.busy }; if (!prev || thread.turns.length === 0) return; if (thread.turns.length !== prev.n || thread.busy !== prev.busy) end.current?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest' }); }, [thread.turns.length, thread.busy]);
   const { turns } = thread;
   const lastReplyId = [...turns].reverse().find((t) => t.reply)?.id; const lastIsReply = turns.length > 0 && turns[turns.length - 1].reply !== undefined;
   const ctx2: Ctx = { ...ctx, openDetail: (card, tab = 'fit') => { thread.setFocus({ variant_id: card.variant_id, name: card.name }); setDetail({ card, tab }); } };
+  const turnCtx = (id: number): Ctx => ({ ...ctx2, refreshing: thread.refreshing === id, busy: ctx2.busy || thread.refreshing != null, resort: (body) => thread.replaceTurn(id, body) });
   const detailBlocks = detail ? [...turns].reverse().find((t) => t.reply?.blocks.some((b) => b.type === 'cards' && (b.cards as DetailCard[]).some((x) => x.variant_id === detail.card.variant_id)))?.reply?.blocks : undefined;
   return (
     <CtxContext.Provider value={ctx2}>
@@ -29,9 +38,11 @@ export function ThreadView({ thread, ctx, empty, onEdit }: { thread: ThreadState
           <div className="turn" key={t.id}>
             {t.user && <div className="user-line"><p className="user-bubble">{t.user}</p>{t.typed && onEdit && !t.pending && <button type="button" className="link edit-msg" disabled={thread.busy} onClick={() => onEdit({ id: t.id, text: t.user! })} aria-label={`Edit your message: ${t.user!.slice(0, 40)}`}><span aria-hidden="true">✎</span> Edit</button>}</div>}
             {t.pending && <Waiting />}
-            {t.reply && <div className="reply">
+            {t.reply && <div className={`reply ${thread.refreshing === t.id ? 'refreshing' : ''}`} aria-busy={thread.refreshing === t.id}>
+              {thread.refreshing === t.id && <p className="refresh-note" role="status">Updating these results…</p>}
               <div className="reply-mood"><Lappy key={moodOf(t.reply)} mood={moodOf(t.reply)} size={44} /></div>
-              {t.reply.blocks.map((b, i) => <div className="reveal" style={{ ['--i' as any]: Math.min(i, 8) }} key={i}><AskRepeatContext.Provider value={b.type === 'ask_laptop' && !!prevAsk && prevAsk.question === b.question}><BlockView block={b} /></AskRepeatContext.Provider></div>)}
+              {t.reply.blocks.map((b, i) => <div className="reveal" style={{ ['--i' as any]: Math.min(i, 8) }} key={i}><AskRepeatContext.Provider value={b.type === 'ask_laptop' && !!prevAsk && prevAsk.question === b.question}><TurnContext.Provider value={t.id}><CtxContext.Provider value={turnCtx(t.id)}><BlockView block={b} /></CtxContext.Provider></TurnContext.Provider></AskRepeatContext.Provider></div>)}
+              {t.refreshError && <p className="refresh-error" role="alert">{t.refreshError}</p>}
               {t.reply.router_mode === 'fallback' && <p className="muted small">I used a simpler reader this time because the smart reader was slow. Please check what I understood.</p>}
               {t.id === lastReplyId && lastIsReply && !thread.busy && thread.focus && <FollowUps thread={thread} reply={t.reply} />}
               <ReplyActions reply={t.reply} />

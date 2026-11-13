@@ -59,16 +59,16 @@ describe('understood needs', () => {
     expect(screen.getByRole('button', { name: /RAM 8 GB or more: Must/ })).toBeInTheDocument(); expect(screen.getByText(/cannot be checked yet/)).toBeInTheDocument(); expect(document.querySelectorAll('select, input:not([type=range]):not([type=text])')).toHaveLength(0); expect(screen.getByRole('textbox', { name: /Type a budget/ })).toHaveValue('60000');   // the budget now also has a number field
   });
   it('tapping a chip changes how much it matters (Should, then Must, then Nice); the cross removes it; Update sends the edited needs', async () => {
-    const sendNeeds = vi.fn(); show(needsBlock(), { sendNeeds }); expect(screen.queryByRole('button', { name: 'Update results' })).toBeNull();
+    const sendNeeds = vi.fn(); show(needsBlock(), { resort: (b: any) => sendNeeds(b.needs) } as any); expect(screen.queryByRole('button', { name: 'Update results' })).toBeNull();
     await userEvent.click(screen.getByRole('button', { name: /RAM 8 GB or more: Must/ })); expect(screen.getByRole('button', { name: /RAM 8 GB or more: Nice/ })).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: /RAM 8 GB or more: Nice/ })); expect(screen.getByRole('button', { name: /RAM 8 GB or more: Should/ })).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Remove touchscreen yes' })); await userEvent.click(screen.getByRole('button', { name: 'Update results' }));
     const sent = sendNeeds.mock.calls[0][0]; expect(sent.musts).toHaveLength(0); expect(sent.shoulds).toHaveLength(1); expect(sent.shoulds[0].attribute).toBe('ram_gb'); expect(sent.budget_max_inr).toBe(60000);
   });
   it('dragging the budget changes it; "No budget limit" removes it; both offer Update', async () => {
-    const sendNeeds = vi.fn(); const { unmount } = show(needsBlock(), { sendNeeds }); fireEvent.change(screen.getByLabelText(/Budget up to/), { target: { value: '6' } });
+    const sendNeeds = vi.fn(); const resort = (b: any) => sendNeeds(b.needs); const { unmount } = show(needsBlock(), { resort } as any); fireEvent.change(screen.getByLabelText(/Budget up to/), { target: { value: '6' } });
     await userEvent.click(screen.getByRole('button', { name: 'Update results' })); expect(sendNeeds.mock.calls[0][0].budget_max_inr).toBe(100000); unmount();
-    show(needsBlock(), { sendNeeds }); await userEvent.click(screen.getByRole('button', { name: 'No budget limit' })); expect(screen.getByRole('button', { name: '＋ Add a budget' })).toBeInTheDocument(); await userEvent.click(screen.getByRole('button', { name: 'Update results' })); expect(sendNeeds.mock.calls[1][0].budget_max_inr).toBeNull();
+    show(needsBlock(), { resort } as any); await userEvent.click(screen.getByRole('button', { name: 'No budget limit' })); expect(screen.getByRole('button', { name: '＋ Add a budget' })).toBeInTheDocument(); await userEvent.click(screen.getByRole('button', { name: 'Update results' })); expect(sendNeeds.mock.calls[1][0].budget_max_inr).toBeNull();
   });
 });
 

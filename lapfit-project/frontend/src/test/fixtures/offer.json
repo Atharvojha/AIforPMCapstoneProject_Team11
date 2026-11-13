@@ -15,48 +15,203 @@
       {
         "type": "understood",
         "needs": {
-          "budget_max_inr": 1400,
+          "budget_max_inr": null,
           "budget_min_inr": null,
-          "musts": [],
+          "musts": [
+            {
+              "attribute": "weight_kg",
+              "operator": "<=",
+              "value": 1.4,
+              "source_text": "laptop under 1.4 kg for travel",
+              "label": "Weight up to 1.4 kg",
+              "supported": true
+            }
+          ],
           "shoulds": [],
           "nices": [],
           "use_cases": [
             "travel"
           ]
         },
-        "matched": 0,
+        "matched": 1,
         "demand": {
-          "budget": 1400,
+          "budget": null,
           "use_cases": [
             "travel"
           ],
-          "musts": []
+          "musts": [
+            "Weight up to 1.4 kg"
+          ]
         }
       },
       {
-        "type": "notice",
-        "text": "The cheapest laptop in the catalog is ₹27,490, above your budget of ₹1,400."
-      },
-      {
-        "type": "text",
-        "text": "Nothing in the catalog meets every Must. I have not dropped any of them."
-      },
-      {
-        "type": "text",
-        "text": "Closest ways forward:"
-      },
-      {
-        "type": "offer",
-        "label": "Change \"Within your budget of ₹1,400\" to \"Price up to ₹27,490\". This adds 1 laptop.",
+        "type": "cards",
+        "title": "1 laptop that meet every Must",
+        "cards": [
+          {
+            "variant_id": "FKL-10",
+            "model_id": 10,
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "brand": "APPLE",
+            "price_inr": 86990,
+            "price_text": "₹86,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 256,
+              "display_size": 13.3,
+              "weight_kg": 1.29,
+              "battery_wh": 49.9,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "M1",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "13.3 inch screen, 1.29 kg",
+              "8 GB RAM, 256 GB storage",
+              "M1, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 49.9 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Weight up to 1.4 kg",
+                "ok": true,
+                "actual": "1.29 kg"
+              }
+            ],
+            "evidence": {
+              "n": 234,
+              "positive": 210,
+              "negative": 22,
+              "enough": true,
+              "min_n": 20,
+              "text": "210 of 234 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Ranked first on its recorded specs: 8 GB RAM, 256 GB storage, M1 processor.",
+              "Meets your must: Weight up to 1.4 kg. This laptop has 1.29 kg.",
+              "Costs ₹86,990 as of 10 Nov 2026.",
+              "Weighs 1.29 kg, which suits travel.",
+              "210 of 234 owner opinions are positive (machine-read)."
+            ],
+            "reasons": [
+              "Ranked first on its recorded specs: 8 GB RAM, 256 GB storage, M1 processor.",
+              "Meets your must: Weight up to 1.4 kg. This laptop has 1.29 kg.",
+              "Costs ₹86,990 as of 10 Nov 2026."
+            ],
+            "image": {
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-enriched-transparent-original-imag3gh5xftgbpg3.png?q=90",
+              "site": "rukminim3.flixcart.com",
+              "page": null,
+              "alt": "A silver MacBook Air with an M1 chip displays a vibrant, colorful abstract wallpaper on its screen, set against a plain "
+            },
+            "match": {
+              "pct": 100,
+              "label": "100% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for travel: 100% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
+            }
+          }
+        ],
+        "first": 3,
+        "requireAll": true,
+        "compare": true,
         "needs": {
-          "budget_max_inr": 27490,
+          "budget_max_inr": null,
           "budget_min_inr": null,
-          "musts": [],
+          "musts": [
+            {
+              "attribute": "weight_kg",
+              "operator": "<=",
+              "value": 1.4,
+              "source_text": "laptop under 1.4 kg for travel"
+            }
+          ],
           "shoulds": [],
           "nices": [],
           "use_cases": [
             "travel"
           ]
+        },
+        "sort": {
+          "key": "best",
+          "label": "Best fit",
+          "note": "Ordered by how well their recorded specs suit what you said, with your Shoulds and Nice-to-haves counted."
+        },
+        "sorts": [
+          {
+            "key": "best",
+            "label": "Best fit"
+          },
+          {
+            "key": "price_low",
+            "label": "Price: low to high"
+          },
+          {
+            "key": "price_high",
+            "label": "Price: high to low"
+          },
+          {
+            "key": "light",
+            "label": "Lightest"
+          },
+          {
+            "key": "reviews",
+            "label": "Most owner opinions"
+          }
+        ],
+        "tie": false
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 234,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "rules",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": true,
+          "sites": [
+            "rukminim3.flixcart.com"
+          ]
+        },
+        "checks": {
+          "gate": true
+        },
+        "affiliate": {
+          "links": false
         }
       }
     ],

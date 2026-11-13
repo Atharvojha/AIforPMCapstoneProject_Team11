@@ -1,0 +1,60 @@
+{
+ "request": {
+  "action": "web_search_laptops",
+  "query": "thin light laptop under 70000"
+ },
+ "reply": {
+  "ok": true,
+  "request_id": "fx-web-picks",
+  "flow": "web_search_laptops",
+  "language": "English",
+  "router_mode": "offline",
+  "blocks": [
+   {
+    "type": "web_picks",
+    "status": "ok",
+    "note": "Found on the live web, outside my catalog.",
+    "query": "thin light laptop under 70000",
+    "fields_note": "Read from web pages by an AI model and checked against their text. Not verified, may be wrong.",
+    "budget_note": "Prices are as the pages state them and may have changed.",
+    "items": [
+     {
+      "name": "Lenovo IdeaPad Slim 5 14",
+      "price_inr": 68990,
+      "price_text": "₹68,990",
+      "specs": {
+       "ram_gb": 16,
+       "storage_gb": 512,
+       "display_size": 14,
+       "weight_kg": 1.46,
+       "cpu": "Ryzen 7 7730U"
+      },
+      "why": "Light 14 inch laptop with 16 GB RAM, inside your budget.",
+      "source": {
+       "url": "https://www.example-shop.in/lenovo-ideapad-slim-5",
+       "site": "example-shop.in",
+       "published": "2026-10-02"
+      }
+     },
+     {
+      "name": "ASUS Zenbook 14 OLED",
+      "price_inr": null,
+      "price_text": null,
+      "specs": {
+       "ram_gb": 16,
+       "display_size": 14
+      },
+      "why": "Thin OLED laptop; the page did not list a price.",
+      "source": {
+       "url": "http://insecure.example.com/zenbook",
+       "site": "insecure.example.com"
+      }
+     }
+    ]
+   }
+  ],
+  "notice": "",
+  "footer": "LapFit shows recorded facts with their dates.",
+  "data_mode": "course"
+ }
+}

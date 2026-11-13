@@ -6,11 +6,13 @@ import { Notice, TextBlock, Choices, Offer, Understood, Findings, Checklist, Cla
 import { LaptopAnswer } from './LaptopAnswer';
 import { AskLaptop } from './AskLaptop';
 import { WebLaptop } from './WebLaptop';
+import { WebPicks } from './WebPicks';
 
 /** One component per backend block type. An unknown type is mentioned, never a crash. */
 export function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case 'web_laptop': return <WebLaptop b={block} />;
+    case 'web_picks': return <WebPicks b={block} />;
     case 'notice': return <Notice b={block} />;
     case 'text': return <TextBlock b={block} />;
     case 'choices': return <Choices b={block} />;

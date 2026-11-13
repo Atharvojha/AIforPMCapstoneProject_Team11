@@ -3,18 +3,20 @@ import { sendQuery, type ApiConfig } from '../lib/api';
 import type { ApiError, Needs, Reply } from '../lib/types';
 import { cleanNeeds, understoodNeeds } from '../lib/needs';
 import { deriveContext, type FocusLaptop } from '../lib/focus';
+import { loadTurns, saveTurns, clearSaved } from '../lib/persist';
 import { createSessionStore, recsOf, MAX_RECS, MAX_PICKS, type SessionStore, type NamedLaptop } from '../lib/session';
 
-export interface Turn { id: number; user?: string; reply?: Reply; error?: ApiError; pending?: boolean; body: Record<string, unknown>; typed?: boolean }
+export interface Turn { id: number; user?: string; reply?: Reply; error?: ApiError; pending?: boolean; refreshError?: string; body: Record<string, unknown>; typed?: boolean }
 
 /**
  * One conversation: turns, a single request at a time, answers to older requests ignored, text kept on failure,
  * a countdown when the server says "too many requests".
  */
-export function useThread(cfg: ApiConfig, send = sendQuery, onError?: (error: ApiError, body: Record<string, unknown>) => void, session?: SessionStore) {
+export function useThread(cfg: ApiConfig, send = sendQuery, onError?: (error: ApiError, body: Record<string, unknown>) => void, session?: SessionStore, persistKey?: string) {
   const own = useMemo(() => createSessionStore(false), []); const store = session ?? own;   // the three saved parts: needs, recommendations, selection
-  const [turns, setTurns] = useState<Turn[]>([]); const [cooldown, setCooldown] = useState(0);
-  const latest = useRef(0); const ctl = useRef<AbortController | null>(null); const turnsRef = useRef<Turn[]>([]); turnsRef.current = turns;
+  const [turns, setTurns] = useState<Turn[]>(() => (persistKey ? loadTurns(persistKey) : [])); const [cooldown, setCooldown] = useState(0);
+  const [refreshing, setRefreshing] = useState<number | null>(null); const rctl = useRef<AbortController | null>(null);
+  const latest = useRef(turns.reduce((m, t) => Math.max(m, t.id), 0)); const ctl = useRef<AbortController | null>(null); const turnsRef = useRef<Turn[]>([]); turnsRef.current = turns;
   // the user's own choice of focus (opened Details, or cleared with the chip) wins until a newer reply sets one
   const [pick, setPick] = useState<{ focus: FocusLaptop | null; after: number } | null>(null);
   const derived = deriveContext(turns);
@@ -23,6 +25,8 @@ export function useThread(cfg: ApiConfig, send = sendQuery, onError?: (error: Ap
   const ctxRef = useRef({ focus, shown }); ctxRef.current = { focus, shown };
   const busy = turns.some((t) => t.pending);
 
+  // the last few finished turns survive a reload of the page; "Start over" clears them
+  useEffect(() => { if (persistKey && !turns.some((t) => t.pending)) saveTurns(persistKey, turns); }, [turns, persistKey]);
   useEffect(() => { if (cooldown <= 0) return; const t = setTimeout(() => setCooldown((c) => c - 1), 1000); return () => clearTimeout(t); }, [cooldown]);
 
   /** Returns true when the server answered, so the caller knows whether to clear the text box. */
@@ -76,11 +80,29 @@ export function useThread(cfg: ApiConfig, send = sendQuery, onError?: (error: Ap
     const askAnswer = body.action === undefined && (body.laptop_text !== undefined || body.variant_id !== undefined);
     return run(askAnswer ? { ...context(turnsRef.current, ctxRef.current), ...body } : body, label);
   }, [run, context]);
-  const clear = useCallback(() => { latest.current++; ctl.current?.abort(); setTurns([]); setPick(null); store.reset(); }, [store]);
+  /**
+   * Re-request one turn and REPLACE its reply in place (a re-sort, "Update results"): its question stays, no turn is added, nothing scrolls.
+   * If the server cannot do it (an error, or the "Tell me what you need" choices), the old reply stays and a calm note says so.
+   */
+  const replaceTurn = useCallback(async (turnId: number, body: Record<string, unknown>): Promise<boolean> => {
+    const old = turnsRef.current.find((t) => t.id === turnId); if (!old?.reply || cooldown > 0 || turnsRef.current.some((t) => t.pending)) return false;
+    rctl.current?.abort(); const c = new AbortController(); rctl.current = c; setRefreshing(turnId);
+    setTurns((t) => t.map((x) => (x.id === turnId ? { ...x, refreshError: undefined } : x)));
+    const r = await send(cfg, body, { signal: c.signal });
+    if (rctl.current !== c) return false;
+    rctl.current = null; setRefreshing(null);
+    const usable = r.ok && r.reply.blocks.length > 0 && !(r.reply.blocks.some((b) => b.type === 'choices') && !r.reply.blocks.some((b) => b.type === 'cards'));
+    if (r.ok && usable) { setTurns((t) => t.map((x) => (x.id === turnId ? { ...x, reply: r.reply, refreshError: undefined } : x))); return true; }
+    if (!r.ok) { if (r.error.kind === 'aborted') return false; if (r.error.kind === 'rate_limited') setCooldown(r.error.retryAfter); try { onError?.(r.error, body); } catch { /* reporting must never break the screen */ } }
+    const why = !r.ok && r.error.kind === 'rate_limited' ? 'I need a short break before I can do that again.' : 'I could not update these results just now, so I kept them as they were. Please try again in a moment.';
+    setTurns((t) => t.map((x) => (x.id === turnId ? { ...x, refreshError: why } : x)));
+    return false;
+  }, [cfg, cooldown, send, onError]);
+  const clear = useCallback(() => { latest.current++; ctl.current?.abort(); rctl.current?.abort(); rctl.current = null; setRefreshing(null); setTurns([]); setPick(null); store.reset(); if (persistKey) clearSaved(persistKey); }, [store, persistKey]);
   const setFocus = useCallback((f: FocusLaptop | null) => setPick({ focus: f, after: latest.current }), []);
   const clearFocus = useCallback(() => setFocus(null), [setFocus]);
   const retry = useCallback(() => { const last = [...turnsRef.current].reverse().find((t) => t.error); if (last) return run(last.body, last.user); return Promise.resolve(false); }, [run]);
 
-  return { turns, busy, focus, shown, setFocus, clearFocus, cooldown, sendText, sendNeeds, action, edit, clear, retry, session: store };
+  return { turns, busy, refreshing, replaceTurn, persistKey, focus, shown, setFocus, clearFocus, cooldown, sendText, sendNeeds, action, edit, clear, retry, session: store };
 }
 export type Thread = ReturnType<typeof useThread>;

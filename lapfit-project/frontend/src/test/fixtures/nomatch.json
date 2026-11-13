@@ -38,7 +38,8 @@
           "musts": [
             "RAM 32 GB or more"
           ]
-        }
+        },
+        "budget_note": "Your budget of ₹20,000 is below everything I have: the cheapest laptop is ₹27,490."
       },
       {
         "type": "notice",
@@ -47,6 +48,14 @@
       {
         "type": "text",
         "text": "Nothing in the catalog meets every Must. I have not dropped any of them."
+      },
+      {
+        "type": "text",
+        "text": "Blocked by: Within your budget of ₹20,000. On its own it leaves 0 laptops. The lowest value in the catalog is ₹27,490."
+      },
+      {
+        "type": "text",
+        "text": "Blocked by: RAM 32 GB or more. On its own it leaves 0 laptops. The most RAM any laptop here has is 16 GB."
       },
       {
         "type": "text",

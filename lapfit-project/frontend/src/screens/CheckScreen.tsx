@@ -35,6 +35,7 @@ export function CheckScreen({ thread, compare, goto }: { thread: Thread; compare
       <h2 id="check-h">Check a seller or a listing</h2>
       <p className="muted screen-lead">Show me what you were told. I check it against the catalog, and I never say “buy” or “don’t buy”.</p>
       {hint && <p className="notice" role="note">From your picture{hint.laptop ? `: ${hint.laptop}` : ''}. Name the laptop in step 2.</p>}
+      <div className="check-form">
       <div className="step-card" role="group" aria-labelledby="chk-s1">
         <h3 id="chk-s1" className="step-h"><span className="step-n" aria-hidden="true">1</span>Add the listing</h3>
         <Dropzone onFile={(f) => void pic.attach(f)} preview={pic.img?.previewUrl} busy={pic.prep} onClear={pic.clear} />
@@ -53,7 +54,8 @@ export function CheckScreen({ thread, compare, goto }: { thread: Thread; compare
         <button type="button" className="link more-toggle" aria-expanded={more} aria-controls="chk-more" onClick={() => setMore(!more)}>{more ? 'Hide the details' : 'Add what you know: price, age, battery, warranty'}</button>
         <div id="chk-more" hidden={!more}>{more && <CheckDetails k={k} onChange={setK} />}</div>
       </div>
-      <button className="btn big-cta" disabled={!ready || busy} onClick={go}>{thread.cooldown > 0 ? `Wait ${fmtWait(thread.cooldown)}` : pic.prep ? 'Getting it ready…' : mode === 'picture' ? 'Read the picture' : 'Check it'}</button>
+      <div className="cta-row"><button className="btn big-cta" disabled={!ready || busy} onClick={go}>{thread.cooldown > 0 ? `Wait ${fmtWait(thread.cooldown)}` : pic.prep ? 'Getting it ready…' : mode === 'picture' ? 'Read the picture' : 'Check it'}</button></div>
+      </div>
       <ThreadView thread={thread} ctx={ctx} />
     </section>
   );

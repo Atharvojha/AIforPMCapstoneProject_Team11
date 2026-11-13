@@ -14,15 +14,20 @@
     "blocks": [
       {
         "type": "text",
-        "text": "Compared with the catalog listing for APPLE 2020 Macbook Air M1 · 8 GB / 256 GB (new-laptop specs, not this exact unit)."
+        "text": "I could not find Macbook Air M1 8GB 256GB in the LapFit catalog, so I will not guess its specs or price."
+      },
+      {
+        "type": "web_laptop",
+        "query": "Macbook Air M1 8GB 256GB",
+        "status": "off",
+        "note": "This laptop is not in the LapFit catalog, and web search is not switched on in this version, so I have nothing to show for it.",
+        "fields_note": "Read from the web pages below by an AI model and checked against their text. Not verified, may be wrong.",
+        "items": [],
+        "can_compare": false
       },
       {
         "type": "findings",
         "findings": [
-          {
-            "severity": "info",
-            "text": "Asking ₹40,000. New price is ₹86,990 (as of 10 Nov 2026). A used laptop often sells for ₹26,097 to ₹65,243. This is a sample range, not a price check."
-          },
           {
             "severity": "warn",
             "text": "Battery health is 65%. Below 70% usually means a replacement soon."

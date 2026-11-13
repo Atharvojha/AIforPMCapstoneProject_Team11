@@ -30,6 +30,7 @@
             "found": true,
             "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
             "variant_id": "FKL-10",
+            "launch_year": 2020,
             "warranty": {
               "status": "expired",
               "ends": "2025-03-15",
@@ -56,6 +57,7 @@
             "found": true,
             "name": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
             "variant_id": "FKL-14",
+            "launch_year": 2021,
             "warranty": {
               "status": "unknown",
               "note": "Add the purchase date (YYYY-MM-DD) to see the warranty end."

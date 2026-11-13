@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Block } from '../../lib/types';
+import type { Block, Needs } from '../../lib/types';
 import { Confetti } from '../viz/Confetti';
 import { BoardHero, BoardRow } from './BoardHero';
 import { useCtx } from '../ctx';
@@ -7,13 +7,14 @@ import { type Card, type SortInfo, isTie, priceKnown, musts, heroEyebrow } from 
 
 export type { Card };
 
-/** Says how the list is ordered and why, and lets the person re-order it. Choosing a sort re-sends the same needs with `sort` (the server re-runs the search; nothing is re-ordered on the device). */
+/** Says how the list is ordered and why, and lets the person re-order it. Choosing a sort re-sends the same needs with `sort` and REPLACES this reply in place (the server re-runs the search; nothing is re-ordered on the device). */
 function SortBar({ b }: { b: Block }) {
   const ctx = useCtx(); const sort = b.sort as SortInfo | undefined; const sorts = (b.sorts ?? []) as { key: string; label: string }[];
   if (!sort && sorts.length === 0 && !b.budget_note) return null;
   const choose = (k: { key: string; label: string }) => {
-    if (k.key === sort?.key) return; const resort = (ctx as any).resort as ((key: string, label: string) => void) | undefined;
-    if (resort) resort(k.key, k.label); else ctx.action({ ...(b.needs ? { needs: b.needs } : {}), sort: k.key }, `Sort by ${k.label.toLowerCase()}`);
+    if (k.key === sort?.key) return;
+    const needs = (b.needs ?? ctx.savedNeeds()) as Needs | null;   // the same needs, a different order: the reply is replaced in place, never a new chat turn
+    void ctx.resort({ ...(needs ? { needs } : {}), sort: k.key }, `Sort by ${k.label.toLowerCase()}`);
   };
   return (
     <div className="sortbar">

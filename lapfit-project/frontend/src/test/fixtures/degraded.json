@@ -39,38 +39,38 @@
       },
       {
         "type": "cards",
-        "title": "5 laptops within your budget",
+        "title": "Top 5 of the 9 laptops within your budget",
         "cards": [
           {
-            "variant_id": "FKL-09",
-            "model_id": 9,
-            "name": "ASUS VivoBook 15 (2022) Core i3 10th Gen · 8 GB / 512 GB",
+            "variant_id": "FKL-05",
+            "model_id": 5,
+            "name": "ASUS TUF Gaming F15 Core i5 10th Gen · 8 GB / 512 GB",
             "brand": "ASUS",
-            "price_inr": 33990,
-            "price_text": "₹33,990",
+            "price_inr": 58990,
+            "price_text": "₹58,990",
             "as_of": "2026-11-10",
             "as_of_text": "10 Nov 2026",
             "specs": {
               "ram_gb": 8,
               "storage_gb": 512,
               "display_size": 15.6,
-              "weight_kg": 1.8,
-              "battery_wh": 37,
-              "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Core i3 10th Gen",
-              "gpu": null,
+              "weight_kg": 2.3,
+              "battery_wh": 48,
+              "refresh_hz": 144,
+              "gpu_class": "dedicated",
+              "cpu": "Core i5 10th Gen",
+              "gpu": "NVIDIA GeForce GTX 1650",
               "hinge_type": "clamshell",
               "warranty_years": 1,
               "colours": []
             },
             "spec_lines": [
-              "15.6 inch screen, 1.8 kg",
+              "15.6 inch screen, 2.3 kg",
               "8 GB RAM, 512 GB storage",
-              "Core i3 10th Gen, no separate graphics listed",
+              "Core i5 10th Gen, NVIDIA GeForce GTX 1650",
               "Regular laptop (clamshell) (not yet verified)",
               "Warranty: 1 year (standard; keep the invoice)",
-              "Battery: 37 Wh"
+              "Battery: 48 Wh"
             ],
             "unknown_fields": [],
             "data_status": "Imported listing data, not human-verified",
@@ -78,32 +78,259 @@
               {
                 "label": "Within your budget of ₹60,000",
                 "ok": true,
-                "actual": "₹33,990"
+                "actual": "₹58,990"
               }
             ],
             "evidence": {
-              "n": 196,
-              "positive": 101,
-              "negative": 88,
-              "enough": true,
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
               "min_n": 20,
-              "text": "101 of 196 owner opinions are positive (machine-read, not human-verified)."
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹33,990, ₹26,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding.",
-              "101 of 196 owner opinions are positive (machine-read)."
+              "Ranked first on its recorded specs: 8 GB RAM, 512 GB storage, Core i5 10th Gen processor.",
+              "Costs ₹58,990, which uses 98% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
             ],
             "reasons": [
-              "Costs ₹33,990, ₹26,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding.",
-              "101 of 196 owner opinions are positive (machine-read)."
+              "Ranked first on its recorded specs: 8 GB RAM, 512 GB storage, Core i5 10th Gen processor.",
+              "Costs ₹58,990, which uses 98% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
             ],
             "image": {
-              "url": "https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",
-              "site": "5.imimg.com",
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/p/r/1/-original-imahg52nsgjmxhza.jpeg?q=20",
+              "site": "rukminim3.flixcart.com",
               "page": null,
-              "alt": "A silver ASUS VivoBook 15 laptop from 2022, powered by a Core i3 10th Gen processor, is shown open with its screen displ"
+              "alt": "The ASUS TUF Gaming F15 laptop, featuring a Core i5 10th Gen processor, displays its vibrant orange and yellow “TUF GAMI"
+            },
+            "match": {
+              "pct": 76,
+              "label": "76% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for coding: 76% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
+            }
+          },
+          {
+            "variant_id": "FKL-03",
+            "model_id": 3,
+            "name": "MSI GF63 Thin Core i5 11th Gen · 8 GB / 512 GB",
+            "brand": "MSI",
+            "price_inr": 51990,
+            "price_text": "₹51,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.86,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": "dedicated",
+              "cpu": "Core i5 11th Gen",
+              "gpu": "NVIDIA GeForce GTX 1650 Max-Q",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.86 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i5 11th Gen, NVIDIA GeForce GTX 1650 Max-Q",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹60,000",
+                "ok": true,
+                "actual": "₹51,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 11th Gen processor.",
+              "Costs ₹51,990, which uses 87% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
+            ],
+            "reasons": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 11th Gen processor.",
+              "Costs ₹51,990, which uses 87% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
+            ],
+            "image": {
+              "url": "https://rukmini1.flixcart.com/image/1500/1500/kb1470w0/computer/z/5/f/msi-na-gaming-laptop-original-imafsh7ahbgkmvtm.jpeg?q=70",
+              "site": "rukmini1.flixcart.com",
+              "page": null,
+              "alt": "The MSI GF63 Thin laptop with an 11th generation Core i5 processor is displayed open, showcasing its sleek black design,"
+            },
+            "match": {
+              "pct": 76,
+              "label": "76% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for coding: 76% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
+            }
+          },
+          {
+            "variant_id": "FKL-04",
+            "model_id": 4,
+            "name": "Lenovo IdeaPad Gaming Core i5 11th Gen · 8 GB / 512 GB",
+            "brand": "LENOVO",
+            "price_inr": 59990,
+            "price_text": "₹59,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 2.25,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": "dedicated",
+              "cpu": "Core i5 11th Gen",
+              "gpu": "NVIDIA GeForce GTX 1650",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 2.25 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i5 11th Gen, NVIDIA GeForce GTX 1650",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹60,000",
+                "ok": true,
+                "actual": "₹59,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 11th Gen processor.",
+              "Costs ₹59,990, which uses 100% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
+            ],
+            "reasons": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Core i5 11th Gen processor.",
+              "Costs ₹59,990, which uses 100% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
+            ],
+            "image": {
+              "url": "https://rukmini1.flixcart.com/image/1500/1500/ks99aq80/computer/y/z/7/na-gaming-laptop-lenovo-original-imag5ve3jvhgvsnx.jpeg?q=70",
+              "site": "rukmini1.flixcart.com",
+              "page": null,
+              "alt": "The laptop screen displays a high-performance gaming interface with a sleek sports car and \"IdeaPad Gaming\" branding, sh"
+            },
+            "match": {
+              "pct": 74,
+              "label": "74% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for coding: 74% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
+            }
+          },
+          {
+            "variant_id": "FKL-07",
+            "model_id": 2,
+            "name": "HP Pavilion Ryzen 5 Hexa Core AMD R5-5600H · 8 GB / 512 GB",
+            "brand": "HP",
+            "price_inr": 59990,
+            "price_text": "₹59,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.98,
+              "battery_wh": null,
+              "refresh_hz": 144,
+              "gpu_class": "dedicated",
+              "cpu": "Ryzen 5 Hexa Core AMD R5-5600H",
+              "gpu": "NVIDIA GeForce GTX 1650",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.98 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core AMD R5-5600H, NVIDIA GeForce GTX 1650",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹60,000",
+                "ok": true,
+                "actual": "₹59,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core AMD R5-5600H processor.",
+              "Costs ₹59,990, which uses 100% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
+            ],
+            "reasons": [
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core AMD R5-5600H processor.",
+              "Costs ₹59,990, which uses 100% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
+            ],
+            "image": {
+              "url": "https://rukmini1.flixcart.com/image/1500/1500/krtjgcw0/computer/p/n/g/15-ec2004ax-gaming-laptop-hp-original-imag5j3b48askf4b.jpeg?q=70",
+              "site": "rukmini1.flixcart.com",
+              "page": null,
+              "alt": "The sleek black HP Pavilion laptop with a purple illuminated logo and backlit keyboard is displayed against a white back"
+            },
+            "match": {
+              "pct": 74,
+              "label": "74% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for coding: 74% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)",
+                "Not recorded, so not counted: battery"
+              ]
             }
           },
           {
@@ -155,213 +382,77 @@
               "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
             },
             "fact_lines": [
-              "Costs ₹46,999, ₹13,001 under your budget of ₹60,000 (as of 10 Nov 2026).",
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core 5500U processor.",
+              "Costs ₹46,999, which uses 78% of your budget of ₹60,000 (as of 10 Nov 2026).",
               "8 GB RAM and 512 GB storage for coding.",
               "75 of 119 owner opinions are positive (machine-read)."
             ],
             "reasons": [
-              "Costs ₹46,999, ₹13,001 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding.",
-              "75 of 119 owner opinions are positive (machine-read)."
+              "Recorded specs: 8 GB RAM, 512 GB storage, Ryzen 5 Hexa Core 5500U processor.",
+              "Costs ₹46,999, which uses 78% of your budget of ₹60,000 (as of 10 Nov 2026).",
+              "8 GB RAM and 512 GB storage for coding."
             ],
             "image": {
               "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
               "site": "m.media-amazon.com",
               "page": null,
               "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
-            }
-          },
-          {
-            "variant_id": "FKL-13",
-            "model_id": 13,
-            "name": "HP Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
-            "brand": "HP",
-            "price_inr": 46990,
-            "price_text": "₹46,990",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 1.69,
-              "battery_wh": null,
-              "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Ryzen 5 Hexa Core 5500U",
-              "gpu": null,
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
             },
-            "spec_lines": [
-              "15.6 inch screen, 1.69 kg",
-              "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [
-              {
-                "label": "Within your budget of ₹60,000",
-                "ok": true,
-                "actual": "₹46,990"
-              }
-            ],
-            "evidence": {
-              "n": 0,
-              "positive": 0,
-              "negative": 0,
-              "enough": false,
-              "min_n": 20,
-              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
-            },
-            "fact_lines": [
-              "Costs ₹46,990, ₹13,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding."
-            ],
-            "reasons": [
-              "Costs ₹46,990, ₹13,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding."
-            ],
-            "image": {
-              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",
-              "site": "rukminim3.flixcart.com",
-              "page": null,
-              "alt": "The laptop screen displays the HP logo and a promotional message about India's number one brand, featuring a silver keyb"
-            }
-          },
-          {
-            "variant_id": "FKL-03",
-            "model_id": 3,
-            "name": "MSI GF63 Thin Core i5 11th Gen · 8 GB / 512 GB",
-            "brand": "MSI",
-            "price_inr": 51990,
-            "price_text": "₹51,990",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 1.86,
-              "battery_wh": null,
-              "refresh_hz": null,
-              "gpu_class": "dedicated",
-              "cpu": "Core i5 11th Gen",
-              "gpu": "NVIDIA GeForce GTX 1650 Max-Q",
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
-            },
-            "spec_lines": [
-              "15.6 inch screen, 1.86 kg",
-              "8 GB RAM, 512 GB storage",
-              "Core i5 11th Gen, NVIDIA GeForce GTX 1650 Max-Q",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [
-              {
-                "label": "Within your budget of ₹60,000",
-                "ok": true,
-                "actual": "₹51,990"
-              }
-            ],
-            "evidence": {
-              "n": 0,
-              "positive": 0,
-              "negative": 0,
-              "enough": false,
-              "min_n": 20,
-              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
-            },
-            "fact_lines": [
-              "Costs ₹51,990, ₹8,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding."
-            ],
-            "reasons": [
-              "Costs ₹51,990, ₹8,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding."
-            ],
-            "image": {
-              "url": "https://rukmini1.flixcart.com/image/1500/1500/kb1470w0/computer/z/5/f/msi-na-gaming-laptop-original-imafsh7ahbgkmvtm.jpeg?q=70",
-              "site": "rukmini1.flixcart.com",
-              "page": null,
-              "alt": "The MSI GF63 Thin laptop with an 11th generation Core i5 processor is displayed open, showcasing its sleek black design,"
-            }
-          },
-          {
-            "variant_id": "FKL-05",
-            "model_id": 5,
-            "name": "ASUS TUF Gaming F15 Core i5 10th Gen · 8 GB / 512 GB",
-            "brand": "ASUS",
-            "price_inr": 58990,
-            "price_text": "₹58,990",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 2.3,
-              "battery_wh": 48,
-              "refresh_hz": 144,
-              "gpu_class": "dedicated",
-              "cpu": "Core i5 10th Gen",
-              "gpu": "NVIDIA GeForce GTX 1650",
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
-            },
-            "spec_lines": [
-              "15.6 inch screen, 2.3 kg",
-              "8 GB RAM, 512 GB storage",
-              "Core i5 10th Gen, NVIDIA GeForce GTX 1650",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)",
-              "Battery: 48 Wh"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [
-              {
-                "label": "Within your budget of ₹60,000",
-                "ok": true,
-                "actual": "₹58,990"
-              }
-            ],
-            "evidence": {
-              "n": 0,
-              "positive": 0,
-              "negative": 0,
-              "enough": false,
-              "min_n": 20,
-              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
-            },
-            "fact_lines": [
-              "Costs ₹58,990, ₹1,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding."
-            ],
-            "reasons": [
-              "Costs ₹58,990, ₹1,010 under your budget of ₹60,000 (as of 10 Nov 2026).",
-              "8 GB RAM and 512 GB storage for coding."
-            ],
-            "image": {
-              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/p/r/1/-original-imahg52nsgjmxhza.jpeg?q=20",
-              "site": "rukminim3.flixcart.com",
-              "page": null,
-              "alt": "The ASUS TUF Gaming F15 laptop, featuring a Core i5 10th Gen processor, displays its vibrant orange and yellow “TUF GAMI"
+            "match": {
+              "pct": 71,
+              "label": "71% match",
+              "basis": [
+                "Meets all 1 of your Must and your budget",
+                "Strength for coding: 71% of the strongest laptop I have for it (from recorded RAM, storage, processor, graphics, screen, weight, battery)"
+              ]
             }
           }
         ],
         "first": 3,
         "requireAll": true,
-        "compare": true
+        "compare": true,
+        "needs": {
+          "budget_max_inr": 60000,
+          "budget_min_inr": null,
+          "musts": [],
+          "shoulds": [],
+          "nices": [],
+          "use_cases": [
+            "coding"
+          ]
+        },
+        "sort": {
+          "key": "best",
+          "label": "Best fit",
+          "note": "Ordered by how well their recorded specs suit what you said, with your Shoulds and Nice-to-haves counted. Price only breaks ties."
+        },
+        "sorts": [
+          {
+            "key": "best",
+            "label": "Best fit"
+          },
+          {
+            "key": "budget",
+            "label": "Closest to budget"
+          },
+          {
+            "key": "price_low",
+            "label": "Price: low to high"
+          },
+          {
+            "key": "price_high",
+            "label": "Price: high to low"
+          },
+          {
+            "key": "light",
+            "label": "Lightest"
+          },
+          {
+            "key": "reviews",
+            "label": "Most owner opinions"
+          }
+        ],
+        "tie": true
       },
       {
         "type": "provenance",
@@ -373,7 +464,7 @@
         },
         "dataset": {
           "used": true,
-          "opinions": 315,
+          "opinions": 119,
           "machine_read": true,
           "lenses": [],
           "reviews_total": 3987,
@@ -394,10 +485,9 @@
         "images": {
           "used": true,
           "sites": [
-            "5.imimg.com",
-            "m.media-amazon.com",
             "rukminim3.flixcart.com",
-            "rukmini1.flixcart.com"
+            "rukmini1.flixcart.com",
+            "m.media-amazon.com"
           ]
         },
         "checks": {

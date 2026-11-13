@@ -345,7 +345,7 @@
         "topic": null,
         "status": "ok",
         "provider": "fake-live",
-        "fetched_at": "2026-11-13T17:04:59.106Z",
+        "fetched_at": "2026-11-13T20:25:33.450Z",
         "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
         "items": [
           {
@@ -371,113 +371,111 @@
         "title": "Alternatives that meet every Must at the same or a lower price",
         "cards": [
           {
-            "variant_id": "FKL-11",
-            "model_id": 11,
-            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
-            "brand": "LENOVO",
-            "price_inr": 46999,
-            "price_text": "₹46,999",
-            "as_of": "2026-11-10",
-            "as_of_text": "10 Nov 2026",
-            "specs": {
-              "ram_gb": 8,
-              "storage_gb": 512,
-              "display_size": 15.6,
-              "weight_kg": 1.65,
-              "battery_wh": 45,
-              "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Ryzen 5 Hexa Core 5500U",
-              "gpu": null,
-              "hinge_type": "clamshell",
-              "warranty_years": 1,
-              "colours": []
-            },
-            "spec_lines": [
-              "15.6 inch screen, 1.65 kg",
-              "8 GB RAM, 512 GB storage",
-              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
-              "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)",
-              "Battery: 45 Wh"
-            ],
-            "unknown_fields": [],
-            "data_status": "Imported listing data, not human-verified",
-            "musts": [],
-            "evidence": {
-              "n": 119,
-              "positive": 75,
-              "negative": 42,
-              "enough": true,
-              "min_n": 20,
-              "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
-            },
-            "fact_lines": [
-              "Costs ₹46,999, ₹39,991 less than the laptop you are considering."
-            ],
-            "reasons": [
-              "Costs ₹46,999, ₹39,991 less than the laptop you are considering."
-            ],
-            "image": {
-              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
-              "site": "m.media-amazon.com",
-              "page": null,
-              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
-            }
-          },
-          {
-            "variant_id": "FKL-09",
-            "model_id": 9,
-            "name": "ASUS VivoBook 15 (2022) Core i3 10th Gen · 8 GB / 512 GB",
+            "variant_id": "FKL-08",
+            "model_id": 8,
+            "name": "ASUS Vivobook Pro 15 Ryzen 7 Octa Core AMD R7-4800H · 16 GB / 512 GB",
             "brand": "ASUS",
-            "price_inr": 33990,
-            "price_text": "₹33,990",
+            "price_inr": 66990,
+            "price_text": "₹66,990",
             "as_of": "2026-11-10",
             "as_of_text": "10 Nov 2026",
             "specs": {
-              "ram_gb": 8,
+              "ram_gb": 16,
               "storage_gb": 512,
               "display_size": 15.6,
               "weight_kg": 1.8,
-              "battery_wh": 37,
+              "battery_wh": null,
               "refresh_hz": null,
-              "gpu_class": null,
-              "cpu": "Core i3 10th Gen",
-              "gpu": null,
+              "gpu_class": "dedicated",
+              "cpu": "Ryzen 7 Octa Core AMD R7-4800H",
+              "gpu": "NVIDIA GeForce GTX 1650 Max Q",
               "hinge_type": "clamshell",
               "warranty_years": 1,
               "colours": []
             },
             "spec_lines": [
               "15.6 inch screen, 1.8 kg",
-              "8 GB RAM, 512 GB storage",
-              "Core i3 10th Gen, no separate graphics listed",
+              "16 GB RAM, 512 GB storage",
+              "Ryzen 7 Octa Core AMD R7-4800H, NVIDIA GeForce GTX 1650 Max Q",
               "Regular laptop (clamshell) (not yet verified)",
-              "Warranty: 1 year (standard; keep the invoice)",
-              "Battery: 37 Wh"
+              "Warranty: 1 year (standard; keep the invoice)"
             ],
             "unknown_fields": [],
             "data_status": "Imported listing data, not human-verified",
             "musts": [],
             "evidence": {
-              "n": 196,
-              "positive": 101,
-              "negative": 88,
-              "enough": true,
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
               "min_n": 20,
-              "text": "101 of 196 owner opinions are positive (machine-read, not human-verified)."
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
             },
             "fact_lines": [
-              "Costs ₹33,990, ₹53,000 less than the laptop you are considering."
+              "Costs ₹66,990, ₹20,000 less than the laptop you are considering."
             ],
             "reasons": [
-              "Costs ₹33,990, ₹53,000 less than the laptop you are considering."
+              "Costs ₹66,990, ₹20,000 less than the laptop you are considering."
             ],
             "image": {
-              "url": "https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",
-              "site": "5.imimg.com",
+              "url": "https://in.store.asus.com/media/catalog/product/r/f/rf-m6500qf_cl_slvr_fngrprnt_1__1.jpg",
+              "site": "in.store.asus.com",
               "page": null,
-              "alt": "A silver ASUS VivoBook 15 laptop from 2022, powered by a Core i3 10th Gen processor, is shown open with its screen displ"
+              "alt": "The refurbished ASUS Vivobook Pro 15 laptop with Ryzen 7 octa-core AMD R7-4800H processor is displayed open, showcasing "
+            }
+          },
+          {
+            "variant_id": "FKL-06",
+            "model_id": 6,
+            "name": "MSI Core i5 11th Gen · 8 GB / 512 GB",
+            "brand": "MSI",
+            "price_inr": 63600,
+            "price_text": "₹63,600",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.86,
+              "battery_wh": null,
+              "refresh_hz": 144,
+              "gpu_class": "dedicated",
+              "cpu": "Core i5 11th Gen",
+              "gpu": "NVIDIA GeForce RTX 3050",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.86 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i5 11th Gen, NVIDIA GeForce RTX 3050",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Costs ₹63,600, ₹23,390 less than the laptop you are considering."
+            ],
+            "reasons": [
+              "Costs ₹63,600, ₹23,390 less than the laptop you are considering."
+            ],
+            "image": {
+              "url": "https://assets.nvidia.partners/images/png/comgrdc8jb73d8j7.png",
+              "site": "assets.nvidia.partners",
+              "page": null,
+              "alt": "A black MSI gaming laptop with a 144 Hz display showcases its Intel Core i5 11th Gen processor and NVIDIA GeForce RTX gr"
             }
           }
         ],
@@ -494,7 +492,7 @@
         },
         "dataset": {
           "used": true,
-          "opinions": 783,
+          "opinions": 468,
           "machine_read": true,
           "lenses": [],
           "reviews_total": 3987,
@@ -507,7 +505,7 @@
             "ok"
           ],
           "provider": "fake-live",
-          "fetched_at": "2026-11-13T17:04:59.106Z"
+          "fetched_at": "2026-11-13T20:25:33.450Z"
         },
         "ai": {
           "reader": "none needed",
@@ -518,8 +516,8 @@
           "used": true,
           "sites": [
             "rukminim3.flixcart.com",
-            "m.media-amazon.com",
-            "5.imimg.com"
+            "in.store.asus.com",
+            "assets.nvidia.partners"
           ]
         },
         "checks": {
