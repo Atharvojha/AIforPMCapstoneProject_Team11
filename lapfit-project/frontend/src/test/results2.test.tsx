@@ -23,7 +23,7 @@ describe('sort', () => {
     expect(resort).toHaveBeenCalledWith({ needs, sort: 'price_low' }, expect.stringMatching(/lowest price/i));
   });
   it('falls back to the saved needs when the block carries none', async () => {
-    const resort = vi.fn(); show({ ...cards(), sort: { key: 'best', label: 'Best fit', note: '' }, sorts }, { resort, savedNeeds: () => ({ budget_max_inr: 50000 }) } as any);
+    const resort = vi.fn(); show({ ...cards(), needs: undefined, sort: { key: 'best', label: 'Best fit', note: '' }, sorts }, { resort, savedNeeds: () => ({ budget_max_inr: 50000 }) } as any);
     await userEvent.click(screen.getByRole('button', { name: 'Lightest' })); expect(resort).toHaveBeenCalledWith({ needs: { budget_max_inr: 50000 }, sort: 'light' }, expect.any(String));
   });
   it('claims "Best fit" only when sorted by best fit', () => {
