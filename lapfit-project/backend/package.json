@@ -1,0 +1,25 @@
+{
+  "name": "lapfit-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "LapFit backend: Postgres schema and tools (Supabase), Edge Function code, import and tests.",
+  "scripts": {
+    "test": "node --import tsx --test tests/*.test.ts",
+    "import:test": "node --import tsx scripts/import-existing.ts",
+    "matrix": "node --import tsx tests/matrix.mts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.0",
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^20.14.0",
+    "pg": "^8.12.0",
+    "@types/pg": "^8.11.6",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

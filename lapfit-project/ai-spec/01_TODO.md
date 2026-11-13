@@ -40,6 +40,30 @@ New items from this round:
 | N24 | Run five real-student sessions (to-do 9.1) | Product owner |
 
 
+## Update 13 Nov 2026 (backend built and deployed)
+
+| Item | Status now |
+|---|---|
+| N14 Supabase project, secrets, settings table | **Done.** Project `lapfit` created; Gemini, Tavily and session-salt secrets set; settings table seeded (`../build-plan/06_OPERATIONS_RUNBOOK.md`) |
+| N15 SQLite-to-Postgres import with row-count checks | **Done.** Counts equal the source: 3,987 reviews, 1,316 opinions, 29 variants, 14 prices |
+| N21 Make or n8n for offline jobs | **Not built.** Decision D-42: no webhooks and no automation tool in version 1; the reviewer notification is the first place one would go |
+| Backend: every input type, live reviews, rate limiting, pre-send gate | **Built and tested** (162 tests). Log: `../build-plan/05_BACKEND_BUILD_LOG.md`; decisions D-32 to D-46 |
+| Architecture diagrams | **Written**: `../build-plan/04_ARCHITECTURE_DIAGRAMS.md` (not yet rendered by anyone; open it and report any broken diagram) |
+| Deployed Edge Function | **Live and tested** with real Gemini, Tavily and Postgres (latency 3 to 12 s, dominated by Gemini) |
+
+**New open items from the build**
+
+| # | Item | Owner (proposed) |
+|---|---|---|
+| N25 | Move Gemini to a paid plan before real users type into the product (free-tier inputs may be used by Google); this also unlocks Google Search grounding | Product owner |
+| N26 | Raise the rate limits before any group demo (shared network address); set `ALLOWED_ORIGIN` to the frontend | Engineering lead |
+| N27 | Build the reviewer notification (database webhook to Make or n8n) so owner reports do not sit unseen | Engineering lead |
+| N28 | Build the Lovable frontend against the endpoint (handle 429, 413, notice blocks) | Frontend owner |
+| N29 | Verify the imported catalog with a named person, or keep the "Sample data" label | Data lead |
+| N30 | Test the model reader on a frozen set across English, Hinglish, Telugu-English and Tamil-English; compare with the rules reader | Reviewers |
+| N31 | Add a price staleness warning and a scheduled price refresh | Engineering lead |
+| N32 | Record the applied migrations in Supabase's history (or switch to `supabase db push`) | Engineering lead |
+
 ## Research round 2 (13 Nov 2026): you asked me to research and answer
 
 | Item | Result |
