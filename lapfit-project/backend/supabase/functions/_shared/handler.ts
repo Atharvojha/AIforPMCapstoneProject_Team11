@@ -10,22 +10,43 @@ import { compare } from './flows/compare.ts';
 import { ownerVoice } from './flows/owner.ts';
 import { buyForOthers } from './flows/team.ts';
 import { marketPulse, brandInsights } from './flows/market.ts';
-import { sellPlan } from './flows/sell.ts';
+import { sellPlan, type SellInput } from './flows/sell.ts';
 import { myLaptops, type Owned } from './flows/mylaptops.ts';
 import { submitExperience, type ExperienceInput } from './flows/experience.ts';
 import { liveFor } from './flows/livecards.ts';
 import { writeReasons } from './reasons.ts';
 import { DEGRADED_NOTICE } from './guard.ts';
+import { buildProvenance } from './provenance.ts';
+import { readImage, validateImage } from './flows/image.ts';
+import { whereToBuy, logClick } from './flows/buy.ts';
+import { fmtDate } from './util.ts';
+import { checkedContext, followUpIntent, pickRef, refersToCurrent } from './followup.ts';
+import { laptopQuestion, needsLinesOf } from './flows/question.ts';
 import { gateCards, NO_MATCH } from './gate.ts';
 import { scrub, looksLikeUrl } from './util.ts';
-import type { Deps, Reply, Block, Needs, RawCriterion } from './types.ts';
+import type { Deps, Reply, Block, Needs, RawCriterion, Settings } from './types.ts';
 import { publicCard, type Card } from './cards.ts';
 
 export interface QueryInput {
   text?: string; history?: string[]; needs?: Needs; prior_needs?: Needs; flow?: string;
   image?: unknown; live?: boolean; session_hash?: string; context?: { max_price?: number };
-  owned?: Owned[]; experience?: ExperienceInput; receipt?: string; action?: 'report_status' | 'report_delete' | 'submit_experience' | 'live_reviews'; variant_id?: string; topic?: string;
+  owned?: Owned[]; experience?: ExperienceInput; receipt?: string; client?: { what: string; screen?: string; message?: string; status?: number; action?: string };
+  intent?: string; retailer?: string; from?: string;
+  focus?: { variant_id: string; name?: string } | null; shown?: { variant_id: string; name?: string }[];
+  action?: 'where_to_buy' | 'outbound_click' | 'read_image' | 'data_status' | 'client_log' | 'report_status' | 'report_delete' | 'submit_experience' | 'live_reviews' | 'compare' | 'owner_voice' | 'second_opinion' | 'sell_plan' | 'used_check' | 'catalog'; variant_id?: string; variant_ids?: string[]; topic?: string;
+  sell?: SellInput; listing?: import('./router.ts').Listing;
 }
+interface Failure { stage: string; kind: string; message: string }
+const CLIENT_KINDS = ['network', 'timeout', 'server', 'auth', 'bad_request', 'too_large', 'ui_crash'];
+const inputKind = (i: QueryInput) => (i.action ? `action:${i.action}` : i.owned ? 'owned' : i.experience ? 'experience' : i.needs && !i.text ? 'needs' : 'text');
+/** The one honest line about the data. Says what is saved, what is live, and what no person has checked. */
+export function dataNotice(settings: Settings): string {
+  const ds = settings.DATA_STATUS ?? {}; const when = ds.prices_as_of ? ` from ${fmtDate(ds.prices_as_of)}` : '';
+  const verified = Number(ds.verified_variants ?? 0) > 0 ? 'Some specs are checked by a person.' : 'Specs are imported listing data that no person has checked yet.';
+  return `Prices are a saved snapshot${when}, not live. ${verified} Web reviews are fetched live when you ask.`;
+}
+/** The kill switch for web pictures: remove every picture from the reply. */
+export function stripImages(blocks: Block[]) { for (const b of blocks) { if (b.type === 'cards') for (const c of b.cards ?? []) c.image = null; if (b.type === 'compare') for (const l of b.laptops ?? []) l.image = null; } }
 const FOOTER = 'LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.';
 const MAX_TEXT = 4000;
 const HELP_CHOICES = [{ label: 'Get a shortlist for my budget', send: 'Suggest a laptop under 60k' }, { label: 'Check a laptop I am considering', send: 'Should I buy the Macbook Air M1?' }, { label: 'Check what a seller told me', send: 'The seller said: ' }, { label: 'Compare two laptops', send: 'Compare ' }, { label: 'Check a used listing', send: 'Used laptop: ' }, { label: 'What owners say', send: 'What do owners say about ' }];
@@ -61,23 +82,43 @@ export function cleanText(raw: string): { text: string; notices: string[] } {
 export async function handleQuery(deps: Deps, input: QueryInput): Promise<Reply> {
   const { tools, settings, requestId } = deps; const t0 = Date.now();
   const dataMode = settings.data_mode ?? 'course';
-  const reply: Reply = { ok: true, request_id: requestId, flow: null, language: 'English', router_mode: null, notice: dataMode === 'production' ? '' : 'Course project: sample data, not for real purchases.', footer: FOOTER, data_mode: dataMode, blocks: [], ignored_instructions: [], settings_version: settings._version ?? 0, data_version: null };
+  const reply: Reply = { ok: true, request_id: requestId, flow: null, language: 'English', router_mode: null, notice: dataMode === 'production' ? '' : dataNotice(settings), footer: FOOTER, data_mode: dataMode, blocks: [], ignored_instructions: [], settings_version: settings._version ?? 0, data_version: null };
   const tm: Record<string, number> = {}; const lap = (k: string, since: number) => { tm[k] = Date.now() - since; };
   let textLen = 0; let outcome = 'ok'; let extra: Record<string, unknown> = {};
+  // what the log records: the stage we are in, hard failures (thrown) and soft failures (handled, but worth knowing)
+  let stage = 'start'; let errorStage: string | undefined; let errorMessage: string | undefined; let loggedText: string | undefined; let skipLog = false;
+  const failures: Failure[] = []; const detail: Record<string, unknown> = {}; let lensesUsed: string[] = [];
   const finish = async () => {
     tm.total_ms = Date.now() - t0; reply.timings = tm;
+    if ((settings.FEATURE_FLAGS ?? {}).web_images === false) stripImages(reply.blocks);
+    // the answer receipt: which sources fed this answer (built from the reply itself, so it cannot claim a source that was not used)
+    if (!['client_log', 'data_status', 'catalog', 'outbound_click'].includes(String(reply.flow)) && !reply.blocks.some((b) => b.type === 'provenance')) {
+      const prov = buildProvenance({ blocks: reply.blocks, routerMode: reply.router_mode, reasonsMode: detail.reasons_mode as string | undefined, lenses: lensesUsed, degraded: deps.degraded ?? null, settings, gateRan: reply.blocks.some((b) => b.type === 'cards'), liveProvider: deps.live?.name ?? null, vision: !!(detail.image as any)?.kind, affiliateLinks: reply.blocks.some((b) => b.type === 'where_to_buy' && (b.links as any[]).some((l) => l.affiliate)) });
+      if (prov) reply.blocks.push(prov);
+    }
     if (!reply.blocks.length) reply.blocks.push({ type: 'text', text: 'I did not get anything I could use. Tell me what you need, for example: "laptop for coding under 60k".' });
-    try { await tools.call('log_event', { kind: 'query', request_id: requestId, flow: reply.flow, outcome, language: reply.language, router_mode: reply.router_mode, duration_ms: Date.now() - t0, text_len: textLen, ...extra }); } catch { /* logging never breaks an answer */ }
+    if (!skipLog) {
+      try {
+        const attempts = deps.model?.drain?.() ?? [];
+        for (const a of attempts) if (!a.ok) failures.push({ stage: 'model', kind: 'attempt_failed', message: `${a.model}: ${a.error}` });
+        for (const b of reply.blocks) if (b.type === 'live_reviews' && (b.status === 'error' || b.status === 'limit')) failures.push({ stage: 'live', kind: String(b.status), message: String(b.error ?? b.note).slice(0, 120) });
+        await tools.call('log_event', { kind: 'query', request_id: requestId, flow: reply.flow, outcome, language: reply.language, router_mode: reply.router_mode, duration_ms: tm.total_ms, text_len: textLen,
+          settings_version: String(settings._version ?? ''), visitor: input.session_hash, input_kind: inputKind(input), status: 200, error_stage: errorStage, error_message: errorMessage, text_scrubbed: loggedText,
+          timings: tm, blocks: reply.blocks.map((b) => b.type), detail: { ...detail, ...extra, failures, model_attempts: attempts, degraded: deps.degraded ?? null, ignored: reply.ignored_instructions.length } });
+      } catch { /* logging never breaks an answer */ }
+    }
     return reply;
   };
   try { await run(); } catch (e) {
-    outcome = 'error'; reply.blocks = [{ type: 'text', text: 'Something went wrong on my side, and I would rather say so than guess. Please try again, or use the form.' }];
+    outcome = 'error'; errorStage = stage; errorMessage = String((e as Error)?.message ?? e).slice(0, 200);
+    reply.blocks = [{ type: 'text', text: 'Something went wrong on my side, and I would rather say so than guess. Please try again, or use the form.' }];
     try { console.error(requestId, (e as Error)?.message); } catch { /* ignore */ }
   }
   return finish();
 
   async function run() {
     if (deps.degraded) reply.blocks.push({ type: 'notice', text: DEGRADED_NOTICE[deps.degraded] ?? DEGRADED_NOTICE.limiter_unavailable });
+    stage = input.action ? `action:${input.action}` : input.owned ? 'action:owned' : input.experience ? 'action:experience' : 'clean';
     const flags = settings.FEATURE_FLAGS ?? {}; const session = input.experience?.session_hash ?? input.session_hash ?? 'anon';
     // ---- structured requests (no text reading needed) ----
     if (input.action === 'submit_experience' || input.experience) { reply.flow = 'submit_experience'; reply.blocks.push(...(await submitExperience(deps, { ...(input.experience ?? {}), session_hash: session })).blocks); return; }
@@ -88,21 +129,75 @@ export async function handleQuery(deps: Deps, input: QueryInput): Promise<Reply>
       if (!v.found) reply.blocks.push({ type: 'text', text: 'That laptop is not in the catalog.' }); else reply.blocks.push(...(await liveFor(deps, [v.specs], input.topic)));
       return;
     }
+    if (input.action === 'data_status') {
+      reply.flow = 'data_status'; const ds = settings.DATA_STATUS ?? {};
+      reply.blocks.push({ type: 'data_status', ...ds, data_mode: dataMode, notice: dataNotice(settings), live_source: deps.live?.name ?? null, ai_model: deps.model?.name ?? null });
+      return;
+    }
+    // publish cards that came from a direct path: template wording, then the same pre-send gate as every other answer
+    const publishCards = async (cs: Card[]) => {
+      if (!cs.length) return; await writeReasons(null, cs, 'English', { maxWords: 25, timeoutMs: 100 });
+      const ok = await gateCards(tools, requestId, cs, { requireAll: false, maxWords: 25 });
+      for (const b of reply.blocks) if (b.type === 'cards') b.cards = (b.cards as Card[]).filter((c) => ok.some((k) => k.variant_id === c.variant_id)).map(publicCard);
+      reply.blocks = reply.blocks.filter((b) => !(b.type === 'cards' && !(b.cards as unknown[]).length));
+    };
+    // a photo or screenshot: read by the vision model into fields, validated in code, then checked against the catalog. Never stored or logged.
+    if (input.action === 'read_image') {
+      reply.flow = 'image'; const v = validateImage(input.image, settings.IMAGE_LIMITS ?? {});
+      if (!v.ok) { reply.blocks.push({ type: 'text', text: v.reason }); outcome = 'bad_image'; return; }
+      detail.image = { bytes: v.bytes, mime: v.image.mime };
+      if (!deps.model) { reply.blocks.push({ type: 'text', text: 'Reading pictures needs the smart reader, which is not available to you right now (it is switched off, or you have reached a limit). Please type the details instead.' }, { type: 'choices', question: 'What would you like to do?', choices: [{ label: 'Check a used listing', send: 'Used laptop: ' }, { label: 'Check what a seller said', send: 'The seller said: ' }] }); outcome = 'image_unavailable'; return; }
+      const g = await tools.call<any>('image_gate', { visitor: session });
+      if (!g.allowed) { reply.blocks.push({ type: 'text', text: 'You have sent several pictures recently. Please try again a little later, or type the details.' }); outcome = 'rate_limited'; detail.retry_after = g.retry_after; return; }
+      try {
+        const r = await readImage(deps, v.image, input.intent); detail.image = { ...(detail.image as object), kind: r.read?.kind, readable: r.read?.readable, confidence: r.read?.confidence, concerns: r.read?.concerns.length };
+        reply.blocks.push(...r.blocks); await publishCards(r.cards);
+      } catch (e) {
+        failures.push({ stage: 'image', kind: 'read_failed', message: String((e as Error)?.message ?? e).slice(0, 120) }); outcome = 'image_failed';
+        reply.blocks.push({ type: 'text', text: 'I could not read that picture just now. Please try again, or type the details instead.' });
+      }
+      return;
+    }
+    if (input.action === 'where_to_buy' && input.variant_id) { reply.flow = 'where_to_buy'; reply.blocks.push(...(await whereToBuy(deps, input.variant_id))); return; }
+    if (input.action === 'outbound_click') { skipLog = true; reply.flow = 'outbound_click'; await logClick(deps, { variantId: input.variant_id, retailer: String(input.retailer ?? ''), visitor: input.session_hash, from: input.from }); reply.blocks.push({ type: 'ack' }); return; }
+    // a failure that only the browser can see (network down, a timeout, a crashed screen)
+    if (input.action === 'client_log') {
+      skipLog = true; reply.flow = 'client_log'; const c = input.client;
+      if (c && CLIENT_KINDS.includes(c.what)) await tools.call('log_event', { kind: 'client', request_id: requestId, what: c.what, screen: String(c.screen ?? '').slice(0, 40), message: String(c.message ?? '').slice(0, 300), status: c.status, action: String(c.action ?? '').slice(0, 40), visitor: input.session_hash });
+      reply.blocks.push({ type: 'ack' }); return;
+    }
+    // direct actions by laptop id: no text reading, no model call for the read step
+    if (input.action === 'catalog') { reply.flow = 'catalog'; const n = await tools.call<any>('list_names', {}); reply.blocks.push({ type: 'catalog', rows: n.rows.map((r: any) => ({ variant_id: r.variant_id, model_id: r.model_id, name: r.display_name, brand: r.brand, price_inr: r.price_inr, ram_gb: r.ram_gb, storage_gb: r.storage_gb, recommendable: r.recommendable, display_size: r.display_size ?? null, weight_kg: r.weight_kg ?? null, battery_wh: r.battery_wh ?? null, refresh_hz: r.refresh_hz ?? null, gpu_class: r.gpu_class ?? null })) }); return; }
+    if (input.action === 'compare') { reply.flow = 'compare'; reply.blocks.push(...(await compare(deps, [], input.live === true, input.variant_ids ?? [])).blocks); return; }
+    if (input.action === 'owner_voice' && input.variant_id) { reply.flow = 'owner_voice'; reply.blocks.push(...(await ownerVoice(deps, undefined, input.topic ?? '', input.variant_id)).blocks); return; }
+    if (input.action === 'second_opinion' && input.variant_id) {
+      reply.flow = 'second_opinion'; const empty = { budget_max_inr: null, budget_min_inr: null, musts: [], shoulds: [], nices: [], use_cases: [] } as Needs;
+      const r = await secondOpinionAndPitch(deps, { flow: 'second_opinion', confidence: 1, language: 'English', needs: empty, laptop_mentions: [], claims: [], listing: null, ignored_instructions: [], clarifying_question: null, choices: [], tone: 'normal', followup_flow: null }, input.needs ?? empty, input.variant_id);
+      reply.blocks.push(...r.blocks);
+      if (r.cards.length) { await writeReasons(null, r.cards, 'English', { maxWords: 25, timeoutMs: 100 }); const ok = await gateCards(tools, requestId, r.cards, { requireAll: false, maxWords: 25 }); for (const b of reply.blocks) if (b.type === 'cards') b.cards = (b.cards as Card[]).filter((c) => ok.some((k) => k.variant_id === c.variant_id)).map(publicCard); reply.blocks = reply.blocks.filter((b) => !(b.type === 'cards' && !(b.cards as unknown[]).length)); }
+      return;
+    }
+    if (input.action === 'sell_plan' && input.variant_id) { reply.flow = 'sell_laptop'; reply.blocks.push(...(await sellPlan(deps, undefined, null, '', { variantId: input.variant_id, input: input.sell ?? {} })).blocks); return; }
+    if (input.action === 'used_check') { reply.flow = 'used_check'; reply.blocks.push(...(await usedCheck(deps, input.listing ?? null, undefined, input.variant_id)).blocks); return; }
     if (input.owned) { reply.flow = 'my_laptops'; reply.blocks.push(...(await myLaptops(deps, input.owned, (deps.now?.() ?? new Date()).toISOString().slice(0, 10))).blocks); return; }
 
     // ---- clean the text ----
-    const cleaned = cleanText(input.text ?? ''); const text = cleaned.text; textLen = text.length;
+    const cleaned = cleanText(input.text ?? ''); const text = cleaned.text; textLen = text.length; loggedText = text ? scrub(text) : undefined;
     for (const n of cleaned.notices) reply.blocks.push({ type: 'notice', text: n });
-    if (input.image) reply.blocks.push({ type: 'notice', text: 'Reading photos is not switched on in this version. Please type the details (laptop name, price, battery health, what the seller said).' });
+    if (input.image) reply.blocks.push({ type: 'notice', text: 'To read a picture, use the camera button on the Ask screen. For now I am only using your typed words.' });
     if (flags.router_enabled === false && !input.needs) { reply.blocks.push({ type: 'text', text: 'Typed requests are paused. Use the form.' }); outcome = 'paused'; return; }
     if (!text && !input.needs) { reply.blocks.push({ type: 'choices', question: 'Tell me what you need, or pick one:', choices: HELP_CHOICES.slice(0, 4) }); outcome = 'empty'; return; }
 
     // ---- read it ----
-    let router: RouterResult; const tRouter = Date.now();
-    if (input.needs && !text) { router = { flow: 'shortlist', confidence: 1, language: 'English', needs: input.needs, laptop_mentions: [], claims: [], listing: null, ignored_instructions: [], clarifying_question: null, choices: [], tone: 'normal', followup_flow: null }; reply.router_mode = 'form'; }
+    stage = 'router'; let router: RouterResult; const tRouter = Date.now();
+    // what the browser says the person is looking at, checked against the catalog (ids and names only, never typed text)
+    const ctxInfo = await checkedContext(deps, { focus: input.focus, shown: input.shown });
+    const followIntent = text && !input.needs && !input.flow ? followUpIntent(text, ctxInfo) : null;
+    if (followIntent) { router = { flow: 'laptop_question', confidence: 1, language: 'English', needs: input.prior_needs ?? ({ budget_max_inr: null, budget_min_inr: null, musts: [], shoulds: [], nices: [], use_cases: [] } as Needs), laptop_mentions: [], claims: [], listing: null, ignored_instructions: [], clarifying_question: null, choices: [], tone: 'normal', followup_flow: null }; reply.router_mode = 'context'; }
+    else if (input.needs && !text) { router = { flow: 'shortlist', confidence: 1, language: 'English', needs: input.needs, laptop_mentions: [], claims: [], listing: null, ignored_instructions: [], clarifying_question: null, choices: [], tone: 'normal', followup_flow: null }; reply.router_mode = 'form'; }
     else if (deps.model) {
-      try { router = await routeWithModel(deps.model, { text, history: input.history }, settings.ROUTER_TIMEOUT_MS ?? 8000); reply.router_mode = 'model'; { const rc = reconcileFlow(text, router); router = rc.router; if (rc.changed) extra = { ...extra, flow_corrected: rc.changed }; } if (['shortlist', 'buy_for_others', 'second_opinion'].includes(router.flow)) { const b = backfillNeeds(text, router.needs); if (b.added.length) { router.needs = b.needs; reply.blocks.push({ type: 'notice', text: `The reader missed something you wrote, so I added it from your words: ${b.added.join('; ')}.` }); } } }
-      catch (e) { extra = { ...extra, router_error: String((e as Error)?.message ?? e).slice(0, 120) }; reply.router_error = String((e as Error)?.message ?? e).slice(0, 120); router = offlineRoute(text); reply.router_mode = 'fallback'; reply.notice = [reply.notice, 'The reader is unavailable, so I used a simpler reading. Check the needs below.'].filter(Boolean).join(' '); }
+      try { router = await routeWithModel(deps.model, { text, history: input.history }, settings.ROUTER_TIMEOUT_MS ?? 8000); reply.router_mode = 'model'; { const rc = reconcileFlow(text, router); router = rc.router; if (rc.changed) detail.flow_corrected = rc.changed; } if (['shortlist', 'buy_for_others', 'second_opinion'].includes(router.flow)) { const b = backfillNeeds(text, router.needs); if (b.added.length) { detail.backfilled = b.added; router.needs = b.needs; reply.blocks.push({ type: 'notice', text: `The reader missed something you wrote, so I added it from your words: ${b.added.join('; ')}.` }); } } }
+      catch (e) { failures.push({ stage: 'router', kind: 'fallback', message: String((e as Error)?.message ?? e).slice(0, 120) }); reply.router_error = String((e as Error)?.message ?? e).slice(0, 120); router = offlineRoute(text); reply.router_mode = 'fallback'; reply.notice = [reply.notice, 'The reader is unavailable, so I used a simpler reading. Check the needs below.'].filter(Boolean).join(' '); }
     } else { router = offlineRoute(text); reply.router_mode = 'offline'; }
     lap('router_ms', tRouter); reply.language = router.language; reply.ignored_instructions = router.ignored_instructions;
     if (router.ignored_instructions.length) reply.blocks.push({ type: 'notice', text: 'Some text in your message looked like an instruction to me. I treated it as data and ignored it.' });
@@ -122,12 +217,31 @@ export async function handleQuery(deps: Deps, input: QueryInput): Promise<Reply>
       for (const m of MODS) if (m.re.test(text)) m.apply(needs, input.context?.max_price ?? null, notes);
     }
     const soft = applySoftTerms(text, needs, { lightKg: settings.LIGHT_KG ?? 1.5 }); needs = soft.needs;
-    for (const n of [...notes, ...soft.notices]) reply.blocks.push({ type: 'notice', text: n });
+    lensesUsed = soft.lenses; for (const n of [...notes, ...soft.notices]) reply.blocks.push({ type: 'notice', text: n });
     const cards: Card[] = [];
     const logUnhandled = async (kind: string) => { try { await tools.call('log_event', { kind: 'unhandled', reason: kind, text: scrub(text) }); } catch { /* ignore */ } };
-    const wantLive = input.live === true || soft.lenses.includes('looks'); const tFlow = Date.now();
+    const wantLive = input.live === true || soft.lenses.includes('looks'); const tFlow = Date.now(); stage = `flow:${flow}`;
+
+    // "this", "it", "the one you showed" in a question about a laptop: the person means the one in focus
+    if (ctxInfo.focus && !router.laptop_mentions.length && ['owner_voice', 'second_opinion', 'check_pitch'].includes(flow) && refersToCurrent(text)) {
+      router.laptop_mentions = [{ variant_id: ctxInfo.focus.variant_id, line: ctxInfo.focus.name, brand: null }]; reply.blocks.push({ type: 'notice', text: `I took this to mean ${ctxInfo.focus.name.split(' · ')[0]}.` });
+    }
 
     switch (flow) {
+      case 'laptop_question': {
+        const ref = pickRef(text, ctxInfo);
+        if (!ref) {
+          reply.blocks.push({ type: 'choices', question: 'Which laptop do you mean?', choices: ctxInfo.shown.slice(0, 4).map((r) => ({ label: r.name, send: `${r.name.split(' · ')[0]} — ${text}`.slice(0, 280) })) }); outcome = 'clarify'; break;
+        }
+        if (ctxInfo.focus && ref.variant_id === ctxInfo.focus.variant_id && refersToCurrent(text)) reply.blocks.push({ type: 'notice', text: `I took this to mean ${ref.name.split(' · ')[0]}.` });
+        const r = await laptopQuestion(deps, { ref, intent: followIntent!, needsLines: needsLinesOf(input.prior_needs) }); reply.blocks.push(...r.blocks);
+        if (followIntent === 'why') {
+          const empty = { budget_max_inr: null, budget_min_inr: null, musts: [], shoulds: [], nices: [], use_cases: [] } as Needs;
+          const so = await secondOpinionAndPitch(deps, { flow: 'second_opinion', confidence: 1, language: 'English', needs: empty, laptop_mentions: [], claims: [], listing: null, ignored_instructions: [], clarifying_question: null, choices: [], tone: 'normal', followup_flow: null, ...({} as object) } as any, input.prior_needs ?? empty, ref.variant_id);
+          reply.blocks.push(...so.blocks); cards.push(...so.cards);
+        }
+        break;
+      }
       case 'shortlist': {
         const r = await runShortlist(deps, needs, { lenses: soft.lenses, wantLive }); reply.blocks.push(...r.blocks); cards.push(...r.cards); extra = { matched: r.matched };
         try { await tools.call('log_event', { kind: 'demand', budget_band: r.demand.budget ? (r.demand.budget < 40000 ? 'Under ₹40,000' : r.demand.budget < 70000 ? '₹40,000–70,000' : 'Over ₹70,000') : 'None', use_cases: r.demand.use_cases, musts: r.demand.musts, matched: r.matched }); } catch { /* ignore */ }
@@ -161,18 +275,20 @@ export async function handleQuery(deps: Deps, input: QueryInput): Promise<Reply>
     lap('flow_ms', tFlow);
     // ---- wording, then the gate (the gate always has the last word) ----
     if (cards.length) {
-      const tWrite = Date.now();
-      await writeReasons(deps.model && flags.reasons_enabled !== false ? deps.model : null, cards, router.language, { maxWords: settings.REASON_MAX_WORDS ?? 25, timeoutMs: settings.WRITER_TIMEOUT_MS ?? 2000 });
-      lap('reasons_ms', tWrite); const tGate = Date.now();
+      const tWrite = Date.now(); stage = 'reasons';
+      const rr = await writeReasons(deps.model && flags.reasons_enabled !== false ? deps.model : null, cards, router.language, { maxWords: settings.REASON_MAX_WORDS ?? 25, timeoutMs: settings.WRITER_TIMEOUT_MS ?? 2000 });
+      detail.reasons_mode = rr.mode; if (rr.rejected) detail.reasons_rejected = rr.rejected; if (rr.mode === 'template' && rr.error) failures.push({ stage: 'reasons', kind: 'template_fallback', message: rr.error });
+      lap('reasons_ms', tWrite); const tGate = Date.now(); stage = 'gate'; let gateDropped = 0;
       for (const b of reply.blocks) {
         if (b.type !== 'cards') continue;
         const ok = await gateCards(tools, requestId, b.cards as Card[], { requireAll: b.requireAll === true, maxWords: settings.REASON_MAX_WORDS ?? 25 });
-        const dropped = (b.cards as Card[]).length - ok.length; b.cards = ok.map(publicCard);
+        const dropped = (b.cards as Card[]).length - ok.length; gateDropped += dropped; b.cards = ok.map(publicCard);
         if (dropped && !ok.length) { b.type = 'text'; b.text = NO_MATCH; outcome = 'gate_dropped'; }
       }
-      lap('gate_ms', tGate);
+      lap('gate_ms', tGate); if (gateDropped) { detail.gate_dropped = gateDropped; failures.push({ stage: 'gate', kind: 'dropped', message: `${gateDropped} card(s) failed the re-check` }); }
     }
     reply.blocks = reply.blocks.filter((b) => !(b.type === 'cards' && !(b.cards as unknown[]).length));
     reply.blocks = reply.blocks.map((b) => (b.type === 'cards' ? { ...b, cards: (b.cards as any[]).map((c) => (c._gate ? publicCard(c) : c)) } : b));
+    if ((settings.FEATURE_FLAGS ?? {}).web_images === false) stripImages(reply.blocks);
   }
 }

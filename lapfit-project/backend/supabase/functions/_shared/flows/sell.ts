@@ -25,17 +25,19 @@ export function resale(newPrice: number, i: SellInput, cfg = DEFAULT_RESALE) {
   return { low: round(mid * (1 - spread)), high: round(mid * (1 + spread)), mid: round(mid), factors, unknown };
 }
 
-export async function sellPlan(deps: Deps, mention: Mention | undefined, l: Listing | null, text: string): Promise<{ blocks: Block[] }> {
+export async function sellPlan(deps: Deps, mention: Mention | undefined, l: Listing | null, text: string, forced?: { variantId: string; input: SellInput }): Promise<{ blocks: Block[] }> {
   const blocks: Block[] = []; const cfg = { ...DEFAULT_RESALE, ...(deps.settings.RESALE ?? {}) };
   const tips = ['Remove your accounts and reset the laptop before the buyer sees it.', 'Meet in a public place and let the buyer test it before they pay.', 'Say honestly about any fault: it protects you from a dispute later.', 'Keep the bill and box: they raise the price buyers will pay.'];
   const m: Mention | undefined = mention ?? (l && (l.brand || l.line) ? { brand: l.brand, line: l.line } : undefined);
-  if (!m) { blocks.push({ type: 'text', text: 'Which laptop are you selling? Type its name, how old it is, and its condition.' }); return { blocks }; }
-  const res = await resolveVariant(deps, m);
+  if (!m && !forced) { blocks.push({ type: 'text', text: 'Which laptop are you selling? Type its name, how old it is, and its condition.' }); return { blocks }; }
+  const res = forced ? ({ kind: 'one', variantId: forced.variantId } as const) : await resolveVariant(deps, m!);
   if (res.kind !== 'one') { blocks.push(...(res.kind === 'not_found' ? [{ type: 'text', text: 'This laptop is not in the catalog, so I will not give figures. General tips below.' }] : res.blocks)); blocks.push({ type: 'checklist', title: 'Before you sell', items: tips }); return { blocks }; }
-  const row = (await deps.tools.call<{ specs: Row }>('get_variant', { variant_id: res.variantId })).specs;
+  const got = await deps.tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: res.variantId });
+  if (!got.found) { blocks.push({ type: 'text', text: 'That laptop is not in the catalog.' }); return { blocks }; }
+  const row = got.specs;
   if (row.price_inr == null) { blocks.push({ type: 'text', text: `No new price on file for ${row.display_name}, so I cannot estimate. General tips below.` }, { type: 'checklist', title: 'Before you sell', items: tips }); return { blocks }; }
   const age = text.match(/(\d+(?:\.\d+)?)\s*(?:years?|yrs?)\s*old|bought\s+(\d+(?:\.\d+)?)\s*years?\s*(?:ago|back)/i);
-  const input: SellInput = { age_years: l?.age_years ?? (age ? Number(age[1] || age[2]) : null), condition: /excellent|like new|mint/i.test(text) ? 'excellent' : /scratch|dent|worn|fair/i.test(text) ? 'fair' : /poor|bad shape|damaged/i.test(text) ? 'poor' : /good/i.test(text) ? 'good' : null,
+  const input: SellInput = forced ? forced.input : { age_years: l?.age_years ?? (age ? Number(age[1] || age[2]) : null), condition: /excellent|like new|mint/i.test(text) ? 'excellent' : /scratch|dent|worn|fair/i.test(text) ? 'fair' : /poor|bad shape|damaged/i.test(text) ? 'poor' : /good/i.test(text) ? 'good' : null,
     battery_health_pct: l?.battery_health_pct ?? null, cracked_screen: /crack/i.test(text) ? true : null, urgent: /urgent|need money|fast|quickly/i.test(text) };
   const base = resale(row.price_inr, input, cfg);
   const fixes: any[] = [];

@@ -16,12 +16,13 @@ export function win11Rule(cpu: string | null | undefined): 'supported' | 'unsupp
   return 'unknown';
 }
 
-export async function usedCheck(deps: Deps, listing: Listing | null, mention: Mention | undefined): Promise<{ blocks: Block[] }> {
+export async function usedCheck(deps: Deps, listing: Listing | null, mention: Mention | undefined, variantId?: string): Promise<{ blocks: Block[] }> {
   const { tools, settings } = deps; const blocks: Block[] = []; const findings: Finding[] = [];
   const l = listing ?? {};
   const m: Mention = mention ?? { brand: l.brand, line: l.line, ram_gb: l.ram_gb, storage_gb: l.storage_gb, price_inr: l.price_inr };
   let row: Row | null = null;
-  if (m.brand || m.line) {
+  if (variantId) { const g = await deps.tools.call<any>('get_variant', { variant_id: variantId }); if (g.found) row = g.specs; }
+  else if (m.brand || m.line) {
     const res = await resolveVariant(deps, m);
     if (res.kind === 'one') row = (await tools.call<{ specs: Row }>('get_variant', { variant_id: res.variantId })).specs;
     else if (res.kind === 'ask') blocks.push(...res.blocks);

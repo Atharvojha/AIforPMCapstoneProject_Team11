@@ -32,19 +32,22 @@ export function textMatchesFacts(t: string, c: Card, maxWords: number): boolean 
 }
 export const templateReasons = (c: Card) => c.fact_lines.slice(0, 3);
 
-export async function writeReasons(model: ModelClient | null, cards: Card[], language: string, o: { maxWords: number; timeoutMs: number }): Promise<'model' | 'template'> {
+export interface ReasonsOutcome { mode: 'model' | 'template' | 'skipped'; error?: string; rejected: number }
+/** mode 'model': model sentences passed the checks (rejected = sentences replaced by code text); 'template': the model failed; 'skipped': nothing to write or no model. */
+export async function writeReasons(model: ModelClient | null, cards: Card[], language: string, o: { maxWords: number; timeoutMs: number }): Promise<ReasonsOutcome> {
   for (const c of cards) c.reasons = templateReasons(c);
   const need = cards.filter((c) => c.fact_lines.length);
-  if (!model || !need.length) return 'template';
+  if (!model || !need.length) return { mode: 'skipped', rejected: 0 };
   const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), o.timeoutMs);
   try {
     const raw = await model.generate({ system: SYSTEM(o.maxWords), user: JSON.stringify({ language, cards: need.map((c) => ({ id: c.variant_id, name: c.name, facts: c.fact_lines })) }), signal: ctl.signal });
     const parsed = extractJson(raw);
-    if (!Array.isArray(parsed?.cards)) return 'template';
+    if (!Array.isArray(parsed?.cards)) return { mode: 'template', error: 'bad_shape', rejected: 0 };
+    let rejected = 0;
     for (const e of parsed.cards) {
       const card = need.find((c) => c.variant_id === e.id);
-      if (card && Array.isArray(e.reasons) && e.reasons.length >= 1 && e.reasons.length <= 3 && e.reasons.every((r: unknown) => typeof r === 'string' && textMatchesFacts(r, card, o.maxWords))) card.reasons = e.reasons;
+      if (card && Array.isArray(e.reasons) && e.reasons.length >= 1 && e.reasons.length <= 3 && e.reasons.every((r: unknown) => typeof r === 'string' && textMatchesFacts(r, card, o.maxWords))) card.reasons = e.reasons; else rejected++;
     }
-    return 'model';
-  } catch { return 'template'; } finally { clearTimeout(timer); }
+    return { mode: 'model', rejected };
+  } catch (e) { return { mode: 'template', error: String((e as Error)?.message ?? e).slice(0, 100), rejected: 0 }; } finally { clearTimeout(timer); }
 }

@@ -3,13 +3,15 @@ import { evalCriterion, actualText, HINGE_LABEL, type Criterion } from './normal
 import { fmtInr, fmtDate, fmtStorage } from './util.ts';
 import type { Row } from './types.ts';
 
+export interface LaptopImage { url: string; site: string | null; page: string | null; alt: string }
+export const imageOf = (r: Row): LaptopImage | null => (r.image_url && /^https:\/\//.test(r.image_url) ? { url: r.image_url, site: r.image_site ?? null, page: r.image_page && /^https:\/\//.test(r.image_page) ? r.image_page : null, alt: (r.image_desc ?? r.display_name.split(' · ')[0]).slice(0, 160) } : null);
 export interface EvidenceTotal { n: number; positive: number; negative: number }
 export interface Card {
   variant_id: string; model_id: number; name: string; brand: string; price_inr: number; price_text: string; as_of: string; as_of_text: string;
   specs: Record<string, any>; spec_lines: string[]; data_status: string; unknown_fields: string[];
   musts: { label: string; ok: boolean | null; actual: string }[];
   evidence: { n: number; positive: number; negative: number; enough: boolean; text: string };
-  fact_lines: string[]; reasons: string[];
+  fact_lines: string[]; reasons: string[]; image: LaptopImage | null;
   _gate?: { musts: Criterion[]; requireAll: boolean };
 }
 
@@ -29,7 +31,7 @@ export function specLines(r: Row): { lines: string[]; unknown: string[] } {
 
 export function evidenceView(total: EvidenceTotal, minN: number) {
   const enough = total.n >= minN;
-  return { n: total.n, positive: total.positive, negative: total.negative, enough,
+  return { n: total.n, positive: total.positive, negative: total.negative, enough, min_n: minN,
     text: enough ? `${total.positive} of ${total.n} owner opinions are positive (machine-read, not human-verified).` : `Not enough owner evidence yet (n = ${total.n}; we need at least ${minN}).` };
 }
 
@@ -39,10 +41,10 @@ export function buildCard(row: Row, o: { musts: Criterion[]; requireAll: boolean
   return {
     variant_id: row.variant_id, model_id: row.model_id, name: row.display_name, brand: row.brand,
     price_inr: row.price_inr as number, price_text: fmtInr(row.price_inr as number), as_of: row.price_as_of as string, as_of_text: fmtDate(row.price_as_of),
-    specs: { ram_gb: row.ram_gb, storage_gb: row.storage_gb, display_size: row.display_size, weight_kg: row.weight_kg, cpu: row.cpu_text, gpu: row.gpu_text, hinge_type: row.hinge_type, warranty_years: row.warranty_years, colours: row.colours },
+    specs: { ram_gb: row.ram_gb, storage_gb: row.storage_gb, display_size: row.display_size, weight_kg: row.weight_kg, battery_wh: row.battery_wh ?? null, refresh_hz: row.refresh_hz ?? null, gpu_class: row.gpu_class ?? null, cpu: row.cpu_text, gpu: row.gpu_text, hinge_type: row.hinge_type, warranty_years: row.warranty_years, colours: row.colours },
     spec_lines: lines, unknown_fields: unknown, data_status: dataStatus(row),
     musts: [...supported.map((c) => ({ label: c.label, ok: evalCriterion(c, row), actual: actualText(c, row) })), ...o.musts.filter((c) => !c.supported).map((c) => ({ label: c.label, ok: null, actual: 'Cannot be checked yet' }))],
-    evidence: evidenceView(o.evidence, o.minN), fact_lines: o.factLines ?? [], reasons: [],
+    evidence: evidenceView(o.evidence, o.minN), fact_lines: o.factLines ?? [], reasons: [], image: imageOf(row),
     _gate: { musts: supported, requireAll: o.requireAll },
   };
 }

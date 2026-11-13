@@ -3,9 +3,9 @@ import { extractJson, type ModelClient } from './model.ts';
 import { findInjections, parseInrAmounts } from './util.ts';
 import type { Needs, RawCriterion } from './types.ts';
 
-export const FLOWS = ['second_opinion', 'check_pitch', 'shortlist', 'used_check', 'buy_for_others', 'owner_voice', 'trending', 'sell_laptop', 'clarify', 'out_of_scope_laptop', 'not_laptop', 'compare', 'brand_insights', 'my_laptops', 'submit_experience', 'help'] as const;
+export const FLOWS = ['second_opinion', 'check_pitch', 'shortlist', 'used_check', 'buy_for_others', 'owner_voice', 'trending', 'sell_laptop', 'clarify', 'out_of_scope_laptop', 'not_laptop', 'compare', 'brand_insights', 'my_laptops', 'submit_experience', 'help', 'laptop_question'] as const;
 export type Flow = typeof FLOWS[number];
-export interface Mention { brand?: string | null; line?: string | null; ram_gb?: number | null; storage_gb?: number | null; price_inr?: number | null; source_text?: string | null }
+export interface Mention { brand?: string | null; line?: string | null; ram_gb?: number | null; storage_gb?: number | null; price_inr?: number | null; source_text?: string | null; variant_id?: string | null }
 export interface Claim { claim_text: string; type: 'spec' | 'performance' | 'price' | 'service' | 'comparative' | 'absolute' | 'opinion'; scope: string }
 export interface Listing { age_years?: number | null; brand?: string | null; line?: string | null; ram_gb?: number | null; storage_gb?: number | null; price_inr?: number | null; os?: string | null; battery_health_pct?: number | null; has_serial?: boolean | null; has_bill?: boolean | null; seller_warranty_months?: number | null; weight_kg?: number | null; reason?: string | null }
 export interface RouterResult {

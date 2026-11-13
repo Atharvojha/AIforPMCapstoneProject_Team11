@@ -3,6 +3,7 @@ import { resolveVariant } from './pitch.ts';
 import { liveFor } from './livecards.ts';
 import { fmtInr, fmtDate, fmtStorage } from '../util.ts';
 import { HINGE_LABEL } from '../normalise.ts';
+import { imageOf } from '../cards.ts';
 import type { Deps, Row, Block } from '../types.ts';
 import type { Mention } from '../router.ts';
 
@@ -21,9 +22,13 @@ const DEFS: Def[] = [
   { label: 'Operating system', get: (r) => (r.os_family === 'macos' ? 'macOS' : 'Windows') },
 ];
 
-export async function compare(deps: Deps, mentions: Mention[], wantLive = false): Promise<{ blocks: Block[] }> {
+export async function compare(deps: Deps, mentions: Mention[], wantLive = false, ids?: string[]): Promise<{ blocks: Block[] }> {
   const blocks: Block[] = []; const rows: Row[] = []; const seen = new Set<string>();
-  for (const m of mentions.slice(0, 3)) {
+  for (const id of [...new Set(ids ?? [])].slice(0, 4)) {
+    const v = await deps.tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: String(id) });
+    if (v.found) rows.push(v.specs);
+  }
+  for (const m of ids ? [] : mentions.slice(0, 3)) {
     const res = await resolveVariant(deps, m, { pickFirst: true }); if ((res as any).assumed) blocks.push({ type: 'notice', text: `I used ${(res as any).assumed}.` });
     if (res.kind !== 'one') {
       // keep the comparison in the follow-up: each choice re-sends the whole request with this laptop made exact
@@ -42,7 +47,7 @@ export async function compare(deps: Deps, mentions: Mention[], wantLive = false)
     return { label: d.label, values: rows.map((r) => d.get(r) ?? 'not in catalog'), best: bestVal != null && !ties ? nums.indexOf(bestVal) : null, better: d.better ?? null };
   });
   const ev = await Promise.all(rows.map(async (r) => ({ variant_id: r.variant_id, name: r.display_name, ...(await deps.tools.call<any>('evidence_summary', { variant_id: r.variant_id })) })));
-  blocks.push({ type: 'compare', laptops: rows.map((r) => ({ variant_id: r.variant_id, name: r.display_name, data_status: r.verified ? 'Verified' : r.is_sample ? 'Sample data' : 'Imported listing data, not human-verified' })), rows: table,
+  blocks.push({ type: 'compare', laptops: rows.map((r) => ({ variant_id: r.variant_id, name: r.display_name, image: imageOf(r), brand: r.brand, screen_in: r.display_size ?? null, weight_kg: r.weight_kg ?? null, data_status: r.verified ? 'Verified' : r.is_sample ? 'Sample data' : 'Imported listing data, not human-verified' })), rows: table,
     evidence: ev.map((e) => ({ variant_id: e.variant_id, name: e.name, n: e.total.n, positive: e.total.positive, negative: e.total.negative, enough: e.total.n >= e.min_n, min_n: e.min_n, label: e.label })),
     note: 'The marker shows the lower price, lower weight, or higher RAM, storage or battery, when the values are known. I do not pick an overall winner: that depends on what you need.' });
   if (wantLive) blocks.push(...(await liveFor(deps, rows)));

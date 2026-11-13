@@ -9,11 +9,11 @@ export const personaOf = (t: string) => PERSONA.find(([re]) => re.test(t))?.[1] 
 export const topicFromText = (t: string) => TOPIC_OF.find(([re]) => re.test(t.toLowerCase()))?.[1] ?? null;
 const MONTHS = /(\d+)\s*(?:months?|mo)\b|after\s+(?:a|one|1)\s+year|(\d+)\s*years?\s*(?:of use|later|old)/i;
 
-export async function ownerVoice(deps: Deps, mention: Mention | undefined, text: string): Promise<{ blocks: Block[] }> {
+export async function ownerVoice(deps: Deps, mention: Mention | undefined, text: string, variantId?: string): Promise<{ blocks: Block[] }> {
   const { tools, settings } = deps; const blocks: Block[] = []; const minN = settings.MIN_EVIDENCE_N ?? 20;
   const topic = topicFromText(text); const persona = personaOf(text);
   if (persona || MONTHS.test(text)) blocks.push({ type: 'notice', text: `The recorded dataset has no user type or months-owned on its reviews, so I cannot filter by ${[persona && `"${persona}"`, MONTHS.test(text) && 'time owned'].filter(Boolean).join(' or ')} there. ${persona ? 'Approved owner reports that carry a user type are shown separately below when they exist.' : ''}` });
-  if (!mention) {
+  if (!mention && !variantId) {
     // no laptop named: leaderboard of laptops on this topic, only where there is enough evidence
     if (!topic) return { blocks: [{ type: 'text', text: 'Which laptop, and which topic (battery, heat, keyboard, display, performance)?' }] };
     const names = await tools.call<{ rows: Row[] }>('find_variants', {});
@@ -23,9 +23,15 @@ export async function ownerVoice(deps: Deps, mention: Mention | undefined, text:
       note: enough.length ? `Only laptops with at least ${minN} owner opinions on ${topic} are listed. Counts are machine-read, not human-verified.` : `No laptop has at least ${minN} owner opinions on ${topic} yet, so I am not ranking any.` });
     return { blocks };
   }
-  const res = await resolveVariant(deps, mention, { pickFirst: true }); if ((res as any).assumed) blocks.push({ type: 'notice', text: `I used ${(res as any).assumed}.` });
-  if (res.kind !== 'one') return { blocks: res.blocks };
-  const row = (await tools.call<{ specs: Row }>('get_variant', { variant_id: res.variantId })).specs;
+  let vid = variantId ?? '';
+  if (!vid) {
+    const res = await resolveVariant(deps, mention!, { pickFirst: true }); if ((res as any).assumed) blocks.push({ type: 'notice', text: `I used ${(res as any).assumed}.` });
+    if (res.kind !== 'one') return { blocks: res.blocks };
+    vid = res.variantId;
+  }
+  const got = await tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: vid });
+  if (!got.found) return { blocks: [{ type: 'text', text: 'That laptop is not in the catalog.' }] };
+  const row = got.specs;
   const ev = await tools.call<any>('evidence_summary', { variant_id: row.variant_id, topic: topic ?? undefined });
   const topics = await Promise.all(ev.topics.map(async (t: any) => ({ ...t, quotes: t.enough ? (await tools.call<any>('evidence_quotes', { variant_id: row.variant_id, topic: t.topic, limit: 3 })).quotes : [] })));
   blocks.push({ type: 'evidence', laptop: row.display_name, variant_id: row.variant_id, min_n: minN, label: ev.label, topics });

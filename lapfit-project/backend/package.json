@@ -8,7 +8,9 @@
     "test": "node --import tsx --test tests/*.test.ts",
     "import:test": "node --import tsx scripts/import-existing.ts",
     "matrix": "node --import tsx tests/matrix.mts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "fixtures": "node --import tsx scripts/make-fixtures.ts",
+    "logs": "node --import tsx scripts/logs.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.5.0"

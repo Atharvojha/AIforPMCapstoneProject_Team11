@@ -113,6 +113,8 @@ export async function importExisting(db: Db, opt: ImportOptions): Promise<Import
     on conflict (key) do update set value = excluded.value, version = settings.version + 1, updated_at = now()`,
     [JSON.stringify({ imported_at: new Date().toISOString().slice(0, 10), counts })]);
 
+  await db.query('select refresh_data_status()');     // keep the honest data summary in step with what was just loaded
+
   // Integrity checks (the "done when" tests of build step B1)
   const q = async (sql: string) => Number((await db.query(sql)).rows[0].n);
   checks.push(`prices without an as-of date: ${await q('select count(*) n from variant_specs where price_inr is not null and price_as_of is null')}`);

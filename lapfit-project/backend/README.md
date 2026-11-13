@@ -10,12 +10,12 @@ Plan: `../build-plan/01_BACKEND_BUILD_PLAN.md`. Build log: `../build-plan/05_BAC
 | `supabase/functions/_shared/` | Router, normaliser, ranking, flows (shortlist, second opinion + pitch check, used check), reasons writer, pre-send gate, Gemini client |
 | `supabase/functions/query/` | Deno wrapper that exposes `handleQuery` as one HTTP endpoint |
 | `scripts/import-existing.ts` | Copies the team's SQLite database into the schema |
-| `tests/` | 162 tests on in-memory Postgres (PGlite) with a fake model and a fake live source; `npm run matrix` prints how each of 75 inputs is handled |
+| `tests/` | 209 tests on in-memory Postgres (PGlite) with a fake model and a fake live source; `npm run matrix` prints how each of 75 inputs is handled |
 
 ## Run
 ```
 npm install
-npm test                  # 162 tests, no network, no API key
+npm test                  # 178 tests, no network, no API key
 npm run matrix            # shows the route and blocks for 75 different inputs
 npm run import:test       # dry-run import, prints counts
 node --import tsx scripts/import-existing.ts --database-url=postgres://...   # real Postgres
@@ -36,6 +36,12 @@ and hostile or odd input (empty, gibberish, emoji, links, phone numbers and emai
 Besides the recorded dataset, `live.ts` fetches what the web says now (Gemini with Google Search grounding), caches it for 24 hours, limits calls per day, and shows it separately: labelled live, unverified, linked to its source, never counted in the owner numbers and never used by the gate.
 Only the laptop name and a topic are sent out, never the user's text. Retailer scraping and Reddit are deliberately not used (site terms; Reddit needs approval and a commercial agreement).
 The Google call itself is untested without a key. Cost per Google's pricing page (checked 13 Nov 2026): about $14 per 1,000 search queries on Gemini 3 models after a monthly free allowance; verify before launch.
+
+## Pictures, shop links and the answer receipt
+`action: read_image` reads a picture with Gemini vision (validated in code, never stored or logged, own limits); `where_to_buy` and `outbound_click` build and count shop links (affiliate tags optional, never affecting results: proved by test); every answer carries a `provenance` block (the receipt) and the banner comes from `DATA_STATUS`. See `../build-plan/08_DATA_AND_SOURCES.md`, `09_MULTIMODAL.md`, `10_MONETIZATION.md`.
+
+## Logging
+Every request writes one row: what was asked (scrubbed), stage timings, where it failed (hard and soft), model attempts, live-search status. Read it with `npm run logs -- failures`, `-- stages`, `-- summary`, `-- slow`, `-- request <id>`, `-- search <words>`, `-- client`. Guide: `../build-plan/07_LOGGING_GUIDE.md`. The typed text is kept scrubbed for 30 days and can be switched off (`LOG_QUERY_TEXT`).
 
 ## Rate limiting
 Runs first in the Edge Function, before any model or search call (`_shared/guard.ts`, `tool_rate_gate` in migration 08).

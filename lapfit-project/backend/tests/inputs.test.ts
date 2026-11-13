@@ -144,7 +144,7 @@ test('input hygiene: PII removed, links not opened, currency and region stated, 
   assert.ok(cleanText('laptop under $800').notices.some((n) => /rupees/.test(n)));
   assert.ok(cleanText('best laptop in USA').notices.some((n) => /India only/.test(n)));
   assert.ok(cleanText('x'.repeat(9000)).text.length <= 4000);
-  assert.ok(/Reading photos is not switched on/.test(blob(await ask('is this laptop ok', { image: 'data:...' }))));
+  assert.ok(/use the camera button/.test(blob(await ask('is this laptop ok', { image: 'data:...' }))));
   assert.equal(cleanText('a\nb | c').text, 'a\nb | c');
 });
 
@@ -182,4 +182,21 @@ test('FallbackModel: a failing or slow first model falls through to the second',
   assert.equal(await new FallbackModel([bad, good]).generate({ system: '', user: '' }), 'ok');
   assert.equal(await new FallbackModel([slow, good], 50).generate({ system: '', user: '' }), 'ok', 'a model that never answers (and ignores the abort signal) is skipped after its own time limit');
   await assert.rejects(() => new FallbackModel([slow, bad], 50).generate({ system: '', user: '' }));
+});
+
+test('direct actions by laptop id: compare, owner voice, second opinion, sell plan, used check and the catalog list all work without text', async () => {
+  const { tools } = await getDb(); const settings = await loadSettings(tools);
+  const go = (b: any) => handleQuery({ tools, model: null, settings, requestId: 'a' + Math.random() }, b);
+  const cat = await go({ action: 'catalog' }); const rows = (cat.blocks[0] as any).rows; assert.ok(rows.length >= 14); assert.ok(rows.every((r: any) => r.variant_id && r.name));
+  const cmp = await go({ action: 'compare', variant_ids: ['FKL-10', 'FKL-14', 'FKL-10', 'NOPE'] }); const c = cmp.blocks.find((b: any) => b.type === 'compare') as any; assert.equal(c.laptops.length, 2, 'duplicates and unknown ids are dropped');
+  assert.ok((await go({ action: 'compare', variant_ids: ['FKL-10'] })).blocks.some((b: any) => /two laptops/.test(JSON.stringify(b))));
+  assert.ok((await go({ action: 'compare', variant_ids: ['A', 'B', 'C', 'D', 'E'] })).blocks.length >= 1);
+  const ov = await go({ action: 'owner_voice', variant_id: 'FKL-10', topic: 'battery' }); assert.ok(ov.blocks.some((b: any) => b.type === 'evidence'));
+  const so = await go({ action: 'second_opinion', variant_id: 'FKL-14' }); assert.ok(so.blocks.some((b: any) => b.type === 'cards')); assert.ok(so.blocks.some((b: any) => b.type === 'evidence'));
+  assert.ok(!JSON.stringify(so.blocks).includes('_gate'));
+  const sp = await go({ action: 'sell_plan', variant_id: 'FKL-10', sell: { age_years: 2, condition: 'good', battery_health_pct: 72 } }) as any; const plan = sp.blocks.find((b: any) => b.type === 'sell_plan'); assert.ok(plan.range.low < plan.range.high); assert.equal(plan.unknown.length, 0);
+  const uc = await go({ action: 'used_check', variant_id: 'FKL-10', listing: { ram_gb: 16, price_inr: 40000, battery_health_pct: 65, has_bill: false } }) as any; const f = uc.blocks.find((b: any) => b.type === 'findings');
+  assert.ok(f.findings.some((x: any) => /RAM in the listing is 16 GB/.test(x.text))); assert.ok(f.findings.some((x: any) => /No bill/.test(x.text)));
+  assert.ok(/not in the catalog/.test(JSON.stringify((await go({ action: 'owner_voice', variant_id: 'NOPE' })).blocks)));
+  assert.ok(/not in the catalog/.test(JSON.stringify((await go({ action: 'second_opinion', variant_id: 'NOPE' })).blocks)));
 });

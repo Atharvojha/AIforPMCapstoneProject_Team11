@@ -21,6 +21,7 @@ async function fuzzyCandidates(deps: Deps, m: Mention): Promise<Candidate[]> {
 }
 
 export async function resolveVariant(deps: Deps, m: Mention, o: { pickFirst?: boolean } = {}): Promise<Resolution & { assumed?: string }> {
+  if (m.variant_id) return { kind: 'one', variantId: m.variant_id };   // the browser's focus, already checked against the catalog
   const r = await deps.tools.call<{ candidates: Candidate[] }>('resolve_laptop', { brand: m.brand ?? '', line: m.line ?? '' });
   let c = r.candidates;
   if (!c.length) c = await fuzzyCandidates(deps, m);
@@ -71,7 +72,7 @@ export async function checkClaims(deps: Deps, claims: Claim[], rows: Row[] | nul
   for (const c of claims) {
     const base = { claim_text: c.claim_text, type: c.type };
     if (c.type === 'opinion') { out.push({ ...base, status: 'cant_check', label: "Can't be checked", detail: 'This is an opinion, so there is no fact to compare.' }); continue; }
-    if (c.type === 'spec') {
+    if (c.type === 'spec' || parseSpecClaim(c.claim_text)) {   // spec-like wording is checked against the catalog whatever label a reader gave it
       const p = parseSpecClaim(c.claim_text);
       if (!p || !rows?.length) { out.push({ ...base, status: 'not_in_catalog', label: 'Not in catalog', detail: rows?.length ? 'I could not match this to a field in the catalog.' : 'The laptop is not in the catalog, so there is nothing to compare with.' }); continue; }
       const { ok, stored } = evalSpecClaim(p, rows, tol);
@@ -94,13 +95,14 @@ export async function checkClaims(deps: Deps, claims: Claim[], rows: Row[] | nul
   return out;
 }
 
-export async function secondOpinionAndPitch(deps: Deps, router: RouterResult, needs: Needs): Promise<{ blocks: Block[]; cards: Card[] }> {
+export async function secondOpinionAndPitch(deps: Deps, router: RouterResult, needs: Needs, variantId?: string): Promise<{ blocks: Block[]; cards: Card[] }> {
   const { tools, settings } = deps; const minN = settings.MIN_EVIDENCE_N ?? 20; const blocks: Block[] = [];
   const mention = router.laptop_mentions[0];
-  if (!mention) return { blocks: [{ type: 'text', text: 'Which laptop are you asking about? Type its name, for example "Asus TUF Gaming F15".' }], cards: [] };
-  const res = await resolveVariant(deps, mention);
+  if (!mention && !variantId) return { blocks: [{ type: 'text', text: 'Which laptop are you asking about? Type its name, for example "Asus TUF Gaming F15".' }], cards: [] };
+  const res: Resolution = variantId ? { kind: 'one', variantId } : await resolveVariant(deps, mention!);
   if (res.kind !== 'one') return { blocks: res.blocks, cards: [] };
   const v = await tools.call<{ found: boolean; specs: Row }>('get_variant', { variant_id: res.variantId });
+  if (!v.found) return { blocks: [{ type: 'text', text: 'That laptop is not in the catalog.' }], cards: [] };
   const row = v.specs; const crit = criteriaFromNeeds(needs);
   const ev = await tools.call<any>('evidence_summary', { variant_id: row.variant_id });
   const cards: Card[] = [];
@@ -140,3 +142,19 @@ export async function secondOpinionAndPitch(deps: Deps, router: RouterResult, ne
   return { blocks, cards };
 }
 const card0 = (c: any, row: Row) => { const a = (c.attribute as string); return a === 'hinge_type' ? (row.hinge_type ? HINGE_LABEL[row.hinge_type] : 'not in catalog') : String((row as any)[a] ?? 'not in catalog'); };
+
+/** Check seller claims against the catalog rows of the named laptop, or say plainly that the laptop is not in the catalog. */
+export async function claimsForMention(deps: Deps, mention: Mention | undefined, claims: Claim[]): Promise<Block[]> {
+  if (!claims.length) return [];
+  let rows: Row[] | null = null; let name = 'the laptop'; let scope: string[] = [];
+  if (mention && (mention.brand || mention.line)) {
+    const res = await resolveVariant(deps, mention, { pickFirst: true });
+    if (res.kind === 'one') {
+      const v = await deps.tools.call<{ specs: Row }>('get_variant', { variant_id: res.variantId });
+      const mv = await deps.tools.call<{ rows: Row[] }>('model_variants', { model_id: v.specs.model_id });
+      rows = mv.rows.length ? mv.rows : [v.specs]; name = v.specs.display_name; scope = [v.specs.variant_id, String(v.specs.model_id)];
+    }
+  }
+  const claimRows = await checkClaims(deps, claims, rows, scope);
+  return [{ type: 'claims', laptop: name, rows: claimRows.map(({ _spec, ...r }) => r) }];
+}

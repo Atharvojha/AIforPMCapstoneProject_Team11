@@ -7,8 +7,9 @@ import type { Settings } from './types.ts';
 
 export interface LiveItem { snippet: string; url: string; site: string; topic: string; kind: 'web_summary' | 'excerpt'; published?: string | null }
 export interface LiveFetch { items: LiveItem[]; note?: string }
-export interface LiveSource { readonly name: string; fetch(q: { laptop: string; topic?: string; signal?: AbortSignal }): Promise<LiveFetch> }
-export interface LiveResult { status: 'ok' | 'cached' | 'off' | 'limit' | 'error' | 'empty'; provider: string | null; fetched_at: string | null; items: LiveItem[]; note: string }
+export interface WebQuery { query: string; news?: boolean; need?: string[]; signal?: AbortSignal }
+export interface LiveSource { readonly name: string; fetch(q: { laptop: string; topic?: string; signal?: AbortSignal }): Promise<LiveFetch>; web?(q: WebQuery): Promise<LiveFetch> }
+export interface LiveResult { status: 'ok' | 'cached' | 'off' | 'limit' | 'error' | 'empty'; provider: string | null; fetched_at: string | null; items: LiveItem[]; note: string; error?: string }
 
 const TOPIC_OF: [RegExp, string][] = [[/battery|charge|backup|hours/i, 'battery'], [/hot|heat|thermal|fan|noise|loud/i, 'heat_noise'], [/keyboard|typing|keys|trackpad/i, 'keyboard'], [/screen|display|bright|panel|colou?r/i, 'display'], [/lag|slow|fast|smooth|speed|performance|hang|gaming/i, 'performance'], [/hinge|build|plastic|sturdy|crack|flex/i, 'build'], [/service|support|warranty|repair/i, 'service']];
 export const topicOf = (t: string) => TOPIC_OF.find(([re]) => re.test(t))?.[1] ?? 'general';
@@ -67,8 +68,10 @@ export class GeminiGroundedSource implements LiveSource {
 export class TavilySource implements LiveSource {
   readonly name = 'tavily';
   constructor(private o: { apiKey: string; baseUrl?: string; country?: string | null }) {}
+  web(q: WebQuery) { return tavilyWeb(this.o, q); }
   async fetch(q: { laptop: string; topic?: string; signal?: AbortSignal }): Promise<LiveFetch> {
-    const query = `${q.laptop} owner review ${q.topic && q.topic !== 'design' ? q.topic : q.topic === 'design' ? 'design looks build' : 'problems'} experience`;
+    const PHRASE: Record<string, string> = { design: 'design looks build', longevity: 'long term durability after 1 2 years', problems: 'common problems issues', upgrade: 'RAM SSD upgrade slots', performance: 'performance' };
+    const query = `${q.laptop} owner review ${q.topic ? (PHRASE[q.topic] ?? q.topic) : 'problems'} experience`;
     const res = await fetch(`${this.o.baseUrl ?? 'https://api.tavily.com'}/search`, {
       method: 'POST', signal: q.signal, headers: { 'content-type': 'application/json', authorization: `Bearer ${this.o.apiKey}` },
       body: JSON.stringify({ query, search_depth: 'basic', max_results: 8, topic: 'general', include_answer: false, include_raw_content: false, ...(this.o.country ? { country: this.o.country } : {}) }),
@@ -82,16 +85,52 @@ export class TavilySource implements LiveSource {
       if (need.filter((w) => text.includes(w)).length < Math.min(2, need.length)) continue;       // off-topic result
       if ((String(r.content ?? '').match(/\[\d{1,2}:\d{2}/g) ?? []).length >= 3) continue;      // video chapter lists are not reviews
       let host = ''; try { host = new URL(r.url).hostname.replace(/^www\./, ''); } catch { continue; }
+      // for lifespan, problems and upgrade questions a maker's own website is advertising, not evidence
+      if (['longevity', 'problems', 'upgrade'].includes(q.topic ?? '') && host.split('.').includes(String(q.laptop).toLowerCase().split(/\s+/)[0])) continue;
       items.push({ snippet: String(r.content ?? '').replace(/\s+/g, ' ').trim(), url: String(r.url), site: host, topic: '', kind: 'excerpt', published: r.published_date ?? null });
     }
     return { items, note: 'Excerpts from web search results; open the link to read the original.' };
   }
 }
 
+/** Sites used for market news: established Indian business and gadget press, plus a few global tech sites. Social media, forums of unknown quality and shops are not on it. */
+export const MARKET_SITES = ['livemint.com', 'economictimes.indiatimes.com', 'business-standard.com', 'moneycontrol.com', 'financialexpress.com', 'thehindubusinessline.com', 'hindustantimes.com', 'timesofindia.indiatimes.com', 'indianexpress.com', 'gadgets360.com', 'digit.in', '91mobiles.com', 'smartprix.com', 'techradar.com', 'notebookcheck.net', 'tomshardware.com', 'counterpointresearch.com', 'idc.com', 'canalys.com'];
+const NOT_SOURCES = ['facebook.com', 'instagram.com', 'tiktok.com', 'youtube.com', 'pinterest.com', 'x.com', 'twitter.com', 'tavily.com', 'linkedin.com'];
+const INDIA = /india|₹|\brs\.?\s?\d|\binr\b|flipkart|amazon\.in|croma|reliance digital|diwali|festive/;
+const OWNER_WORDS = /owner|review|reliab|service|support|build|issue|problem|experience|warranty|durab|after-sales|complain/;
+const BOILERPLATE = /subscribe|newsletter|\beditions?\b.*\bmagazine|cookie|as is\b.*subject to change|content that appears on this site|affiliate commission|we may earn|sign in|log in/i;
+const isoDate = (d: unknown) => { const t = d ? new Date(String(d)) : null; return t && !isNaN(+t) ? t.toISOString().slice(0, 10) : null; };
+
+/** Market and brand search across the web (not about one laptop). Used by Market pulse and Brand insights. */
+export async function tavilyWeb(o: { apiKey: string; baseUrl?: string; country?: string | null }, q: WebQuery): Promise<LiveFetch> {
+  const res = await fetch(`${o.baseUrl ?? 'https://api.tavily.com'}/search`, {
+    method: 'POST', signal: q.signal, headers: { 'content-type': 'application/json', authorization: `Bearer ${o.apiKey}` },
+    body: JSON.stringify({ query: q.query, search_depth: 'basic', max_results: q.news ? 10 : 12, topic: q.news ? 'news' : 'general', include_answer: false, include_raw_content: false,
+      ...(q.news ? { time_range: 'month', include_domains: MARKET_SITES } : { time_range: 'year', exclude_domains: NOT_SOURCES, ...(o.country ? { country: o.country } : {}) }) }),
+  });
+  if (!res.ok) throw new Error(`tavily_http_${res.status}`);
+  const data: any = await res.json(); const items: LiveItem[] = []; const need = (q.need ?? []).map((w) => w.toLowerCase());
+  for (const r of data.results ?? []) {
+    let host = ''; try { host = new URL(r.url).hostname.replace(/^www\./, ''); } catch { continue; }
+    if (NOT_SOURCES.some((d) => host === d || host.endsWith('.' + d))) continue;
+    if (need.some((w) => host.includes(w.replace(/\s+/g, '')))) continue;                              // a brand's own website is advertising, not evidence
+    const text = `${r.title ?? ''} ${r.content ?? ''}`.toLowerCase();
+    if (!/laptop|notebook|\bpcs?\b/.test(text)) continue;                                              // must be about laptops
+    if (q.news && !INDIA.test(text)) continue;                                                          // market news must be about India
+    if (need.length && !need.some((w) => text.includes(w))) continue;                                   // must name the brand when one was asked about
+    if (need.length && !OWNER_WORDS.test(text)) continue;                                               // and talk about experience, not specs or deals
+    if ((String(r.content ?? '').match(/\[\d{1,2}:\d{2}/g) ?? []).length >= 3) continue;
+    if (BOILERPLATE.test(String(r.content ?? '').slice(0, 160))) continue;                                 // page menus and shop disclaimers are not content
+    items.push({ snippet: String(r.content ?? '').replace(/\s+/g, ' ').trim(), url: String(r.url), site: host, topic: '', kind: 'excerpt', published: isoDate(r.published_date) });
+  }
+  return { items, note: 'Excerpts from web search results; open the link to read the original.' };
+}
+
 /** Test and demo source: items come from a function. */
 export class FakeLive implements LiveSource {
-  readonly name = 'fake-live'; calls: { laptop: string; topic?: string }[] = [];
-  constructor(private fn: (q: { laptop: string; topic?: string }) => LiveFetch | Promise<LiveFetch>) {}
+  readonly name = 'fake-live'; calls: { laptop: string; topic?: string }[] = []; webCalls: WebQuery[] = [];
+  constructor(private fn: (q: { laptop: string; topic?: string }) => LiveFetch | Promise<LiveFetch>, private webFn?: (q: WebQuery) => LiveFetch | Promise<LiveFetch>) {}
+  async web(q: WebQuery) { this.webCalls.push(q); if (!this.webFn) throw new Error('no_web'); return this.webFn(q); }
   async fetch(q: { laptop: string; topic?: string }) { this.calls.push({ laptop: q.laptop, topic: q.topic }); return this.fn(q); }
 }
 
@@ -120,5 +159,5 @@ export async function liveReviews(o: { tools: Tools; source: LiveSource | null; 
     const items = sanitizeItems(got.items, maxItems, snipWords);
     await tools.call('live_cache_put', { variant_id: variantId, topic, provider: source.name, items, note: got.note ?? null });
     return res(items.length ? 'ok' : 'empty', items, new Date().toISOString());
-  } catch (e) { const r = res('error'); r.note = `${r.note} (${String((e as Error)?.message ?? e).slice(0, 80)})`; return r; }
+  } catch (e) { const r = res('error'); r.error = String((e as Error)?.message ?? e).slice(0, 80); r.note = `${r.note} (${r.error})`; return r; }
 }

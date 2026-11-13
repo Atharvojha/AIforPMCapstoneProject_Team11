@@ -12,7 +12,10 @@ export async function visitorId(ip: string, salt: string, day = new Date().toISO
 }
 
 export async function guardRequest(o: { tools: Tools; visitor: string; bodyLength: number; bodyMax?: number }): Promise<Guard> {
-  if (o.bodyLength > (o.bodyMax ?? DEFAULT_BODY_MAX)) return { status: 413, action: 'too_large', reason: 'body_too_large', degraded: false };
+  if (o.bodyLength > (o.bodyMax ?? DEFAULT_BODY_MAX)) {
+    try { await o.tools.call('log_event', { kind: 'query', input_kind: 'oversized', outcome: 'too_large', status: 413, visitor: o.visitor, error_stage: 'guard', error_message: `body of ${o.bodyLength} characters`, text_len: o.bodyLength }); } catch { /* logging never blocks */ }
+    return { status: 413, action: 'too_large', reason: 'body_too_large', degraded: false };
+  }
   try {
     const d = await o.tools.call<{ action: 'allow' | 'degrade' | 'block'; reason?: string; retry_after?: number }>('rate_gate', { visitor: o.visitor });
     if (d.action === 'block') return { status: 429, action: 'block', reason: d.reason, retry_after: d.retry_after ?? 60, degraded: true };
@@ -29,4 +32,4 @@ export const DEGRADED_NOTICE: Record<string, string> = {
   daily_budget: 'LapFit has reached its daily budget for the smart reader, so I am using the simpler reader without live web results until tomorrow.',
   limiter_unavailable: 'I am running in a simpler mode right now (no live web results).',
 };
-export const BLOCK_MESSAGE = (retry: number) => `You are sending requests too quickly. Please wait ${retry} second${retry === 1 ? '' : 's'} and try again.`;
+export const BLOCK_MESSAGE = (retry: number) => { const m = Math.floor(retry / 60); const r = retry % 60; const w = retry < 60 ? `${retry} second${retry === 1 ? '' : 's'}` : r ? `${m} min ${r} s` : `${m} min`; return `You have sent a lot of requests from this device, so I need a short break. Please try again in ${w}.`; };

@@ -63,7 +63,7 @@ test('blocked requests are still counted, so hammering gets no cheaper', async (
 test('oversized body is refused before any database or model work', async () => {
   const calls: string[] = []; const spy = { call: async (n: string) => { calls.push(n); return {}; } };
   const g = await guardRequest({ tools: spy as any, visitor: 'x', bodyLength: 50000 });
-  assert.equal(g.status, 413); assert.equal(calls.length, 0);
+  assert.equal(g.status, 413); assert.deepEqual(calls, ['log_event'], 'only the log write: no rate counting, no model, no data work');
 });
 
 test('if the limiter itself fails the service stays up but spends nothing (degraded)', async () => {

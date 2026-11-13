@@ -10,7 +10,7 @@ export interface Row {
   price_inr: number | null; price_as_of: string | null; cpu_text: string | null; gpu_text: string | null;
   battery_wh: number | null; refresh_hz: number | null; hinge_type: string | null; warranty_years: number | null;
   colours: string[]; cpu_vendor: string | null; cpu_family: string | null; cpu_generation_or_model: string | null;
-  win11_status: string | null; memory_slots: string | null; os_family: string; gpu_class: string | null; curation_verified: boolean; verified: boolean; is_sample: boolean;
+  win11_status: string | null; memory_slots: string | null; os_family: string; gpu_class: string | null; image_url?: string | null; image_site?: string | null; image_page?: string | null; image_desc?: string | null; curation_verified: boolean; verified: boolean; is_sample: boolean;
 }
 export interface RawCriterion { attribute: string; operator?: string; value: unknown; source_text?: string | null }
 export interface Needs {
