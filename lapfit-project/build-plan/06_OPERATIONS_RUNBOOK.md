@@ -215,3 +215,10 @@ The web app lives in `frontend/` (see its README). It needs only the project URL
 4. **Frontend:** `frontend/.env.local` (or the host's environment settings) holds only `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, both public by design. `npm run build` makes `dist/`; any static host works (Vercel, Netlify, Cloudflare Pages). Routing uses `#/...`, so no rewrite rules are needed. `frontend/vercel.json` sets basic security headers. The bundle was scanned: no Gemini, Tavily or service-role key in it.
 5. **Logs:** nothing to deploy: `query_log` and `input_log` fill on their own; read them with `npm run logs -- ...` in `backend/` (see 07_LOGGING_GUIDE.md); `export-all` saves a dated copy.
 6. **Before real users:** paid Gemini plan (free-tier inputs may be used by the provider), legal review of the logging notice, raise the rate limit for a test room sharing one network, and tell testers what is saved.
+
+## Where the app is hosted
+
+- **Address:** https://lapfit-team11.vercel.app (Vercel project `lapfit-team11`; the older address https://lapfit-beige.vercel.app also works).
+- **Redeploy:** from `frontend/`, `npx vercel deploy --prod --yes` (the two public settings `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are stored in the Vercel project's production environment).
+- **Public access:** the production domains are public; the long per-deployment addresses are behind Vercel login unless Deployment Protection is switched off in the project settings.
+- **Backend:** Supabase project `lapfit` (functions, database, secrets); see "Deploying everything" above.
