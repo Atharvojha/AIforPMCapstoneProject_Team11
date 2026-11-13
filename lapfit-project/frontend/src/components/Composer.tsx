@@ -64,7 +64,7 @@ export function Composer({ onSend, onSendImage, busy, cooldown, prefill, placeho
           <button type="button" className="link" onClick={() => setImg(null)} aria-label="Remove the picture">Remove</button></div>
       )}
       {img && !imgOk && (
-        <label className="consent"><input type="checkbox" onChange={(e) => { if (e.target.checked) { setImgOk(true); setJson(CONSENT, true); } }} /> I understand this picture is sent to Google’s Gemini AI to be read. LapFit does not store it. I have not included faces or other people’s details.</label>
+        <label className="consent"><input type="checkbox" onChange={(e) => { if (e.target.checked) { setImgOk(true); setJson(CONSENT, true); } }} /> I understand this picture is sent to Google’s Gemini AI (or Anthropic’s Claude when Gemini is busy) to be read. LapFit does not store it. I have not included faces or other people’s details.</label>
       )}
       {mic.supported && !voiceOk && askVoice && (
         <label className="consent"><input type="checkbox" onChange={(e) => { if (e.target.checked) { setVoiceOk(true); setJson(VOICE, true); setAskVoice(false); base.current = text.trim(); mic.start(); } }} /> I understand my browser may send my voice to its speech service (Google, in Chrome) to turn it into text. LapFit never receives the audio.</label>

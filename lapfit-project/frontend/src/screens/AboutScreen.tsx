@@ -23,8 +23,8 @@ export function AboutScreen() {
       <p>Looks, design, “durable” and real battery life are not recorded. For those I show a stand-in (for example, how many owners praised the looks in reviews) and say it is only a guide.</p>
       <h3>Your privacy</h3>
       <ul>
-        <li>What you type is sent to the server and, to be read, to Google’s Gemini model. Phone numbers, emails and ID numbers are removed first. Only a laptop name and a topic are sent to the web search, never your text.</li>
-        <li><strong>Pictures.</strong> If you add a picture, your device shrinks it (which also removes location details) and it is sent to Google’s Gemini AI to be read. LapFit does not store it or keep it in the log. Please do not include faces, phone numbers or other people’s details.</li>
+        <li>What you type is sent to the server and, to be read, to Google’s Gemini model (or, when Gemini is busy, Anthropic’s Claude model). Phone numbers, emails and ID numbers are removed first. Only a laptop name and a topic are sent to the web search, never your text.</li>
+        <li><strong>Pictures.</strong> If you add a picture, your device shrinks it (which also removes location details) and it is sent to Google’s Gemini AI (or, when Gemini is busy, Anthropic’s Claude) to be read. LapFit does not store it or keep it in the log. Please do not include faces, phone numbers or other people’s details.</li>
         <li><strong>Voice.</strong> Speaking to the app uses your browser’s speech service (Google, in Chrome), which may send your voice to its provider. LapFit never receives the audio. Reading answers aloud happens on your device.</li>
         <li><strong>Shop links.</strong> “Where to buy” links open a shop’s search page. Some may be affiliate links, which would be labelled, and may earn LapFit a small commission at no extra cost to you. Commission never changes what is shown or in what order. We count link opens without knowing who you are.</li>
         <li>We do not ask for your name or contact details. Your saved laptops and checklist ticks stay on this device.</li>

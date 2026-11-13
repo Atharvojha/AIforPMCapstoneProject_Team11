@@ -3,7 +3,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2.45.0';
 import { handleQuery } from '../_shared/handler.ts';
 import { RpcTools } from '../_shared/tools.ts';
 import { loadSettings } from '../_shared/settings.ts';
-import { GeminiClient, FallbackModel, NoModelKey } from '../_shared/model.ts';
+import { GeminiClient, AnthropicClient, FallbackModel, type ModelClient } from '../_shared/model.ts';
 import { GeminiGroundedSource, TavilySource } from '../_shared/live.ts';
 import { guardRequest, visitorId, BLOCK_MESSAGE } from '../_shared/guard.ts';
 import { newRequestId } from '../_shared/util.ts';
@@ -39,8 +39,11 @@ Deno.serve(async (req) => {
     const apiKey = Deno.env.get('GEMINI_API_KEY'); const tavilyKey = Deno.env.get('TAVILY_API_KEY');
     let model = null;
     if (!guard.degraded && settings.FEATURE_FLAGS?.model_enabled !== false) {
-      try { model = new FallbackModel([new GeminiClient({ apiKey, model: Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.1-flash-lite' }), new GeminiClient({ apiKey, model: Deno.env.get('GEMINI_FALLBACK_MODEL') ?? 'gemini-3.5-flash-lite' })]); }
-      catch (e) { if (!(e instanceof NoModelKey)) throw e; }
+      // Gemini first (two models), then Claude when Gemini is out of quota, overloaded or slow. Any client whose key is not set is simply left out.
+      const clients: ModelClient[] = []; const claudeKey = Deno.env.get('ANTHROPIC_API_KEY');
+      if (apiKey) { clients.push(new GeminiClient({ apiKey, model: Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.1-flash-lite' }), new GeminiClient({ apiKey, model: Deno.env.get('GEMINI_FALLBACK_MODEL') ?? 'gemini-3.5-flash-lite' })); }
+      if (claudeKey) clients.push(new AnthropicClient({ apiKey: claudeKey, model: Deno.env.get('ANTHROPIC_MODEL') ?? undefined }));
+      if (clients.length) model = new FallbackModel(clients);
     }
     // Tavily is preferred (real page excerpts, predictable cost). Gemini grounding is the fallback and needs a paid Google plan.
     const live = guard.degraded || settings.FEATURE_FLAGS?.live_reviews === false ? null : tavilyKey ? new TavilySource({ apiKey: tavilyKey, country: 'india' }) : apiKey ? new GeminiGroundedSource({ apiKey, model: Deno.env.get('GEMINI_MODEL') ?? undefined }) : null;

@@ -53,6 +53,37 @@ export class GeminiClient implements ModelClient {
   }
 }
 
+export interface AnthropicOptions { apiKey?: string; model?: string; baseUrl?: string; version?: string }
+
+/**
+ * Claude (Anthropic Messages API), used as the fallback after Gemini. Same contract as the other clients: text in, text out (JSON, validated by the caller),
+ * optional picture. The key lives only in the Edge Function's secrets. Anthropic's API does not train on API inputs by default.
+ */
+export class AnthropicClient implements ModelClient {
+  readonly name: string; private o: Required<Omit<AnthropicOptions, 'apiKey'>> & { apiKey: string };
+  constructor(opts: AnthropicOptions) {
+    if (!opts.apiKey) throw new NoModelKey();
+    this.o = { apiKey: opts.apiKey, model: opts.model ?? 'claude-haiku-5-5', baseUrl: opts.baseUrl ?? 'https://api.anthropic.com/v1', version: opts.version ?? '2023-06-01' };
+    this.name = `${this.o.model} (anthropic)`;
+  }
+  async generate(req: ModelRequest): Promise<string> {
+    const { apiKey, model, baseUrl, version } = this.o;
+    const res = await fetch(`${baseUrl}/messages`, {
+      method: 'POST', signal: req.signal, headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': version },
+      body: JSON.stringify({
+        model, max_tokens: req.maxTokens ?? 1200, temperature: req.temperature ?? 0,
+        system: `${req.system}\n\nReply with a single JSON object and nothing else: no prose, no code fences.`,
+        messages: [{ role: 'user', content: [{ type: 'text', text: req.user }, ...(req.image ? [{ type: 'image', source: { type: 'base64', media_type: req.image.media_type, data: req.image.data } }] : [])] }],
+      }),
+    });
+    if (!res.ok) throw new Error(`model_http_${res.status}`);
+    const data: any = await res.json();
+    const text: string = (data.content ?? []).filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('');
+    if (!text) throw new Error('model_empty');
+    return text;
+  }
+}
+
 /** For tests and demos: the reply comes from a function. */
 export class FakeModel implements ModelClient {
   readonly name = 'fake'; calls: ModelRequest[] = [];
