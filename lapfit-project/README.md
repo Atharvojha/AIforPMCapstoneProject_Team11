@@ -8,7 +8,8 @@ Everything built in this round, in one folder.
 | `data-model/` | All the data LapFit gets and needs, including images, privacy and retention | `DATA_MODEL.md` |
 | `jtbd-analysis/` | Jobs to be done, hidden assets, use cases, opportunity scoring | `JTBD_EXPANSION.md` |
 | `build-plan/` | Backend build plan, accuracy without training, frontend jobs and triggers, architecture diagrams, the backend build log and the operations runbook | `01_BACKEND_BUILD_PLAN.md`, `05_BACKEND_BUILD_LOG.md` |
-| `backend/` | The deployed backend: Supabase schema and SQL tools, the TypeScript orchestrator and flows, live reviews, rate limiting, import scripts, 162 tests | `README.md`, then `../build-plan/05_BACKEND_BUILD_LOG.md` |
+| `backend/` | The deployed backend: Supabase schema and SQL tools, the TypeScript orchestrator and flows, live reviews, rate limiting, import scripts, 209 tests | `README.md`, then `../build-plan/05_BACKEND_BUILD_LOG.md` |
+| `frontend/` | The web app (React, Vite, TypeScript): ask, find, check, compare, sell, my laptops, share, market, about; 187 tests | `README.md` |
 | `ai-prd/` | AI PRDs, one per feature, in the 13-part template, with shared cost and latency assumptions | `00_SHARED_ASSUMPTIONS.md` |
 | `ai-spec/` | To-do, decisions (including the AI type per scenario), system prompts, feature specs, and one AI-anatomy document per feature | `00_INDEX.md` |
 

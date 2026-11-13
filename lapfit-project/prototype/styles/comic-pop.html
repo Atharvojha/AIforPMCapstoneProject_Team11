@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LapFit · comic-pop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111;--paper:#FFF8E1;--yel:#FFD500;--red:#D90429;--blue:#0057B8;--white:#fff;--ease:cubic-bezier(.23,1,.32,1);--sh:5px 5px 0 var(--ink)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:"Comic Neue","Comic Sans MS",system-ui,sans-serif;font-weight:700;color:var(--ink);background:var(--paper);background-image:radial-gradient(rgba(0,87,184,.18) 1.5px,transparent 1.6px);background-size:14px 14px;padding-bottom:env(safe-area-inset-bottom);line-height:1.35}
+h1,h2,h3,.bang{font-family:Bangers,Impact,sans-serif;font-weight:400;letter-spacing:.04em;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--blue);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+header{background:var(--yel);border-bottom:4px solid var(--ink);padding-top:env(safe-area-inset-top)}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px 16px}
+.logo{font-family:Bangers;font-size:2.2rem;background:var(--red);color:#fff;border:3px solid var(--ink);padding:0 12px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-2deg);letter-spacing:.06em}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav button{min-height:44px;min-width:44px;padding:0 14px;background:var(--white);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font-family:Bangers;font-size:1.2rem;letter-spacing:.05em;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+nav button[aria-current=page]{background:var(--blue);color:#fff}
+nav button:active,.btn:active,.chip:active,.tile:active{transform:translate(3px,3px) scale(.97);box-shadow:0 0 0 var(--ink)}
+@media(hover:hover){nav button:hover,.tile:hover,.chip:hover{transform:translate(-1px,-1px)}}
+.hero{padding:24px 0 8px}
+.panel{background:var(--white);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:18px;position:relative}
+.hero h1{font-size:clamp(2rem,7vw,3.4rem);line-height:1;text-shadow:3px 3px 0 var(--yel)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin:16px 0;padding:0;border:0}
+.tile{position:relative;min-height:76px;background:var(--white);border:3px solid var(--ink);box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:Bangers;font-size:1.25rem;letter-spacing:.05em;cursor:pointer;transition:transform .15s var(--ease),box-shadow .15s var(--ease),background-color .15s var(--ease)}
+.tile span.e{font-size:1.6rem;line-height:1}
+.tile input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.tile:has(input:checked){background:var(--yel);transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.tile:has(input:checked)::after{content:"POW!";position:absolute;top:-10px;right:-6px;background:var(--red);color:#fff;font-size:.8rem;padding:0 5px;border:2px solid var(--ink);transform:rotate(8deg);animation:pop .2s var(--ease)}
+.tile:has(input:focus-visible){outline:4px solid var(--blue);outline-offset:3px}
+@keyframes pop{from{opacity:0;transform:rotate(8deg) scale(.95)}}
+.budget{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.budget label{font-family:Bangers;font-size:1.4rem}
+.val{background:var(--blue);color:#fff;border:3px solid var(--ink);padding:2px 12px;font-family:Bangers;font-size:1.4rem;font-variant-numeric:tabular-nums}
+.fit{background:var(--yel);border:3px solid var(--ink);padding:2px 10px;transform:rotate(-1.5deg)}
+input[type=range]{width:100%;height:44px;accent-color:var(--red);margin:4px 0}
+.scale{display:flex;justify-content:space-between;font-size:.9rem}
+h2.sec{font-size:2rem;margin:28px 0 14px}
+h2.sec span{background:var(--ink);color:var(--yel);padding:0 10px}
+.grid{display:grid;gap:22px;grid-template-columns:1fr;padding-bottom:12px}
+@media(min-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.card.feat{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:0 20px}.card.feat .pic{height:100%;min-height:260px}}
+.card{background:var(--white);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:14px;position:relative;animation:in .25s var(--ease) both;animation-delay:calc(var(--i)*40ms)}
+@keyframes in{from{opacity:0;transform:translateY(8px) scale(.95)}}
+.pic{position:relative;border:3px solid var(--ink);background:#fff;height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;background-image:radial-gradient(rgba(217,4,41,.25) 1.5px,transparent 1.6px);background-size:10px 10px}
+.pic img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.fb{display:none;text-align:center;font-family:Bangers;font-size:1.3rem}
+.pic.err img{display:none}.pic.err .fb{display:block}
+.fb svg{width:120px;display:block;margin:0 auto 4px}
+.rank{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;border:3px solid var(--ink);font-family:Bangers;font-size:1.3rem;padding:0 10px;transform:rotate(-4deg);z-index:2}
+.burst{position:absolute;top:34px;right:4px;width:96px;height:96px;z-index:3;transform:rotate(12deg);display:grid;place-items:center;text-align:center;font-family:Bangers;font-size:1.05rem;line-height:1;color:var(--ink);filter:drop-shadow(3px 3px 0 var(--ink))}
+.burst svg{position:absolute;inset:0;width:100%;height:100%}
+.burst b{position:relative;font-weight:400}
+.chip{position:absolute;top:8px;right:8px;z-index:2;min-height:44px;padding:0 12px;background:var(--yel);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font-weight:900;transition:transform .15s var(--ease),box-shadow .15s var(--ease),background-color .15s}
+.chip[aria-pressed=true]{background:var(--blue);color:#fff}
+.body{padding-top:12px;position:relative}
+.card h3{font-size:1.7rem;line-height:1.05}
+.ver{margin:2px 0 6px;font-size:1rem}
+.price{font-family:Bangers;font-size:2.3rem;color:var(--red);-webkit-text-stroke:1px var(--ink);letter-spacing:.04em;font-variant-numeric:tabular-nums;line-height:1}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:6px 0 10px;font-size:.95rem}
+.nv{background:var(--paper);border:2px dashed var(--ink);padding:1px 8px;font-weight:900}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 12px}
+.spec{border:3px solid var(--ink);background:var(--paper);padding:4px 2px;text-align:center;font-size:.8rem}
+.spec b{display:block;font-family:Bangers;font-weight:400;font-size:1.15rem;letter-spacing:.03em}
+.q{display:inline-block;min-width:1.2em;border:2px dashed var(--ink);background:#fff}
+.ringrow{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.ring{width:64px;height:64px;flex:none;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:Bangers;font-weight:400;font-size:1.1rem}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.btn{min-height:56px;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);background:var(--white);font-weight:900;font-size:.95rem;padding:4px;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.btn.main{background:var(--red);color:#fff}
+.btn[aria-expanded=true]{background:var(--yel)}
+@media(hover:hover){.btn:hover,.chip:hover{box-shadow:6px 6px 0 var(--ink)}}
+.bubble{display:none;position:relative;margin:16px 4px 4px;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:10px 14px;box-shadow:4px 4px 0 var(--ink)}
+.bubble.open{display:block;animation:in .2s var(--ease)}
+.bubble::before{content:"";position:absolute;top:-14px;left:calc(33% - 40px);width:22px;height:22px;background:#fff;border-left:3px solid var(--ink);border-top:3px solid var(--ink);transform:rotate(45deg)}
+.bubble p{margin:0}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--yel);padding:10px 16px;border:3px solid var(--yel);font-family:Bangers;font-size:1.2rem;opacity:0;pointer-events:none;transition:opacity .2s var(--ease);z-index:9}
+.toast.on{opacity:1}
+footer{margin:20px 0 40px;font-size:.95rem}
+footer p{display:inline-block;background:var(--white);border:3px solid var(--ink);padding:8px 14px;box-shadow:var(--sh);margin:0}
+@media(max-width:420px){.acts{gap:6px}.btn{font-size:.85rem}.specs{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><div class="wrap top"><div class="logo" aria-label="LapFit">LapFit</div>
+<nav aria-label="Main"><button aria-current="page">Ask</button><button>Explore</button><button>Check</button><button>Sell</button><button>You</button></nav></div></header>
+<main class="wrap">
+<section class="hero"><div class="panel">
+<h1>What will you use it for?</h1>
+<fieldset class="tiles" style="border:0;padding:0;margin:16px 0"><legend style="position:absolute;left:-9999px">Pick a use</legend>
+<label class="tile"><input type="radio" name="use" checked><span class="e" aria-hidden="true">⌨️</span>Coding</label>
+<label class="tile"><input type="radio" name="use"><span class="e" aria-hidden="true">📚</span>Study</label>
+<label class="tile"><input type="radio" name="use"><span class="e" aria-hidden="true">🎮</span>Gaming</label>
+<label class="tile"><input type="radio" name="use"><span class="e" aria-hidden="true">🎬</span>Editing</label>
+<label class="tile"><input type="radio" name="use"><span class="e" aria-hidden="true">🏠</span>Everyday</label></fieldset>
+<div class="budget"><label for="b">Budget</label><output class="val" id="v" for="b">up to ₹60,000</output><span class="fit" id="fit">9 laptops fit</span></div>
+<input id="b" type="range" min="20000" max="150000" step="1000" value="60000">
+<div class="scale"><span>₹20,000</span><span>₹1,50,000</span></div>
+</div></section>
+<h2 class="sec"><span>Your matches</span></h2>
+<div class="grid" id="grid"></div>
+<footer><p>Pictures are from the web and may not show this exact version.</p></footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const L=[
+{id:"FKL-09",n:"ASUS VivoBook 15 (2022) Core i3 10th Gen",p:"₹28,170",v:"8 GB / 512 GB",s:["8 GB","512 GB",'15.6"',"1.8 kg"],img:"https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",cheap:1},
+{id:"FKL-11",n:"Lenovo IdeaPad 3 Ryzen 5 5500U",p:"₹38,952",v:"8 GB / 512 GB",s:["8 GB","512 GB",'15.6"',"1.65 kg"],img:"https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg"},
+{id:"FKL-13",n:"HP Ryzen 5 5500U",p:"₹38,944",v:"8 GB / 512 GB",s:["8 GB","512 GB",'15.6"',"1.69 kg"],img:"https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90"}];
+const lab=["RAM","Storage","Screen","Weight"];
+const C=2*Math.PI*26,pos=101/196;
+const star='<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,0 61,18 82,10 80,32 100,38 85,54 98,72 76,76 74,98 56,86 40,100 36,78 14,84 20,62 0,50 18,38 8,18 30,22 36,2" fill="#FFD500" stroke="#111" stroke-width="3"/></svg>';
+const fb='<svg viewBox="0 0 120 80" aria-hidden="true"><rect x="16" y="6" width="88" height="54" rx="4" fill="#fff" stroke="#111" stroke-width="4"/><rect x="2" y="62" width="116" height="10" rx="3" fill="#FFD500" stroke="#111" stroke-width="4"/></svg>';
+document.getElementById("grid").innerHTML=L.map((l,i)=>`
+<article class="card ${i?'':'feat'}" style="--i:${i}">
+<div class="pic"><span class="rank">#${i+1}</span><button class="chip" aria-pressed="false" data-n="${l.n}">＋ Compare</button>
+<img src="${l.img}" alt="${l.n}" loading="lazy" referrerpolicy="no-referrer"><div class="fb">${fb}Picture unavailable</div></div>
+<div class="body">${l.cheap?`<div class="burst">${star}<b>Lowest<br>price!</b></div>`:''}<h3>${l.n}</h3><div class="ver">${l.v}</div><div class="price">${l.p}</div>
+<div class="meta"><span>as of 10 Nov 2026 · 3 days old</span><span class="nv">Not human-verified</span></div>
+<div class="specs">${l.s.map((x,k)=>`<div class="spec">${lab[k]}<b>${x}</b></div>`).join('')}</div>
+<div class="ringrow"><div class="ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#FFF8E1" stroke-width="10"/><circle cx="32" cy="32" r="26" fill="none" stroke="#0057B8" stroke-width="10" stroke-dasharray="${(C*pos).toFixed(1)} ${C.toFixed(1)}"/><circle cx="32" cy="32" r="31" fill="none" stroke="#111" stroke-width="2"/></svg></div><div><b>196 owner opinions, 101 positive</b></div></div>
+<div class="acts"><button class="btn" aria-expanded="false" aria-controls="bb${i}" data-say>💬 Owners say</button><button class="btn">🔎 Full check</button><button class="btn main">🛒 Where to buy</button></div>
+<div class="bubble" id="bb${i}" role="region" aria-label="Owners say"><p>Owners say: 101 of 196 opinions are positive. Detailed themes are <span class="q">?</span> in this sample.</p></div>
+</div></article>`).join('');
+document.querySelectorAll('.pic img').forEach(im=>{const f=()=>im.parentElement.classList.add('err');im.addEventListener('error',f);if(im.complete&&!im.naturalWidth)f()});
+const t=document.getElementById('toast');let tt;
+const say=m=>{t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)};
+document.addEventListener('click',e=>{const c=e.target.closest('.chip');if(c){const on=c.getAttribute('aria-pressed')!=='true';c.setAttribute('aria-pressed',on);c.textContent=on?'✓ Added':'＋ Compare';say(on?'ZAP! Added to compare':'Removed')}
+const s=e.target.closest('[data-say]');if(s){const o=s.getAttribute('aria-expanded')!=='true';s.setAttribute('aria-expanded',o);document.getElementById(s.getAttribute('aria-controls')).classList.toggle('open',o)}});
+const b=document.getElementById('b');b.oninput=()=>{const n=+b.value;document.getElementById('v').textContent='up to ₹'+n.toLocaleString('en-IN');document.getElementById('fit').textContent=n===60000?'9 laptops fit':'? laptops fit'};
+</script></body></html>

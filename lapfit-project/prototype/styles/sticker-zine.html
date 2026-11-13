@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LapFit · sticker zine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6efdd; --card:#fffdf6; --ink:#1f2a5c; --hl:#ffe45c; --text:#1d1b1a; --muted:#57534a; --line:#d9cfb4;
+  --ease:cubic-bezier(.23,1,.32,1);
+  --note:'Caveat','Patrick Hand',cursive; --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--text);font:16px/1.45 var(--sans);
+  background-image:radial-gradient(rgba(31,42,92,.07) 1px,transparent 1px);background-size:22px 22px;
+  padding-bottom:env(safe-area-inset-bottom)}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+header{padding-top:max(12px,env(safe-area-inset-top))}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding:10px 0}
+.logo{font-family:var(--note);font-size:2.2rem;font-weight:700;color:var(--ink);line-height:1;margin:0;
+  background:linear-gradient(transparent 58%,var(--hl) 58% 92%,transparent 92%);padding:0 6px;transform:rotate(-1.2deg)}
+nav{display:flex;gap:4px;overflow-x:auto;flex:1 1 100%;order:3;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.tab{min-height:44px;min-width:56px;padding:0 14px;background:none;border:0;border-bottom:3px solid transparent;font-weight:600;color:var(--muted);
+  transition:transform 160ms var(--ease),color 160ms var(--ease)}
+.tab:active{transform:scale(.97)}
+.tab[aria-selected=true]{color:var(--ink);border-bottom:3px solid var(--ink);border-radius:2px}
+.tab[aria-selected=true]{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8'%3E%3Cpath d='M0 5 Q5 0 10 5 T20 5 T30 5 T40 5' fill='none' stroke='%231f2a5c' stroke-width='2'/%3E%3C/svg%3E") bottom/40px 8px repeat-x;border-bottom-color:transparent;padding-bottom:6px}
+@media(min-width:760px){nav{flex:0 1 auto;order:0;margin-left:auto}}
+
+.sticker{background:var(--card);border:2px solid var(--ink);border-radius:14px;box-shadow:4px 5px 0 rgba(31,42,92,.22);position:relative;
+  transform:rotate(var(--r,0deg));transition:transform 200ms var(--ease),box-shadow 200ms var(--ease)}
+.tape{position:absolute;width:64px;height:20px;background:rgba(255,228,92,.75);border:1px dashed rgba(31,42,92,.25);z-index:2;pointer-events:none}
+.tape.tl{top:-9px;left:-14px;transform:rotate(-35deg)}
+.tape.tr{top:-9px;right:-14px;transform:rotate(35deg)}
+@media(hover:hover){.card:hover{transform:rotate(0deg) translateY(-2px);box-shadow:6px 8px 0 rgba(31,42,92,.22)}}
+
+.hero{margin:18px 0 30px;padding:22px 18px 24px;--r:-.5deg}
+.note{font-family:var(--note);font-size:1.35rem;color:var(--ink);margin:0}
+h1{font-size:clamp(1.7rem,5.5vw,2.6rem);line-height:1.1;margin:2px 0 4px;letter-spacing:-.02em}
+.mark{background:linear-gradient(transparent 55%,var(--hl) 55% 90%,transparent 90%);padding:0 3px}
+.squig{display:block;width:150px;height:10px;margin:2px 0 16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='10'%3E%3Cpath d='M0 6 Q3.75 0 7.5 5 T15 5 T22.5 5 T30 5' fill='none' stroke='%231f2a5c' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x}
+.vibes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;border:0;padding:0;margin:0 0 20px}
+.vibes legend{padding:0;font-weight:600;margin-bottom:8px}
+@media(min-width:620px){.vibes{grid-template-columns:repeat(5,1fr)}}
+.vibe{position:relative}
+.vibe input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.vibe span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:76px;border:2px solid var(--ink);border-radius:12px;background:#fff;font-weight:600;
+  transition:transform 160ms var(--ease),background-color 160ms var(--ease)}
+.vibe span b{font-size:1.5rem;font-weight:400}
+.vibe:nth-child(odd) span{transform:rotate(-.8deg)}.vibe:nth-child(even) span{transform:rotate(.8deg)}
+.vibe input:checked+span{background:var(--hl);box-shadow:inset 0 0 0 2px var(--ink);transform:rotate(0)}
+.vibe input:active+span{transform:scale(.97)}
+.vibe input:focus-visible+span{outline:3px solid var(--ink);outline-offset:3px}
+@media(hover:hover){.vibe input:not(:checked):hover+span{background:#fff6c2}}
+.budget{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px}
+.budget label{font-weight:600}
+.val{font-family:var(--note);font-size:1.6rem;color:var(--ink);font-weight:700}
+input[type=range]{width:100%;height:44px;margin:4px 0 0;accent-color:var(--ink);background:transparent}
+.scale{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted)}
+.fit{display:inline-block;margin-top:10px;font-weight:600}
+
+.sectionhead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:8px 4px 10px}
+h2{margin:0;font-size:1.4rem}
+.grid{display:grid;gap:30px;grid-template-columns:1fr;padding:10px 6px 20px}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr;gap:34px}.card.feat{grid-column:1/-1;display:grid;grid-template-columns:minmax(280px,.9fr) 1.3fr}.card.feat .pic{height:100%;min-height:280px;border-radius:12px 0 0 12px;border-bottom:0;border-right:2px solid var(--ink)}}
+.card{overflow:visible;opacity:0;animation:in 240ms var(--ease) forwards;animation-delay:calc(var(--i)*45ms + 60ms)}
+@keyframes in{from{opacity:0;transform:rotate(var(--r)) translateY(10px) scale(.96)}to{opacity:1;transform:rotate(var(--r))}}
+.pic{position:relative;height:200px;background:#fff;border-bottom:2px solid var(--ink);border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:center;padding:10px}
+.pic img{max-width:100%;max-height:100%;object-fit:contain}
+.pic svg.fb{width:70%;max-height:90%}
+.rank{position:absolute;top:10px;left:10px;background:var(--ink);color:#fff;font-weight:700;font-size:.9rem;padding:4px 12px;border-radius:99px;min-height:28px;display:flex;align-items:center;transform:rotate(-3deg)}
+.cmp{position:absolute;top:6px;right:6px;min-height:44px;padding:0 14px;border:2px dashed var(--ink);background:var(--card);border-radius:99px;font-weight:600;color:var(--ink);
+  transition:transform 160ms var(--ease),background-color 160ms var(--ease)}
+.cmp:active{transform:scale(.97)}
+.cmp[aria-pressed=true]{background:var(--hl);border-style:solid}
+.body{padding:16px}
+h3{margin:0;font-size:1.2rem;line-height:1.25}
+.ver{color:var(--muted);margin:2px 0 8px}
+.price{font-size:1.7rem;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+.asof{font-size:.85rem;color:var(--muted);margin:0}
+.nv{display:inline-flex;align-items:center;gap:6px;margin:8px 0 12px;padding:3px 10px;border:1.5px dashed var(--ink);border-radius:6px;font-size:.85rem;font-weight:600;color:var(--ink);background:#fff6c2;transform:rotate(-.8deg)}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 14px;padding:0;list-style:none}
+@media(min-width:420px){.specs{grid-template-columns:repeat(4,1fr)}}
+.specs li{border:1.5px solid var(--line);border-radius:10px;padding:8px;background:#fff;text-align:center}
+.specs small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.specs b{font-size:.95rem}
+.ringrow{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ring{flex:none;width:64px;height:64px}
+.ringrow p{margin:0;font-size:.95rem}
+.ringrow .note{font-size:1.2rem}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.act{min-height:56px;border:2px solid var(--ink);background:#fff;border-radius:12px;font-weight:600;font-size:.88rem;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;
+  transition:transform 160ms var(--ease),background-color 160ms var(--ease)}
+.act.main{background:var(--ink);color:#fff}
+.act:active{transform:scale(.97)}
+@media(hover:hover){.act:not(.main):hover{background:var(--hl)}.act.main:hover{background:#2c3a7d}.cmp:hover{background:#fff6c2}}
+.q{display:inline-block;border:1.5px dashed var(--ink);border-radius:5px;padding:0 6px;font-weight:700}
+footer{margin:10px 0 40px;padding:0 6px}
+.foot{display:inline-block;--r:.6deg;padding:12px 16px;font-size:.92rem;color:var(--muted);max-width:560px}
+.foot .note{display:inline;font-size:1.25rem}
+.tray{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:12px 18px;border-radius:99px;font-weight:600;transition:transform 200ms var(--ease),opacity 200ms var(--ease);z-index:9;white-space:nowrap}
+.tray.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap top">
+  <h1 class="logo" style="font-size:2.2rem;letter-spacing:0">LapFit</h1>
+  <nav role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" aria-selected="true">Ask</button>
+    <button class="tab" role="tab" aria-selected="false">Explore</button>
+    <button class="tab" role="tab" aria-selected="false">Check</button>
+    <button class="tab" role="tab" aria-selected="false">Sell</button>
+    <button class="tab" role="tab" aria-selected="false">You</button>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="sticker hero" aria-labelledby="h">
+    <i class="tape tl"></i><i class="tape tr"></i>
+    <p class="note">an honest second opinion, no hype</p>
+    <h1 id="h">What will you use it <span class="mark">for?</span></h1>
+    <span class="squig" aria-hidden="true"></span>
+    <fieldset class="vibes">
+      <legend>Pick a vibe</legend>
+      <label class="vibe"><input type="radio" name="v" checked><span><b aria-hidden="true">⌨️</b>Coding</span></label>
+      <label class="vibe"><input type="radio" name="v"><span><b aria-hidden="true">📚</b>Study</span></label>
+      <label class="vibe"><input type="radio" name="v"><span><b aria-hidden="true">🎮</b>Gaming</span></label>
+      <label class="vibe"><input type="radio" name="v"><span><b aria-hidden="true">🎬</b>Editing</span></label>
+      <label class="vibe"><input type="radio" name="v"><span><b aria-hidden="true">☕</b>Everyday</span></label>
+    </fieldset>
+    <div class="budget"><label for="b">Budget</label><span class="val" id="bv" aria-live="polite">up to ₹60,000</span></div>
+    <input id="b" type="range" min="20000" max="150000" step="5000" value="60000">
+    <div class="scale" aria-hidden="true"><span>₹20,000</span><span>₹1,50,000</span></div>
+    <span class="fit"><span class="mark" id="fit">9 laptops fit</span></span>
+  </section>
+
+  <div class="sectionhead"><h2>Your shortlist</h2><span class="note">3 of the picks, best first</span></div>
+  <section class="grid" id="grid" aria-label="Results"></section>
+
+  <footer><p class="sticker foot"><i class="tape tl"></i><span class="note">psst.</span> Pictures are from the web and may not show this exact version.</p></footer>
+</main>
+<div class="tray" id="tray" role="status"></div>
+
+<script>
+const L=[
+ {n:"ASUS VivoBook 15 (2022) Core i3 10th Gen",p:"₹28,170",w:"1.8 kg",img:"https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",id:"FKL-09",r:-1},
+ {n:"Lenovo IdeaPad 3 Ryzen 5 5500U",p:"₹38,952",w:"1.65 kg",img:"https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",id:"FKL-11",r:1},
+ {n:"HP Ryzen 5 5500U",p:"₹38,944",w:"1.69 kg",img:"https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",id:"FKL-13",r:-.7}
+];
+const fb=`<svg class="fb" viewBox="0 0 120 80" role="img" aria-label="Drawn laptop placeholder"><rect x="20" y="8" width="80" height="50" rx="5" fill="#fff" stroke="#1f2a5c" stroke-width="3"/><path d="M30 20 Q45 12 60 22 T90 20" fill="none" stroke="#1f2a5c" stroke-width="2.5"/><path d="M8 64h104l-8 8H16z" fill="#ffe45c" stroke="#1f2a5c" stroke-width="3" stroke-linejoin="round"/></svg>`;
+const C=2*Math.PI*26, pct=101/196;
+const g=document.getElementById('grid');
+L.forEach((x,i)=>{
+ const a=document.createElement('article');
+ a.className='sticker card'+(i==0?' feat':'');a.style.setProperty('--r',x.r*1.2+'deg');a.style.setProperty('--i',i);
+ a.innerHTML=`<i class="tape ${i%2?'tr':'tl'}"></i>
+ <div class="pic"><img src="${x.img}" alt="${x.n}" loading="lazy" referrerpolicy="no-referrer"><span class="rank">#${i+1}</span>
+  <button class="cmp" aria-pressed="false">＋ Compare</button></div>
+ <div class="body">
+  <h3>${x.n}</h3><p class="ver">8 GB / 512 GB</p>
+  <div class="price">${x.p}</div><p class="asof">as of 10 Nov 2026 · 3 days old</p>
+  <span class="nv">Not human-verified</span>
+  <ul class="specs"><li><small>RAM</small><b>8 GB</b></li><li><small>Storage</small><b>512 GB</b></li><li><small>Screen</small><b>15.6"</b></li><li><small>Weight</small><b>${x.w}</b></li></ul>
+  <div class="ringrow"><svg class="ring" viewBox="0 0 64 64" role="img" aria-label="101 of 196 owner opinions positive"><circle cx="32" cy="32" r="26" fill="none" stroke="#e6dcc0" stroke-width="8"/><circle cx="32" cy="32" r="26" fill="none" stroke="#1f2a5c" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C*pct} ${C}" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2a5c" font-family="Inter,sans-serif">101</text></svg>
+   <p><b>196 owner opinions</b>, 101 positive<br><span class="note">read them, don't just trust the ring</span></p></div>
+  <div class="acts"><button class="act">💬<span>Owners say</span></button><button class="act">🔎<span>Full check</span></button><button class="act main">🛒<span>Where to buy</span></button></div>
+ </div>`;
+ const img=a.querySelector('img');
+ img.addEventListener('error',()=>img.outerHTML=fb);
+ g.appendChild(a);
+});
+// compare chips
+const tray=document.getElementById('tray');let t;
+g.addEventListener('click',e=>{const b=e.target.closest('.cmp');if(!b)return;
+ const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);
+ b.textContent=on?'✓ Comparing':'＋ Compare';
+ const n=g.querySelectorAll('.cmp[aria-pressed=true]').length;
+ tray.textContent=n?n+' picked to compare':'';tray.classList.toggle('on',n>0);});
+// tabs
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===b))}));
+// slider
+const s=document.getElementById('b'),bv=document.getElementById('bv'),fit=document.getElementById('fit');
+s.addEventListener('input',()=>{const v=+s.value;bv.textContent='up to ₹'+v.toLocaleString('en-IN');
+ fit.textContent=v===60000?'9 laptops fit':'? laptops fit (count updates in the real app)';});
+</script>
+</body>
+</html>

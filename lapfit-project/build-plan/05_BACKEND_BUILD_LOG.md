@@ -22,7 +22,8 @@ A buyer (or seller, or owner) sends text or a form to one HTTPS endpoint. The ba
 | Rate limiting | `guard.ts`, `…0008_rate_limit.sql`, `query/index.ts` | Size check, per-visitor limits, degrade-before-block, global daily budget |
 | Edge wrapper | `supabase/functions/query/index.ts` | Thin HTTP wrapper around the handler |
 | Import | `scripts/` | Copies the team's existing SQLite database into Postgres, locally, over a database URL, or through the Supabase CLI login |
-| Tests | `tests/` | 162 tests (below) on in-memory Postgres with a fake model and a fake live source |
+| Logging | `…0010_logging.sql`, `handler.ts`, `scripts/logs.ts` | A row per request with scrubbed text, stage timings, where it failed, model attempts; views; retention; a command-line viewer. Guide: `07_LOGGING_GUIDE.md` |
+| Tests | `tests/` | 178 tests (below) on in-memory Postgres with a fake model and a fake live source |
 
 About 1,950 lines of TypeScript and 800 lines of SQL.
 
@@ -38,7 +39,11 @@ About 1,950 lines of TypeScript and 800 lines of SQL.
 8. **Deployment to Supabase.** Installed the CLI, linked the project, applied the migrations, imported the data through the CLI login, deployed the function, set secrets.
 9. **First real-service tests.** Found and fixed the problems in section 5.
 10. **Rate limiting** (12 tests).
-11. **Documentation** (this file, the runbook, the diagrams, decisions D-32 to D-45), which found and fixed problem 16.
+11. **Frontend** (`../frontend`, 114 tests): see `../frontend/README.md`. It needed new direct actions in the backend (compare, owner voice, second opinion, sell plan and used check by laptop id, plus a laptop list for pickers). Problems found while building it are in section 5 (items 17 to 20).
+12. **Logging** (15 tests, 10 frontend tests): `07_LOGGING_GUIDE.md`. Found while doing it: the old log marked soft failures "ok" (problem 21).
+13. **Data honesty, pictures, voice, sharing, shop links and a redesigned frontend** (this round): `08_DATA_AND_SOURCES.md`, `09_MULTIMODAL.md`, `10_MONETIZATION.md`, `11_FRONTEND_DESIGN.md`. Backend grew to 209 tests, the frontend to 182.
+14. **Frontend version 3** after feedback that the redesign only changed colours: new structure, laptop map, sliders and faces instead of forms (`11_FRONTEND_DESIGN.md`, section 0). Frontend tests: 187.
+15. **Documentation** (this file, the runbook, the diagrams, decisions D-32 to D-45), which found and fixed problem 16.
 
 ## 4. What was proven, and how
 
@@ -55,7 +60,7 @@ About 1,950 lines of TypeScript and 800 lines of SQL.
 | The deployed stack works end to end | Real Gemini read a Hinglish request; real Tavily returned relevant live reviews; real Postgres returned the same counts as the local tests (234 MacBook opinions; 6 laptops under ₹60,000 excluding HP) |
 | Public keys cannot reach the data | After migration 06: 0 tool functions and 0 tables are accessible to the `anon` or `authenticated` roles |
 
-Test count by file: data 15, flows 17, inputs 107, live 11, rate limit 12 = **162**, all passing.
+Test count by file: data 15, flows 17, inputs 108, live 11, rate limit 12, logging 15, provenance 7, image 15, monetization 9 = **209**, all passing. The frontend adds 187 tests (`../frontend`).
 
 ## 5. Problems found and fixed
 
@@ -76,6 +81,16 @@ Test count by file: data 15, flows 17, inputs 107, live 11, rate limit 12 = **16
 | 13 | The safety gate checked cards one after another (slow) | Timings | Cards and lookups are checked in parallel |
 | 14 | A "style: stylish" criterion from the model appeared as an unsupported item | Real Gemini output | Style attributes are dropped; the looks lens handles them |
 | 15 | Video chapter lists came back as "reviews" from Tavily | Reading real results | Results with several timestamps are skipped |
+| 17 | The deployed backend was older than the code: the frontend's live check got a generic "what do you want to do?" for every direct action | Running the frontend API client against the live endpoint | Redeployed. Lesson: deploy after every backend change, and run the live check |
+| 18 | If a second request started while the first was running, the first turn stayed "pending" forever | A frontend test | A new request now replaces any failed or still-running one |
+| 19 | The Find screen showed no brand list unless another screen had loaded the laptop catalog | A frontend test | The screen loads the catalog itself |
+| 20 | The dev server listened on IPv6 only, so a browser could not reach it | Trying to open the app | Bind to 127.0.0.1 |
+| 21 | The old request log said "ok" for requests that had really failed softly (Gemini timeouts, reasons fallbacks, live-search errors); of the first 44 logged requests none showed a problem | You asked for a log and I read what the live table held | Stage tracking, soft-failure records, model attempts, client-side reports (`07_LOGGING_GUIDE.md`) |
+| 22 | The banner said "Course project / sample data" even though the real situation is more specific (a dated price snapshot, no verified specs, undated reviews, live web reviews) | You asked why it said that | The banner is now built from the data (D-56); every answer carries a source receipt |
+| 23 | The vision model was told a picture could carry instructions: a mock listing with "IGNORE ALL PREVIOUS INSTRUCTIONS" written in it was flagged and ignored (a safety check that passed, recorded here) | Real-model test | Kept as a regression test with a fake model |
+| 24 | The shop search text repeated the brand ("APPLE APPLE 2020 Macbook…") | Live test of where-to-buy | Fixed and tested |
+| 25 | Spec-like claims labelled "service" by the model ("3 year warranty") were not checked against the catalog | Real picture test | Spec-like wording is checked whatever label the reader gave it |
+| 26 | The radar chart's left label was cut off, and the voice-consent box took space before anyone used the mic | Headless-Chrome screenshots | Fixed (`11_FRONTEND_DESIGN.md`, section 5) |
 | 16 | **The code read settings under names the database did not have** (for example the battery thresholds), so a 65% battery was not flagged as a warning in the used-laptop check, and several limits silently used code defaults | Writing this documentation and comparing the settings table with the code | Code now reads the stored names; migration 09 aligns the table; a test fails if the code ever reads a setting that does not exist; a regression test checks the 65% and 75% battery cases |
 
 ## 6. Real-service measurements (13 Nov 2026)
@@ -95,6 +110,8 @@ These are single runs on a free tier. Treat them as indicative, not as a service
 ## 7. Not proven, not built
 
 **Not proven:**
+- The live picture-reading request through the deployed endpoint (the hourly rate limit from my own testing blocked it; the real model was tested locally on three images).
+- The redesigned screens on a real phone, in dark mode, and with animation playing (only still frames in headless Chrome were reviewed).
 - Latency under load; one measurement run only.
 - The Edge Function on a custom domain, and behaviour from the Lovable frontend (the frontend does not exist yet).
 - Gemini Google Search grounding (blocked by quota; code written from the documentation).
@@ -121,6 +138,6 @@ These are single runs on a free tier. Treat them as indicative, not as a service
 - Only a laptop name and a topic go to Tavily, never the user's text.
 - Phone numbers, emails and ID numbers are removed from text before anything else happens.
 - The visitor id is a salted daily hash of the network address; the address is never stored.
-- Query logs hold timing, flow and outcome, not typed text. The unhandled-request log holds scrubbed text, capped at 500 characters.
+- The request log holds the typed text **with phone numbers, emails, ID numbers and links removed** (300 characters at most), for 30 days, switchable with `LOG_QUERY_TEXT`; plus timing, flow, outcome, where it failed and the model attempts. It never holds owner-report text, names or contact details. The About page says so. See `07_LOGGING_GUIDE.md`. The separate demand log holds budget bands and uses only. The unhandled-request log holds scrubbed text, capped at 500 characters.
 - Owner reports collect no name or contact; the receipt code is stored only as a hash; deletion removes the row.
 - Free-tier Gemini inputs may be used by Google. Use a paid plan before real users type into the product (D-14).

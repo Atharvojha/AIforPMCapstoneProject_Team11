@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LapFit · Neo-brutal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFF6E0;--ink:#111;--yellow:#FFD60A;--pink:#FF5D9E;--blue:#4D8DFF;--mint:#35D07F;--white:#fff;--b:3px;--s:5px;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font:500 16px/1.45 "Space Grotesk",system-ui,sans-serif;-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom)}
+h1,h2,h3,.disp{font-family:"Archivo Black","Space Grotesk",sans-serif;font-weight:400;letter-spacing:-.02em;line-height:1.05}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--yellow)}
+/* hard shadow block: shadow is a fixed layer, element slides over it on press */
+.blk{position:relative;isolation:isolate;border:var(--b) solid var(--ink);transition:transform .15s var(--ease)}
+.blk{box-shadow:var(--s) var(--s) 0 var(--ink)}
+button.blk:active,label.blk:active{transform:translate(var(--s),var(--s));box-shadow:0 0 0 var(--ink)}
+@media (hover:hover){button.blk:hover,label.blk:hover{transform:translate(-2px,-2px);box-shadow:calc(var(--s) + 2px) calc(var(--s) + 2px) 0 var(--ink)}button.blk:active,label.blk:active{transform:translate(var(--s),var(--s));box-shadow:0 0 0 var(--ink)}}
+header{background:var(--yellow);border-bottom:var(--b) solid var(--ink);padding:max(12px,env(safe-area-inset-top)) 16px 0}
+.top{max-width:1200px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
+.logo{font-family:"Archivo Black";font-size:28px;background:var(--ink);color:var(--yellow);padding:2px 12px;transform:rotate(-2deg);display:inline-block}
+nav{display:flex;gap:8px;overflow-x:auto;padding:4px 6px 14px 0;margin-left:auto;scrollbar-width:none;width:100%}
+@media(min-width:700px){nav{width:auto;padding-bottom:12px}}
+nav button{--s:3px;min-height:44px;padding:0 16px;background:var(--white);font-weight:700;flex:none}
+nav button[aria-current=page]{background:var(--pink)}
+main{max-width:1200px;margin:auto;padding:24px 16px 40px}
+.hero{background:var(--blue);border:var(--b) solid var(--ink);padding:20px;--s:6px;position:relative;isolation:isolate}
+.hero{box-shadow:6px 6px 0 var(--ink)}
+.hero h1{font-size:clamp(30px,7vw,56px);color:var(--white);text-shadow:3px 3px 0 var(--ink);margin-bottom:16px}
+.vibes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px;border:0;padding:0}
+@media(min-width:700px){.vibes{grid-template-columns:repeat(5,1fr)}}
+.vibes legend{position:absolute;left:-9999px}
+.vibes label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:84px;padding:8px;font-weight:700;cursor:pointer;background:var(--white)}
+.vibes label span.e{font-size:28px}
+.vibes input{position:absolute;opacity:0;pointer-events:none}
+.vibes label:has(input:checked){background:var(--yellow)}
+.vibes label:has(input:checked)::after{content:"✓";position:absolute;top:-12px;right:-10px;background:var(--ink);color:var(--yellow);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700}
+.vibes label:has(input:focus-visible){outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--yellow)}
+.budget{background:var(--white);border:var(--b) solid var(--ink);padding:14px 16px}
+.brow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brow label{font-weight:700}
+.amt{font-family:"Archivo Black";font-size:24px;background:var(--mint);border:var(--b) solid var(--ink);padding:2px 10px;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin-top:6px}
+input[type=range]::-webkit-slider-runnable-track{height:14px;background:var(--paper);border:var(--b) solid var(--ink)}
+input[type=range]::-moz-range-track{height:14px;background:var(--paper);border:var(--b) solid var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;margin-top:-12px;background:var(--pink);border:var(--b) solid var(--ink);box-shadow:3px 3px 0 var(--ink);border-radius:0}
+input[type=range]::-moz-range-thumb{width:28px;height:28px;background:var(--pink);border:var(--b) solid var(--ink);box-shadow:3px 3px 0 var(--ink);border-radius:0}
+input[type=range]:active::-webkit-slider-thumb{background:var(--yellow)}
+.ends{display:flex;justify-content:space-between;font-size:14px;font-weight:700}
+.fit{margin-top:10px;font-weight:700}
+.fit b{background:var(--ink);color:var(--yellow);padding:1px 8px}
+.rh{display:flex;align-items:baseline;justify-content:space-between;margin:36px 0 18px;gap:12px;flex-wrap:wrap}
+.rh h2{font-size:28px}
+.grid{display:grid;gap:26px;grid-template-columns:1fr}
+@media(min-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.card.feat{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.card.feat .pic{height:auto;min-height:100%;border-bottom:0;border-right:var(--b) solid var(--ink)}}
+.card{background:var(--white);--s:8px;opacity:0;transform:translateY(12px);animation:in .3s var(--ease) forwards;animation-delay:calc(var(--i) * 45ms)}
+@keyframes in{to{opacity:1;transform:none}}
+.pic{position:relative;height:220px;border-bottom:var(--b) solid var(--ink);display:grid;place-items:center;overflow:hidden}
+.c0 .pic{background:var(--mint)}.c1 .pic{background:var(--pink)}.c2 .pic{background:var(--blue)}
+.pic img{max-width:78%;max-height:86%;object-fit:contain;background:var(--white);border:var(--b) solid var(--ink)}
+.fb{display:none;width:64%;aspect-ratio:16/10;background:var(--white);border:var(--b) solid var(--ink);position:relative}
+.fb::after{content:"";position:absolute;left:-12%;right:-12%;bottom:-14%;height:12%;background:var(--ink)}
+.pic.err img{display:none}.pic.err .fb{display:block}
+.rank{position:absolute;top:10px;left:10px;background:var(--yellow);border:var(--b) solid var(--ink);font-family:"Archivo Black";padding:2px 10px;font-size:18px}
+.chip{position:absolute;top:10px;right:10px;--s:3px;min-height:44px;padding:0 12px;background:var(--white);font-weight:700}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--yellow)}
+.body{padding:16px;display:flex;flex-direction:column;gap:12px}
+.card h3{font-size:22px}
+.ver{font-weight:700}
+.price{font-family:"Archivo Black";font-size:34px;font-variant-numeric:tabular-nums;line-height:1}
+.asof{font-size:14px}
+.nv{display:inline-block;align-self:flex-start;background:var(--ink);color:var(--yellow);font-weight:700;font-size:14px;padding:3px 10px}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:420px){.specs{grid-template-columns:repeat(4,1fr)}}
+.spec{border:var(--b) solid var(--ink);padding:6px 8px;background:var(--paper)}
+.spec small{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.spec b{font-family:"Archivo Black";font-weight:400;font-size:16px}
+.spec.unk{border-style:dashed}
+.ring{display:flex;align-items:center;gap:12px;font-weight:700}
+.ring svg{flex:none;width:64px;height:64px;transform:rotate(-90deg)}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:2px}
+.acts button{--s:4px;min-height:56px;padding:6px 4px;font-weight:700;font-size:14px;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;line-height:1.2}
+.acts button.main{background:var(--pink)}
+.note{margin-top:34px;border:var(--b) dashed var(--ink);padding:12px 14px;font-weight:700;background:var(--yellow)}
+@media(prefers-reduced-motion:reduce){.card{animation:none;opacity:1;transform:none}.blk{transition:none}}
+</style></head>
+<body>
+<header><div class="top"><span class="logo">LapFit</span>
+<nav aria-label="Main"><button class="blk" aria-current="page">Ask</button><button class="blk">Explore</button><button class="blk">Check</button><button class="blk">Sell</button><button class="blk">You</button></nav></div></header>
+<main>
+<section class="hero" aria-labelledby="h">
+<h1 id="h">What will you use it for?</h1>
+<fieldset class="vibes"><legend>Pick a use</legend>
+<label class="blk"><input type="radio" name="v" checked><span class="e" aria-hidden="true">💻</span>Coding</label>
+<label class="blk"><input type="radio" name="v"><span class="e" aria-hidden="true">📚</span>Study</label>
+<label class="blk"><input type="radio" name="v"><span class="e" aria-hidden="true">🎮</span>Gaming</label>
+<label class="blk"><input type="radio" name="v"><span class="e" aria-hidden="true">🎬</span>Editing</label>
+<label class="blk"><input type="radio" name="v"><span class="e" aria-hidden="true">🏠</span>Everyday</label>
+</fieldset>
+<div class="budget">
+<div class="brow"><label for="bud">Budget</label><output class="amt" id="amt" for="bud">up to ₹60,000</output></div>
+<input id="bud" type="range" min="20000" max="150000" step="5000" value="60000">
+<div class="ends"><span>₹20,000</span><span>₹1,50,000</span></div>
+<p class="fit" id="fit" aria-live="polite"><b>9</b> laptops fit</p>
+</div></section>
+
+<div class="rh"><h2>Your matches</h2><span>3 shown</span></div>
+<div class="grid" id="grid"></div>
+<p class="note">Pictures are from the web and may not show this exact version.</p>
+</main>
+<script>
+const L=[
+["ASUS VivoBook 15 (2022) Core i3 10th Gen","₹28,170","8 GB / 512 GB",'15.6"',"1.8 kg","https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg"],
+["Lenovo IdeaPad 3 Ryzen 5 5500U","₹38,952","8 GB / 512 GB",'15.6"',"1.65 kg","https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg"],
+["HP Ryzen 5 5500U","₹38,944","8 GB / 512 GB",'15.6"',"1.69 kg","https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90"]];
+const C=2*Math.PI*26,pos=101/196;
+document.getElementById("grid").innerHTML=L.map((l,i)=>`
+<article class="card blk c${i}${i==0?" feat":""}" style="--i:${i}">
+<div class="pic"><img src="${l[5]}" alt="Web photo of ${l[0]}" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('err')"><div class="fb" role="img" aria-label="Drawn laptop placeholder"></div>
+<span class="rank">#${i+1}</span><button class="blk chip" aria-pressed="false">＋ Compare</button></div>
+<div class="body"><h3>${l[0]}</h3><div class="ver">${l[2]}</div>
+<div><div class="price">${l[1]}</div><div class="asof">as of 10 Nov 2026 · 3 days old</div></div>
+<span class="nv">Not human-verified</span>
+<div class="specs"><div class="spec"><small>RAM</small><b>8 GB</b></div><div class="spec"><small>Storage</small><b>512 GB</b></div><div class="spec"><small>Screen</small><b>${l[3]}</b></div><div class="spec"><small>Weight</small><b>${l[4]}</b></div></div>
+<div class="ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#fff" stroke-width="10"/><circle cx="32" cy="32" r="26" fill="none" stroke="#35D07F" stroke-width="10" stroke-dasharray="${(C*pos).toFixed(1)} ${C.toFixed(1)}"/><circle cx="32" cy="32" r="31" fill="none" stroke="#111" stroke-width="3"/><circle cx="32" cy="32" r="21" fill="none" stroke="#111" stroke-width="3"/></svg><span>196 owner opinions, 101 positive</span></div>
+<div class="acts"><button class="blk main">💬<span>Owners say</span></button><button class="blk">🔎<span>Full check</span></button><button class="blk">🛒<span>Where to buy</span></button></div>
+</div></article>`).join("");
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{const p=b.getAttribute("aria-pressed")=="true";b.setAttribute("aria-pressed",!p);b.textContent=p?"＋ Compare":"✓ Added"});
+const r=document.getElementById("bud");
+function u(){const v=+r.value;document.getElementById("amt").textContent="up to ₹"+v.toLocaleString("en-IN");
+document.getElementById("fit").innerHTML=v==60000?"<b>9</b> laptops fit":"<b>?</b> laptops fit";}
+r.oninput=u;
+</script></body></html>

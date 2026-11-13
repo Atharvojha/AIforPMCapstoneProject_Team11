@@ -71,7 +71,7 @@ sequenceDiagram
   M-->>H: sentences
   H->>DB: GATE: re-read stored facts, compare with what is about to be shown
   H->>H: drop any card that fails, replace unchecked wording with code text
-  H->>DB: log_event (outcome, timing, no typed text)
+  H->>DB: log_event (outcome, stage timings, where it failed, model attempts, scrubbed text for 30 days)
   H-->>EF: reply blocks
   EF-->>FE: JSON
 ```
@@ -403,3 +403,65 @@ flowchart LR
 ```
 
 The browser never sees the Gemini, Tavily or service-role keys.
+
+---
+
+## 10. Multimodal: voice and pictures in, voice, picture and message out
+
+```mermaid
+flowchart LR
+  subgraph IN["In"]
+    T["Typed text"]
+    V["Voice"]
+    P["Picture: camera, gallery, paste, drag"]
+  end
+  subgraph BR["Browser only"]
+    STT["Speech recognition<br/>fills the text box"]
+    SH["Shrink and re-encode picture<br/>removes location data"]
+  end
+  V --> STT --> T
+  P --> SH
+  T -- "POST query" --> EF["Edge Function"]
+  SH -- "POST read_image + header x-lapfit-image<br/>after one-time consent" --> EF
+  EF --> GV["Gemini vision reads the picture into fields<br/>(picture never stored or logged)"]
+  GV --> CK["Code validates fields,<br/>then catalog checks (used check, claims, second opinion)"]
+  EF --> OUT["Reply blocks + answer receipt"]
+  CK --> OUT
+  subgraph OUTB["Out (built in the browser from the answer's text)"]
+    TTS["Read aloud (speech synthesis)"]
+    WA["WhatsApp message / copy"]
+    PIC["Save as picture card"]
+  end
+  OUT --> TTS
+  OUT --> WA
+  OUT --> PIC
+```
+
+## 11. Where the data in an answer comes from (the receipt)
+
+```mermaid
+flowchart TD
+  A["Catalog snapshot<br/>prices recorded 10 Nov 2026, not live<br/>specs imported, not verified"] --> R["Answer"]
+  B["Dataset reviews: 3,987 reviews, 1,316 machine-read opinions<br/>no dates; Amazon never quoted"] --> R
+  C["Live web reviews via Tavily<br/>on request, cached, unverified, never counted"] --> R
+  D["AI: reads the request, may word sentences<br/>never decides facts"] --> R
+  R --> G["Pre-send gate: re-reads stored facts"]
+  G --> P["Receipt block built from the reply itself:<br/>snapshot date, opinion count, live items, AI used, re-checked"]
+  P --> U["User sees cards + a collapsible 'How I built this answer'"]
+```
+
+## 12. Shop links and money (and what they cannot touch)
+
+```mermaid
+flowchart LR
+  subgraph RES["Results: shortlist, compare, second opinion"]
+    RK["Filter, rank, wording, gate<br/>(never read shop or affiliate settings: tested)"]
+  end
+  RK --> CARDS["Laptop cards"]
+  CARDS -- "user taps Where to buy" --> WB["where_to_buy: search links for that laptop"]
+  S["settings RETAILERS<br/>optional affiliate tag per shop"] --> WB
+  WB --> L["Links: plain, or marked Affiliate link + rel=sponsored + disclosure"]
+  L -- "user opens a shop" --> CL["outbound_click: counted, no identity"]
+  CL --> V["v_clicks_daily: clicks per shop and laptop"]
+  S -. "no path into" .-> RK
+```

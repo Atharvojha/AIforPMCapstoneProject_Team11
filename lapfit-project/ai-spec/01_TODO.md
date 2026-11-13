@@ -58,10 +58,17 @@ New items from this round:
 | N25 | Move Gemini to a paid plan before real users type into the product (free-tier inputs may be used by Google); this also unlocks Google Search grounding | Product owner |
 | N26 | Raise the rate limits before any group demo (shared network address); set `ALLOWED_ORIGIN` to the frontend | Engineering lead |
 | N27 | Build the reviewer notification (database webhook to Make or n8n) so owner reports do not sit unseen | Engineering lead |
-| N28 | Build the Lovable frontend against the endpoint (handle 429, 413, notice blocks) | Frontend owner |
+| N28 | ~~Build the frontend~~ **Built** (`../frontend`, 114 tests, decisions D-47 to D-51). Still to do: look at it on a phone-sized window, deploy it, set `ALLOWED_ORIGIN` | Frontend owner |
 | N29 | Verify the imported catalog with a named person, or keep the "Sample data" label | Data lead |
 | N30 | Test the model reader on a frozen set across English, Hinglish, Telugu-English and Tamil-English; compare with the rules reader | Reviewers |
 | N31 | Add a price staleness warning and a scheduled price refresh | Engineering lead |
+| N33 | Review the notice and consent for logging scrubbed typed text (D-52), and decide the retention period, before real users; or switch `LOG_QUERY_TEXT` off | Product owner, with someone who can give legal advice |
+| N34 | Add alerting on failures (for example a daily message listing `npm run logs -- stages`) | Engineering lead |
+| N39 | Run a short usability test of the version 3 screens (map, tiles, faces) with 3 to 5 real buyers; note where they hesitate | Product owner |
+| N35 | Join the affiliate programmes (needs your accounts), read their terms on price display and disclosure, confirm commission rates (to-do 11.2), then add tags (`10_MONETIZATION.md`, section 7) | Product owner |
+| N36 | Live-test picture reading through the deployed endpoint (after the rate limit window clears) and with real photos in English, Hindi and Telugu | Engineering lead |
+| N37 | Check the redesign on a real phone, in dark mode, and with animation playing; report anything off | Product owner |
+| N38 | Real-time or fresher prices: a refresh job or an allowed feed; a person verifying specs (`08_DATA_AND_SOURCES.md`, section 4) | Data lead |
 | N32 | Record the applied migrations in Supabase's history (or switch to `supabase db push`) | Engineering lead |
 
 ## Research round 2 (13 Nov 2026): you asked me to research and answer

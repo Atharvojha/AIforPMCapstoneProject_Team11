@@ -88,7 +88,7 @@ No human reviews individual plans.
 ## 09 Responsible AI
 
 - **Fairness:** the same factors for every brand and seller; reading accuracy by language.
-- **Privacy:** no name or contact; free text not stored; V1 stores anonymous condition fields and an outcome tied to a receipt hash, with consent and deletion on request.
+- **Privacy:** no name or contact; free text is not stored with the plan; a typed description appears only in the request log, scrubbed, for 30 days (see `../build-plan/07_LOGGING_GUIDE.md`); V1 stores anonymous condition fields and an outcome tied to a receipt hash, with consent and deletion on request.
 - **Transparency:** assumptions and the "not a promise" line on every plan.
 - **Safety:** advice to meet in public, test before paying, remove accounts; no pressure language.
 - **Abuse:** injection treated as data; the estimate cannot be steered by text.

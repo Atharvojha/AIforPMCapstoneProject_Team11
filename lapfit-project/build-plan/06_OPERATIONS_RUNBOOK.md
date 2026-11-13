@@ -80,6 +80,12 @@ The change applies to the next request.
 | `LIVE_MAX_ITEMS` / `LIVE_SNIPPET_WORDS` / `LIVE_TIMEOUT_MS` | 4 / 25 / 9000 | Live result size and time limit |
 | `RATE_LIMITS` | see section 6 | Request limits |
 | `SUBMIT_RATE_PER_HOUR` | 5 | Owner reports per visitor per hour |
+| `IMAGE_LIMITS` | `{"per_hour":6,"global_daily":200,"max_bytes":700000,"max_b64_chars":950000}` | Picture limits per visitor and per day, and the largest picture |
+| `RETAILERS` | Amazon.in, Flipkart, Croma search links, no tags | Shops for "Where to buy"; a non-empty `tag` makes that shop's link an affiliate link (see `10_MONETIZATION.md`) |
+| `AFFILIATE_DISCLOSURE` | plain-language sentence | Shown whenever an affiliate link is shown |
+| `DATA_STATUS` | set by `refresh_data_status()` | The honest data summary behind the banner; refresh after any data import |
+| `LOG_QUERY_TEXT` | true | Keep the scrubbed typed text in the request log. Set `false` to stop storing it |
+| `LOG_RETENTION_DAYS` | 30 | Days before log rows are deleted (also `select purge_logs();`) |
 | `FEATURE_FLAGS` | all on | Kill switches: `router_enabled` (typed requests), `model_enabled` (Gemini), `reasons_enabled` (model-written sentences), `live_reviews`, `submissions_open` (owner reports). Set one to `false` to switch that part off |
 
 Kill switch example, live reviews off:
@@ -116,7 +122,7 @@ Before a group demo or classroom use, raise `per_minute`, `per_hour` and `soft_p
 ```
 cd backend
 npm install
-npm test                 # 162 tests, no network, no keys
+npm test                 # 209 tests, no network, no keys
 npm run matrix           # shows how 75 different inputs are routed
 node --import tsx scripts/import-existing.ts      # dry-run import into in-memory Postgres
 ```
@@ -138,6 +144,16 @@ Every reply carries `router_mode` (`model`, `fallback`, `offline`, `form`), `rou
 | `{"action": "report_status" \| "report_delete", "receipt": "..."}` | Check or delete a report |
 | `{"action": "live_reviews", "variant_id": "FKL-10", "topic": "battery"}` | Live reviews for one laptop |
 | `{"live": true}` added to a shortlist request | Also fetch live reviews for the top picks |
+| `{"action": "catalog"}` | The list of laptops for pickers (no model) |
+| `{"action": "data_status"}` | What data the product holds and how old it is (no model) |
+| `{"action": "read_image", "image": {"mime": "image/jpeg", "data": "<base64>"}}` with header `x-lapfit-image: 1` | Read a picture (needs the model; 6 an hour per visitor) |
+| `{"action": "where_to_buy", "variant_id": "FKL-10"}` | Shop links for a laptop (no model) |
+| `{"action": "outbound_click", "retailer": "amazon_in", "variant_id": "FKL-10"}` | Count a shop-link click |
+| `{"action": "compare", "variant_ids": ["FKL-10", "FKL-14"]}` | Compare two to four laptops by id (no model) |
+| `{"action": "owner_voice", "variant_id": "FKL-10", "topic": "battery"}` | Owner opinions for one laptop (no model) |
+| `{"action": "second_opinion", "variant_id": "FKL-14"}` | Card, owner evidence and cheaper alternatives for one laptop (no model) |
+| `{"action": "sell_plan", "variant_id": "FKL-10", "sell": {"age_years": 2, "condition": "good", "battery_health_pct": 72}}` | Sell plan from a form |
+| `{"action": "used_check", "variant_id": "FKL-10", "listing": {"price_inr": 40000, "battery_health_pct": 65, "has_bill": false}}` | Used-listing check from a form |
 
 Replies are `{ok, flow, notice, footer, blocks: [...], ...}`. Each block has a `type` (cards, evidence, compare, notice, choices, live_reviews, team_plan, sell_plan, findings, checklist, claims and others). Block shapes are in the flow files.
 
@@ -155,6 +171,8 @@ Replies are `{ok, flow, notice, footer, blocks: [...], ...}`. Each block has a `
 | `permission denied for function tool_...` when testing by hand | The tools are locked to the server role on purpose | Test through the endpoint, or use the admin role in `supabase db query` without `--read-only` |
 | A new laptop is not shown | In `production` mode it must be verified; or it has no price | Check `variant.verified` and the price fact |
 | Slow replies | Gemini latency | Read `timings`; the database part is about 1 to 2 seconds |
+
+**Logs.** The full guide is `07_LOGGING_GUIDE.md`. Quick start, in `backend/`: `npm run logs -- failures 30` (what failed and where), `npm run logs -- request <id>` (everything about one request; every reply carries `request_id`), `npm run logs -- summary` (counts and timings). Browser-side failures show with `npm run logs -- client`.
 
 Useful checks:
 ```
@@ -177,7 +195,10 @@ select * from live_usage order by day desc;
 - Feedback or tool text asking an assistant to take actions is never executed.
 - Still open: no user sign-in, so the public anon key gives access to the endpoint (limited by rate limits); `ALLOWED_ORIGIN` is open until set; the service-role key must never be shared.
 
-## 11. Before real users
+## 11. The frontend
+The web app lives in `frontend/` (see its README). It needs only the project URL and the public anon key. After deploying it, set `ALLOWED_ORIGIN` to its address. Deploy the backend after every backend change: the frontend's live check (`frontend` API client against the endpoint) caught a stale deployment once.
+
+## 12. Before real users
 
 1. Move Gemini to a paid plan (free-tier inputs may be used by Google) and check the quota.
 2. Set `ALLOWED_ORIGIN` and review the rate limits for your audience.

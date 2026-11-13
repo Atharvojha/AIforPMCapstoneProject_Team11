@@ -1,0 +1,25 @@
+# LapFit UX redesign: layouts and user experience (round 1: propose / audit)
+
+Owner feedback (verbatim): "I don't like the UI at all. It is very cluttered. Change the layouts of the pages. The UI style is okay, but the layouts and the user experience are the worst." The VISUAL STYLE (soft playful: glass cards, Fredoka/Nunito, pastel gradients, Lappy mascot, theme.css tokens) STAYS. Layouts, information hierarchy, flows and what is shown by default must change.
+
+## Product (what LapFit is)
+Honest laptop second-opinion app for buyers in India. Five spaces: Ask (vibe tiles + budget + free text/voice/photo -> ranked results), Explore (price map + browse + compare), Check (paste/upload a listing or pitch -> findings), Sell (what's my laptop worth + plan), You (my laptops, share experience). Plus Market (pulse + brands + web panel) and About. Result blocks: understood panel, laptop cards (picture, price, specs, radar, owner-opinion ring, reasons, musts, sources, actions: Owners say / Full check / Where to buy, + Compare), compare table+radar, owner voice (topics), second opinion, findings, where-to-buy, receipt ("How I built this answer"), live web panels.
+Code: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/frontend (React+TS+plain CSS: src/screens/*, src/components/blocks/*, src/App.tsx, theme.css, motion.css, layout.css, styles.css). Real reply samples: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/frontend/src/test/fixtures/*.json, viewable at http://127.0.0.1:5199/?mock#/gallery/<fixture> (dev server already running; do not start/stop it). The live app: http://127.0.0.1:5199/ . Screenshots: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=560,1900 (width>=500, height<=2000) --virtual-time-budget=25000 --screenshot=FILE URL ; save in /private/tmp/claude-501/-Users-klprathyusha-Sem-3-AI-for-PM-project/b7323b9f-a5bf-45a2-bc79-b06eb695b213/scratchpad/shots/. Look at the current screens first.
+
+## Hard constraints (never bend)
+- Honesty stays: "Not human-verified", price date, "Live, not verified", picture attribution, owner-opinion counts with n, "?" for unknown, source labels. They may move (e.g. into a "Why trust this?" drawer or a single line) but never disappear or get weaker. The receipt stays reachable.
+- No invented data. Keep all features reachable; reduce what is shown BY DEFAULT.
+- Accessible (44px targets, contrast, focus, reduced motion). Mobile-first (390px), also good at 1280px.
+- Follow Emil Kowalski's skills in /private/tmp/claude-501/-Users-klprathyusha-Sem-3-AI-for-PM-project/b7323b9f-a5bf-45a2-bc79-b06eb695b213/scratchpad/emil/ (emil-design-eng.md, choreograph.md, mobile-native.md, break-ui.md, ui-cheatsheet.md) and, where useful, invoke these Skills with the Skill tool: design:design-critique, design:accessibility-review, design:ux-copy, product-management:brainstorm.
+
+## Clutter budget (measurable, the owner's core complaint)
+Every screen must have ONE obvious primary action and a visible-element budget: a result card shows at most 7 things by default (picture, name, price, one-line verdict "why it fits", 2-3 key specs, trust line, ONE primary action); everything else is one tap away (bottom sheet / expander). A screen at first load shows at most 1 primary + 2 secondary actions. No more than 2 type sizes in a card body. Say what you REMOVE or hide, not just what you add.
+
+## Files and process
+Folder: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/prototype/ux . Shared board: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/prototype/ux/BOARD3.md (append-only, header "### <role> · <time>").
+Round 1 roles (each writes ONE file, <= 250 lines, with ASCII wireframes for each screen at phone width (and a note for desktop), the user journey, what is removed/hidden, motion notes, and a risk list):
+ - A "Conversation" (file A-conversation.md): one thing at a time; guided flow, chat-like, minimal chrome.
+ - B "Decision board" (file B-board.md): a clear hierarchy: one hero pick + compact comparable list, detail drawers, desktop split panes.
+ - C "Thumb-first app" (file C-app.md): native-app feel: bottom sheets, swipeable cards, sticky action bar, big thumb targets.
+ - D "Auditor" (file D-audit.md): do NOT propose a layout. Audit the CURRENT app screen by screen with screenshots (use design:design-critique and design:accessibility-review): a clutter inventory (count visible elements per screen/card), top 10 UX failures ranked, what a first-time buyer in India (low patience, mid-range phone, maybe Hindi-English mix) experiences, and a scorecard rubric (0-5 each: clarity, clutter, hierarchy, speed to first answer, trust visible, mobile thumb reach, delight) that others will be scored against.
+At the end post a board entry: your 3 boldest ideas and the 2 things you most want the others to critique. Final reply: 6 lines max.

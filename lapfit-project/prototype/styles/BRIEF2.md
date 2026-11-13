@@ -1,0 +1,22 @@
+# Round 2: apply the "soft playful" style to the real LapFit app (frontend only)
+
+Frontend: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/frontend (Vite+React+TS, plain CSS). Reference sample the owner chose: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/prototype/styles/soft-playful.html (read it; glass cards, pastel gradients, 24px radii, Fredoka headings + Nunito body, mascot Lappy). Owner wants a delightful, creative, intuitive experience that stays functional and honest.
+
+## Rules that never bend
+- Do NOT touch backend/, fixtures, or any test expectations about facts. Never invent numbers; unknown stays "?"; "Not human-verified", "Live, not verified", picture attribution and every honesty label stay visible.
+- Keep existing behaviour and accessible names (tests find buttons by name: "Owners say", "Full check", "Where to buy", "Compare"...). After your edits run: cd /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/frontend && npx tsc --noEmit && npx vitest run. Fix what you break. If a test must change because copy intentionally changed, update that test minimally and say so on the board.
+- Follow Emil Kowalski's skill in /private/tmp/claude-501/-Users-klprathyusha-Sem-3-AI-for-PM-project/b7323b9f-a5bf-45a2-bc79-b06eb695b213/scratchpad/emil/ (emil-design-eng.md, choreograph.md, mobile-native.md, break-ui.md, ui-cheatsheet.md): transform/opacity only, custom ease-out curves, 150-250ms UI, no scale(0), press scale(.97), no transition:all, hover only inside @media (hover:hover), prefers-reduced-motion respected, 44px targets, 16px inputs, safe areas, no layout shift. Stress cases: very long names, 0 and 1 results, huge counts.
+- Accessibility: contrast >= 4.5:1, visible focus, real buttons/labels.
+- Do not commit or push. Do not start/stop the dev server on port 5199 (already running; use http://127.0.0.1:5199/?mock#/gallery/<fixture>, fixtures are in src/test/fixtures; dev gallery lists them). Screenshots: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=560,1900 (width>=500, height<=2000) --virtual-time-budget=25000 --screenshot=FILE URL, save in /private/tmp/claude-501/-Users-klprathyusha-Sem-3-AI-for-PM-project/b7323b9f-a5bf-45a2-bc79-b06eb695b213/scratchpad/shots/.
+
+## File ownership (to avoid collisions; edit only your files; need a change elsewhere? ask on the board)
+1. VISUAL SYSTEM agent: new src/theme.css (imported in main.tsx after styles.css): design tokens, fonts (add Google Fonts link in index.html), buttons, chips, cards, badges, forms, glass surfaces, dark-mode tokens. May edit tokens in styles.css :root.
+2. MOTION agent: new src/motion.css + src/components/viz/* + src/components/Lappy-related behaviour: entrance stagger, press states, Lappy moods reacting to real events (thinking while loading, happy on result, oops on error), count-up, ring draw, skeleton/shimmer loading, page-change transitions. Must be reduced-motion safe. Import in main.tsx after theme.css.
+3. LAYOUT+MOBILE agent: new src/layout.css + src/screens/* + src/App.tsx + src/components/Composer.tsx + nav: five spaces nav (bottom bar on phone, top pills on desktop), Ask hero, Explore, Check, Sell, You, Market screens using the whole width, safe areas, sticky compare tray, empty states. 
+4. UX+COPY agent: src/components/blocks/* , src/components/ReplyActions.tsx, src/lib/summary.ts: result-block hierarchy (what to read first), plain friendly microcopy (Hindi-English-neutral, short), clear empty/error/loading/rate-limit text, next-step suggestions after each reply ("Want to compare these?"), consistent labelling of Dataset vs Web vs Catalog sources. Keep every honesty label.
+
+## Coordination (agents must talk to each other)
+Shared board: /Users/klprathyusha/Sem 3/AI for PM/project/AIforPMCapstoneProject_Team11/lapfit-project/prototype/styles/BOARD2.md (append-only; header "### <role> · <time>"). Before editing read it; post your token names/class names others should use, then mid-way and at the end read the others and post: what you rely on from them, one conflict or gap you saw, and one concrete suggestion for another role. Keep entries under 12 lines. Re-read the board before your final run of tests so you do not clash.
+
+## Deliver
+Final reply under 10 lines: files changed, what the user will see, tests status (counts), screenshots paths (2-3 best), honest remaining weaknesses.
