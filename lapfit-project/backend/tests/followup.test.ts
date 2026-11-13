@@ -83,3 +83,13 @@ test('for lifespan, problems and upgrade questions the web search drops the make
     const b = await t.fetch({ laptop: 'ASUS VivoBook 15 (2022) Core i3 10th Gen', topic: 'battery' }); assert.equal(b.items.length, 2);   // other topics are unchanged
   } finally { globalThis.fetch = realFetch; }
 });
+
+test('"will I get this for a cheaper price later?" is a price-outlook question about the laptop on screen: no budget change, no promise, deals searched on the web', async () => {
+  for (const q of ['will I get this for cheaper price later?', 'Will the price drop?', 'any sale coming for this?', 'should I wait for Big Billion Days?']) assert.equal(followUpIntent(q, ctx), 'price', q);
+  for (const q of ['make it cheaper', 'show me cheaper ones', 'laptop under 40k', 'find a cheaper laptop than this']) assert.notEqual(followUpIntent(q, ctx), 'price', q);
+  const live = new FakeLive(() => ({ items: [{ snippet: 'ASUS VivoBook 15 dropped to ₹31,990 during the festive sale on Flipkart.', url: 'https://deals.example.test/vivobook', site: 'deals.example.test', topic: 'deals', kind: 'excerpt' as const }] }));
+  const r: any = await ask({ text: 'will I get this for cheaper price later?', focus: ASUS, shown: [ASUS, PRO], prior_needs: { budget_max_inr: 60000, budget_min_inr: null, musts: [], shoulds: [], nices: [], use_cases: ['study'] } }, live);
+  const a = blk(r, 'laptop_answer'); assert.equal(a.intent, 'price'); assert.equal(blk(r, 'cards'), undefined); assert.ok(!r.blocks.some((b: any) => b.type === 'notice' && /Updated: budget/.test(b.text)));
+  assert.match(a.headline, /cannot predict prices/); assert.match(a.headline, /Big Billion Days/); assert.doesNotMatch(a.headline, /you should buy|buy now/i);
+  assert.ok(a.sections[0].items.some((l: string) => /one saved price/.test(l))); const web = a.sections.find((s: any) => s.kind === 'web').web; assert.equal(web.items.length, 1); assert.deepEqual(live.calls.map((c: any) => c.topic), ['deals']); assert.doesNotMatch(JSON.stringify(live.calls), /cheaper|later/);
+});

@@ -7,10 +7,10 @@ import { win11Rule } from './used.ts';
 import { fmtInr, fmtDate } from '../util.ts';
 
 export const GUARDRAIL = 'What I can and cannot say: I only answer questions about laptops. I use the catalog, owner reviews and web pages, and I show where each part comes from. I do not predict the future or promise how long a laptop will last, and I do not tell you to buy or not to buy.';
-const ALL: Intent[] = ['why', 'lifespan', 'problems', 'upgrade'];
-export const SUGGEST: Record<Intent, string> = { why: 'Why this one?', lifespan: 'Will it last long?', problems: 'Common problems?', upgrade: 'Can I upgrade it?', suit: 'Is it good for my work?' };
-const TOPICS: Record<Intent, string[] | 'all'> = { lifespan: ['build', 'battery', 'performance', 'heat_noise'], suit: ['performance', 'heat_noise', 'display'], problems: 'all', upgrade: [], why: [] };
-const WEB_TOPIC: Record<Intent, string> = { lifespan: 'longevity', suit: 'performance', problems: 'problems', upgrade: 'upgrade', why: '' };
+const ALL: Intent[] = ['why', 'lifespan', 'problems', 'upgrade', 'price'];
+export const SUGGEST: Record<Intent, string> = { why: 'Why this one?', lifespan: 'Will it last long?', problems: 'Common problems?', upgrade: 'Can I upgrade it?', suit: 'Is it good for my work?', price: 'Will the price drop?' };
+const TOPICS: Record<Intent, string[] | 'all'> = { lifespan: ['build', 'battery', 'performance', 'heat_noise'], suit: ['performance', 'heat_noise', 'display'], problems: 'all', upgrade: [], why: [], price: [] };
+const WEB_TOPIC: Record<Intent, string> = { lifespan: 'longevity', suit: 'performance', problems: 'problems', upgrade: 'upgrade', why: '', price: 'deals' };
 const v = (x: unknown, unit = '') => (x == null || x === '' ? '?' : `${x}${unit}`);
 const short = (n: string) => n.split(' · ')[0];
 
@@ -23,6 +23,7 @@ function catalogLines(intent: Intent, r: Row): string[] {
     case 'lifespan': return [...base, `Processor: ${v(r.cpu_text)}`, `Windows 11: ${w11t}`, `Memory: ${v(r.ram_gb, ' GB')}, memory slots: ${slots(r)}`, `Battery: ${v(r.battery_wh, ' Wh')}`, `Warranty: ${r.warranty_years != null ? `${r.warranty_years} year${Number(r.warranty_years) === 1 ? '' : 's'}` : '?'}`];
     case 'upgrade': return [...base, `Memory: ${v(r.ram_gb, ' GB')}, memory slots: ${slots(r)}`, `Storage: ${v(r.storage_gb, ' GB')}`, 'Whether the storage or battery can be replaced is not recorded: "?"'];
     case 'suit': return [...base, `Processor: ${v(r.cpu_text)}`, `Graphics: ${v(r.gpu_text)}`, `Memory: ${v(r.ram_gb, ' GB')}, storage: ${v(r.storage_gb, ' GB')}`, `Screen: ${v(r.display_size, ' inch')}, weight: ${v(r.weight_kg, ' kg')}`];
+    case 'price': return [...base, 'I have one saved price for it, so I cannot show a price history or a trend', 'The shop price today may differ from this snapshot'];
     case 'problems': return [...base, `Warranty: ${r.warranty_years != null ? `${r.warranty_years} year${Number(r.warranty_years) === 1 ? '' : 's'}` : '?'}`];
     default: return base;
   }
@@ -38,6 +39,7 @@ export async function laptopQuestion(deps: Deps, o: { ref: Ref; intent: Intent; 
     why: o.needsLines?.length ? `I showed ${name} because of what you told me. Here is what I used, and the reasons below.` : `You have not told me your needs in this chat yet, so I cannot say why it fits you. Here is what is recorded about ${name}.`,
     upgrade: `Here is what is recorded about upgrading ${name}. Anything not recorded is marked "?".`,
     suit: `I cannot test it for you. Here are the recorded specs of ${name} and what owners and web pages say about how it performs.`,
+    price: `I cannot predict prices or tell you when to buy. In India the big shopping festivals (Flipkart Big Billion Days and Amazon Great Indian Festival, usually around September and October, and the Republic Day sales in January) often bring discounts on laptops, but not on every model or every year. This is a general pattern, not a promise. Below is the price I have for ${name} and what the web says about its current deals and price changes.`,
     problems: `Here is what owners and web pages report as problems with ${name}, with counts where I have them.`,
   };
   if (o.intent === 'why' && o.needsLines?.length) sections.push({ kind: 'catalog', title: 'What you asked for', items: o.needsLines });

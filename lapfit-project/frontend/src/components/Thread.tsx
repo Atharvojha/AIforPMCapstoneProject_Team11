@@ -57,7 +57,7 @@ export function ThreadView({ thread, ctx, empty, onEdit }: { thread: ThreadState
   );
 }
 
-const FOLLOW = ['Why this one?', 'Will it last long?', 'Common problems?', 'Can I upgrade it?'];
+const FOLLOW = ['Why this one?', 'Will it last long?', 'Will the price drop?', 'Common problems?', 'Can I upgrade it?'];
 /** Quick follow-up questions about the laptop in focus. Tapping one sends it as typed text, so the focus travels with it. */
 function FollowUps({ thread, reply }: { thread: ThreadState; reply: { blocks: { type: string; suggestions?: string[] }[] } }) {
   const own = reply.blocks.find((b) => b.type === 'laptop_answer')?.suggestions ?? [];

@@ -71,7 +71,7 @@ export class TavilySource implements LiveSource {
   web(q: WebQuery) { return tavilyWeb(this.o, q); }
   async fetch(q: { laptop: string; topic?: string; signal?: AbortSignal }): Promise<LiveFetch> {
     const PHRASE: Record<string, string> = { design: 'design looks build', longevity: 'long term durability after 1 2 years', problems: 'common problems issues', upgrade: 'RAM SSD upgrade slots', performance: 'performance' };
-    const query = `${q.laptop} owner review ${q.topic ? (PHRASE[q.topic] ?? q.topic) : 'problems'} experience`;
+    const query = q.topic === 'deals' ? `${q.laptop} price drop sale offers discount price history India` : `${q.laptop} owner review ${q.topic ? (PHRASE[q.topic] ?? q.topic) : 'problems'} experience`;
     const res = await fetch(`${this.o.baseUrl ?? 'https://api.tavily.com'}/search`, {
       method: 'POST', signal: q.signal, headers: { 'content-type': 'application/json', authorization: `Bearer ${this.o.apiKey}` },
       body: JSON.stringify({ query, search_depth: 'basic', max_results: 8, topic: 'general', include_answer: false, include_raw_content: false, ...(this.o.country ? { country: this.o.country } : {}) }),

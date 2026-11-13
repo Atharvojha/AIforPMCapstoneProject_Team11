@@ -2,7 +2,7 @@
 // Code decides what "this" means and which kind of question it is. The AI model is not used here; every line is a stored fact, an owner count or a web excerpt with its link.
 import type { Deps } from './types.ts';
 
-export type Intent = 'lifespan' | 'why' | 'upgrade' | 'suit' | 'problems';
+export type Intent = 'lifespan' | 'why' | 'upgrade' | 'suit' | 'problems' | 'price';
 export interface Ref { variant_id: string; name: string }
 export interface Context { focus: Ref | null; shown: Ref[] }
 
@@ -22,6 +22,9 @@ const DEICTIC = /\b(this|that|it|its|the one|you (showed|recommended|suggested|p
 export function followUpIntent(text: string, ctx: Context): Intent | null {
   const t = String(text ?? '').trim(); if (!t || t.length > 300) return null;
   if (!ctx.focus && !ctx.shown.length) return null;
+  // "will I get this cheaper later?", "any sale coming?", "should I wait for Diwali / Big Billion Days?" is a question about the price of the laptop on screen, never a new budget
+  const priceAsk = /\b(cheaper|cheap|price|prices|discount|discounts|sale|sales|offer|offers|deal|deals|drop|drops|lower|coupon|festival|diwali|big billion|great indian)\b/i.test(t) && /\b(later|wait|waiting|soon|future|again|next|coming|will|would|when|any|going to|festival|diwali|big billion|great indian|sale|deal|drop)\b/i.test(t) && !/\b(make it|show me|find me|suggest|recommend|under|below|within|budget|cheaper than|alternatives?|instead)\b/i.test(t);
+  if (priceAsk && (DEICTIC.test(t) || /\b(later|wait|sale|deal|festival|diwali|big billion|great indian|price drop|drop)\b/i.test(t)) && !/\b(brands?|makers?|companies|laptops)\b/i.test(t)) return 'price';
   if (NEW_REQUEST.test(t) && !/\bwhy\b|which (one|laptop) did you/i.test(t)) return null;
   const hit = INTENTS.find(([, re]) => re.test(t)); if (!hit) return null;
   // a question about a brand, a maker or laptops in general ("which brand is more reliable", "will a gaming laptop last") is not about the one on screen

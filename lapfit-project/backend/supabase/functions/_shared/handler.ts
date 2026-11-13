@@ -253,8 +253,9 @@ export async function handleQuery(deps: Deps, input0: QueryInput): Promise<Reply
     stage = 'router'; let router: RouterResult; const tRouter = Date.now();
     // what the browser says the person is looking at, checked against the catalog (ids and names only, never typed text)
     const ctxInfo = await checkedContext(deps, { focus: input.focus, shown: input.shown });
-    const refined = text && !input.needs && !input.flow && input.prior_needs ? refineNeeds(text, input.prior_needs, input.context?.max_price ?? null) : null;
-    const followIntent = text && !input.needs && !input.flow && !refined ? followUpIntent(text, ctxInfo) : null;
+    // a question about the laptop on screen ("will this last", "will it get cheaper later") is answered first; only imperative changes ("make it cheaper", "80k") refine the saved needs
+    const followIntent = text && !input.needs && !input.flow ? followUpIntent(text, ctxInfo) : null;
+    const refined = text && !input.needs && !input.flow && !followIntent && input.prior_needs ? refineNeeds(text, input.prior_needs, input.context?.max_price ?? null) : null;
     if (refined) {
       router = { flow: 'shortlist', confidence: 1, language: 'English', needs: refined.needs, laptop_mentions: [], claims: [], listing: null, ignored_instructions: [], clarifying_question: null, choices: [], tone: 'normal', followup_flow: null }; reply.router_mode = 'context';
       reply.blocks.push({ type: 'notice', text: refineNotice(refined) }); for (const n of refined.notes) reply.blocks.push({ type: 'notice', text: n }); detail.refined = refined.changes.length;
