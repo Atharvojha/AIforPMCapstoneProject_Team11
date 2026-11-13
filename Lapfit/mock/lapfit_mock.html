@@ -1,0 +1,460 @@
+<title>LapFit Mock</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one conversation column, like a messaging app; LapFit answers are "receipts" of checked facts. */
+:root{
+  --bg:#f3f4f1; --surface:#ffffff; --ink:#1d2421; --muted:#5d6a64; --line:#d9ded9;
+  --accent:#1f5e4b; --accent-soft:#e2eee8; --you:#1f5e4b; --you-ink:#ffffff;
+  --ok:#1f7a45; --ok-bg:#e3f3e8; --no:#b4372f; --no-bg:#fbe7e4; --half:#9a6408; --half-bg:#fbf0d9;
+  --cant:#5d6a64; --cant-bg:#eceeec; --na:#3d5a80; --na-bg:#e5ebf3; --seller:#6c3f8f; --seller-bg:#efe7f5;
+  --must:#b4372f; --should:#9a6408; --nice:#3d5a80;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121614; --surface:#1b211e; --ink:#e7ece9; --muted:#9aa8a1; --line:#2e3833;
+  --accent:#6fc3a3; --accent-soft:#1f3a30; --you:#2f7a62; --you-ink:#ffffff;
+  --ok:#6fd39a; --ok-bg:#183626; --no:#f08a80; --no-bg:#3d1d1a; --half:#e9b65a; --half-bg:#3a2c12;
+  --cant:#aab5af; --cant-bg:#262d29; --na:#9db8de; --na-bg:#1d2836; --seller:#c9a3e6; --seller-bg:#2c2136;
+  --must:#f08a80; --should:#e9b65a; --nice:#9db8de; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121614; --surface:#1b211e; --ink:#e7ece9; --muted:#9aa8a1; --line:#2e3833;
+  --accent:#6fc3a3; --accent-soft:#1f3a30; --you:#2f7a62; --you-ink:#ffffff;
+  --ok:#6fd39a; --ok-bg:#183626; --no:#f08a80; --no-bg:#3d1d1a; --half:#e9b65a; --half-bg:#3a2c12;
+  --cant:#aab5af; --cant-bg:#262d29; --na:#9db8de; --na-bg:#1d2836; --seller:#c9a3e6; --seller-bg:#2c2136;
+  --must:#f08a80; --should:#e9b65a; --nice:#9db8de; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;min-height:100%}
+header{padding-block:18px 10px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-size:26px;margin:0;letter-spacing:-.01em}
+h1 span{color:var(--accent)}
+.tag{font-size:12px;color:var(--muted)}
+.banner{font-size:12.5px;color:var(--half);background:var(--half-bg);border-radius:8px;padding:8px 12px;margin-bottom:10px}
+#thread{flex:1;display:flex;flex-direction:column;gap:16px;padding-block:8px 16px}
+.you{align-self:flex-end;max-width:85%;background:var(--you);color:var(--you-ink);border-radius:16px 16px 4px 16px;padding:10px 14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.you .att{display:block;font-size:12px;opacity:.85;margin-top:4px}
+.bot{align-self:stretch;display:flex;flex-direction:column;gap:12px;min-width:0}
+.who{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.progress{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.progress b{color:var(--ok);font-weight:500}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.answer{display:flex;flex-direction:column}
+.part{padding-top:14px;margin-top:14px;border-top:1px solid var(--line);min-width:0}
+.part:first-child{border-top:none;margin-top:0;padding-top:0}
+.part h3{font-family:var(--f-display);font-size:17px;margin:0 0 8px;text-wrap:balance}
+.part .sub{font-size:13px;color:var(--muted);margin:-4px 0 10px}
+.rev{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.rev.ok{color:var(--ok)}
+.card h3{font-family:var(--f-display);font-size:17px;margin:0 0 8px;text-wrap:balance}
+.card .sub{font-size:13px;color:var(--muted);margin:-4px 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--bg)}
+.chip i{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-right:5px}
+.chip.must i{color:var(--must)} .chip.should i{color:var(--should)} .chip.nice i{color:var(--nice)} .chip.ctx i{color:var(--muted)} .chip.not i{color:var(--must)}
+.q{background:var(--accent-soft);border-radius:12px;padding:12px 14px}
+.q p{margin:0 0 8px;font-weight:500}
+.replies{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;cursor:pointer}
+.reply{border:1px solid var(--accent);color:var(--accent);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13.5px}
+.reply:hover{background:var(--accent-soft)}
+.reply:focus-visible,.send:focus-visible,.try:focus-visible,.link:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+td,th{text-align:left;padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-top:none}
+td.claim{font-family:var(--f-mono);font-size:12.5px}
+.v{display:inline-block;white-space:nowrap;font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px}
+.v.ok{color:var(--ok);background:var(--ok-bg)} .v.no{color:var(--no);background:var(--no-bg)} .v.half{color:var(--half);background:var(--half-bg)}
+.v.cant{color:var(--cant);background:var(--cant-bg)} .v.na{color:var(--na);background:var(--na-bg)} .v.seller{color:var(--seller);background:var(--seller-bg)}
+.rows{display:grid;grid-template-columns:minmax(110px,max-content) 1fr;gap:6px 14px;font-size:14px}
+.rows dt{color:var(--muted);font-size:13px}
+.rows dd{margin:0;min-width:0}
+.headline{font-family:var(--f-display);font-size:19px;margin:0 0 10px}
+.headline.good{color:var(--ok)} .headline.warn{color:var(--half)} .headline.bad{color:var(--no)}
+.lap{display:grid;grid-template-columns:28px 1fr;gap:4px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.lap:first-of-type{border-top:none}
+.rank{font-family:var(--f-display);font-size:18px;color:var(--accent)}
+.lap .nm{font-weight:600}
+.meta{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.why{font-size:13.5px}
+.scale{display:grid;grid-template-columns:90px 1fr 70px;align-items:center;gap:8px;font-size:13px;margin:4px 0}
+.bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--no) 0 25%,var(--half) 25% 55%,var(--ok) 55% 100%);position:relative;opacity:.85}
+.bar span{position:absolute;top:-4px;width:4px;height:16px;border-radius:2px;background:var(--ink)}
+.scale small{color:var(--muted);grid-column:2/4;margin-top:-4px}
+ul.check{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:14px}
+ul.check li::before{content:"☐ ";color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.link{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 11px;font-size:13px}
+.note{font-size:12.5px;color:var(--muted)}
+.debug{font-family:var(--f-mono);font-size:12px;color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
+.composer{position:sticky;bottom:0;background:var(--bg);padding-block:10px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.try-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.try{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12.5px;max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.box{display:flex;gap:8px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px}
+textarea{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font:inherit;resize:none;min-height:44px;max-height:180px;padding:4px 6px}
+textarea:focus{outline:none}
+.attach{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);color:var(--muted);cursor:pointer;font-size:18px}
+.attach input{display:none}
+.send{background:var(--accent);color:var(--surface);border:none;border-radius:10px;padding:0 16px;height:38px;font-weight:600}
+.attached{font-size:12.5px;color:var(--accent);margin:0 0 6px}
+.foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding-top:6px}
+.foot label{display:flex;gap:6px;align-items:center;cursor:pointer}
+@media (prefers-reduced-motion: no-preference){.bot{animation:in .25s ease-out}}
+@keyframes in{from{transform:translateY(4px)}to{transform:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Lap<span>Fit</span></h1>
+    <div class="tag">Type anything about buying a laptop. There's no mode to pick.</div>
+  </header>
+  <div class="banner">UI mock, not connected to any database or API. Laptops, prices and verdicts are <b>illustrative samples</b>. It shows how a typed query becomes an answer, not real results.</div>
+
+  <div id="thread" aria-live="polite"></div>
+
+  <div class="composer">
+    <div class="try-row" id="tries" aria-label="Example queries"></div>
+    <p class="attached" id="attachedNote" hidden></p>
+    <form class="box" id="form">
+      <label class="attach" title="Attach a photo or screenshot">📎<input type="file" id="file" accept="image/*"></label>
+      <textarea id="q" rows="2" placeholder="e.g. Shop wale bhaiya bol rahe 16GB, 8 ghante battery, free onsite… sach hai? I'm CSE, 65k max"></textarea>
+      <button class="send" type="submit">Send</button>
+    </form>
+    <div class="foot">
+      <label><input type="checkbox" id="dbg"> Show what the back end detected (for reviewers)</label>
+      <button class="link" type="button" id="reset">New conversation</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const thread=$('#thread'), form=$('#form'), qEl=$('#q'), fileEl=$('#file'), note=$('#attachedNote');
+let ctx=null, pendingImage=null, freshNext=false;
+
+const EXAMPLES=[
+ "Shop wale bhaiya bol rahe: i5 13th gen, 16GB, 8 ghante battery, free onsite warranty, 40% off. Sach hai?",
+ "Lenovo IdeaPad Slim 3 i5 16/512 for 58k. I'm in Prayagraj, Tally + GST work, will service be ok here?",
+ "1st year CSE, under 70k, at least 16GB/512GB, don't really want a gaming laptop, long battery",
+ "ThinkPad L14 i5 10th gen 8/256 for 16k, SSD health 66%, is it worth it?",
+ "laptop for my retired father under 40k, email, movies, he likes Lenovo, hates HP",
+ "Salesman said HP hinges break and Dell has the best service. True? Need one for coding under 60k",
+ "I want it fast",
+ "team of 12: 8 accounts, 3 designers, 1 manager. 6.5 lakh total, GST bill needed, Hyderabad service",
+ "I used my old Dell for 5 years, need a new one for coding, 80k",
+ "ThinkPad E14 for 80k worth it?"
+];
+EXAMPLES.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='try';b.textContent=t;b.title=t;
+  b.onclick=()=>{qEl.value=t;freshNext=true;qEl.focus();};$('#tries').appendChild(b);});
+
+fileEl.addEventListener('change',()=>{const f=fileEl.files[0];if(!f)return;pendingImage=f.name;note.textContent='Attached: '+f.name+' (the mock pretends to read it)';note.hidden=false;});
+$('#reset').onclick=()=>{ctx=null;thread.innerHTML='';qEl.value='';};
+$('#dbg').onchange=()=>document.querySelectorAll('.debug').forEach(d=>d.hidden=!$('#dbg').checked);
+
+/* ---------- parsing (mock of the back end) ---------- */
+const BRANDS=['lenovo','thinkpad','ideapad','hp','victus','pavilion','dell','inspiron','asus','vivobook','zenbook','tuf','rog','acer','aspire','nitro','msi','apple','macbook','samsung','galaxy book','legion','loq','omen','surface'];
+const CITIES=['hyderabad','warangal','prayagraj','delhi','mumbai','bangalore','bengaluru','chennai','pune','kolkata','lucknow','jaipur','odisha','vizag','vijayawada','indore','patna','kochi'];
+const USES={coding:/\b(coding|cse|programming|developer|dev|python|full.?stack)\b/i,gaming:/\b(gaming|valorant|gta|games?|fps|cs2|overwatch)\b/i,
+ editing:/\b(video editing|editing|premiere|davinci|creator)\b/i,office:/\b(office|excel|tally|gst|accounts?|email|word)\b/i,
+ design:/\b(architecture|revit|autocad|cad|sketchup|lumion|design(er)?s?)\b/i,college:/\b(college|student|1st year|first year|btech|b\.tech|mba|bba|school)\b/i,
+ media:/\b(movies|youtube|netflix|serials)\b/i};
+
+function money(t){
+  const s=t.toLowerCase().replace(/,/g,'');
+  let m=s.match(/(\d+(?:\.\d+)?)\s*(lakh|lac|l)\b/); if(m) return Math.round(parseFloat(m[1])*100000);
+  m=s.match(/(\d+(?:\.\d+)?)\s*k\b/); if(m) return Math.round(parseFloat(m[1])*1000);
+  m=s.match(/(?:₹|rs\.?|inr)\s*(\d{4,7})/); if(m) return parseInt(m[1]);
+  m=s.match(/\b(\d{5,6})\b/); if(m) return parseInt(m[1]);
+  if(/sixty thousand/.test(s)) return 60000; if(/fifty thousand/.test(s)) return 50000;
+  return null;
+}
+function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function lang(t){return /\b(bhaiya|bol|rahe|sach|hai|chahiye|ghante|kya|mujhe|wale|batao|hazar)\b/i.test(t)?'hi-en':(/\b(kavali|antunnaru|nijamena|venum|nalla)\b/i.test(t)?'te/ta-en':'en');}
+
+function parse(t){
+  const low=t.toLowerCase(), p={raw:t};
+  p.lang=lang(t);
+  p.budget=money(t);
+  p.hard=/(max|under|below|compulsory|can'?t go|≤|<=|not more than)/i.test(t);
+  const ram=low.match(/(\d{1,2})\s*gb(?!\s*ssd)/); p.ram=ram?parseInt(ram[1]):null;
+  const ssd=low.match(/\/\s*(\d{3,4})|(\d{3,4})\s*gb\s*(ssd|storage)|(\d)\s*tb/); p.ssd=ssd?(ssd[1]||ssd[2]||(ssd[4]?ssd[4]*1000:null)):null; if(p.ssd)p.ssd=parseInt(p.ssd);
+  p.uses=Object.keys(USES).filter(k=>USES[k].test(t));
+  p.city=CITIES.find(c=>low.includes(c))||null;
+  const nots=[...low.matchAll(/\b(?:not|no|hates?|avoid|don'?t (?:really )?want)\s+(?:a\s+)?(dell|hp|lenovo|asus|acer|msi|apple|mac(?:book)?|gaming laptop|arm|snapdragon)/g)].map(m=>m[1]);
+  p.not=[...new Set(nots)];
+  const likes=low.match(/likes?\s+(lenovo|dell|hp|asus|acer|apple)/); p.likes=likes?likes[1]:null;
+  // laptop named?
+  const nameM=t.match(/\b(Lenovo|ThinkPad|IdeaPad|HP|Victus|Pavilion|Dell|Inspiron|ASUS|Asus|Vivobook|VivoBook|Zenbook|TUF|ROG|Acer|Aspire|Nitro|MSI|MacBook|Apple|Legion|LOQ|Omen|Surface)\b[\w\s\-\/]{0,28}/);
+  const brandOnly=nameM && /^(hp|dell|lenovo|asus|acer|msi|apple)$/i.test(nameM[0].trim().split(/\s+/)[0]) && !/\b(slim|e14|l14|t480|victus|pavilion|inspiron|vivobook|zenbook|tuf|rog|aspire|nitro|ideapad|thinkpad|macbook|air|loq|legion|omen|\d)/i.test(nameM[0]);
+  p.laptop=(nameM && !brandOnly && !p.not.some(n=>nameM[0].toLowerCase().startsWith(n)) && !/\b(said|says)\b/i.test(nameM[0]))?nameM[0].replace(/\s+(for|at|is|from|on|i'?m|worth|with|ok)\b.*$/i,'').trim():null;
+  if(/hinges? break|has the best service|old dell/i.test(t) && p.laptop && !/\d/.test(p.laptop)) p.laptop=null;
+  // claims
+  p.claimCue=/(bol rahe|salesman|seller|shop|listing says|youtuber|said|told|claims?|sach hai|true\??|is it true|nijamena)/i.test(t);
+  p.claims=extractClaims(t,p);
+  // used
+  p.usedStrong=/\b(refurb|refurbished|second.?hand|pre.?owned|grade a|ssd health|battery cycles?|gameloot|edify|olx|used (?:thinkpad|laptop|rog|dell|hp|lenovo|macbook))\b/i.test(t) || (/\bused\b/i.test(t) && /\b(for \d+k|\d+k|worth it)\b/i.test(t) && !/\bi used\b/i.test(t));
+  p.usedWeak=!p.usedStrong && /\bused\b/i.test(t) && !/\bi used my\b/i.test(t);
+  p.usedRejected=/\bi used my\b/i.test(t);
+  if(/\bthinkpad l14|t480\b/i.test(t) && /ssd health|\b1\dk\b/i.test(t)) p.usedStrong=true;
+  // proxy / team
+  const pm=low.match(/\bfor (?:my )?(retired )?(father|dad|mother|mom|daughter|son|sister|brother|wife|husband|cousin|uncle|aunt|grand\w+|kid|child)\b/);
+  p.proxy=pm?pm[2]:null;
+  const team=low.match(/\b(team of|office of|staff of)\s*(\d+)|\b(\d+)\s*(people|laptops|staff|employees)\b/);
+  p.team=team?parseInt(team[2]||team[3]):null;
+  p.roles=[...low.matchAll(/(\d+)\s*(accounts?|designers?|managers?|developers?|sales|interns?)/g)].map(m=>({n:parseInt(m[1]),role:m[2]}));
+  if(p.roles.length && !p.team) p.team=p.roles.reduce((a,r)=>a+r.n,0);
+  p.vague=/\b(fast|doesn'?t hang|smooth|powerful|lasts all day|good battery)\b/i.test(t) && !p.budget && !p.laptop;
+  p.situation=p.uses.length>0 || !!p.budget && !p.laptop || p.vague || !!p.city && p.uses.length>0;
+  return p;
+}
+function extractClaims(t,p){
+  if(!p || !/(bol rahe|salesman|seller|shop|listing|youtuber|said|told|says|sach|true|nijamena|antunnaru)/i.test(t)) return [];
+  let body=t.replace(/^.*?(bol rahe(?: the)?|said|says|told me|listing says)\s*:?/i,'');
+  body=body.split(/\.\s+(?=[A-Z])|\?|(?:\bI'?m\b|\bneed\b)/)[0];
+  const parts=body.split(/,|\band\b|;/).map(s=>s.replace(/^\s*(that|the|he|she)\s+/i,'').trim()).filter(s=>s.length>1 && s.length<70);
+  return parts.slice(0,8).map(c=>({text:c,type:claimType(c)}));
+}
+function claimType(c){
+  if(/%|off|price|mrp|₹|discount/i.test(c)) return 'price';
+  if(/warranty|service|onsite|support/i.test(c)) return 'service';
+  if(/never|always|all |every/i.test(c)) return 'absolute';
+  if(/best|no\.? ?1|top/i.test(c)) return 'superlative';
+  if(/better than|vs|beats/i.test(c)) return 'comparative';
+  if(/battery|hours?|ghante|fps|runs|heat|hinge|break/i.test(c)) return 'performance';
+  return 'spec';
+}
+const VERD={spec:['ok','✓ Checks out','Matches the maker spec page (sample).'],
+ performance:['half','½ Depends','Maker says "up to"; owners like you report less (sample n=31).'],
+ service:['no','≠ Doesn\'t match','Standard warranty for this model is carry-in (sample). Ask for onsite in writing.'],
+ price:['seller','🗣 Seller\'s word only','MRP not verified; lowest price seen ₹‹x› on ‹date› (sample).'],
+ absolute:['no','≠ Doesn\'t match','"Never/always": owner reports show counter-examples (sample n=12).'],
+ superlative:['cant','? Can\'t be checked','"Best" is an opinion. Here are the facts it could rest on.'],
+ comparative:['half','½ Depends','True on some measures, not others (sample).']};
+const BRANDCLAIM={performance:['na','n/a Not enough evidence','Brand-wide claim; too few owner reports per model (sample n=9). Evidence so far.'],
+ service:['half','½ Depends','Service depends on the provider in your city (sample). Evidence so far.']};
+
+/* ---------- conversation ---------- */
+form.addEventListener('submit',e=>{e.preventDefault();const t=qEl.value.trim();if(!t && !pendingImage)return;send(t);});
+qEl.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit();}});
+
+function send(t){
+  addYou(t,pendingImage);
+  const img=pendingImage; pendingImage=null; fileEl.value=''; note.hidden=true; qEl.value='';
+  const p=parse(t||'');
+  if(img) p.image=img;
+  if(freshNext){ctx=null;freshNext=false;}
+  if(ctx && isFollowUp(t)) { mergeFollow(ctx,p); respond(ctx,true); }
+  else { ctx=p; respond(ctx,false); }
+}
+function isFollowUp(t){return /^(budget|actually|it'?s for|now|also|make it|change|no,? |yes|he |she |for my)/i.test(t.trim()) || (t.length<40 && ctx && !parse(t).laptop && !parse(t).claims.length);}
+function mergeFollow(c,p){
+  if(p.budget){c.budget=p.budget;c.changed='Budget updated to '+fmt(p.budget)+'. Your other Musts are kept.';}
+  if(p.proxy){c.proxy=p.proxy;c.changed='Now picking for your '+p.proxy+'.';}
+  if(p.uses.length){c.uses=[...new Set([...c.uses,...p.uses])];c.situation=true;c.changed=c.changed||'Added: '+p.uses.join(', ')+'.';}
+  if(p.city){c.city=p.city;}
+  if(p.not.length){c.not=[...new Set([...c.not,...p.not])];}
+  if(/second.?hand|yes.*used|^yes/i.test(p.raw) && c.usedWeak){c.usedStrong=true;c.usedWeak=false;}
+  if(/^no\b|new/i.test(p.raw) && c.usedWeak){c.usedWeak=false;c.usedRejected=true;}
+}
+function addYou(t,img){const d=document.createElement('div');d.className='you';d.textContent=t||'(photo only)';
+  if(img){const a=document.createElement('span');a.className='att';a.textContent='📎 '+img;d.appendChild(a);} thread.appendChild(d);}
+function botShell(){const b=document.createElement('div');b.className='bot';b.innerHTML='<div class="who">LapFit</div>';thread.appendChild(b);return b;}
+
+function signals(c){
+  const s=[];
+  if(c.usedStrong) s.push('used');
+  if(c.claims.length) s.push('claims');
+  if(c.laptop||c.image) s.push('laptop');
+  if(c.proxy||c.team) s.push('proxy');
+  if(!c.laptop && !c.image && (c.situation||c.budget)) s.push('situation');
+  return s;
+}
+function respond(c,followUp){
+  const b=botShell();
+  const steps=['Reading your message'];
+  const sig=signals(c);
+  if(sig.includes('claims')) steps.push('checking '+c.claims.length+' claims');
+  if(sig.includes('laptop')) steps.push('finding the exact model');
+  if(sig.includes('used')) steps.push('checking the used listing');
+  if(c.city) steps.push('service near '+cap(c.city));
+  steps.push('prices','owners');
+  const pr=document.createElement('div');pr.className='progress';b.appendChild(pr);
+  pr.textContent='Checking: '+steps.join(' · ')+'…';
+  setTimeout(()=>{pr.remove();render(b,c,followUp,sig);},matchMedia('(prefers-reduced-motion: reduce)').matches?0:450);
+}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function chip(cls,label,val){return '<span class="chip '+cls+'"><i>'+label+'</i>'+esc(val)+'</span>';}
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+
+function render(b0,c,followUp,sig){
+  const hi=c.lang==='hi-en';
+  const b=document.createElement('section');b.className='card answer';b0.appendChild(b);
+  // Understood card
+  let ch='';
+  if(c.laptop) ch+=chip('ctx','Laptop',c.laptop);
+  if(c.image) ch+=chip('ctx','Photo',c.image);
+  if(c.budget) ch+=chip(c.hard||c.proxy||c.team?'must':'should',c.hard?'Must':'Budget',(c.laptop&&!c.hard?'your price ':'≤ ')+fmt(c.budget));
+  if(c.ram && !c.laptop) ch+=chip('must','Must',c.ram+' GB RAM');
+  if(c.ssd && !c.laptop) ch+=chip('must','Must',c.ssd+' GB SSD');
+  c.uses.forEach(u=>ch+=chip('ctx','For',u));
+  if(c.city) ch+=chip('must','Must','service near '+cap(c.city));
+  c.not.forEach(n=>ch+=chip('not','Not',n));
+  if(c.likes) ch+=chip('should','Prefers',c.likes);
+  if(c.proxy) ch+=chip('ctx','User',(c.raw.match(/retired/i)?'retired ':'')+c.proxy);
+  if(c.team) ch+=chip('ctx','Team',c.team+' people');
+  if(/battery/i.test(c.raw)&&!c.claims.length) ch+=chip('should','Should','long battery');
+  if(c.claims.length) ch+=chip('ctx','Checking',c.claims.length+' claims');
+  if(c.lang!=='en') ch+=chip('ctx','Reply in',c.lang==='hi-en'?'Hinglish':'your language');
+  const und=card((hi?'Maine yeh samjha':'What I understood'),'Tap a chip to change it (in the real app).');
+  und.insertAdjacentHTML('beforeend','<div class="chips">'+(ch||'<span class="note">Nothing specific yet.</span>')+'</div>'+(c.changed?'<p class="note" style="margin:8px 0 0">'+esc(c.changed)+'</p>':''));
+  b.appendChild(und);
+
+  // Fact questions (never about modes)
+  const q=factQuestion(c);
+  if(q){ b.appendChild(q); debug(b,c,sig); return; }
+
+  // Sections, in order
+  if(sig.includes('used')) b.appendChild(usedReport(c));
+  else if(sig.includes('claims')) b.appendChild(claimTable(c,hi));
+  if(sig.includes('proxy')) b.appendChild(plan(c));
+  else if(sig.includes('laptop') && !sig.includes('used')) b.appendChild(verdict(c));
+  if(sig.includes('situation') && !sig.includes('proxy')) b.appendChild(shortlist(c));
+  if(sig.length===0){const k=card('Tell me a bit more');k.insertAdjacentHTML('beforeend','<p style="margin:0">You can paste a listing, name a laptop you\'re considering, or describe what you need it for and your budget.</p>');b.appendChild(k);}
+  b.appendChild(actions(c,sig));
+  debug(b,c,sig);
+  b0.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function card(title,sub){const d=document.createElement('div');d.className='part';d.innerHTML='<h3>'+esc(title)+'</h3>'+(sub?'<p class="sub">'+esc(sub)+'</p>':'');return d;}
+
+function factQuestion(c){
+  let text=null, opts=[];
+  if(c.image && !c.confirmedImage){text='I read the photo as "Sample laptop 15, ₹54,990, no-cost EMI". Is that right?';opts=['Yes, that\'s it','No, I\'ll type the model'];
+    c._on=o=>{if(/^yes/i.test(o)){c.confirmedImage=true;c.laptop=c.laptop||'Sample laptop 15';}};}
+  else if(c.usedWeak){text='Are you buying this second-hand?';opts=['Yes, second-hand','No, new'];}
+  else if(c.claims.length && !c.laptop && c.claims.some(x=>x.type==='spec') && !c.laptopAsked){text='Which laptop is this about? Spec claims need the exact model.';opts=['HP Victus 15 (sample)','I don\'t know'];
+    c._on=o=>{c.laptopAsked=true;if(!/know/.test(o))c.laptop=o.replace(' (sample)','');};}
+  else if(c.laptop && !c.situation && !c.claims.length && !c.usedStrong && !c.proxy && !c.useAsked){text='What will you mainly use it for?';opts=['College + coding','Office work','Gaming','Movies and browsing'];
+    c._on=o=>{c.useAsked=true;c.uses=Object.keys(USES).filter(k=>USES[k].test(o));if(!c.uses.length)c.uses=['general'];c.situation=true;};}
+  else if(c.vague && !c.budget){text='What\'s your budget?';opts=['Under 50k','50–70k','70k–1 lakh','Above 1 lakh'];}
+  else if(c.proxy && !c.proxyAsked && !c.uses.length){text='What will your '+c.proxy+' use it for?';opts=['Email and browsing','Studies','Office work'];
+    c._on=o=>{c.proxyAsked=true;c.uses=Object.keys(USES).filter(k=>USES[k].test(o));c.situation=true;};}
+  if(!text) return null;
+  const d=document.createElement('div');d.className='q part';d.innerHTML='<p>'+esc(text)+'</p><div class="replies"></div><p class="note" style="margin:8px 0 0">Or type your answer below.</p>';
+  opts.forEach(o=>{const r=document.createElement('button');r.type='button';r.className='reply';r.textContent=o;r.onclick=()=>{d.querySelectorAll('.reply').forEach(x=>x.disabled=true);addYou(o);
+    if(c._on){c._on(o);c._on=null;} else mergeFollow(c,parse(o)); if(/budget/i.test(text)) c.budget=money(o.replace(/–\d+k/,'k').replace('Under ','').replace('Above ',''))||c.budget, c.vague=false;
+    respond(c,true);};d.querySelector('.replies').appendChild(r);});
+  return d;
+}
+
+function claimTable(c,hi){
+  const brandClaim=!c.laptop;
+  const ok=c.claims.map(x=>(brandClaim&&BRANDCLAIM[x.type]?BRANDCLAIM[x.type]:VERD[x.type]));
+  const count={};ok.forEach(v=>count[v[0]]=(count[v[0]]||0)+1);
+  const d=card((hi?'Seller ki '+c.claims.length+' baatein check ki':'I checked the '+c.claims.length+' things you were told'),
+    (c.laptop?'About: '+c.laptop:'No model named, so these are checked as brand-level claims')+' · sample verdicts');
+  let h='<div class="chips" style="margin-bottom:8px">'+Object.entries(count).map(([k,n])=>'<span class="v '+k+'">'+n+' × '+({ok:'checks out',no:'doesn\'t match',half:'depends',cant:'can\'t check',na:'not enough evidence',seller:'seller\'s word'}[k])+'</span>').join('')+'</div>';
+  h+='<div class="table"><table><thead><tr><th>What was said</th><th>Type</th><th>Verdict</th><th>Why</th><th>Review</th></tr></thead><tbody>';
+  c.claims.forEach((x,i)=>{const v=ok[i];h+='<tr><td class="claim">"'+esc(x.text)+'"</td><td>'+x.type+'</td><td><span class="v '+v[0]+'">'+v[1]+'</span></td><td>'+esc(v[2])+'</td><td>'+(v[0]==='na'||brandClaim?'<span class="rev">Awaiting review · queued</span>':'<span class="rev ok">✓ Reviewed by LapFit, 12 Nov</span>')+'</td></tr>';});
+  h+='</tbody></table></div>';
+  h+='<p class="note" style="margin:10px 0 0">'+(hi?'Battery aur warranty seller se likhit mein confirm karein. Hum claim check karte hain, kisi insaan ko judge nahi karte.':'Verdicts are about the claims, not the person who made them.')+' Every verdict is approved by a person. A new claim shows the evidence so far and gets its verdict once reviewed (you are told when).'+'</p>';
+  d.insertAdjacentHTML('beforeend',h);return d;
+}
+function verdict(c){
+  const fails=[];
+  if(c.budget && c.hard && c.budget<55000) fails.push('budget');
+  const head=c.image&&!c.confirmedImage?['warn','Check before buying']:(fails.length?['bad','Good laptop, wrong for you']:['good','Good fit for you · price looks fair (sample)']);
+  const d=card('Second opinion on '+(c.laptop||'this laptop'));
+  d.insertAdjacentHTML('beforeend','<p class="headline '+head[0]+'">'+head[1]+'</p><dl class="rows">'+
+   '<dt>Fits your needs</dt><dd><span class="v ok">✓</span> '+(c.uses.length?esc(c.uses.join(', ')):'general use')+': meets the suggested numbers · <span class="v half">½</span> weight 1.6 kg (sample)</dd>'+
+   '<dt>Price reality</dt><dd>'+(c.budget?fmt(c.budget)+' vs ':'')+'lowest seen ₹‹x› on ‹store›, as of 13 Nov 2026 (sample)</dd>'+
+   (c.city?'<dt>Service</dt><dd><span class="v ok">✓</span> Authorised centre in '+cap(c.city)+' district, as of ‹date› (sample). Carry-in unless you buy an onsite pack.</dd>':'<dt>Service</dt><dd class="note">Tell me your city to check service near you.</dd>')+
+   '<dt>Owners like you</dt><dd>'+(c.uses[0]||'all')+' users: battery 68% happy (n=41) · heat 74% (n=29) · <button class="link" type="button" onclick="this.textContent=\'“Lasts a full college day if I keep brightness low.” (Flipkart owner, sample)\'">Show a quote</button></dd>'+
+   '<dt>Watch out</dt><dd>Hinge creak after a year mentioned by 6 of 41 owners (sample)</dd>'+
+   '<dt>Better for you?</dt><dd>Sample laptop B: same price, 0.3 kg lighter, passes all your Musts</dd></dl>');
+  return d;
+}
+function shortlist(c){
+  const budget=c.budget||70000, ram=Math.max(c.ram||8,c.uses.some(u=>/editing|design|coding/.test(u))?16:8), ssd=c.ssd||512;
+  const notGaming=c.not.includes('gaming laptop');
+  const d=card('Laptops that fit all your Musts','Ranked by owners like you'+(c.uses.length?' ('+c.uses.join(', ')+')':'')+' · sample laptops');
+  let h='';
+  if(!c.ram && !c.laptop){
+    h+='<div style="margin-bottom:10px"><div class="note" style="margin-bottom:4px">Suggested numbers for you (adjustable)</div>'+
+    scale('RAM',ram>=16?78:55,ram+' GB',ram>=16?'Coding and editing tools open together comfortably at 16 GB.':'Enough for browsing and documents.')+
+    scale('Processor',60,'mid tier','A mid-tier chip from the last 2 years handles this smoothly.')+
+    scale('SSD',58,ssd+' GB','Room for apps and projects; avoid HDD-only models.')+'</div>';
+  }
+  const brandsAvoid=c.not.filter(n=>!/gaming|arm|snapdragon/.test(n));
+  const laps=[['Sample laptop A',0.93,1.45,'battery ●●●○'],['Sample laptop B',0.86,1.62,'battery ●●○○'],['Sample laptop C',0.97,1.39,'heat ●●●○']];
+  laps.forEach((l,i)=>{h+='<div class="lap"><div class="rank">'+(i+1)+'</div><div><div class="nm">'+l[0]+(c.likes&&i===0?' ('+cap(c.likes)+')':'')+'</div>'+
+   '<div class="meta">'+fmt(budget*l[1])+' · '+ram+' GB · '+ssd+' GB SSD · '+l[2]+' kg · as of 13 Nov</div>'+
+   '<div class="why">Meets every Must'+(notGaming?', not a gaming laptop':'')+(brandsAvoid.length?', not '+brandsAvoid.join('/'):'')+'. Owners like you: '+l[3]+' (n='+(40-i*9)+').</div></div></div>';});
+  h+='<p class="note" style="margin:8px 0 0">What changed: nothing relaxed. Every laptop shown is checked by code against your Musts before it appears.</p>';
+  d.insertAdjacentHTML('beforeend',h);return d;
+}
+function scale(name,pos,val,why){return '<div class="scale"><span>'+name+'</span><div class="bar"><span style="left:calc('+pos+'% - 2px)"></span></div><b>'+esc(val)+'</b><small>'+esc(why)+'</small></div>';}
+function usedReport(c){
+  const d=card('Used-deal check: '+(c.laptop||'this listing'),(c.budget?fmt(c.budget):'price not given')+' · sample results');
+  const sc=c.claims.length?c.claims:[{text:(c.raw.match(/ssd health\s*\d+%/i)||['seller\'s condition claims'])[0],type:'used'}];
+  let h='<dl class="rows"><dt>Is it real?</dt><dd><span class="v ok">✓</span> This configuration exists on the maker spec sheet (sample)</dd>'+
+  '<dt>Price</dt><dd><span class="v cant">? Can\'t benchmark</span> no dated used-price data for this model yet</dd>'+
+  '<dt>OS support</dt><dd><span class="v ok">✓</span> CPU generation is eligible for Windows 11 (sample)</dd>'+
+  '<dt>Risk words</dt><dd>None found ("company laptop", "admin password", "managed by organisation")</dd>'+
+  '<dt>Seller claims</dt><dd>'+sc.map(x=>'"'+esc(x.text)+'" <span class="v seller">🗣 Seller\'s word only</span>').join('<br>')+' Ask for a screenshot of the health tool.</dd></dl>';
+  h+='<h3 style="margin-top:14px">Check in person (10 min)</h3><p class="sub">LapFit does not judge physical condition from photos.</p><ul class="check">'+
+   ['Serial on the sticker matches the serial in BIOS. Look it up on the maker\'s warranty page','Run a battery report: cycle count and remaining capacity','No BIOS or admin password; not enrolled with a company','Test every key, port, the hinge, speakers and the screen (dead pixels)','Charger is original; bill or seller ID in writing'].map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+  d.insertAdjacentHTML('beforeend',h);return d;
+}
+function plan(c){
+  if(c.team){
+    const roles=c.roles.length?c.roles:[{n:c.team,role:'staff'}];
+    const total=c.budget||c.team*55000, w={accounts:0.85,account:0.85,designers:1.45,designer:1.45,managers:1.2,manager:1.2};
+    const raw=roles.map(r=>r.n*(w[r.role]||1)), k=total/raw.reduce((a,b)=>a+b,0);
+    const per=roles.map((r,i)=>Math.floor(k*(w[r.role]||1)/100)*100);
+    const sum=roles.reduce((a,r,i)=>a+r.n*per[i],0);
+    const d=card('Plan for a team of '+c.team,'Total '+fmt(total)+' · sample laptops');
+    let h='<div class="table"><table><thead><tr><th>Role</th><th>Per laptop</th><th>Pick</th><th>Fit</th></tr></thead><tbody>';
+    roles.forEach((r,i)=>{h+='<tr><td>'+cap(r.role)+' × '+r.n+'</td><td class="meta">'+fmt(per[i])+'</td><td>Sample laptop '+String.fromCharCode(65+i)+'</td><td>'+(/design/.test(r.role)?'<span class="v half">½ display ok, GPU tight</span>':'<span class="v ok">✓ all Musts</span>')+'</td></tr>';});
+    h+='</tbody></table></div><p class="meta" style="margin:8px 0">Budget: '+roles.map((r,i)=>r.n+' × '+fmt(per[i])).join(' + ')+' = '+fmt(sum)+' (≤ '+fmt(total)+', '+fmt(total-sum)+' left) ✓</p>';
+    h+='<h3 style="margin-top:10px">Procurement checklist</h3><ul class="check"><li>GST invoice with your GSTIN (ask the seller)</li>'+(c.city?'<li>Authorised service in '+cap(c.city)+': found, as of ‹date› (sample)</li>':'<li>Service city: tell me where the team sits</li>')+'<li>Ask for a bulk or extended warranty quote</li><li>Same model per role, so spares and support are simpler</li></ul>';
+    d.insertAdjacentHTML('beforeend',h);return d;
+  }
+  const who=(c.raw.match(/retired/i)?'retired ':'')+c.proxy;
+  const d=card('For your '+who,'Picked for the person who will use it · sample laptops');
+  d.insertAdjacentHTML('beforeend','<dl class="rows"><dt>Their needs</dt><dd>'+esc(c.uses.join(', ')||'general use')+(c.likes?' · prefers '+cap(c.likes):'')+(c.not.length?' · not '+c.not.join('/'):'')+'</dd>'+
+   '<dt>Pick</dt><dd><b>Sample laptop A'+(c.likes?' ('+cap(c.likes)+')':'')+'</b> · '+fmt((c.budget||40000)*0.9)+' · 15.6" screen · as of 13 Nov</dd>'+
+   '<dt>Why it suits '+(/father|dad|son|brother|husband|uncle/.test(c.proxy)?'him':(/mother|mom|daughter|sister|wife|aunt/.test(c.proxy)?'her':'them'))+'</dt><dd>Large, clear screen for movies; simple to use; owners aged 50+ rate ease of use 81% (n=22, sample)</dd>'+
+   '<dt>Also consider</dt><dd>Sample laptop B: lighter, smaller screen</dd></dl><p class="note" style="margin:8px 0 0">Share this with your '+esc(c.proxy)+' to check it suits them.</p>');
+  return d;
+}
+function actions(c,sig){
+  const d=document.createElement('div');d.className='actions';
+  const items=[];
+  if(sig.includes('claims')||sig.includes('laptop')||sig.includes('used')) items.push('Copy questions to ask the seller');
+  if(sig.includes('situation')||sig.includes('laptop')) items.push('Compare 2–4');
+  items.push('Save','Share');
+  items.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='link';b.textContent=x;
+    b.onclick=()=>{if(/^Copy/.test(x)){const txt='1. Exact model number on the invoice?\n2. Is the warranty onsite or carry-in, in writing?\n3. Battery size in Wh?';
+      (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>b.textContent='Copied',()=>b.textContent='Copy not allowed here');} else b.textContent=x+' (mock)';};
+    d.appendChild(b);});
+  const f=document.createElement('p');f.className='note';f.style.margin='0';f.style.flexBasis='100%';
+  f.textContent='Buy links are affiliate links and never change the order. Prices show their date.';d.appendChild(f);
+  return d;
+}
+function debug(b,c,sig){
+  const map={claims:'UC2 claim table',laptop:'UC1 verdict card',situation:'UC3 shortlist',used:'UC4 used report',proxy:'UC5 per-person plan'};
+  const d=document.createElement('div');d.className='debug';d.hidden=!$('#dbg').checked;
+  d.textContent='Back end saw: '+(sig.map(s=>map[s]).join(' + ')||'nothing actionable')+' · language '+c.lang+(c.usedRejected?' · "used" rejected (I used my…)':'')+(c.usedWeak?' · "used" unclear → asked a fact question':'')+' · claims '+c.claims.length+' · budget '+(c.budget?fmt(c.budget):'none');
+  b.appendChild(d);
+}
+
+/* Opening state: show one worked example so the page is not empty */
+send(EXAMPLES[0]+" I'm CSE 1st year, 65k max");
+})();
+</script>

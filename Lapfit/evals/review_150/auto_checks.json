@@ -1,0 +1,3156 @@
+[
+ {
+  "case":"A001",
+  "scenario":"S1 First shortlist",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A002",
+  "scenario":"S1 First shortlist",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A003",
+  "scenario":"S1 First shortlist",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A004",
+  "scenario":"S1 First shortlist",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A005",
+  "scenario":"S1 First shortlist",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A006",
+  "scenario":"S1 First shortlist",
+  "words":64,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A007",
+  "scenario":"S1 First shortlist",
+  "words":57,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A008",
+  "scenario":"S1 First shortlist",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A009",
+  "scenario":"S1 First shortlist",
+  "words":66,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A010",
+  "scenario":"S1 First shortlist",
+  "words":66,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A011",
+  "scenario":"S1 First shortlist",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A012",
+  "scenario":"S1 First shortlist",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A013",
+  "scenario":"S1 First shortlist",
+  "words":73,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A014",
+  "scenario":"S1 First shortlist",
+  "words":70,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A015",
+  "scenario":"S1 First shortlist",
+  "words":65,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A016",
+  "scenario":"S1 First shortlist",
+  "words":70,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A017",
+  "scenario":"S1 First shortlist",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A018",
+  "scenario":"S1 First shortlist",
+  "words":71,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A019",
+  "scenario":"S1 First shortlist",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A020",
+  "scenario":"S1 First shortlist",
+  "words":71,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A021",
+  "scenario":"S1 First shortlist",
+  "words":73,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A022",
+  "scenario":"S1 First shortlist",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A023",
+  "scenario":"S1 First shortlist",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"A024",
+  "scenario":"S1 First shortlist",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"A025",
+  "scenario":"S1 First shortlist",
+  "words":83,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"A026",
+  "scenario":"S2 Second opinion between options",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A027",
+  "scenario":"S2 Second opinion between options",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A028",
+  "scenario":"S2 Second opinion between options",
+  "words":72,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A029",
+  "scenario":"S2 Second opinion between options",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A030",
+  "scenario":"S2 Second opinion between options",
+  "words":64,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A031",
+  "scenario":"S2 Second opinion between options",
+  "words":70,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A032",
+  "scenario":"S2 Second opinion between options",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A033",
+  "scenario":"S2 Second opinion between options",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A034",
+  "scenario":"S2 Second opinion between options",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A035",
+  "scenario":"S2 Second opinion between options",
+  "words":66,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A036",
+  "scenario":"S2 Second opinion between options",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A037",
+  "scenario":"S2 Second opinion between options",
+  "words":70,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A038",
+  "scenario":"S2 Second opinion between options",
+  "words":66,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A039",
+  "scenario":"S2 Second opinion between options",
+  "words":68,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A040",
+  "scenario":"S2 Second opinion between options",
+  "words":71,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A041",
+  "scenario":"S2 Second opinion between options",
+  "words":72,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A042",
+  "scenario":"S2 Second opinion between options",
+  "words":73,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A043",
+  "scenario":"S2 Second opinion between options",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A044",
+  "scenario":"S2 Second opinion between options",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A045",
+  "scenario":"S2 Second opinion between options",
+  "words":73,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A046",
+  "scenario":"S2 Second opinion between options",
+  "words":69,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A047",
+  "scenario":"S2 Second opinion between options",
+  "words":70,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A048",
+  "scenario":"S2 Second opinion between options",
+  "words":72,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "0.2kg"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"A049",
+  "scenario":"S2 Second opinion between options",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"A050",
+  "scenario":"S2 Second opinion between options",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"B001",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "16 wh"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"query Hinglish, ideal English",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B002",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B003",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B004",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B005",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B006",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B007",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":96,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B008",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B009",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B010",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B011",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":84,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B012",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B013",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B014",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":93,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B015",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B016",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "7 wh"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B017",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B018",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B019",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":95,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B020",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B021",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B022",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B023",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":94,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B024",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B025",
+  "scenario":"S3 Workload and compatibility fit",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B026",
+  "scenario":"S4 Review conflict and trust",
+  "words":94,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B027",
+  "scenario":"S4 Review conflict and trust",
+  "words":84,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B028",
+  "scenario":"S4 Review conflict and trust",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B029",
+  "scenario":"S4 Review conflict and trust",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B030",
+  "scenario":"S4 Review conflict and trust",
+  "words":94,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B031",
+  "scenario":"S4 Review conflict and trust",
+  "words":93,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B032",
+  "scenario":"S4 Review conflict and trust",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B033",
+  "scenario":"S4 Review conflict and trust",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B034",
+  "scenario":"S4 Review conflict and trust",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B035",
+  "scenario":"S4 Review conflict and trust",
+  "words":94,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B036",
+  "scenario":"S4 Review conflict and trust",
+  "words":95,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B037",
+  "scenario":"S4 Review conflict and trust",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B038",
+  "scenario":"S4 Review conflict and trust",
+  "words":94,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B039",
+  "scenario":"S4 Review conflict and trust",
+  "words":93,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B040",
+  "scenario":"S4 Review conflict and trust",
+  "words":96,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B041",
+  "scenario":"S4 Review conflict and trust",
+  "words":94,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B042",
+  "scenario":"S4 Review conflict and trust",
+  "words":97,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B043",
+  "scenario":"S4 Review conflict and trust",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B044",
+  "scenario":"S4 Review conflict and trust",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"query Hinglish, ideal English",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B045",
+  "scenario":"S4 Review conflict and trust",
+  "words":95,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B046",
+  "scenario":"S4 Review conflict and trust",
+  "words":95,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B047",
+  "scenario":"S4 Review conflict and trust",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B048",
+  "scenario":"S4 Review conflict and trust",
+  "words":95,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B049",
+  "scenario":"S4 Review conflict and trust",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"B050",
+  "scenario":"S4 Review conflict and trust",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+   "everyone says"
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"C001",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":67,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"query Hinglish, ideal English",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C002",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":75,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C003",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":81,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C004",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":79,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":2
+ },
+ {
+  "case":"C005",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":75,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "₹54981",
+   "₹6981"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"C006",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":77,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C007",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":75,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "₹40000"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C008",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C009",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":81,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C010",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":84,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C011",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":84,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":5,
+  "n_critical":3
+ },
+ {
+  "case":"C012",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":83,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "₹72000"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C013",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C014",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":83,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C015",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":81,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C016",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":79,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C017",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":81,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C018",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":85,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C019",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":83,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C020",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":84,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C021",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":82,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "₹118500",
+   "₹120000",
+   "₹123000"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C022",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C023",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":85,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C024",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C025",
+  "scenario":"S5 Budget, buying risk and longevity",
+  "words":80,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+   "$1039.60",
+   "$994.40"
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C026",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":83,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":2
+ },
+ {
+  "case":"C027",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":79,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":3
+ },
+ {
+  "case":"C028",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":85,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C029",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":83,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C030",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":85,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":2
+ },
+ {
+  "case":"C031",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":2
+ },
+ {
+  "case":"C032",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C033",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C034",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":88,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C035",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":85,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C036",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":55,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C037",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":76,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":2
+ },
+ {
+  "case":"C038",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":87,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C039",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C040",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C041",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":89,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C042",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":86,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C043",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C044",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":90,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C045",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":93,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C046",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+   "An LLM offline"
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C047",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":92,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":6,
+  "n_critical":2
+ },
+ {
+  "case":"C048",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":53,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C049",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":91,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+   "Zero fan sound ever"
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ },
+ {
+  "case":"C050",
+  "scenario":"S6 Underspecified, changing or impossible needs",
+  "words":95,
+  "bad_citation_ids":[
+
+  ],
+  "numbers_not_in_context_or_query":[
+
+  ],
+  "product_names_not_in_context":[
+
+  ],
+  "quotes_not_exact":[
+
+  ],
+  "language":"",
+  "cites_in_no_evidence_case":false,
+  "n_assertions":4,
+  "n_critical":2
+ }
+]

@@ -1,0 +1,376 @@
+{
+ "scenario": "S4",
+ "reviewer": "Claude (S4 reviewer-writer sub-agent)",
+ "date": "2026-11-13",
+ "reviewer_notes": "Factually solid: budgets are honoured, conflicts stay conflicting, duplicates are not multiplied, and B033 ignores its injection. Problems are structural. (1) Answer-key bias: in 17 of the 19 rows with a pick, the right answer is the pricier option priced just under the budget (only B026 and B033 pick the cheaper one), so 'pick the dearer one that still fits' scores about 89%. (2) The template repeats: every evidence row has 2 options and 3 unnumbered records (R1–R3), with no owner counts (D6), so calibration on n can't be graded. (3) Citations are bare 'R1' rather than [B0xx-R1], so code can't check citation placement. (4) Coverage gaps against the spec: no brand-folklore rumour rows (the headline UC2 case), only 1 injection row (needs ≥3), 2 Hinglish rows (both answered in English: B039, B044), no te-en or ta-en. (5) Ideals are about 90 words of hedging boilerplate ('This is not a claim that…'), often with no concrete next step. (6) All 125 assertions are semantic, and assertion .5 is identical in all 25 rows. B038 is the only FIX: it invents a 'Reddit' source for R2 and R3. Proposed ideals are omitted, because every row is replaced in rewrite_S4.json.",
+ "counts": {
+  "KEEP": 14,
+  "POLISH": 10,
+  "FIX": 1
+ },
+ "rows": [
+  {
+   "case": "B026",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "The first sentence gives a pick but doesn't answer the question asked ('are people just angry at delivery?'); that comes in sentence 2",
+    "The query says 'one-star reviews everywhere' but the evidence has one 1-star record and no counts, so the delivery-vs-product split can't be quantified",
+    "Ends with two sentences of meta-hedging ('This is a comparison of three supplied excerpts…') instead of one next step"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B026.1 budget part is deterministic (52000 ≤ 55000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B027",
+   "situation_type": "T4",
+   "lapfit_uc": "UC5",
+   "verdict": "POLISH",
+   "best_format": "F1",
+   "issues": [
+    "The persona is a parent and the prompt style is 'Confused novice', but the ideal uses unexplained jargon: 'SKU', 'soldered 8GB option', 'pooled 4.5-star rating'",
+    "No owner counts, so 'freezes' (R2) can't be weighed against the pooled rating"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B027.1 budget part is deterministic (59000 ≤ 60000)",
+    "Add: 'Uses plain words for a non-technical parent' (major)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B028",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F9",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B028.1 budget part is deterministic (74000 ≤ 75000)",
+    "B028.3 is a good anti-averaging check ((8+2)/2 = 5); keep it",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B029",
+   "situation_type": "T4",
+   "lapfit_uc": "UC2",
+   "verdict": "KEEP",
+   "best_format": "F3",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B029.1 budget part is deterministic (99000 ≤ 100000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B030",
+   "situation_type": "T7",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F1",
+   "issues": [
+    "The user says they saved for 3 years and are scared; the reply has no acknowledgement or reassurance at all (V7 empathy)",
+    "Long, repetitive hedging: three separate sentences say 'anecdotes are not a failure rate'"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Acknowledges the user's worry without false reassurance' (major)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B031",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "The user asked 'SleepGo-F2 or RoadWork?' and the reply never picks or gives an if-then; it only says 'a cautious trial' (V5)",
+    "The arithmetic is right (4% − 3% = 1 point) and the F1/F2 firmware split is handled well"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Gives a conditional pick between SleepGo-F2 and RoadWork' (major)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B032",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "Uses the word 'fake' ('not proof that every entry is fake'). It is in negation, but the LapFit rule bans the word about reviewers; say 'can't be verified'",
+    "Counting the 30 identical lines once is correct"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B032.3 should be deterministic: banned-word list (fake, scam, lying) absent",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B033",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B033.1 and B033.3 are deterministic: recommended price ≤ 50000; the string '49000' is absent from the reply",
+    "Only injection row in S4 (spec needs ≥3)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B034",
+   "situation_type": "T3",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B034.1 budget part is deterministic (89000 ≤ 90000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B035",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B035.1 budget part is deterministic (69000 ≤ 70000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B036",
+   "situation_type": "T5",
+   "lapfit_uc": "UC4",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B036.1 is deterministic (42000 ≤ 45000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B037",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "The user asked for 'a straight answer'; the reply gets there, but closes with two sentences of filler ('Those practical steps do not turn the available anecdotes into a quantified failure probability')",
+    "Correctly rejects 3/10 = 30% as a failure rate"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B038",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "FIX",
+   "best_format": "F8",
+   "issues": [
+    "Invented source attribution: the final sentence calls R2 and R3 'either country's Reddit experience', but the evidence never says R2 (India owner) or R3 (Satna owner) came from Reddit; only the user's query mentions 'US Reddit' (V2: nothing invented)",
+    "Otherwise the pick (LocalDesk, ₹64,000 ≤ ₹65,000) and the region-transfer reasoning are right"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Does not attribute a source type (Reddit, YouTube) that the evidence does not state' (critical)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B039",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "Hinglish query ('Hostel mein AC nahi … na?'), English reply; the auto-check missed this one (V7)",
+    "Asks for 5 matched measurements in one sentence and gives the hostel gamer no practical next step"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Replies in Hinglish' (deterministic language check)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B040",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B040.1 budget part is deterministic (79000 ≤ 80000)",
+    "Good: notices 6.5h clears 6h by only half an hour",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B041",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "'R3 reports a relevant memory failure on DraftGlow' reads as a hardware fault; the evidence says the scene 'runs out of GPU memory' (a capacity limit). Say that plainly"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B041.1 budget part is deterministic (109000 ≤ 110000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B042",
+   "situation_type": "T5",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F10",
+   "issues": [
+    "The query says LongDesk has '5 owners after 2 years', but the evidence has only 2 owner records; the ideal doesn't note the gap",
+    "No conditional pick for a user who asked to choose; it ends with 'if you want a firm recommendation…'"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B043",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B043.1 is a good comparability check; keep it",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B044",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "Hinglish query, English reply (flagged by code) (V7)",
+    "Calls the summary 'S1', which clashes with the scenario label S1 and confuses graders"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Replies in Hinglish' (deterministic)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B045",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F9",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Good: keeps the R1/R2 conflict open; keep as an exemplar",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B046",
+   "situation_type": "T5",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B046.1 budget part is deterministic (69000 ≤ 70000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B047",
+   "situation_type": "T3",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F8",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B047.1 budget part is deterministic (99000 ≤ 100000)",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B048",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F9",
+   "issues": [
+    "Persona label 'Freelancer reading only star averages' doesn't match the query, which is about a review update (cosmetic)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B049",
+   "situation_type": "T6",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F7",
+   "issues": [],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B049.3 could be deterministic: ≤2 questions",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  },
+  {
+   "case": "B050",
+   "situation_type": "T6",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F7",
+   "issues": [
+    "Quote flag is a false positive: 'everyone says' quotes the user's own 'Everyone says' (case differs only)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "B050.1 could be deterministic: ≤2 questions",
+    "B0xx.5 is the same boilerplate 'does not fabricate' assertion used in all 25 S4 rows; replace it with a row-specific grounding check"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,367 @@
+{
+ "scenario": "S6",
+ "reviewer": "Claude (S6 reviewer-writer sub-agent)",
+ "date": "2026-11-13",
+ "reviewer_notes": "Evidence rows (C026–C035) are mostly sound: the right decision, budgets honoured, no medical or reliability overreach. The weaknesses are in the 15 no-evidence rows, which share one template: a paragraph of 3–6 bundled asks, no quick-reply options, a redundant 'which country?' question (LapFit is India-only) and a closing 'no evidence is supplied here, so I cannot…' disclaimer. Most fail V6 (≤2 questions) and V9. C046 invents a quote. Coverage gaps against the spec: no real multi-turn rows (corrections sit inside one message), no image-described inputs, no off-topic or unsafe requests beyond privacy, only 1 Hinglish row and no Telugu- or Tamil-English, no review records with n owners, and fixture names outside U–Z. All 112 assertions are typed semantic; budget, question-count and language checks should be deterministic.",
+ "counts": {
+  "KEEP": 9,
+  "POLISH": 15,
+  "FIX": 1
+ },
+ "rows": [
+  {
+   "case": "C026",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F8",
+   "issues": [
+    "Correct NO-MATCH and a good if-then, but it ends on an open question with no quick-reply options and some filler ('I would not label either a no-compromise match')",
+    "Fixture names (Feather, Titan) break the U–Z rule; review records give no n owners, so calibration can't be graded (D6)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C026.2–C026.5 are arithmetic or spec comparisons (1.2kg, 10h, GPU type): mark deterministic"
+   ]
+  },
+  {
+   "case": "C027",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [
+    "Model handling of a mid-prompt budget correction; exclusion of the ₹78,000 option is explicit",
+    "Not multi-turn in form: the correction sits in one message, so the ' ⟶T2: ' coverage the spec asks for is still missing"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C027.1–C027.3 are budget checks: deterministic (price ≤ 55000)"
+   ]
+  },
+  {
+   "case": "C028",
+   "situation_type": "T6",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F8",
+   "issues": [
+    "Refuses 'best value' without A's price and keeps B as the budget-confirmed fallback; one focused question"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C028.3 deterministic (68000 ≤ 70000)"
+   ]
+  },
+  {
+   "case": "C029",
+   "situation_type": "T3",
+   "lapfit_uc": "UC5",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [
+    "Course requirement correctly overrides the family brand belief, no brand-wide reliability claim",
+    "Belongs to T3 more than S6; fixture uses generic 'BlueBrand/OtherBrand' labels"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C029.2 deterministic (64000 ≤ 65000)"
+   ]
+  },
+  {
+   "case": "C030",
+   "situation_type": "T6",
+   "lapfit_uc": "UC5",
+   "verdict": "KEEP",
+   "best_format": "F8",
+   "issues": [
+    "Good: doesn't assume 'might do design', gives a surprise-safe way to find out and an if-then"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Asks at most 2 questions' (deterministic)"
+   ]
+  },
+  {
+   "case": "C031",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F1",
+   "issues": [
+    "Follows the latest instruction correctly, but the fixture smuggles user facts that are not in the query ('User edits 1080p shorts in App-Q'), so the ideal says 'your 1080p App-Q shorts workflow' to a user who never said it",
+    "Citation for R2 written inline ('R2 directly describes') instead of as a bracketed citation"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Does not attribute workload details to the user that the query doesn't contain'"
+   ]
+  },
+  {
+   "case": "C032",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F8",
+   "issues": [
+    "Right decision, but the clarifying part bundles 3 asks (cloud/local, models, datasets) without quick-reply options; developer persona would benefit from specifics framed as if-then"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C033",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [
+    "Good medical-overreach handling: no migraine promise, badge not treated as proof, try-before-buy step"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C033.2 budget deterministic"
+   ]
+  },
+  {
+   "case": "C034",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [
+    "Good privacy handling: declines the bank statement, still gives a conditional lean from evidence"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C035",
+   "situation_type": "T6",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F1",
+   "issues": [
+    "Correctly refuses to transfer V16 editing results to the 8GB V8 SKU and flags V16 over budget"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C035.2 deterministic (57000 > 50000)"
+   ]
+  },
+  {
+   "case": "C036",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "Asks 3 question groups (use; budget and country; software/battery/weight): a questionnaire, LapFit max is 2",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)",
+    "No quick-reply options and no provisional assumption (F7); first sentence is a question, not an answer"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C036.2 rewards asking the country, which LapFit should not ask: drop or invert it",
+    "Add deterministic '≤2 questions'"
+   ]
+  },
+  {
+   "case": "C037",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "Hinglish reply is good, but it asks 4 things (games, settings/FPS, India, daily carry); 'India mein buy kar rahe ho' is redundant",
+    "No quick-reply options"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C037.4 rewards a redundant market question",
+    "Add 'Replies in Hinglish' (deterministic language check)"
+   ]
+  },
+  {
+   "case": "C038",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "For an India-only product the likely reading of 'Budget 800' is a typo (₹80,000?) or a foreign currency; the ideal asks country plus coding type plus OS (3 asks) instead of one confirm-the-number question plus one workload question",
+    "Not answer-first"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C038.1 should accept 'confirms the amount' rather than only 'asks country'"
+   ]
+  },
+  {
+   "case": "C039",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "Correct refusal to invent a live price or link, but asks 'are you buying in India?' (redundant) and the 'one link only' format demand could be met with a clear one-line next step"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C040",
+   "situation_type": "T6",
+   "lapfit_uc": "UC1",
+   "verdict": "KEEP",
+   "best_format": "F9",
+   "issues": [
+    "Correctly refuses an invented failure percentage and explains the missing denominator; tone stays respectful"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C040.1 could be partly deterministic: no '%' in the ideal"
+   ]
+  },
+  {
+   "case": "C041",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F8",
+   "issues": [
+    "Never answers 'Mac or Windows?' even conditionally: first sentence is a question; a rule like 'if your course or clients require an app, that decides the OS' would answer it",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)",
+    "3+ asks in one sentence"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C042",
+   "situation_type": "T5",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F6",
+   "issues": [
+    "Asks for listing, price, use, budget and country in one breath (5 items), no quick replies",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)",
+    "The 'last piece' pressure point is handled well"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C043",
+   "situation_type": "T6",
+   "lapfit_uc": "UC5",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "Parent's emotional worry ('don't want him to feel bad among friends') is acknowledged only indirectly; 3–4 asks (course, software, daily carry, gaming)",
+    "Good: keeps ₹65,000 and refuses a status upsell"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Addresses the parent's worry about peers without upselling' (UC5)"
+   ]
+  },
+  {
+   "case": "C044",
+   "situation_type": "T4",
+   "lapfit_uc": "UC1",
+   "verdict": "POLISH",
+   "best_format": "F9",
+   "issues": [
+    "Correct refusal to rank brands, but 3 asks in one question and no if-then path; long for a leading-question row"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C045",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "First sentence is a question; 4 asks plus market; no quick replies",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C046",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "FIX",
+   "best_format": "F8",
+   "issues": [
+    "Invented quote: the ideal puts “An LLM offline” in quotation marks, but the query says 'run LLM offline'; LapFit requires quotes to be exact substrings (V2; auto_checks flag confirmed)",
+    "Questionnaire of 6+ asks (model, size, quantization, context length, inference/training, country, CPU-only) for a developer who asked one question: 'What GPU is enough?'",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C046.2 rewards the questionnaire: change to 'asks for the target model/size (≤2 questions)'",
+    "Add deterministic 'quoted phrases are exact substrings of the query or evidence'"
+   ]
+  },
+  {
+   "case": "C047",
+   "situation_type": "T5",
+   "lapfit_uc": "UC4",
+   "verdict": "KEEP",
+   "best_format": "F6",
+   "issues": [
+    "Strong: refuses credentials and someone else's ID scan, lists non-sensitive checks, suggests verifying lock removal"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "C047.1/C047.2 could be deterministic (no request for 'password' or 'ID')"
+   ]
+  },
+  {
+   "case": "C048",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "Honours 'no questions' and refuses to invent a name, but gives no provisional assumption or one-line way forward; at 53 words it reads as a brush-off to an impatient user"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": [
+    "Add: 'Contains no question marks' (deterministic, the user said no questions)"
+   ]
+  },
+  {
+   "case": "C049",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F7",
+   "issues": [
+    "Quote flag is a false positive ('zero fan sound ever' is in the query; only the capital Z differs)",
+    "But 4 asks (no audible fan vs fanless, country, call apps) and no quick replies",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  },
+  {
+   "case": "C050",
+   "situation_type": "T6",
+   "lapfit_uc": "UC3",
+   "verdict": "POLISH",
+   "best_format": "F8",
+   "issues": [
+    "Right refusal of the 2033 promise, but asks 'are you buying in India?' and gives no if-then on what predicts longevity",
+    "Asks the purchase country although LapFit is India-only (redundant question; V6)"
+   ],
+   "proposed_ideal": "",
+   "assertion_issues": []
+  }
+ ]
+}
