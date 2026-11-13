@@ -48,7 +48,7 @@ export function BoardHero({ c, eyebrow, tie = false }: { c: Card; eyebrow: strin
       <div className="bhero-photo">
         {photo || !priceKnownOrSpecs(look)
           ? <LaptopImage pic={c.image} brand={c.brand ?? brand.split(' ')[0]} name={brand} screen={s.display_size} weight={s.weight_kg} />
-          : <div className="look-art"><SpecPortrait look={look} /><span className="look-note">Drawn from the specs, not a photo</span></div>}
+          : <div className="look-art"><SpecPortrait look={look} /><span className="look-note">{c.image ? 'Drawn from the specs, not a photo' : 'Drawn from the specs. No photo on file for this laptop'}</span></div>}
         {priceKnownOrSpecs(look) && c.image && <button type="button" className="look-switch" aria-pressed={photo} onClick={() => setPhoto(!photo)}>{photo ? 'Show drawing' : 'Show photo'}</button>}
         <CompareToggle c={c} />
       </div>

@@ -14,3 +14,15 @@ Everything built in this round, in one folder.
 | `ai-spec/` | To-do, decisions (including the AI type per scenario), system prompts, feature specs, and one AI-anatomy document per feature | `00_INDEX.md` |
 
 The other folders and files in `AIforPMCapstoneProject_Team11` (PRD, golden dataset, eval scripts, customer kit and so on) are the team's earlier work. Decision D-04 in `ai-spec/02_DECISIONS.md` (revised 13 Nov 2026) reuses the **data** in `prototype_prathyusha/` (see `build-plan/01_BACKEND_BUILD_PLAN.md`) but not the old code, labels or documents as specifications.
+
+
+## Set up your own copy (what "git pull" does not give you)
+
+The repo has the code, the migrations and the seed data. It does **not** have your database, your keys or a deployed backend. If the app looks different from someone else's (for example no **Show photo** button), one of these is missing:
+
+1. **A Supabase project with every migration applied, in order** (`backend/supabase/migrations/`, 0001 to the latest). Migration 14 creates the picture table and **19 fills it** with the 42 product pictures, so the Show photo button appears. Pictures are third-party web images with an unverified licence; `FEATURE_FLAGS.web_images = false` turns them all off.
+2. **The query function deployed from the same code** (`supabase functions deploy query`). An older deployed function does not send the newer fields (pictures, screen and weight, follow-up answers).
+3. **Your own keys** as Supabase secrets (`GEMINI_API_KEY`, `TAVILY_API_KEY`, `SESSION_SALT`) and, in `frontend/.env.local`, `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (copy `.env.example`). Keys are never in the repo.
+4. **Reviews and catalog data** loaded with the import scripts in `backend/scripts/` (the dataset is not committed).
+
+To check a copy: open the app, ask for a laptop under 60k, and look at the first result. If it shows a drawing but no **Show photo** button, the picture table is empty (step 1) or the deployed function is old (step 2).

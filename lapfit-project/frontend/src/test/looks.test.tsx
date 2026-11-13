@@ -55,4 +55,9 @@ describe('look in the results', () => {
     await userEvent.click(within(hero).getByRole('button', { name: 'Show drawing' })); expect(hero.querySelector('.spec-portrait')).toBeInTheDocument();
   });
   it('compare shows the screens at the same scale above the table', () => { render(withCtx(<BlockView block={block('compare', 'compare')} />)); expect(document.querySelector('.scale-screens')).toBeInTheDocument(); expect(screen.getByRole('img', { name: /same scale/ })).toBeInTheDocument(); });
+  it('a laptop with no photo on file still shows the drawing, says there is no photo, and has no Show photo button', () => {
+    const b = JSON.parse(JSON.stringify(block('shortlist', 'cards'))); for (const c of b.cards) c.image = null;
+    render(withCtx(<BlockView block={b} />)); const hero = document.querySelector('.bhero') as HTMLElement;
+    expect(hero.querySelector('.spec-portrait')).toBeInTheDocument(); expect(within(hero).getByText(/No photo on file for this laptop/)).toBeInTheDocument(); expect(within(hero).queryByRole('button', { name: /Show photo/ })).toBeNull();
+  });
 });
