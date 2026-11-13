@@ -96,6 +96,9 @@ export class AnthropicClient implements ModelClient {
       method: 'POST', signal: req.signal, headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': version },
       body: JSON.stringify({
         model, max_tokens: req.maxTokens ?? 1200,   // no temperature: the current Claude models reject it ("temperature is deprecated for this model")
+        // Thinking off: Claude Haiku 5.5 thinks by default, and the hidden thinking used up max_tokens, so the JSON came back cut off
+        // (or empty) and calls ran past the 6.5 s slot. Measured on the router: 6.6 s and invalid JSON with thinking, 2.4 s and valid without.
+        thinking: { type: 'disabled' },
         system: `${req.system}\n\nReply with a single JSON object and nothing else: no prose, no code fences.`,
         messages: [{ role: 'user', content: [{ type: 'text', text: req.user }, ...(req.image ? [{ type: 'image', source: { type: 'base64', media_type: req.image.media_type, data: req.image.data } }] : [])] }],
       }),
@@ -103,7 +106,7 @@ export class AnthropicClient implements ModelClient {
     if (!res.ok) throw new Error(`model_http_${res.status}`);
     const data: any = await res.json();
     const text: string = (data.content ?? []).filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('');
-    if (!text) throw new Error('model_empty');
+    if (!text) throw new Error(data.stop_reason === 'max_tokens' ? 'model_max_tokens' : 'model_empty');   // name the cause in the request log
     return text;
   }
 }

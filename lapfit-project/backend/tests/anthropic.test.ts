@@ -47,3 +47,13 @@ test('Claude gets its own, longer time slot, so two slow Gemini attempts do not 
   const m = mockFetch(async () => { await new Promise((r) => setTimeout(r, 150)); return claudeOk('{"late":true}'); });
   try { const model = new FallbackModel([slow('g1'), slow('g2'), claude], 40); const out = await model.generate({ system: 's', user: 'u' }); assert.equal(out, '{"late":true}'); assert.deepEqual(model.drain().map((a) => [a.ok, a.error ?? '']), [[false, 'attempt_timeout'], [false, 'attempt_timeout'], [true, '']]); } finally { m.restore(); }
 });
+
+test('the Claude client turns thinking off, so hidden thinking cannot use up max_tokens and cut the JSON short', async () => {
+  const m = mockFetch(() => claudeOk('{}'));
+  try { await new AnthropicClient({ apiKey: 'k' }).generate({ system: 's', user: 'u' }); assert.deepEqual(JSON.parse(m.calls[0].init.body).thinking, { type: 'disabled' }); } finally { m.restore(); }
+});
+
+test('an empty reply stopped by the token limit is logged as model_max_tokens, not model_empty', async () => {
+  const m = mockFetch(() => new Response(JSON.stringify({ stop_reason: 'max_tokens', content: [{ type: 'thinking', thinking: '' }] }), { status: 200 }));
+  try { await assert.rejects(() => new AnthropicClient({ apiKey: 'k' }).generate({ system: 's', user: 'u' }), /model_max_tokens/); } finally { m.restore(); }
+});
