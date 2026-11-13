@@ -1,0 +1,100 @@
+/* LapFit motion layer. Loaded after theme.css. transform/opacity only, ease-out curves, 150-250ms for UI,
+   hover only on hover devices, everything off under prefers-reduced-motion (final state always visible). */
+:root {
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --dur-fast: 150ms;
+  --dur: 220ms;
+}
+
+/* ---------- keyframes (re-declared: later definition wins over styles.css) ---------- */
+@keyframes rise { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes grow { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes barin { from { transform: scaleX(.02); } to { transform: scaleX(1); } }
+@keyframes stamp { from { transform: rotate(-6deg) scale(1.5); opacity: 0; } to { transform: rotate(-6deg) scale(1); opacity: .9; } }
+@keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@keyframes tray-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes lappy-pop { 0% { transform: scale(.9); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
+@keyframes lappy-hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-5px); } 70% { transform: translateY(0); } }
+@keyframes lappy-shake { 20% { transform: translateX(-3px); } 50% { transform: translateX(3px); } 80% { transform: translateX(-1.5px); } }
+@keyframes lappy-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@keyframes dotpulse { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+
+/* ---------- entrances ---------- */
+.reveal { animation: rise var(--dur) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 50ms); }
+.page-enter { animation: page-in var(--dur) var(--ease-out) both; }
+.pop { animation: pop var(--dur-fast) var(--ease-out) both; }
+.tray { animation: tray-in var(--dur) var(--ease-out) both; }
+.hero-mascot { animation: float 4.2s var(--ease-in-out) infinite; }
+.laptop-media.art svg { animation: float 5s var(--ease-in-out) infinite; }
+.drop-icon { animation: float 4s var(--ease-in-out) infinite; }
+
+/* ---------- press + hover (hover only where hover exists) ---------- */
+.btn, .chip, .tile, .act, .starter, .pick-pill, .stars button, .tool, .drop-btn, .press {
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.btn:active:not(:disabled), .chip:active, .tile:active, .act:active, .starter:active, .pick-pill:active, .stars button:active, .tool:active, .drop-btn:active, .press:active { transform: scale(.97); }
+.stars button.on { transform: scale(1.06); }
+.card, .lcard { transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out); }
+.composer { transition: box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out); }
+.dots i { transition: width var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out); }
+.steps li { transition: opacity var(--dur) var(--ease-out), color var(--dur) var(--ease-out); }
+.dropzone { transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out); }
+.laptop-media img { transition: opacity var(--dur) var(--ease-out), transform 400ms var(--ease-out); }
+
+/* neutralise the older bare :hover lifts on touch devices (no sticky hover after a tap) */
+@media (hover: none) {
+  .btn:hover, .chip:hover, .tile:hover, .act:hover, .starter:hover, .card:hover, .lcard:hover, .stars button:hover { transform: none; }
+  .lcard:hover .laptop-media.ok img { transform: none; }
+}
+@media (hover: hover) {
+  .starter:hover, .card:hover, .lcard:hover { transform: translateY(-2px); }
+  .btn:hover:not(:disabled) { transform: translateY(-1px); }
+  .btn:active:not(:disabled), .starter:active { transform: scale(.97); }
+  .stars button:hover { transform: scale(1.12); }
+}
+
+/* ---------- viz: bars and rings grow from their own origin ---------- */
+.tug-bar, .hbar i, .fbar i { transform-origin: left center; animation: barin 520ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms + 120ms); }
+.ring .meter { transition: stroke-dashoffset 900ms var(--ease-out) 120ms; }
+.bar .pos { transition: width 600ms var(--ease-out); }
+.radar .shape, .multi-radar .mshape { animation: grow 520ms var(--ease-out) both; }
+.countup { font-variant-numeric: tabular-nums; }
+.confetti i { animation: fall 1.5s var(--ease-out) forwards; }
+.pulse { animation: pulse 2s var(--ease-out) infinite; }
+
+/* ---------- loading: skeleton shimmer (aria-hidden placeholders only; never fake content) ---------- */
+.skeleton, .skeleton-line { position: relative; overflow: hidden; background: color-mix(in srgb, var(--line, #ddd) 70%, transparent); border-radius: 12px; }
+.skeleton-line { height: 12px; border-radius: 8px; margin: 8px 0; }
+.skeleton-line.short { width: 55%; } .skeleton-line.mid { width: 78%; }
+.skeleton::after, .skeleton-line::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--solid, #fff) 65%, transparent) 50%, transparent 70%); animation: shimmer 1.4s var(--ease-in-out) infinite; }
+.skeleton-card { min-height: 92px; padding: 14px 16px; border-radius: var(--radius, 24px); border: 1px solid var(--line); background: var(--surface); }
+.waiting .skeleton-card { margin-top: 10px; }
+.laptop-media.loading::after { animation: shimmer 1.4s var(--ease-in-out) infinite; }
+
+/* ---------- Lappy moods (tied to real events in Thread.tsx / ErrorBanner) ---------- */
+.lappy { overflow: visible; }
+.lappy .lappy-body { transform-box: fill-box; transform-origin: 50% 100%; }
+.lappy.idle .lappy-body { animation: lappy-bob 4s var(--ease-in-out) infinite; }
+.lappy.thinking .lappy-body { animation: lappy-bob 1.6s var(--ease-in-out) infinite; }
+.lappy.happy .lappy-body { animation: lappy-pop 420ms var(--ease-out) both, lappy-hop 600ms var(--ease-out) 420ms 2; }
+.lappy.oops .lappy-body { animation: lappy-shake 420ms var(--ease-out) 1 both; }
+.lappy.listening .lappy-body { animation: lappy-bob 1.2s var(--ease-in-out) infinite; }
+.lappy .eye { animation: blink 5s infinite; }
+.lappy.thinking .think circle { animation: dotpulse 1.2s var(--ease-in-out) infinite; }
+.lappy .spark { animation: twinkle 1.6s var(--ease-in-out) infinite; }
+.lappy .drop { animation: drip 1.4s var(--ease-out) 1 both; transform-box: fill-box; }
+@keyframes drip { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.reply-mood, .error-banner > .lappy { transform-origin: 50% 100%; }
+
+/* ---------- reduced motion: everything lands in its final state ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal, .page-enter, .pop, .tray { opacity: 1; transform: none; }
+  .tug-bar, .hbar i, .fbar i { transform: none; }
+  .skeleton::after, .skeleton-line::after, .laptop-media.loading::after { display: none; }
+}

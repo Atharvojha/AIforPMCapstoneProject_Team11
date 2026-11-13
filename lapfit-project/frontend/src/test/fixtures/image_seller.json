@@ -1,0 +1,111 @@
+{
+  "request": {
+    "action": "read_image",
+    "image": {
+      "mime": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+    }
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-image_seller",
+    "flow": "image",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "image_read",
+        "kind": "seller_message",
+        "kind_label": "a seller's message",
+        "readable": true,
+        "confidence": 0.92,
+        "fields": [
+          {
+            "label": "Laptop",
+            "value": "HP 14s"
+          }
+        ],
+        "claims": [
+          "It has 16 GB RAM",
+          "Best laptop ever",
+          "Battery lasts 2 days"
+        ],
+        "concerns": [],
+        "note": "This is what I read from your picture. I can be wrong, so please check it. Everything below is checked against the catalog, not against the picture."
+      },
+      {
+        "type": "claims",
+        "laptop": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+        "rows": [
+          {
+            "claim_text": "It has 16 GB RAM",
+            "type": "spec",
+            "status": "contradicts",
+            "label": "Does not match the specs",
+            "detail": "Catalog lists: 8 GB. This does not match what was claimed."
+          },
+          {
+            "claim_text": "Best laptop ever",
+            "type": "opinion",
+            "status": "cant_check",
+            "label": "Can't be checked",
+            "detail": "This is an opinion, so there is no fact to compare."
+          },
+          {
+            "claim_text": "Battery lasts 2 days",
+            "type": "performance",
+            "status": "not_checked",
+            "label": "Not checked yet",
+            "detail": "No person has approved a verdict for this claim yet. This is not a verdict either way.",
+            "evidence": null
+          }
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "AI model (it read your picture)",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

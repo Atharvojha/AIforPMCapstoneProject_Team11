@@ -1,0 +1,127 @@
+{
+  "request": {
+    "action": "read_image",
+    "image": {
+      "mime": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+    }
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-image_unreadable",
+    "flow": "image",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "image_read",
+        "kind": "unreadable",
+        "kind_label": "a picture I could not read",
+        "readable": false,
+        "confidence": 0.92,
+        "fields": [
+          {
+            "label": "Laptop",
+            "value": "Lenovo IdeaPad 3 Ryzen 5"
+          },
+          {
+            "label": "Processor",
+            "value": "Ryzen 5 5500U"
+          },
+          {
+            "label": "RAM",
+            "value": "8 GB"
+          },
+          {
+            "label": "Storage",
+            "value": "512 GB"
+          },
+          {
+            "label": "Price in the picture",
+            "value": "₹46,999"
+          },
+          {
+            "label": "Battery health",
+            "value": "65%"
+          },
+          {
+            "label": "Software",
+            "value": "Windows 11"
+          },
+          {
+            "label": "Bill",
+            "value": "missing"
+          },
+          {
+            "label": "Reason for selling",
+            "value": "upgrading"
+          }
+        ],
+        "claims": [],
+        "concerns": [
+          "blurry"
+        ],
+        "note": "I could not read enough from this picture to check anything."
+      },
+      {
+        "type": "choices",
+        "question": "Try another picture, or type the details instead.",
+        "choices": [
+          {
+            "label": "Type the details",
+            "send": "Used laptop: "
+          },
+          {
+            "label": "Check what a seller said",
+            "send": "The seller said: "
+          }
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "AI model (it read your picture)",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

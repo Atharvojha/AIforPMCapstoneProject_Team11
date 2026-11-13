@@ -1,0 +1,156 @@
+{
+  "request": {
+    "action": "read_image",
+    "image": {
+      "mime": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+    }
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-image_listing",
+    "flow": "image",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "image_read",
+        "kind": "listing_screenshot",
+        "kind_label": "a shop or marketplace listing",
+        "readable": true,
+        "confidence": 0.92,
+        "fields": [
+          {
+            "label": "Laptop",
+            "value": "Lenovo IdeaPad 3 Ryzen 5"
+          },
+          {
+            "label": "Processor",
+            "value": "Ryzen 5 5500U"
+          },
+          {
+            "label": "RAM",
+            "value": "8 GB"
+          },
+          {
+            "label": "Storage",
+            "value": "512 GB"
+          },
+          {
+            "label": "Price in the picture",
+            "value": "₹46,999"
+          },
+          {
+            "label": "Battery health",
+            "value": "65%"
+          },
+          {
+            "label": "Software",
+            "value": "Windows 11"
+          },
+          {
+            "label": "Bill",
+            "value": "missing"
+          },
+          {
+            "label": "Reason for selling",
+            "value": "upgrading"
+          }
+        ],
+        "claims": [],
+        "concerns": [],
+        "note": "This is what I read from your picture. I can be wrong, so please check it. Everything below is checked against the catalog, not against the picture."
+      },
+      {
+        "type": "text",
+        "text": "Compared with the catalog listing for Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB (new-laptop specs, not this exact unit)."
+      },
+      {
+        "type": "findings",
+        "findings": [
+          {
+            "severity": "ok",
+            "text": "RAM matches the catalog (8 GB)."
+          },
+          {
+            "severity": "ok",
+            "text": "Storage matches the catalog (512 GB)."
+          },
+          {
+            "severity": "ok",
+            "text": "Windows 11 is plausible for this processor."
+          },
+          {
+            "severity": "warn",
+            "text": "Asking ₹46,999. New price is ₹46,999 (as of 10 Nov 2026). A used laptop often sells for ₹14,100 to ₹35,249. This is a sample range, not a price check."
+          },
+          {
+            "severity": "warn",
+            "text": "Battery health is 65%. Below 70% usually means a replacement soon."
+          },
+          {
+            "severity": "warn",
+            "text": "No bill or invoice. Warranty claims and proof of ownership become hard."
+          }
+        ],
+        "note": "These are checks, not a verdict. I do not say whether to buy."
+      },
+      {
+        "type": "checklist",
+        "title": "Check in person before paying",
+        "items": [
+          "Meet in a public place and test the laptop before paying.",
+          "Check the serial number on the body matches the bill.",
+          "Look at the battery report, hinge, keyboard, ports and screen.",
+          "Sign out of all accounts and reset the laptop in front of you.",
+          "Pay only after the checks, and keep a written receipt."
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "AI model (it read your picture)",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

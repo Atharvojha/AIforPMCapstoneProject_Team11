@@ -1,0 +1,60 @@
+{
+  "request": {
+    "text": "laptop under 20k with 32 GB RAM compulsory"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-nomatch",
+    "flow": "shortlist",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "understood",
+        "needs": {
+          "budget_max_inr": 20000,
+          "budget_min_inr": null,
+          "musts": [
+            {
+              "attribute": "ram_gb",
+              "operator": ">=",
+              "value": 32,
+              "source_text": "laptop under 20k with 32 GB RAM compulsory",
+              "label": "RAM 32 GB or more",
+              "supported": true
+            }
+          ],
+          "shoulds": [],
+          "nices": [],
+          "use_cases": []
+        },
+        "matched": 0,
+        "demand": {
+          "budget": 20000,
+          "use_cases": [],
+          "musts": [
+            "RAM 32 GB or more"
+          ]
+        }
+      },
+      {
+        "type": "notice",
+        "text": "The cheapest laptop in the catalog is ₹27,490, above your budget of ₹20,000."
+      },
+      {
+        "type": "text",
+        "text": "Nothing in the catalog meets every Must. I have not dropped any of them."
+      },
+      {
+        "type": "text",
+        "text": "Even with any single Must relaxed, nothing fits. You may need to change two things at once."
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

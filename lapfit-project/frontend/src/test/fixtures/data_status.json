@@ -1,0 +1,49 @@
+{
+  "request": {
+    "action": "data_status"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-data_status",
+    "flow": "data_status",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "data_status",
+        "reviews": 3987,
+        "opinions": 1316,
+        "variants": 29,
+        "prices_as_of": "2026-11-10",
+        "refreshed_at": "2026-11-13 17:04:58.862+00",
+        "review_sources": [
+          {
+            "id": "S-AMAZON-REVIEWS-23",
+            "region": "US",
+            "reviews": 687,
+            "quotable": false
+          },
+          {
+            "id": "S-FLIPKART-REVIEWS",
+            "region": "IN",
+            "reviews": 3300,
+            "quotable": true
+          }
+        ],
+        "verified_variants": 0,
+        "laptops_with_price": 14,
+        "reviews_with_dates": 0,
+        "data_mode": "course",
+        "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+        "live_source": null,
+        "ai_model": null
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

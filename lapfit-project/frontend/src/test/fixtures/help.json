@@ -1,0 +1,54 @@
+{
+  "request": {
+    "text": "hi"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-help",
+    "flow": "help",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "text",
+        "text": "I am LapFit, a second opinion for laptop buyers in India. I use recorded facts with dates, owner opinions with counts, and live web reviews labelled as such. I do not say \"buy this\"."
+      },
+      {
+        "type": "choices",
+        "question": "What would you like to do?",
+        "choices": [
+          {
+            "label": "Get a shortlist for my budget",
+            "send": "Suggest a laptop under 60k"
+          },
+          {
+            "label": "Check a laptop I am considering",
+            "send": "Should I buy the Macbook Air M1?"
+          },
+          {
+            "label": "Check what a seller told me",
+            "send": "The seller said: "
+          },
+          {
+            "label": "Compare two laptops",
+            "send": "Compare "
+          },
+          {
+            "label": "Check a used listing",
+            "send": "Used laptop: "
+          },
+          {
+            "label": "What owners say",
+            "send": "What do owners say about "
+          }
+        ]
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

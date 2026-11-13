@@ -1,0 +1,103 @@
+/* LAYOUT + MOBILE: shell, nav, tray, composer, screen spacing. Transform/opacity motion only, hover only on hover devices. */
+:root { --ease-out: cubic-bezier(.23, 1, .32, 1); --nav-h: 68px; --gutter: 16px; }
+.app { padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); padding-bottom: calc(var(--nav-h) + 120px + env(safe-area-inset-bottom)); overflow-wrap: anywhere; }
+.app main { min-height: 50vh; outline: none; }
+.app main > section { padding-bottom: 8px; }
+.screen-lead { font-size: 1rem; margin: 0 auto 16px; }
+.app main h2 { font-size: clamp(1.45rem, 5vw, 1.9rem); }
+
+/* header: glass bar, pills on desktop */
+.top { position: sticky; top: 0; z-index: 30; margin: 0 calc(var(--gutter) * -1); padding: calc(10px + env(safe-area-inset-top)) var(--gutter) 10px; background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.brand { min-height: 44px; }
+.banner { margin-top: 6px; }
+.top-nav a, .bottom-nav a { -webkit-tap-highlight-color: transparent; transition: background-color .18s var(--ease-out), color .18s var(--ease-out), transform .15s var(--ease-out); }
+.top-nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.top-nav a:active, .bottom-nav a:active { transform: scale(.97); }
+.top-nav a:focus-visible, .bottom-nav a:focus-visible, .tray button:focus-visible, .brand:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (hover: hover) { .top-nav a:not([aria-current="page"]):hover { background: var(--accent-soft); color: var(--ink); } }
+
+/* bottom nav: floating glass bar on phones */
+.bottom-nav { left: max(10px, env(safe-area-inset-left)); right: max(10px, env(safe-area-inset-right)); gap: 2px; min-height: var(--nav-h); }
+.bottom-nav a { grid-template-rows: auto auto; align-content: center; gap: 2px; min-width: 44px; }
+.bottom-nav a .nav-label { font-size: .74rem; font-weight: 600; }
+.bottom-nav a[aria-current="page"] .nav-icon { transform: translateY(-1px) scale(1.08); }
+.bottom-nav a .nav-icon { transition: transform .22s var(--ease-out); }
+
+/* compare tray: sits above the nav, never covers the composer text */
+.tray { left: max(14px, env(safe-area-inset-left)); right: max(14px, env(safe-area-inset-right)); bottom: calc(var(--nav-h) + 18px + env(safe-area-inset-bottom)); animation: tray-in .24s var(--ease-out) both; }
+.tray-count { display: grid; min-width: 0; font-weight: 700; } .tray-names { font-weight: 400; opacity: .85; font-size: .78rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tray button { min-height: 44px; } .tray .btn { padding-top: 8px; padding-bottom: 8px; }
+@keyframes tray-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* composer: sticky above nav (and tray when present) */
+.composer { bottom: calc(var(--nav-h) + 16px + env(safe-area-inset-bottom)); z-index: 15; }
+.composer textarea, .big-text, .picker select, .form input, .form select, .composer .lang, .field-label + input, input.date { font-size: 16px; }
+.composer textarea { max-height: 40vh; }
+.composer .tool, .composer .btn { min-height: 44px; } .composer .tool { min-width: 44px; }
+.composer:focus-within { border-color: var(--accent); }
+.composer .btn:active, .tool:active { transform: scale(.97); }
+
+/* Ask hero */
+.hero { padding: 18px 0 8px; }
+.hero h2 { text-wrap: balance; }
+.hero .lead { max-width: 46ch; margin: 0 auto 18px; }
+.hint-row { margin-top: 4px; } .hint-chip { min-height: 44px; display: inline-flex; align-items: center; text-align: left; transition: transform .15s var(--ease-out), border-color .15s var(--ease-out); } .hint-chip:active { transform: scale(.97); }
+.quick { min-height: 48px; text-align: left; justify-content: flex-start; transition: transform .15s var(--ease-out); } .quick:active { transform: scale(.97); }
+@media (hover: hover) { .quick:hover { transform: translateY(-2px); } }
+
+/* Explore: map and controls get the width on desktop */
+.map-actions { position: sticky; bottom: calc(var(--nav-h) + 12px + env(safe-area-inset-bottom)); z-index: 5; padding: 10px 12px; border-radius: var(--radius-s); background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.map-actions .btn, .legend-chips .brand-chip, .list-toggle, .more-toggle { min-height: 44px; }
+.legend-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.map-list li { min-height: 44px; display: flex; align-items: center; }
+.empty-state { text-align: center; padding: 22px 16px; border: 1.5px dashed var(--line); border-radius: var(--radius); background: var(--surface); color: var(--muted); }
+.empty-state span { display: block; font-size: 2rem; }
+
+/* Check, Sell, You */
+.big-cta { width: 100%; min-height: 52px; margin-top: 14px; }
+.faces { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; } .face { min-height: 64px; padding: 8px 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; } .chip, .you-seg button, .market-actions .btn { min-height: 44px; }
+.market-actions { margin: 6px 0 14px; } .market-actions .btn { flex: 1 1 180px; }
+.picks li { min-height: 48px; }
+input[type="range"] { min-height: 44px; }
+input[type="checkbox"] { width: 22px; height: 22px; flex: none; }
+.check-row, .consent { min-height: 44px; align-items: center; }
+.details-box { max-width: 100%; }
+
+/* long names and big counts never break the frame */
+.lcard, .tug-head, .picks li, .map-list label { min-width: 0; overflow-wrap: anywhere; }
+.thread, .reply, .reveal { min-width: 0; }
+
+/* phones */
+@media (max-width: 520px) {
+  .app { --gutter: 14px; }
+  .hero h2 { font-size: 1.75rem; }
+  .flag-strip { gap: 8px; }
+  .composer { padding: 8px 10px; border-radius: 22px; }
+  .foot { margin-bottom: 8px; }
+}
+/* tablet / desktop */
+@media (min-width: 900px) {
+  .app { padding-bottom: 110px; }
+  .top { margin: 0; padding-left: 0; padding-right: 0; border-radius: 0 0 var(--radius) var(--radius); }
+  .tray { bottom: 18px; max-width: 640px; }
+  .composer { bottom: 14px; }
+  .map-actions { bottom: 14px; }
+  .hero { padding-top: 34px; }
+  .quick-links { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1100px) {
+  .app main > section > .price-map, .app main > section > .legend-chips, .app main > section > .map-actions { max-width: 960px; }
+  .app main > section > .budget { max-width: 960px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tray { animation: none; } .top-nav a, .bottom-nav a, .bottom-nav a .nav-icon, .hint-chip, .quick { transition: none; }
+  .bottom-nav a[aria-current="page"] .nav-icon { transform: none; }
+}
+@media (min-width: 1200px) { .app { max-width: 1200px; } }
+
+/* market and brand lists: left-aligned rows, name on top, numbers and bar below */
+.market .bar-row { display: grid; gap: 4px; text-align: left; justify-items: start; padding: 6px 0; }
+.market .bar-row .link { text-align: left; justify-self: start; min-height: 0; padding: 0; }
+.market .bar-row .hbar { justify-self: stretch; width: 100%; }
+.web-panel { margin-top: 16px; }

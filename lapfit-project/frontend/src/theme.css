@@ -1,0 +1,114 @@
+/* LapFit theme: "soft playful". Tokens + fonts + buttons, chips, cards, badges, forms.
+   Loaded after styles.css, so it refines it. Motion-only effects live in motion.css; layout in layout.css. */
+:root {
+  --font-head: "Fredoka", "Nunito", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  --font: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Devanagari", "Noto Sans Telugu", "Noto Sans Tamil", sans-serif;
+  --ease: cubic-bezier(.23, 1, .32, 1);          /* strong ease-out for UI */
+  --ease-spring: cubic-bezier(.34, 1.4, .64, 1);  /* gentle overshoot, use sparingly */
+  --dur-fast: 150ms; --dur: 200ms; --dur-slow: 260ms;
+  --radius: 24px; --radius-m: 18px; --radius-s: 14px; --radius-pill: 999px;
+  --glass: rgba(255, 255, 255, .78); --glass-line: rgba(255, 255, 255, .7);
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px;
+  --tap: 44px;
+  --accent: #5b3fe0;            /* white text on it: 6.6:1 */
+  --accent2: #007f70;
+  --grad: linear-gradient(135deg, #5b3fe0 0%, #0a8f86 100%);   /* white on both stops >= 4.5:1 */
+  --muted: #565678;
+  --shadow: 0 1px 2px rgba(60, 40, 140, .06), 0 10px 28px rgba(60, 40, 140, .10);
+  --shadow-press: 0 1px 2px rgba(60, 40, 140, .12);
+  --focus: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+  --pastel-lav: #ece8ff; --pastel-mint: #dcf6f0; --pastel-peach: #ffe9dc; --pastel-sky: #e1f0ff; --pastel-lemon: #fff6d2;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass: rgba(30, 31, 62, .72); --glass-line: rgba(255, 255, 255, .08);
+    --accent: #a898ff; --accent2: #2ee6cf; --muted: #b3b6d8;
+    --grad: linear-gradient(135deg, #7f64ff 0%, #0e9a90 100%);   /* white text still >= 4.5:1 */
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 30px rgba(0, 0, 0, .35);
+    --pastel-lav: #29285a; --pastel-mint: #0f3330; --pastel-peach: #3d2a22; --pastel-sky: #17304a; --pastel-lemon: #3a3414;
+  }
+}
+
+/* ---------- type ---------- */
+body { font-family: var(--font); font-weight: 600; text-wrap: pretty; -webkit-font-smoothing: antialiased; overflow-wrap: anywhere; }
+h1, h2, h3, .brand { font-family: var(--font-head); font-weight: 600; text-wrap: balance; }
+h4 { font-family: var(--font-head); font-weight: 500; }
+.hero h2 { font-weight: 600; }
+b, strong { font-weight: 800; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 10px; }
+
+/* ---------- buttons ---------- */
+.btn, .chip, .starter, .link { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.btn { font-family: var(--font); font-weight: 800; min-height: var(--tap); padding: 10px 22px; color: #fff;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 32%, transparent);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease); }
+.btn:active:not(:disabled) { transform: scale(.97); box-shadow: var(--shadow-press); }
+.btn.small { min-height: var(--tap); padding: 6px 16px; }
+.btn.ghost { color: var(--accent); background: transparent; border: 2px solid color-mix(in srgb, var(--accent) 50%, transparent); }
+.btn.danger { background: var(--bad); color: #fff; }
+.btn.soft { background: var(--pastel-lav); color: var(--accent); box-shadow: none; }
+.link { min-height: 24px; text-underline-offset: 3px; }
+@media (hover: hover) {
+  .btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 38%, transparent); }
+  .btn.ghost:hover:not(:disabled) { background: var(--accent-soft); }
+}
+
+/* ---------- chips ---------- */
+.chip { font-family: var(--font); font-weight: 700; min-height: var(--tap); padding: 8px 16px; display: inline-flex; align-items: center; background: var(--glass); border: 1.5px solid var(--line);
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease); }
+.chip:active:not(:disabled) { transform: scale(.97); }
+.chip.check.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+@media (hover: hover) { .chip.action:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); } }
+.starter { font-family: var(--font); font-weight: 700; min-height: 56px; border-radius: var(--radius-m); border-width: 1.5px; background: var(--glass);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.starter:active:not(:disabled) { transform: scale(.98); }
+@media (hover: hover) { .starter:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--accent); } }
+
+/* ---------- cards and glass surfaces ---------- */
+.card, .glass { background: var(--glass); border: 1.5px solid var(--glass-line); border-radius: var(--radius); box-shadow: var(--shadow);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); min-width: 0; }
+.card { padding: 18px 20px; transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+.card h4 { overflow-wrap: anywhere; }
+@media (hover: hover) { .card.laptop:hover { transform: translateY(-2px); } }
+.card.picked { border-color: var(--accent); }
+.card.tint-lav { background: linear-gradient(160deg, var(--pastel-lav), var(--glass)); }
+.card.tint-mint { background: linear-gradient(160deg, var(--pastel-mint), var(--glass)); }
+.card.tint-peach { background: linear-gradient(160deg, var(--pastel-peach), var(--glass)); }
+.card.tint-sky { background: linear-gradient(160deg, var(--pastel-sky), var(--glass)); }
+@supports not (backdrop-filter: blur(1px)) { .card, .glass { background: var(--solid); } }
+
+/* ---------- badges ---------- */
+.badge, .pill { font-family: var(--font); font-weight: 800; letter-spacing: .01em; }
+.badge { font-size: .75rem; padding: 3px 10px; max-width: 100%; }
+.badge.good { background: var(--good-soft); color: var(--good); } .badge.bad { background: var(--bad-soft); color: var(--bad); }
+.badge.info { background: var(--pastel-sky); color: var(--ink); }
+
+/* ---------- forms ---------- */
+.composer textarea, .form textarea, .form input, .form select, .picker-search, .need select, .budget input {
+  font-family: var(--font); font-size: 16px; font-weight: 600; min-height: var(--tap); border: 1.5px solid var(--line); border-radius: var(--radius-s);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+.composer textarea { border: 0; }
+.composer textarea:focus-visible, .form textarea:focus-visible, .form input:focus-visible, .form select:focus-visible, .picker-search:focus-visible, .need select:focus-visible, .budget input:focus-visible { outline: none; border-color: var(--accent); box-shadow: var(--focus); }
+.composer { border-radius: var(--radius); border-width: 1.5px; }
+::placeholder { color: var(--muted); opacity: 1; }
+select, input[type="text"], input[type="search"], input[type="number"], textarea { font-size: 16px; }
+input[type="checkbox"], input[type="radio"], input[type="range"] { accent-color: var(--accent); }
+label { font-weight: 700; }
+
+/* ---------- state colours ---------- */
+.banner { border-radius: var(--radius-s); font-weight: 700; }
+.error-banner { border-radius: var(--radius-m); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .chip, .starter, .card, input, textarea, select { transition-duration: .01ms !important; }
+  .btn:active:not(:disabled), .chip:active:not(:disabled), .starter:active:not(:disabled) { transform: none; }
+}
+
+/* ---------- source tags and next steps (class names from UX+COPY) ---------- */
+.src-tag { display: inline-flex; align-items: center; gap: 4px; font-size: .75rem; font-weight: 800; padding: 3px 10px; border-radius: var(--radius-pill); white-space: nowrap; max-width: 100%; background: var(--info-soft); color: var(--ink); }
+.src-tag.src-dataset { background: var(--pastel-lav); color: var(--accent); }
+.src-tag.src-web { background: var(--warn-soft); color: var(--warn); }
+.src-tag.src-catalog { background: var(--pastel-sky); color: var(--ink); }
+.next-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; }
+.next-steps .next-hint { color: var(--muted); font-weight: 700; font-size: .92rem; }
+.lead.block-lead, .card .lead { font-family: var(--font-head); font-weight: 500; font-size: 1.08rem; color: var(--ink); }

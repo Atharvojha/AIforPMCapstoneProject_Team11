@@ -1,0 +1,537 @@
+{
+  "request": {
+    "action": "second_opinion",
+    "variant_id": "FKL-10"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-second_opinion",
+    "flow": "second_opinion",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "cards",
+        "title": "The laptop you are considering",
+        "cards": [
+          {
+            "variant_id": "FKL-10",
+            "model_id": 10,
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "brand": "APPLE",
+            "price_inr": 86990,
+            "price_text": "₹86,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 256,
+              "display_size": 13.3,
+              "weight_kg": 1.29,
+              "battery_wh": 49.9,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "M1",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "13.3 inch screen, 1.29 kg",
+              "8 GB RAM, 256 GB storage",
+              "M1, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 49.9 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 234,
+              "positive": 210,
+              "negative": 22,
+              "enough": true,
+              "min_n": 20,
+              "text": "210 of 234 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Costs ₹86,990 as of 10 Nov 2026."
+            ],
+            "reasons": [
+              "Costs ₹86,990 as of 10 Nov 2026."
+            ],
+            "image": {
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-enriched-transparent-original-imag3gh5xftgbpg3.png?q=90",
+              "site": "rukminim3.flixcart.com",
+              "page": null,
+              "alt": "A silver MacBook Air with an M1 chip displays a vibrant, colorful abstract wallpaper on its screen, set against a plain "
+            }
+          }
+        ],
+        "showMusts": true,
+        "requireAll": false
+      },
+      {
+        "type": "evidence",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "variant_id": "FKL-10",
+        "min_n": 20,
+        "label": "machine-read, not human-verified",
+        "topics": [
+          {
+            "n": 90,
+            "topic": "performance",
+            "enough": true,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 6,
+            "positive": 86,
+            "other_polarity": 5,
+            "quotes": [
+              {
+                "quote": "No lag",
+                "topic": "performance",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "performance",
+                "claim_id": 882,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "no lag",
+                "topic": "performance",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "performance",
+                "claim_id": 893,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "no lag",
+                "topic": "performance",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "performance",
+                "claim_id": 896,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              }
+            ]
+          },
+          {
+            "n": 45,
+            "topic": "battery",
+            "enough": true,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 2,
+            "positive": 42,
+            "other_polarity": 2,
+            "quotes": [
+              {
+                "quote": "Battery...",
+                "topic": "battery",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "battery",
+                "claim_id": 614,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "phenomenal",
+                "topic": "battery",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "battery",
+                "claim_id": 764,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "Battery life",
+                "topic": "battery",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "battery",
+                "claim_id": 732,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              }
+            ]
+          },
+          {
+            "n": 38,
+            "topic": "service",
+            "enough": true,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 7,
+            "positive": 28,
+            "other_polarity": 8,
+            "quotes": [
+              {
+                "quote": "fast delivery",
+                "topic": "service",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "delivery_or_seller",
+                "claim_id": 948,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "Portability...",
+                "topic": "service",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "delivery_or_seller",
+                "claim_id": 616,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "Seller is good",
+                "topic": "service",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "delivery_or_seller",
+                "claim_id": 1006,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              }
+            ]
+          },
+          {
+            "n": 31,
+            "topic": "display",
+            "enough": true,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 3,
+            "positive": 30,
+            "other_polarity": 1,
+            "quotes": [
+              {
+                "quote": "Display",
+                "topic": "display",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "display",
+                "claim_id": 734,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "best display",
+                "topic": "display",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "display",
+                "claim_id": 594,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "Great display",
+                "topic": "display",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "display",
+                "claim_id": 626,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              }
+            ]
+          },
+          {
+            "n": 17,
+            "topic": "hinge",
+            "enough": false,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 2,
+            "positive": 12,
+            "other_polarity": 3,
+            "quotes": []
+          },
+          {
+            "n": 8,
+            "topic": "heat_noise",
+            "enough": false,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 2,
+            "positive": 7,
+            "other_polarity": 0,
+            "quotes": []
+          },
+          {
+            "n": 5,
+            "topic": "keyboard",
+            "enough": false,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 0,
+            "positive": 5,
+            "other_polarity": 0,
+            "quotes": []
+          }
+        ]
+      },
+      {
+        "type": "live_reviews",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "variant_id": "FKL-10",
+        "topic": null,
+        "status": "ok",
+        "provider": "fake-live",
+        "fetched_at": "2026-11-13T17:04:59.106Z",
+        "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
+        "items": [
+          {
+            "snippet": "Owners of the APPLE 2020 Macbook mention steady daily use. Example text, not a real review.",
+            "url": "https://example.test/reviews/1",
+            "site": "example.test",
+            "topic": "general",
+            "kind": "excerpt",
+            "published": null
+          },
+          {
+            "snippet": "A second example excerpt about build and keyboard. Example text, not a real review.",
+            "url": "https://example.test/reviews/2",
+            "site": "example.test",
+            "topic": "keyboard",
+            "kind": "excerpt",
+            "published": null
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "title": "Alternatives that meet every Must at the same or a lower price",
+        "cards": [
+          {
+            "variant_id": "FKL-11",
+            "model_id": 11,
+            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "brand": "LENOVO",
+            "price_inr": 46999,
+            "price_text": "₹46,999",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.65,
+              "battery_wh": 45,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Ryzen 5 Hexa Core 5500U",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.65 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 45 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 119,
+              "positive": 75,
+              "negative": 42,
+              "enough": true,
+              "min_n": 20,
+              "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Costs ₹46,999, ₹39,991 less than the laptop you are considering."
+            ],
+            "reasons": [
+              "Costs ₹46,999, ₹39,991 less than the laptop you are considering."
+            ],
+            "image": {
+              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
+              "site": "m.media-amazon.com",
+              "page": null,
+              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
+            }
+          },
+          {
+            "variant_id": "FKL-09",
+            "model_id": 9,
+            "name": "ASUS VivoBook 15 (2022) Core i3 10th Gen · 8 GB / 512 GB",
+            "brand": "ASUS",
+            "price_inr": 33990,
+            "price_text": "₹33,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.8,
+              "battery_wh": 37,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Core i3 10th Gen",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.8 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i3 10th Gen, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 37 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 196,
+              "positive": 101,
+              "negative": 88,
+              "enough": true,
+              "min_n": 20,
+              "text": "101 of 196 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Costs ₹33,990, ₹53,000 less than the laptop you are considering."
+            ],
+            "reasons": [
+              "Costs ₹33,990, ₹53,000 less than the laptop you are considering."
+            ],
+            "image": {
+              "url": "https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",
+              "site": "5.imimg.com",
+              "page": null,
+              "alt": "A silver ASUS VivoBook 15 laptop from 2022, powered by a Core i3 10th Gen processor, is shown open with its screen displ"
+            }
+          }
+        ],
+        "requireAll": true,
+        "compare": true
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 783,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": true,
+          "items": 2,
+          "statuses": [
+            "ok"
+          ],
+          "provider": "fake-live",
+          "fetched_at": "2026-11-13T17:04:59.106Z"
+        },
+        "ai": {
+          "reader": "none needed",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": true,
+          "sites": [
+            "rukminim3.flixcart.com",
+            "m.media-amazon.com",
+            "5.imimg.com"
+          ]
+        },
+        "checks": {
+          "gate": true
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

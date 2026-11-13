@@ -1,0 +1,260 @@
+{
+  "request": {
+    "action": "compare",
+    "variant_ids": [
+      "FKL-10",
+      "FKL-14",
+      "FKL-11"
+    ]
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-compare",
+    "flow": "compare",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "compare",
+        "laptops": [
+          {
+            "variant_id": "FKL-10",
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "image": {
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-enriched-transparent-original-imag3gh5xftgbpg3.png?q=90",
+              "site": "rukminim3.flixcart.com",
+              "page": null,
+              "alt": "A silver MacBook Air with an M1 chip displays a vibrant, colorful abstract wallpaper on its screen, set against a plain "
+            },
+            "brand": "APPLE",
+            "screen_in": 13.3,
+            "weight_kg": 1.29,
+            "data_status": "Imported listing data, not human-verified"
+          },
+          {
+            "variant_id": "FKL-14",
+            "name": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+            "image": {
+              "url": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/computer/b/w/w/-original-imagp7pfyd8rbp6z.jpeg?q=70",
+              "site": "rukmini1.flixcart.com",
+              "page": null,
+              "alt": "The HP 14s laptop with an Intel Core i3 11th Gen processor is displayed open, showcasing its silver body, black screen b"
+            },
+            "brand": "HP",
+            "screen_in": 14,
+            "weight_kg": 1.41,
+            "data_status": "Imported listing data, not human-verified"
+          },
+          {
+            "variant_id": "FKL-11",
+            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "image": {
+              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
+              "site": "m.media-amazon.com",
+              "page": null,
+              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
+            },
+            "brand": "LENOVO",
+            "screen_in": 15.6,
+            "weight_kg": 1.65,
+            "data_status": "Imported listing data, not human-verified"
+          }
+        ],
+        "rows": [
+          {
+            "label": "Price",
+            "values": [
+              "₹86,990 (as of 10 Nov 2026)",
+              "₹38,990 (as of 10 Nov 2026)",
+              "₹46,999 (as of 10 Nov 2026)"
+            ],
+            "best": 1,
+            "better": "low"
+          },
+          {
+            "label": "RAM",
+            "values": [
+              "8 GB",
+              "8 GB",
+              "8 GB"
+            ],
+            "best": null,
+            "better": "high"
+          },
+          {
+            "label": "Storage",
+            "values": [
+              "256 GB",
+              "256 GB",
+              "512 GB"
+            ],
+            "best": 2,
+            "better": "high"
+          },
+          {
+            "label": "Screen",
+            "values": [
+              "13.3 inch",
+              "14 inch",
+              "15.6 inch"
+            ],
+            "best": null,
+            "better": null
+          },
+          {
+            "label": "Weight",
+            "values": [
+              "1.29 kg",
+              "1.41 kg",
+              "1.65 kg"
+            ],
+            "best": 0,
+            "better": "low"
+          },
+          {
+            "label": "Processor",
+            "values": [
+              "M1",
+              "Core i3 11th Gen",
+              "Ryzen 5 Hexa Core 5500U"
+            ],
+            "best": null,
+            "better": null
+          },
+          {
+            "label": "Graphics",
+            "values": [
+              "not in catalog",
+              "not in catalog",
+              "not in catalog"
+            ],
+            "best": null,
+            "better": null
+          },
+          {
+            "label": "Battery",
+            "values": [
+              "49.9 Wh",
+              "not in catalog",
+              "45 Wh"
+            ],
+            "best": 0,
+            "better": "high"
+          },
+          {
+            "label": "Type",
+            "values": [
+              "Regular laptop (clamshell)",
+              "Regular laptop (clamshell)",
+              "Regular laptop (clamshell)"
+            ],
+            "best": null,
+            "better": null
+          },
+          {
+            "label": "Warranty",
+            "values": [
+              "1 year",
+              "1 year",
+              "1 year"
+            ],
+            "best": null,
+            "better": null
+          },
+          {
+            "label": "Operating system",
+            "values": [
+              "macOS",
+              "Windows",
+              "Windows"
+            ],
+            "best": null,
+            "better": null
+          }
+        ],
+        "evidence": [
+          {
+            "variant_id": "FKL-10",
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "n": 234,
+            "positive": 210,
+            "negative": 22,
+            "enough": true,
+            "min_n": 20,
+            "label": "machine-read, not human-verified"
+          },
+          {
+            "variant_id": "FKL-14",
+            "name": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+            "n": 0,
+            "positive": 0,
+            "negative": 0,
+            "enough": false,
+            "min_n": 20,
+            "label": "machine-read, not human-verified"
+          },
+          {
+            "variant_id": "FKL-11",
+            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "n": 119,
+            "positive": 75,
+            "negative": 42,
+            "enough": true,
+            "min_n": 20,
+            "label": "machine-read, not human-verified"
+          }
+        ],
+        "note": "The marker shows the lower price, lower weight, or higher RAM, storage or battery, when the values are known. I do not pick an overall winner: that depends on what you need."
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 353,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "none needed",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": true,
+          "sites": [
+            "rukminim3.flixcart.com",
+            "rukmini1.flixcart.com",
+            "m.media-amazon.com"
+          ]
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

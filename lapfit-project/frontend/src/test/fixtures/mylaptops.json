@@ -1,0 +1,114 @@
+{
+  "request": {
+    "owned": [
+      {
+        "variant_id": "FKL-10",
+        "purchase_date": "2024-03-15",
+        "price_paid": 90000
+      },
+      {
+        "variant_id": "FKL-14"
+      }
+    ]
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-mylaptops",
+    "flow": "my_laptops",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "my_laptops",
+        "today": "2025-03-16",
+        "items": [
+          {
+            "input": "FKL-10",
+            "found": true,
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "variant_id": "FKL-10",
+            "warranty": {
+              "status": "expired",
+              "ends": "2025-03-15",
+              "ends_text": "15 Mar 2025",
+              "days_left": -1,
+              "rule": "Warranty of 1 year counted from the purchase date. Standard period from the catalog; keep your invoice."
+            },
+            "price_now": 86990,
+            "price_now_text": "₹86,990",
+            "as_of": "10 Nov 2026",
+            "price_paid": 90000,
+            "gap": -3010,
+            "gap_text": "₹3,010 lower than what you paid.",
+            "resale": {
+              "low": 49000,
+              "high": 76500,
+              "low_text": "₹49,000",
+              "high_text": "₹76,500",
+              "note": "Sample estimate, not a promise."
+            }
+          },
+          {
+            "input": "FKL-14",
+            "found": true,
+            "name": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+            "variant_id": "FKL-14",
+            "warranty": {
+              "status": "unknown",
+              "note": "Add the purchase date (YYYY-MM-DD) to see the warranty end."
+            },
+            "price_now": 38990,
+            "price_now_text": "₹38,990",
+            "as_of": "10 Nov 2026"
+          }
+        ],
+        "note": "Your list is not stored on the server."
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "none needed",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

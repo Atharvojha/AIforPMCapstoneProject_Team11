@@ -1,0 +1,14 @@
+/* difference visuals: drawn laptop, tags, same-scale screens, bottles, position strips */
+.spec-portrait { display: block; width: 100%; height: auto; max-height: 100%; }
+.look-art { position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 10%, var(--solid, #fff)), color-mix(in srgb, var(--teal, #0d8a80) 9%, var(--solid, #fff))); border-radius: var(--radius, 22px) var(--radius, 22px) 0 0; overflow: hidden; }
+.look-art .spec-portrait { width: min(88%, 520px); filter: drop-shadow(0 10px 16px rgba(60, 40, 140, .18)); }
+.look-note { position: absolute; left: 10px; bottom: 8px; font-size: .68rem; background: color-mix(in srgb, var(--solid, #fff) 90%, transparent); padding: 2px 9px; border-radius: 999px; color: var(--muted); }
+.look-switch { position: absolute; right: 12px; bottom: 10px; z-index: 2; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--solid, #fff); color: var(--ink, #1c1840); font: 700 .78rem var(--font-body, inherit); cursor: pointer; transition: transform .16s var(--ease, ease-out); }
+.look-switch:active { transform: scale(.97); } .look-switch:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.b-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 2px 0 0; }
+.b-tags .tag { font: 700 .76rem/1.2 var(--font-body, inherit); padding: 5px 10px; border-radius: 999px; background: var(--soft, #efecfd); border: 1px solid var(--line); color: var(--ink); }
+.b-tags .tag.hi { background: var(--accent); color: var(--accent-ink, #fff); border-color: transparent; }
+.scale-screens { margin: 0 0 12px; display: grid; gap: 8px; } .scale-screens svg { display: block; width: 100%; height: auto; }
+.scale-legend { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .84rem; } .scale-legend li { display: inline-flex; align-items: center; gap: 6px; } .scale-legend i { width: 13px; height: 13px; border-radius: 4px; border: 2.5px solid; display: inline-block; }
+.feel { display: flex; align-items: flex-end; gap: 10px; margin: 0; } .feel strong { font: 600 1.05rem var(--font-display, inherit); } .feel p { margin: 0; } .bottles { display: flex; gap: 3px; align-items: flex-end; }
+.strips { display: grid; gap: 6px; } .strip-row { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 8px; align-items: center; } .strip-row b { font: 700 .76rem var(--font-body, inherit); color: var(--muted); } .strip-row svg { width: 100%; height: auto; } .strip-val { font: 700 .8rem var(--font-body, inherit); font-variant-numeric: tabular-nums; }

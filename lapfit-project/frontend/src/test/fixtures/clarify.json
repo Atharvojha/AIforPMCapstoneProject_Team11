@@ -1,0 +1,42 @@
+{
+  "request": {
+    "text": "hmm"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-clarify",
+    "flow": "clarify",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "choices",
+        "question": "What would you like to do?",
+        "choices": [
+          {
+            "label": "Check a laptop I am considering",
+            "send": "Check a laptop I am considering"
+          },
+          {
+            "label": "Check what a seller told me",
+            "send": "Check what a seller told me"
+          },
+          {
+            "label": "Get a shortlist",
+            "send": "Get a shortlist"
+          },
+          {
+            "label": "Check a used listing",
+            "send": "Check a used listing"
+          }
+        ]
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

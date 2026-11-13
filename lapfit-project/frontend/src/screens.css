@@ -1,0 +1,45 @@
+/* Other screens: Explore (Map|List|Market), Sell steps + worth hero, Check verdict hero, You rows. Transform/opacity only; hover inside (hover:hover). */
+.exp-seg { max-width: 420px; }
+.brand-scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 2px; } .brand-scroll::-webkit-scrollbar { display: none; }
+.brand-scroll .brand-chip { flex: none; }
+.explore .map-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.explore .map-list li label { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 14px; border-radius: var(--radius-s); background: var(--glass); border: 1.5px solid var(--line); cursor: pointer; transition: transform var(--dur-fast) var(--ease); }
+.explore .map-list li label:active { transform: scale(.98); }
+.explore .map-list input { width: 22px; height: 22px; flex: none; }
+.explore .row-name { flex: 1; display: grid; min-width: 0; } .explore .row-name strong, .explore .row-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.explore .row-price { font-weight: 800; flex: none; } .explore .row-price.over { opacity: .5; }
+.explore .pick-msg .link { margin-left: 8px; }
+.market-box { display: grid; gap: 10px; margin: 8px 0; }
+
+/* Sell: one question at a time */
+.q-step { display: grid; gap: 12px; animation: q-in var(--dur) var(--ease); }
+.q-count { margin: 0; display: flex; align-items: center; gap: 10px; font-size: .85rem; color: var(--muted); font-weight: 700; }
+.q-dots { display: inline-flex; gap: 5px; } .q-dots i { width: 22px; height: 6px; border-radius: 9px; background: var(--line); } .q-dots i.on { background: var(--accent); }
+.q-title { margin: 0; font-size: 1.3rem; }
+.q-nav { display: flex; gap: 10px; margin-top: 6px; } .q-nav .btn { flex: 1; min-height: 52px; } .q-nav .btn:not(.ghost) { flex: 2; }
+@keyframes q-in { from { opacity: 0; transform: translateY(8px); } }
+.worth-hero { margin: 12px 0; padding: 20px; border-radius: var(--radius); background: var(--pastel-mint); display: grid; gap: 6px; animation: q-in var(--dur-slow) var(--ease); }
+.worth-eyebrow { margin: 0; font-weight: 700; }
+.worth-range { margin: 0; font-family: var(--font-head); font-size: clamp(1.6rem, 7vw, 2.2rem); line-height: 1.15; }
+.worth-hero .btn { justify-self: start; margin-top: 6px; }
+/* the plan below repeats the range; the hero above is the one number */
+.sell-screen .sell > .range, .sell-screen .sell > .range-track, .sell-screen .sell > .range-scale { display: none; }
+
+/* Check: verdict hero */
+.verdict-hero { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius-m); margin-bottom: 10px; }
+.verdict-hero.warn { background: var(--warn-soft); } .verdict-hero.ok { background: var(--good-soft); }
+.verdict-hero h3 { margin: 0 0 2px; font-size: .95rem; } .verdict-hero p { margin: 2px 0; } .verdict-line { font-size: 1.1rem; }
+.verdict-mark { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 1.3rem; background: var(--solid, #fff); }
+.verdict-hero.warn .verdict-mark { color: var(--warn); } .verdict-hero.ok .verdict-mark { color: var(--good); }
+.findings .show-all { min-height: 44px; }
+
+/* You: saved laptops with swipe + "..." */
+.my-list { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 8px; }
+.my-row { position: relative; overflow: hidden; border-radius: var(--radius-s); background: var(--bad-soft, #fde8ec); }
+.my-face { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 60px; padding: 8px 8px 8px 16px; background: var(--solid, #fff); border: 1.5px solid var(--line); border-radius: var(--radius-s); transition: transform var(--dur) var(--ease); touch-action: pan-y; }
+.my-row.open .my-face { transform: translateX(-96px); }
+.my-name { display: grid; min-width: 0; font-weight: 800; }
+.more-btn { flex: none; min-width: 44px; min-height: 44px; border: 0; border-radius: 50%; background: var(--info-soft, #eee); font-size: 1.2rem; cursor: pointer; transition: transform var(--dur-fast) var(--ease); } .more-btn:active { transform: scale(.97); }
+.my-remove { position: absolute; right: 0; top: 0; bottom: 0; width: 96px; border: 0; background: var(--bad, #c0264a); color: #fff; font-weight: 800; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .q-step, .worth-hero { animation: none; } .my-face { transition: none; } }
+.q-step .picker > label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

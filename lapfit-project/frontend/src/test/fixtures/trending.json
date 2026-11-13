@@ -1,0 +1,130 @@
+{
+  "request": {
+    "text": "what is trending right now"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-trending",
+    "flow": "trending",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "market_pulse",
+        "web": {
+          "status": "off",
+          "items": [],
+          "fetched_at": null,
+          "provider": null,
+          "note": "Web-wide context is not switched on in this version, so only the recorded dataset is shown.",
+          "scope": "market"
+        },
+        "window_days": 30,
+        "most_reviewed": [
+          {
+            "variant_id": "FKL-10",
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "reviews": 752,
+            "price_text": "₹86,990",
+            "as_of": "10 Nov 2026"
+          },
+          {
+            "variant_id": "FKL-07",
+            "name": "HP Pavilion Ryzen 5 Hexa Core AMD R5-5600H · 8 GB / 512 GB",
+            "reviews": 637,
+            "price_text": "₹59,990",
+            "as_of": "10 Nov 2026"
+          },
+          {
+            "variant_id": "FKL-05",
+            "name": "ASUS TUF Gaming F15 Core i5 10th Gen · 8 GB / 512 GB",
+            "reviews": 377,
+            "price_text": "₹58,990",
+            "as_of": "10 Nov 2026"
+          },
+          {
+            "variant_id": "FKL-06",
+            "name": "MSI Core i5 11th Gen · 8 GB / 512 GB",
+            "reviews": 305,
+            "price_text": "₹63,600",
+            "as_of": "10 Nov 2026"
+          },
+          {
+            "variant_id": "FKL-09",
+            "name": "ASUS VivoBook 15 (2022) Core i3 10th Gen · 8 GB / 512 GB",
+            "reviews": 300,
+            "price_text": "₹33,990",
+            "as_of": "10 Nov 2026"
+          }
+        ],
+        "most_viewed": [],
+        "requests_by_budget": [
+          {
+            "requests": 2,
+            "budget_band": "Under ₹40,000"
+          },
+          {
+            "requests": 1,
+            "budget_band": "Over ₹70,000"
+          },
+          {
+            "requests": 1,
+            "budget_band": "₹40,000–70,000"
+          }
+        ],
+        "price_drops": [],
+        "total_requests": 4,
+        "notes": [
+          "Most reviewed counts reviews in the recorded dataset, not sales.",
+          "4 requests in the last 30 days.",
+          "Each laptop has a single price on file so far, so I cannot show price drops."
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "rules",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

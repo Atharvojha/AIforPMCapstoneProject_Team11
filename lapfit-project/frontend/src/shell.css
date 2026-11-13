@@ -1,0 +1,68 @@
+/* shell.css: owned by the shell builder. Header, trust chip, tab bar, Trust sheet, Ask screen. Transform/opacity only for motion; no blur (opaque surfaces keep mid-range phones smooth). */
+
+/* header + tab bar: opaque, compact */
+.top { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); padding-top: calc(6px + env(safe-area-inset-top)); padding-bottom: 6px; min-height: 52px; }
+.top .brand { font-size: 1.15rem; min-height: 44px; }
+.top .logo { width: 34px; height: 34px; }
+.bottom-nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--solid); --nav-h: 60px; min-height: 60px; }
+.bottom-nav a { min-height: 48px; }
+.composer { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--solid); }
+.app { --nav-h: 64px; }
+.app .banner, .app .foot { display: none; }
+
+/* the one-line trust chip + (i) */
+.trust-chip { display: flex; align-items: center; gap: 4px; margin: 2px 0 8px; padding: 0 0 0 12px; background: var(--warn-soft); color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent); border-radius: 999px; min-height: 44px; }
+.trust-chip p { margin: 0; flex: 1; min-width: 0; font-size: .82rem; line-height: 1.3; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trust-chip.open { border-radius: 18px; padding-top: 6px; padding-bottom: 6px; align-items: flex-start; }
+.trust-chip.open p { white-space: normal; padding-top: 4px; }
+.chip-i { flex: none; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; border-radius: 50%; }
+.chip-i span { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--warn); color: var(--warn-soft); font-weight: 800; font-size: .85rem; font-style: italic; font-family: Georgia, serif; }
+.chip-i:active { transform: scale(.97); }
+
+/* Trust sheet */
+.trust-sheet h3 { font-size: 1rem; margin: 18px 0 6px; } .trust-sheet p { margin: 0 0 8px; }
+.trust-sheet .why { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.trust-sheet .why li { padding-left: 22px; position: relative; font-size: .93rem; } .trust-sheet .why li::before { content: '✓'; position: absolute; left: 0; color: var(--good); font-weight: 800; }
+.sheet-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet-links a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; text-decoration: none; }
+.sheet-lang { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-weight: 600; }
+.sheet-lang select { min-height: 44px; font-size: 16px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--solid); }
+.trust-sheet .receipt-card { margin-top: 4px; }
+
+/* Ask: one screen */
+.ask-first .vibe-picker { margin-top: 4px; padding: 14px; backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--solid); }
+.ask-first .vibe-picker h3 { margin: 0 0 10px; font-size: 1.25rem; font-family: var(--font-head, inherit); }
+.ask-first .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.ask-first .tile { min-height: 74px; padding: 10px 4px; border-width: 2px; line-height: 1.15; }
+.ask-first .tile-icon { font-size: 1.5rem; }
+.ask-first .tile-text { max-width: 100%; text-align: center; overflow-wrap: anywhere; hyphens: auto; }
+.ask-first .tile.on { transform: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent); }
+.budget-pick { margin-top: 14px; display: grid; gap: 6px; }
+.budget-pick label { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
+.budget-pick .big, .budget-pick strong { font-size: 1.15rem; color: var(--accent); }
+.budget-pick input[type=range] { width: 100%; min-height: 44px; accent-color: var(--accent); margin: 0; }
+.stops { display: flex; gap: 6px; }
+.stop { flex: 1 1 0; min-width: 0; min-height: 44px; border: 1.5px solid var(--line); background: var(--solid); border-radius: 999px; font-weight: 700; font-size: .85rem; cursor: pointer; transition: transform .15s var(--ease), background-color .15s var(--ease), border-color .15s var(--ease); }
+.stop:active { transform: scale(.97); }
+.stop.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+@media (hover: hover) { .stop:not(.on):hover { border-color: var(--accent); } }
+
+/* "Or just tell me": a one-line bar that opens when focused or filled */
+.ask-first .composer { position: static; margin-top: 12px; box-shadow: none; border-radius: 999px; padding: 4px 6px 4px 16px; }
+.composer.bar { height: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+.composer.bar textarea { flex: 1 1 120px; min-width: 0; min-height: 44px; max-height: 30vh; padding: 10px 0; resize: none; overflow: hidden; }
+.composer.bar > .attachment, .composer.bar > .consent, .composer.bar > p { flex: 1 1 100%; }
+.composer.bar .composer-row { margin: 0; flex: 0 0 auto; gap: 4px; }
+.composer.bar:not(.open):not(.has-content):not(:focus-within) .lang, .composer.bar:not(.has-content):not(:focus-within) .hint, .composer.bar:not(.has-content):not(:focus-within) button[type=submit] { display: none; }
+.composer.bar .tool { border: 0; background: transparent; }
+.composer.bar:focus-within, .composer.bar.has-content { border-radius: 24px; padding: 6px 10px 6px 16px; }
+.composer.bar:focus-within .composer-row, .composer.bar.has-content .composer-row { flex: 1 1 100%; margin-top: 2px; }
+.composer.bar:focus-within .tool, .composer.bar.has-content .tool { border: 1px solid var(--line); background: var(--solid); }
+
+/* sticky call to action above the tab bar */
+.ask-cta { position: sticky; bottom: calc(var(--nav-h) + 12px + env(safe-area-inset-bottom)); z-index: 14; padding: 12px 0 0; }
+.ask-cta .big-cta { margin-top: 0; box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 35%, transparent); }
+.has-tray .ask-cta { bottom: calc(var(--nav-h) + 80px + env(safe-area-inset-bottom)); }
+@media (min-width: 900px) { .ask-cta { bottom: 16px; } .has-tray .ask-cta { bottom: 84px; } .ask-first { max-width: 640px; margin: 0 auto; } .ask-first .tiles { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .app .top-nav a[aria-current="page"] { color: #fff; } }
+@media (prefers-reduced-motion: reduce) { .stop, .chip-i { transition: none; } .chip-i:active, .stop:active { transform: none; } }

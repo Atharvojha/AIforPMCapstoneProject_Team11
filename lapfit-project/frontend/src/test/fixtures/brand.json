@@ -1,0 +1,179 @@
+{
+  "request": {
+    "text": "which brand is more reliable for laptops"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-brand",
+    "flow": "brand_insights",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "brand_insights",
+        "web": {
+          "status": "off",
+          "items": [],
+          "fetched_at": null,
+          "provider": null,
+          "note": "Web-wide context is not switched on in this version, so only the recorded dataset is shown.",
+          "scope": "brands"
+        },
+        "min_n": 20,
+        "label": "machine-read, not human-verified",
+        "brands": [
+          {
+            "n": 116,
+            "brand": "APPLE",
+            "avg_ram": 8,
+            "laptops": 1,
+            "negative": 20,
+            "positive": 110,
+            "max_price": 86990,
+            "min_price": 86990,
+            "top_complaints": [
+              {
+                "n": 7,
+                "topic": "service"
+              },
+              {
+                "n": 6,
+                "topic": "performance"
+              },
+              {
+                "n": 3,
+                "topic": "display"
+              }
+            ],
+            "enough": true,
+            "opinion_text": "110 of 116 owner opinions are positive."
+          },
+          {
+            "n": 133,
+            "brand": "ASUS",
+            "avg_ram": 10,
+            "laptops": 4,
+            "negative": 69,
+            "positive": 78,
+            "max_price": 66990,
+            "min_price": 33990,
+            "top_complaints": [
+              {
+                "n": 39,
+                "topic": "battery"
+              },
+              {
+                "n": 13,
+                "topic": "performance"
+              },
+              {
+                "n": 12,
+                "topic": "display"
+              }
+            ],
+            "enough": true,
+            "opinion_text": "78 of 133 owner opinions are positive."
+          },
+          {
+            "n": 0,
+            "brand": "HP",
+            "avg_ram": 8,
+            "laptops": 4,
+            "negative": 0,
+            "positive": 0,
+            "max_price": 67490,
+            "min_price": 38990,
+            "top_complaints": [],
+            "enough": false,
+            "opinion_text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+          },
+          {
+            "n": 71,
+            "brand": "LENOVO",
+            "avg_ram": 8,
+            "laptops": 3,
+            "negative": 34,
+            "positive": 50,
+            "max_price": 59990,
+            "min_price": 27490,
+            "top_complaints": [
+              {
+                "n": 22,
+                "topic": "display"
+              },
+              {
+                "n": 9,
+                "topic": "performance"
+              },
+              {
+                "n": 3,
+                "topic": "hinge"
+              }
+            ],
+            "enough": true,
+            "opinion_text": "50 of 71 owner opinions are positive."
+          },
+          {
+            "n": 0,
+            "brand": "MSI",
+            "avg_ram": 8,
+            "laptops": 2,
+            "negative": 0,
+            "positive": 0,
+            "max_price": 63600,
+            "min_price": 51990,
+            "top_complaints": [],
+            "enough": false,
+            "opinion_text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+          }
+        ],
+        "note": "Counts by brand across the laptops in this catalog. Small catalogs say little about a whole brand, and I do not rank brands. What the wider web says is shown separately."
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": false,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 320,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "rules",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

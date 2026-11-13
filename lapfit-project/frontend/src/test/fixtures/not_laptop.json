@@ -1,0 +1,24 @@
+{
+  "request": {
+    "text": "best phone under 20000?"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-not_laptop",
+    "flow": "not_laptop",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "text",
+        "text": "I only help with choosing and checking laptops. Ask me about one."
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

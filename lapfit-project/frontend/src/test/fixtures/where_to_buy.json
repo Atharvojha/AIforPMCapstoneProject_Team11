@@ -1,0 +1,90 @@
+{
+  "request": {
+    "action": "where_to_buy",
+    "variant_id": "FKL-10"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-where_to_buy",
+    "flow": "where_to_buy",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "where_to_buy",
+        "variant_id": "FKL-10",
+        "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "query": "APPLE 2020 Macbook Air M1",
+        "links": [
+          {
+            "id": "amazon_in",
+            "name": "Amazon.in",
+            "url": "https://www.amazon.in/s?k=APPLE%202020%20Macbook%20Air%20M1",
+            "affiliate": false
+          },
+          {
+            "id": "flipkart",
+            "name": "Flipkart",
+            "url": "https://www.flipkart.com/search?q=APPLE%202020%20Macbook%20Air%20M1",
+            "affiliate": false
+          },
+          {
+            "id": "croma",
+            "name": "Croma",
+            "url": "https://www.croma.com/searchB?q=APPLE%202020%20Macbook%20Air%20M1%3Arelevance",
+            "affiliate": false
+          }
+        ],
+        "price_text": "₹86,990",
+        "as_of_text": "10 Nov 2026",
+        "note": "The price at the shop can differ from my saved price (₹86,990 as of 10 Nov 2026). Check it before you pay, and check that the exact version matches.",
+        "disclosure": null
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "none needed",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

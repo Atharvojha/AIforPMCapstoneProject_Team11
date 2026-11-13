@@ -1,0 +1,160 @@
+{
+  "request": {
+    "action": "owner_voice",
+    "variant_id": "FKL-10",
+    "topic": "battery"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-owner_voice",
+    "flow": "owner_voice",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "evidence",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "variant_id": "FKL-10",
+        "min_n": 20,
+        "label": "machine-read, not human-verified",
+        "topics": [
+          {
+            "n": 45,
+            "topic": "battery",
+            "enough": true,
+            "regions": [
+              "IN"
+            ],
+            "sources": [
+              "S-FLIPKART-REVIEWS"
+            ],
+            "negative": 2,
+            "positive": 42,
+            "other_polarity": 2,
+            "quotes": [
+              {
+                "quote": "Battery...",
+                "topic": "battery",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "battery",
+                "claim_id": 614,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "phenomenal",
+                "topic": "battery",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "battery",
+                "claim_id": 764,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              },
+              {
+                "quote": "Battery life",
+                "topic": "battery",
+                "region": "IN",
+                "source": "Flipkart Review Dataset",
+                "category": "battery",
+                "claim_id": 732,
+                "polarity": "positive",
+                "source_id": "S-FLIPKART-REVIEWS",
+                "attribution": "Flipkart Review Dataset, Zenodo record 17612521, CC BY 4.0",
+                "machine_read": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "owner_reports",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "n": 0,
+        "label": "owner-reported, reviewed by a person, not verified",
+        "rows": [],
+        "note": "No approved owner reports yet."
+      },
+      {
+        "type": "live_reviews",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "variant_id": "FKL-10",
+        "topic": "battery",
+        "status": "ok",
+        "provider": "fake-live",
+        "fetched_at": "2026-11-13T17:04:59.180Z",
+        "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
+        "items": [
+          {
+            "snippet": "Owners of the APPLE 2020 Macbook mention steady daily use. Example text, not a real review.",
+            "url": "https://example.test/reviews/1",
+            "site": "example.test",
+            "topic": "battery",
+            "kind": "excerpt",
+            "published": null
+          },
+          {
+            "snippet": "A second example excerpt about build and keyboard. Example text, not a real review.",
+            "url": "https://example.test/reviews/2",
+            "site": "example.test",
+            "topic": "keyboard",
+            "kind": "excerpt",
+            "published": null
+          }
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 45,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": true,
+          "items": 2,
+          "statuses": [
+            "ok"
+          ],
+          "provider": "fake-live",
+          "fetched_at": "2026-11-13T17:04:59.180Z"
+        },
+        "ai": {
+          "reader": "none needed",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "request": {
+    "action": "sell_plan",
+    "variant_id": "FKL-10",
+    "sell": {
+      "age_years": 2,
+      "condition": "fair",
+      "battery_health_pct": 70
+    }
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-sell",
+    "flow": "sell_laptop",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "sell_plan",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "new_price": 86990,
+        "new_price_text": "₹86,990",
+        "as_of": "10 Nov 2026",
+        "range": {
+          "low": 34000,
+          "high": 43500,
+          "low_text": "₹34,000",
+          "high_text": "₹43,500"
+        },
+        "factors": [
+          {
+            "label": "Age 2 years",
+            "factor": 0.6
+          },
+          {
+            "label": "Condition: fair",
+            "factor": 0.8
+          },
+          {
+            "label": "Battery 70% (below 80)",
+            "factor": 0.93
+          }
+        ],
+        "unknown": [],
+        "fixes": [
+          {
+            "fix": "Replace the battery",
+            "cost": 3500,
+            "adds": 3000,
+            "net": -500,
+            "worth_it": false,
+            "cost_basis": "Sample estimate, not a quote"
+          }
+        ],
+        "list_at": 43500,
+        "list_at_text": "₹43,500",
+        "disclaimers": [
+          "An estimate, not a promise.",
+          "The factors are sample assumptions, not learned from real sales. No real used-price data is connected yet."
+        ]
+      },
+      {
+        "type": "checklist",
+        "title": "Before you sell",
+        "items": [
+          "Remove your accounts and reset the laptop before the buyer sees it.",
+          "Meet in a public place and let the buyer test it before they pay.",
+          "Say honestly about any fault: it protects you from a dispute later.",
+          "Keep the bill and box: they raise the price buyers will pay."
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "none needed",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

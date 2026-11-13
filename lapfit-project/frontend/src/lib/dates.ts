@@ -1,0 +1,1 @@
+export const fmtDateShort = (iso: string): string => { const d = new Date(`${String(iso).slice(0, 10)}T00:00:00Z`); return isNaN(+d) ? String(iso) : d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); };

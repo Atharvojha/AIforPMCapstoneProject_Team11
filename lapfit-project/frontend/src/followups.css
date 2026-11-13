@@ -1,0 +1,18 @@
+/* followups.css: follow-up questions with context. Composer chip, suggestion chips, laptop answer. transform/opacity only. */
+.focus-chip { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; padding: 2px 4px 2px 14px; border-radius: 999px; background: var(--accent-soft, var(--pastel-lav)); color: var(--accent); font-size: .9rem; font-weight: 700; }
+.focus-chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.focus-x { flex: none; min-width: 44px; min-height: 44px; display: inline-grid; place-items: center; border: 0; border-radius: 999px; background: transparent; color: var(--accent); font-size: 1rem; cursor: pointer; transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease); }
+.focus-x:active { transform: scale(.97); }
+.focus-guard { margin: 4px 2px 0; }
+.follow-ups { margin-top: 10px; }
+.follow-ups > p { margin: 0 0 6px; }
+.laptop-answer { display: grid; gap: 10px; padding: 16px; border-radius: var(--radius-m); background: var(--glass); box-shadow: var(--shadow); }
+.laptop-answer p, .laptop-answer h3, .laptop-answer h4 { margin: 0; }
+.la-head { font-size: 1.15rem; }
+.la-section { display: grid; gap: 6px; padding-top: 10px; border-top: 1.5px dashed var(--line, rgba(0,0,0,.12)); }
+.la-items { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.la-guard { padding: 12px 14px; border-radius: var(--radius-s); background: var(--pastel-lemon); }
+.la-guard strong { font-size: .85rem; } .la-guard p { margin-top: 4px; font-size: .92rem; }
+.la-sugg { margin-top: 2px; }
+@media (hover: hover) { .focus-x:hover { opacity: .7; } }
+@media (prefers-reduced-motion: reduce) { .focus-x { transition: none; } }

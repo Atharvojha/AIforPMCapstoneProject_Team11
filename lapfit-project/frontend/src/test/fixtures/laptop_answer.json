@@ -1,0 +1,80 @@
+{
+  "request": {
+    "text": "Will this last 8 years?",
+    "focus": {
+      "variant_id": "FKL-10",
+      "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB"
+    }
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-laptop_answer",
+    "flow": "laptop_answer",
+    "language": "English",
+    "router_mode": null,
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "laptop_answer",
+        "laptop": {
+          "variant_id": "FKL-10",
+          "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+          "price_text": "₹86,990",
+          "as_of_text": "as of 10 Nov 2026"
+        },
+        "intent": "lifespan",
+        "headline": "I can't say how long it will last, but here is what is on record.",
+        "sections": [
+          {
+            "kind": "catalog",
+            "title": "From the catalog",
+            "items": [
+              "8 GB RAM and 256 GB storage; the RAM is not upgradeable (?)",
+              "Battery capacity: ?"
+            ]
+          },
+          {
+            "kind": "owners",
+            "title": "What owners say",
+            "items": [
+              "Battery: 12 positive, 2 negative of 14 (machine-read, no dates in the dataset)"
+            ]
+          },
+          {
+            "kind": "web",
+            "title": "From the web",
+            "items": [],
+            "web": {
+              "status": "ok",
+              "items": [
+                {
+                  "snippet": "Still smooth after two years of daily use (example text).",
+                  "url": "https://example.com/review",
+                  "site": "example.com",
+                  "published": null
+                },
+                {
+                  "snippet": "unsafe link must not show",
+                  "url": "javascript:alert(1)",
+                  "site": "bad"
+                }
+              ],
+              "note": "Live web pages, not verified.",
+              "fetched_at": "2026-11-13T09:00:00Z"
+            }
+          }
+        ],
+        "guardrail": "I can't promise how long a laptop will last. These are records and opinions, not a guarantee, and I won't tell you to buy.",
+        "suggestions": [
+          "Common problems?",
+          "Is it good for coding?"
+        ]
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

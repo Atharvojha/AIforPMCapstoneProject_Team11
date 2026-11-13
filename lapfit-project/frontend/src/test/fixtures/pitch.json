@@ -1,0 +1,281 @@
+{
+  "request": {
+    "text": "The shopkeeper told me this HP 14s has 16 GB RAM and a 3 year warranty"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-pitch",
+    "flow": "check_pitch",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "cards",
+        "title": "The laptop you are considering",
+        "cards": [
+          {
+            "variant_id": "FKL-14",
+            "model_id": 14,
+            "name": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+            "brand": "HP",
+            "price_inr": 38990,
+            "price_text": "₹38,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 256,
+              "display_size": 14,
+              "weight_kg": 1.41,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Core i3 11th Gen",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "14 inch screen, 1.41 kg",
+              "8 GB RAM, 256 GB storage",
+              "Core i3 11th Gen, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Costs ₹38,990 as of 10 Nov 2026."
+            ],
+            "reasons": [
+              "Costs ₹38,990 as of 10 Nov 2026."
+            ],
+            "image": {
+              "url": "https://rukmini1.flixcart.com/image/1500/1500/xif0q/computer/b/w/w/-original-imagp7pfyd8rbp6z.jpeg?q=70",
+              "site": "rukmini1.flixcart.com",
+              "page": null,
+              "alt": "The HP 14s laptop with an Intel Core i3 11th Gen processor is displayed open, showcasing its silver body, black screen b"
+            }
+          }
+        ],
+        "showMusts": true,
+        "requireAll": false
+      },
+      {
+        "type": "evidence",
+        "laptop": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+        "variant_id": "FKL-14",
+        "min_n": 20,
+        "label": "machine-read, not human-verified",
+        "topics": []
+      },
+      {
+        "type": "live_reviews",
+        "laptop": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+        "variant_id": "FKL-14",
+        "topic": null,
+        "status": "off",
+        "provider": null,
+        "fetched_at": null,
+        "note": "Live reviews are not switched on in this version, so I am showing only the recorded dataset.",
+        "items": []
+      },
+      {
+        "type": "cards",
+        "title": "Alternatives that meet every Must at the same or a lower price",
+        "cards": [
+          {
+            "variant_id": "FKL-09",
+            "model_id": 9,
+            "name": "ASUS VivoBook 15 (2022) Core i3 10th Gen · 8 GB / 512 GB",
+            "brand": "ASUS",
+            "price_inr": 33990,
+            "price_text": "₹33,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.8,
+              "battery_wh": 37,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Core i3 10th Gen",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.8 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i3 10th Gen, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 37 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 196,
+              "positive": 101,
+              "negative": 88,
+              "enough": true,
+              "min_n": 20,
+              "text": "101 of 196 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Costs ₹33,990, ₹5,000 less than the laptop you are considering."
+            ],
+            "reasons": [
+              "Costs ₹33,990, ₹5,000 less than the laptop you are considering."
+            ],
+            "image": {
+              "url": "https://5.imimg.com/data5/SELLER/Default/2022/10/YK/ED/WB/162122710/asus-vivobook-15-2021-core-i3-10th-gen-4-gb-512-gb-ssd-silver-color.jpg",
+              "site": "5.imimg.com",
+              "page": null,
+              "alt": "A silver ASUS VivoBook 15 laptop from 2022, powered by a Core i3 10th Gen processor, is shown open with its screen displ"
+            }
+          },
+          {
+            "variant_id": "FKL-12",
+            "model_id": 12,
+            "name": "Lenovo IdeaPad 3 Celeron Dual Core · 8 GB / 256 GB",
+            "brand": "LENOVO",
+            "price_inr": 27490,
+            "price_text": "₹27,490",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 256,
+              "display_size": 15.6,
+              "weight_kg": 1.7,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Celeron Dual Core",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.7 kg",
+              "8 GB RAM, 256 GB storage",
+              "Celeron Dual Core, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Costs ₹27,490, ₹11,500 less than the laptop you are considering."
+            ],
+            "reasons": [
+              "Costs ₹27,490, ₹11,500 less than the laptop you are considering."
+            ],
+            "image": {
+              "url": "https://m.media-amazon.com/images/I/61s7sJEpsVL.jpg",
+              "site": "m.media-amazon.com",
+              "page": null,
+              "alt": "A silver Lenovo IdeaPad 3 laptop with a Celeron Dual Core processor is open, displaying a vibrant screen wallpaper of a "
+            }
+          }
+        ],
+        "requireAll": true,
+        "compare": true
+      },
+      {
+        "type": "claims",
+        "laptop": "HP 14s Intel Core i3 11th Gen · 8 GB / 256 GB",
+        "rows": [
+          {
+            "claim_text": "The shopkeeper told me this HP 14s has 16 GB RAM",
+            "type": "spec",
+            "status": "contradicts",
+            "label": "Does not match the specs",
+            "detail": "Catalog lists: 8 GB. This does not match what was claimed."
+          },
+          {
+            "claim_text": "a 3 year warranty",
+            "type": "spec",
+            "status": "contradicts",
+            "label": "Does not match the specs",
+            "detail": "Catalog lists: 1 year. This does not match what was claimed."
+          }
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 196,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "rules",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": true,
+          "sites": [
+            "rukmini1.flixcart.com",
+            "5.imimg.com",
+            "m.media-amazon.com"
+          ]
+        },
+        "checks": {
+          "gate": true
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

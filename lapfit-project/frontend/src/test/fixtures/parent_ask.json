@@ -1,0 +1,42 @@
+{
+  "request": {
+    "text": "I want to buy a laptop for my father"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-parent_ask",
+    "flow": "buy_for_others",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "notice",
+        "text": "For a parent I assumed a screen of 14 inch or more and weight up to 1.8 kg. These are assumptions you can change."
+      },
+      {
+        "type": "choices",
+        "question": "What is the budget for your parent's laptop?",
+        "choices": [
+          {
+            "label": "Under ₹40,000",
+            "send": "under 40k"
+          },
+          {
+            "label": "₹40,000 to ₹70,000",
+            "send": "under 70k"
+          },
+          {
+            "label": "Over ₹70,000",
+            "send": "under 1 lakh"
+          }
+        ]
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

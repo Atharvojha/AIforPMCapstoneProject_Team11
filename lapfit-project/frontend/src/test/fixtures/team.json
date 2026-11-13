@@ -1,0 +1,266 @@
+{
+  "request": {
+    "text": "Designer | 3 | editing | ₹90,000\nDeveloper | 5 | coding | ₹70,000\nAccounts | 2 | office | ₹45,000\nTotal budget ₹10 lakh"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-team",
+    "flow": "buy_for_others",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "team_plan",
+        "rows": [
+          {
+            "line": 1,
+            "role": "Designer",
+            "count": 3,
+            "use": "editing",
+            "budget": 90000,
+            "pick": {
+              "variant_id": "FKL-08",
+              "model_id": 8,
+              "name": "ASUS Vivobook Pro 15 Ryzen 7 Octa Core AMD R7-4800H · 16 GB / 512 GB",
+              "brand": "ASUS",
+              "price_inr": 66990,
+              "price_text": "₹66,990",
+              "as_of": "2026-11-10",
+              "as_of_text": "10 Nov 2026",
+              "specs": {
+                "ram_gb": 16,
+                "storage_gb": 512,
+                "display_size": 15.6,
+                "weight_kg": 1.8,
+                "battery_wh": null,
+                "refresh_hz": null,
+                "gpu_class": "dedicated",
+                "cpu": "Ryzen 7 Octa Core AMD R7-4800H",
+                "gpu": "NVIDIA GeForce GTX 1650 Max Q",
+                "hinge_type": "clamshell",
+                "warranty_years": 1,
+                "colours": []
+              },
+              "spec_lines": [
+                "15.6 inch screen, 1.8 kg",
+                "16 GB RAM, 512 GB storage",
+                "Ryzen 7 Octa Core AMD R7-4800H, NVIDIA GeForce GTX 1650 Max Q",
+                "Regular laptop (clamshell) (not yet verified)",
+                "Warranty: 1 year (standard; keep the invoice)"
+              ],
+              "unknown_fields": [],
+              "data_status": "Imported listing data, not human-verified",
+              "musts": [
+                {
+                  "label": "Within your budget of ₹90,000",
+                  "ok": true,
+                  "actual": "₹66,990"
+                }
+              ],
+              "evidence": {
+                "n": 0,
+                "positive": 0,
+                "negative": 0,
+                "enough": false,
+                "min_n": 20,
+                "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+              },
+              "fact_lines": [],
+              "reasons": [],
+              "image": {
+                "url": "https://in.store.asus.com/media/catalog/product/r/f/rf-m6500qf_cl_slvr_fngrprnt_1__1.jpg",
+                "site": "in.store.asus.com",
+                "page": null,
+                "alt": "The refurbished ASUS Vivobook Pro 15 laptop with Ryzen 7 octa-core AMD R7-4800H processor is displayed open, showcasing "
+              }
+            },
+            "subtotal": 200970,
+            "note": ""
+          },
+          {
+            "line": 2,
+            "role": "Developer",
+            "count": 5,
+            "use": "coding",
+            "budget": 70000,
+            "pick": {
+              "variant_id": "FKL-08",
+              "model_id": 8,
+              "name": "ASUS Vivobook Pro 15 Ryzen 7 Octa Core AMD R7-4800H · 16 GB / 512 GB",
+              "brand": "ASUS",
+              "price_inr": 66990,
+              "price_text": "₹66,990",
+              "as_of": "2026-11-10",
+              "as_of_text": "10 Nov 2026",
+              "specs": {
+                "ram_gb": 16,
+                "storage_gb": 512,
+                "display_size": 15.6,
+                "weight_kg": 1.8,
+                "battery_wh": null,
+                "refresh_hz": null,
+                "gpu_class": "dedicated",
+                "cpu": "Ryzen 7 Octa Core AMD R7-4800H",
+                "gpu": "NVIDIA GeForce GTX 1650 Max Q",
+                "hinge_type": "clamshell",
+                "warranty_years": 1,
+                "colours": []
+              },
+              "spec_lines": [
+                "15.6 inch screen, 1.8 kg",
+                "16 GB RAM, 512 GB storage",
+                "Ryzen 7 Octa Core AMD R7-4800H, NVIDIA GeForce GTX 1650 Max Q",
+                "Regular laptop (clamshell) (not yet verified)",
+                "Warranty: 1 year (standard; keep the invoice)"
+              ],
+              "unknown_fields": [],
+              "data_status": "Imported listing data, not human-verified",
+              "musts": [
+                {
+                  "label": "Within your budget of ₹70,000",
+                  "ok": true,
+                  "actual": "₹66,990"
+                }
+              ],
+              "evidence": {
+                "n": 0,
+                "positive": 0,
+                "negative": 0,
+                "enough": false,
+                "min_n": 20,
+                "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+              },
+              "fact_lines": [],
+              "reasons": [],
+              "image": {
+                "url": "https://in.store.asus.com/media/catalog/product/r/f/rf-m6500qf_cl_slvr_fngrprnt_1__1.jpg",
+                "site": "in.store.asus.com",
+                "page": null,
+                "alt": "The refurbished ASUS Vivobook Pro 15 laptop with Ryzen 7 octa-core AMD R7-4800H processor is displayed open, showcasing "
+              }
+            },
+            "subtotal": 334950,
+            "note": ""
+          },
+          {
+            "line": 3,
+            "role": "Accounts",
+            "count": 2,
+            "use": "office",
+            "budget": 45000,
+            "pick": {
+              "variant_id": "FKL-12",
+              "model_id": 12,
+              "name": "Lenovo IdeaPad 3 Celeron Dual Core · 8 GB / 256 GB",
+              "brand": "LENOVO",
+              "price_inr": 27490,
+              "price_text": "₹27,490",
+              "as_of": "2026-11-10",
+              "as_of_text": "10 Nov 2026",
+              "specs": {
+                "ram_gb": 8,
+                "storage_gb": 256,
+                "display_size": 15.6,
+                "weight_kg": 1.7,
+                "battery_wh": null,
+                "refresh_hz": null,
+                "gpu_class": null,
+                "cpu": "Celeron Dual Core",
+                "gpu": null,
+                "hinge_type": "clamshell",
+                "warranty_years": 1,
+                "colours": []
+              },
+              "spec_lines": [
+                "15.6 inch screen, 1.7 kg",
+                "8 GB RAM, 256 GB storage",
+                "Celeron Dual Core, no separate graphics listed",
+                "Regular laptop (clamshell) (not yet verified)",
+                "Warranty: 1 year (standard; keep the invoice)"
+              ],
+              "unknown_fields": [],
+              "data_status": "Imported listing data, not human-verified",
+              "musts": [
+                {
+                  "label": "Within your budget of ₹45,000",
+                  "ok": true,
+                  "actual": "₹27,490"
+                }
+              ],
+              "evidence": {
+                "n": 0,
+                "positive": 0,
+                "negative": 0,
+                "enough": false,
+                "min_n": 20,
+                "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+              },
+              "fact_lines": [],
+              "reasons": [],
+              "image": {
+                "url": "https://m.media-amazon.com/images/I/61s7sJEpsVL.jpg",
+                "site": "m.media-amazon.com",
+                "page": null,
+                "alt": "A silver Lenovo IdeaPad 3 laptop with a Celeron Dual Core processor is open, displaying a vibrant screen wallpaper of a "
+              }
+            },
+            "subtotal": 54980,
+            "note": ""
+          }
+        ],
+        "total": 590900,
+        "total_text": "₹5,90,900",
+        "laptops": 10,
+        "left_out": 0,
+        "total_budget": 1000000,
+        "over_budget": 0,
+        "note": "The total is within your total budget of ₹10,00,000."
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": false,
+          "opinions": 0,
+          "machine_read": true,
+          "lenses": [],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": false,
+          "items": 0,
+          "statuses": [],
+          "provider": null,
+          "fetched_at": null
+        },
+        "ai": {
+          "reader": "rules",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": false,
+          "sites": []
+        },
+        "checks": {
+          "gate": false
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}

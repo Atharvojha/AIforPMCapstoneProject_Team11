@@ -1,0 +1,480 @@
+{
+  "request": {
+    "text": "I am looking for a stylish laptop under 2 lakhs which has good battery life"
+  },
+  "reply": {
+    "ok": true,
+    "request_id": "fx-stylish",
+    "flow": "shortlist",
+    "language": "English",
+    "router_mode": "offline",
+    "notice": "Prices are a saved snapshot from 10 Nov 2026, not live. Specs are imported listing data that no person has checked yet. Web reviews are fetched live when you ask.",
+    "footer": "LapFit shows recorded facts with their dates. It is a second opinion, not a purchase recommendation or a guarantee.",
+    "data_mode": "course",
+    "blocks": [
+      {
+        "type": "notice",
+        "text": "Looks and design are not recorded in the catalog. As a stand-in I counted how many owners praised the looks in their reviews. Treat it as a guide, not a fact about the design. I have no colour data yet."
+      },
+      {
+        "type": "notice",
+        "text": "Real battery life is not in the catalog. I used what owners reported about the battery."
+      },
+      {
+        "type": "understood",
+        "needs": {
+          "budget_max_inr": 200000,
+          "budget_min_inr": null,
+          "musts": [],
+          "shoulds": [],
+          "nices": [],
+          "use_cases": []
+        },
+        "matched": 14,
+        "demand": {
+          "budget": 200000,
+          "use_cases": [],
+          "musts": []
+        }
+      },
+      {
+        "type": "cards",
+        "title": "5 laptops within your budget",
+        "cards": [
+          {
+            "variant_id": "FKL-10",
+            "model_id": 10,
+            "name": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+            "brand": "APPLE",
+            "price_inr": 86990,
+            "price_text": "₹86,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 256,
+              "display_size": 13.3,
+              "weight_kg": 1.29,
+              "battery_wh": 49.9,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "M1",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "13.3 inch screen, 1.29 kg",
+              "8 GB RAM, 256 GB storage",
+              "M1, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 49.9 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹86,990"
+              }
+            ],
+            "evidence": {
+              "n": 234,
+              "positive": 210,
+              "negative": 22,
+              "enough": true,
+              "min_n": 20,
+              "text": "210 of 234 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Costs ₹86,990, ₹1,13,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "39 owners praised the looks in their reviews. Keyword match, not verified.",
+              "42 of 45 owner opinions on battery are positive (machine-read).",
+              "210 of 234 owner opinions are positive (machine-read)."
+            ],
+            "reasons": [
+              "Costs ₹86,990, ₹1,13,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "39 owners praised the looks in their reviews. Keyword match, not verified.",
+              "42 of 45 owner opinions on battery are positive (machine-read)."
+            ],
+            "image": {
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-enriched-transparent-original-imag3gh5xftgbpg3.png?q=90",
+              "site": "rukminim3.flixcart.com",
+              "page": null,
+              "alt": "A silver MacBook Air with an M1 chip displays a vibrant, colorful abstract wallpaper on its screen, set against a plain "
+            }
+          },
+          {
+            "variant_id": "FKL-06",
+            "model_id": 6,
+            "name": "MSI Core i5 11th Gen · 8 GB / 512 GB",
+            "brand": "MSI",
+            "price_inr": 63600,
+            "price_text": "₹63,600",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.86,
+              "battery_wh": null,
+              "refresh_hz": 144,
+              "gpu_class": "dedicated",
+              "cpu": "Core i5 11th Gen",
+              "gpu": "NVIDIA GeForce RTX 3050",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.86 kg",
+              "8 GB RAM, 512 GB storage",
+              "Core i5 11th Gen, NVIDIA GeForce RTX 3050",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹63,600"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Costs ₹63,600, ₹1,36,400 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "13 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "reasons": [
+              "Costs ₹63,600, ₹1,36,400 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "13 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "image": {
+              "url": "https://assets.nvidia.partners/images/png/comgrdc8jb73d8j7.png",
+              "site": "assets.nvidia.partners",
+              "page": null,
+              "alt": "A black MSI gaming laptop with a 144 Hz display showcases its Intel Core i5 11th Gen processor and NVIDIA GeForce RTX gr"
+            }
+          },
+          {
+            "variant_id": "FKL-07",
+            "model_id": 2,
+            "name": "HP Pavilion Ryzen 5 Hexa Core AMD R5-5600H · 8 GB / 512 GB",
+            "brand": "HP",
+            "price_inr": 59990,
+            "price_text": "₹59,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.98,
+              "battery_wh": null,
+              "refresh_hz": 144,
+              "gpu_class": "dedicated",
+              "cpu": "Ryzen 5 Hexa Core AMD R5-5600H",
+              "gpu": "NVIDIA GeForce GTX 1650",
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.98 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core AMD R5-5600H, NVIDIA GeForce GTX 1650",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹59,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Costs ₹59,990, ₹1,40,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "8 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "reasons": [
+              "Costs ₹59,990, ₹1,40,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "8 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "image": {
+              "url": "https://rukmini1.flixcart.com/image/1500/1500/krtjgcw0/computer/p/n/g/15-ec2004ax-gaming-laptop-hp-original-imag5j3b48askf4b.jpeg?q=70",
+              "site": "rukmini1.flixcart.com",
+              "page": null,
+              "alt": "The sleek black HP Pavilion laptop with a purple illuminated logo and backlit keyboard is displayed against a white back"
+            }
+          },
+          {
+            "variant_id": "FKL-11",
+            "model_id": 11,
+            "name": "Lenovo IdeaPad 3 Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "brand": "LENOVO",
+            "price_inr": 46999,
+            "price_text": "₹46,999",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.65,
+              "battery_wh": 45,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Ryzen 5 Hexa Core 5500U",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.65 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)",
+              "Battery: 45 Wh"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹46,999"
+              }
+            ],
+            "evidence": {
+              "n": 119,
+              "positive": 75,
+              "negative": 42,
+              "enough": true,
+              "min_n": 20,
+              "text": "75 of 119 owner opinions are positive (machine-read, not human-verified)."
+            },
+            "fact_lines": [
+              "Costs ₹46,999, ₹1,53,001 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "3 owners praised the looks in their reviews (a small number). Keyword match, not verified.",
+              "75 of 119 owner opinions are positive (machine-read)."
+            ],
+            "reasons": [
+              "Costs ₹46,999, ₹1,53,001 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "3 owners praised the looks in their reviews (a small number). Keyword match, not verified.",
+              "75 of 119 owner opinions are positive (machine-read)."
+            ],
+            "image": {
+              "url": "https://m.media-amazon.com/images/I/61q6x-ll5FL.jpg",
+              "site": "m.media-amazon.com",
+              "page": null,
+              "alt": "A silver Lenovo IdeaPad 3 laptop with a Ryzen 5 Hexa Core 5500U processor is open, displaying a vibrant abstract wallpap"
+            }
+          },
+          {
+            "variant_id": "FKL-13",
+            "model_id": 13,
+            "name": "HP Ryzen 5 Hexa Core 5500U · 8 GB / 512 GB",
+            "brand": "HP",
+            "price_inr": 46990,
+            "price_text": "₹46,990",
+            "as_of": "2026-11-10",
+            "as_of_text": "10 Nov 2026",
+            "specs": {
+              "ram_gb": 8,
+              "storage_gb": 512,
+              "display_size": 15.6,
+              "weight_kg": 1.69,
+              "battery_wh": null,
+              "refresh_hz": null,
+              "gpu_class": null,
+              "cpu": "Ryzen 5 Hexa Core 5500U",
+              "gpu": null,
+              "hinge_type": "clamshell",
+              "warranty_years": 1,
+              "colours": []
+            },
+            "spec_lines": [
+              "15.6 inch screen, 1.69 kg",
+              "8 GB RAM, 512 GB storage",
+              "Ryzen 5 Hexa Core 5500U, no separate graphics listed",
+              "Regular laptop (clamshell) (not yet verified)",
+              "Warranty: 1 year (standard; keep the invoice)"
+            ],
+            "unknown_fields": [],
+            "data_status": "Imported listing data, not human-verified",
+            "musts": [
+              {
+                "label": "Within your budget of ₹2,00,000",
+                "ok": true,
+                "actual": "₹46,990"
+              }
+            ],
+            "evidence": {
+              "n": 0,
+              "positive": 0,
+              "negative": 0,
+              "enough": false,
+              "min_n": 20,
+              "text": "Not enough owner evidence yet (n = 0; we need at least 20)."
+            },
+            "fact_lines": [
+              "Costs ₹46,990, ₹1,53,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "2 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "reasons": [
+              "Costs ₹46,990, ₹1,53,010 under your budget of ₹2,00,000 (as of 10 Nov 2026).",
+              "2 owners praised the looks in their reviews (a small number). Keyword match, not verified."
+            ],
+            "image": {
+              "url": "https://rukminim3.flixcart.com/image/480/480/xif0q/computer/9/k/j/-enriched-transparent-original-imahg5fxdsurqysm.png?q=90",
+              "site": "rukminim3.flixcart.com",
+              "page": null,
+              "alt": "The laptop screen displays the HP logo and a promotional message about India's number one brand, featuring a silver keyb"
+            }
+          }
+        ],
+        "first": 3,
+        "requireAll": true,
+        "compare": true
+      },
+      {
+        "type": "notice",
+        "text": "Ranked using looks (owners who praised the design in reviews) and battery (owner opinions). These are owner-reported guides, not catalog facts."
+      },
+      {
+        "type": "live_reviews",
+        "laptop": "APPLE 2020 Macbook Air M1 · 8 GB / 256 GB",
+        "variant_id": "FKL-10",
+        "topic": "design",
+        "status": "ok",
+        "provider": "fake-live",
+        "fetched_at": "2026-11-13T17:04:59.050Z",
+        "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
+        "items": [
+          {
+            "snippet": "Owners of the APPLE 2020 Macbook mention steady daily use. Example text, not a real review.",
+            "url": "https://example.test/reviews/1",
+            "site": "example.test",
+            "topic": "design",
+            "kind": "excerpt",
+            "published": null
+          },
+          {
+            "snippet": "A second example excerpt about build and keyboard. Example text, not a real review.",
+            "url": "https://example.test/reviews/2",
+            "site": "example.test",
+            "topic": "keyboard",
+            "kind": "excerpt",
+            "published": null
+          }
+        ]
+      },
+      {
+        "type": "live_reviews",
+        "laptop": "MSI Core i5 11th Gen · 8 GB / 512 GB",
+        "variant_id": "FKL-06",
+        "topic": "design",
+        "status": "ok",
+        "provider": "fake-live",
+        "fetched_at": "2026-11-13T17:04:59.050Z",
+        "note": "Live web results, fetched just now. Not verified, and not counted in the owner numbers above.",
+        "items": [
+          {
+            "snippet": "Owners of the MSI Core i5 mention steady daily use. Example text, not a real review.",
+            "url": "https://example.test/reviews/1",
+            "site": "example.test",
+            "topic": "design",
+            "kind": "excerpt",
+            "published": null
+          },
+          {
+            "snippet": "A second example excerpt about build and keyboard. Example text, not a real review.",
+            "url": "https://example.test/reviews/2",
+            "site": "example.test",
+            "topic": "keyboard",
+            "kind": "excerpt",
+            "published": null
+          }
+        ]
+      },
+      {
+        "type": "provenance",
+        "catalog": {
+          "used": true,
+          "prices_as_of": "2026-11-10",
+          "verified": false,
+          "live": false
+        },
+        "dataset": {
+          "used": true,
+          "opinions": 353,
+          "machine_read": true,
+          "lenses": [
+            "looks",
+            "battery_life"
+          ],
+          "reviews_total": 3987,
+          "dated": false
+        },
+        "live": {
+          "used": true,
+          "items": 4,
+          "statuses": [
+            "ok"
+          ],
+          "provider": "fake-live",
+          "fetched_at": "2026-11-13T17:04:59.050Z"
+        },
+        "ai": {
+          "reader": "rules",
+          "wording": "templates",
+          "degraded": null
+        },
+        "images": {
+          "used": true,
+          "sites": [
+            "rukminim3.flixcart.com",
+            "assets.nvidia.partners",
+            "rukmini1.flixcart.com",
+            "m.media-amazon.com"
+          ]
+        },
+        "checks": {
+          "gate": true
+        },
+        "affiliate": {
+          "links": false
+        }
+      }
+    ],
+    "ignored_instructions": [],
+    "settings_version": 4,
+    "data_version": null
+  }
+}
